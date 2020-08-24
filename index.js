@@ -14,7 +14,7 @@ app.set('views', './views');
 
 app.get('/', async (_req, res) => {
   const recipes = await recipeController.listRecipes();
-  return res.render('home', { recipes });
+  return res.render('home', { recipes, login: null });
 });
 
 app.get('/admin', middlewares.auth(), (req, res) => {
