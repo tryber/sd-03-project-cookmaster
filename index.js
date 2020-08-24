@@ -21,6 +21,15 @@ app.get('/admin', middlewares.auth(), (req, res) => {
   return res.render('admin/home', { user: req.user });
 });
 
+app
+  .route('/register')
+  .get((_req, res) => {
+    res.status(200).render('register');
+  })
+  .post(middlewares.verifyRegister, (_req, res) => {
+    res.status(200).render('login');
+  });
+
 app.get('/login', userController.loginForm);
 app.get('/logout', userController.logout);
 app.post('/login', userController.login);

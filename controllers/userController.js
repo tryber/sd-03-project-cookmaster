@@ -43,8 +43,13 @@ const logout = (req, res) => {
   res.render('admin/logout');
 };
 
+async function register(email, password, firstName, lastName) {
+  return userModel.registerUser(email, password, firstName, lastName);
+}
+
 module.exports = {
   login,
   loginForm,
   logout,
+  register,
 };

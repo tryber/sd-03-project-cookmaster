@@ -1,18 +1,5 @@
 require('dotenv/config');
-const mysqlx = require('@mysql/xdevapi');
-
-let schema;
-
-async function connection() {
-  if (schema) Promise.resolve(schema);
-  return mysqlx
-    .getSession({
-      host: process.env.HOSTNAME,
-      user: process.env.MYSQL_USER,
-      password: process.env.MYSQL_PASSWORD,
-      port: 33060,
-    });
-}
+const { connection } = require('./connection');
 
 async function getAllWithUsers() {
   const db = await connection();

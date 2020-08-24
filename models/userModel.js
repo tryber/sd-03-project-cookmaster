@@ -1,3 +1,4 @@
+const { connectionDB } = require('./connection');
 /* Quando você implementar a conexão com o banco, não deve mais precisar desse objeto */
 const TEMP_USER = {
   id: 'd2a667c4-432d-4dd5-8ab1-b51e88ddb5fe',
@@ -26,7 +27,17 @@ const findById = async (id) => {
   return TEMP_USER;
 };
 
+async function registerUser(email, password, firstName, lastName) {
+  const db = await connectionDB('cookmaster');
+  const table = db.getTable('users');
+  await table
+    .insert(['email', 'password', 'first_name', 'last_name'])
+    .values(email, password, firstName, lastName)
+    .execute();
+}
+
 module.exports = {
   findByEmail,
   findById,
+  registerUser,
 };
