@@ -15,7 +15,7 @@ let schema;
 module.exports = () => (schema
   ? Promise.resolve(schema)
   : mysqlx
-    .getSession({ config })
+    .getSession(config)
     .then(async (session) => {
       schema = await session.getSchema('cookmaster');
       return schema;
