@@ -5,7 +5,8 @@ require('dotenv').config();
 
 let connection;
 
-module.exports = () => connection
+module.exports = () => (
+  connection
   ? Promise.resolve(connection)
   : mysqlx
     .getSession({
@@ -22,4 +23,5 @@ module.exports = () => connection
   .catch((err) => {
     console.error(err);
     process.exit(1);
-  });
+  })
+);
