@@ -9,9 +9,9 @@
     <nav>
       <span>Cookmaster - Home</span>
       <% if (!user) {%>
-      <button data-testid="login">Login</button>
+      <button data-testid="login" onclick="window.location.pathname='/login'">Login</button>
       <%}%> <% if (user) {%>
-      <button data-testid="logout">Logout</button>
+      <button data-testid="logout" onclick="window.location.pathname='/logout'">Logout</button>
       <%}%>
     </nav>
     <div>
