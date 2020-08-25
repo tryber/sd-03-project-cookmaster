@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <% if (access) { %>
+    <a href=""><button data-testid="editar-receita">Editar Receita</button></a>
+    <a href=""><button data-testid="excluir-receita">Excluir Receita</button></a>
+  <% } %>
+  <h2><%= name %></h2>
+  <h3>Ingredientes</h3>
+  <% ingredients.forEach((ing) => { %>
+    <%= ing %>
+  <% }); %>
+  <h3>Ingredientes</h3>
+  <%= instructions %>
+</body>
+</html>

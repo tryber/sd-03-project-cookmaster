@@ -4,10 +4,16 @@ const cookieParser = require('cookie-parser');
 
 const middlewares = require('./middlewares');
 const { userController, recipeController } = require('./controllers');
+const { query } = require('express');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+app.use((req, _res, next) => {
+  console.info(req.path);
+  next();
+});
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
@@ -28,6 +34,22 @@ app
   })
   .post(middlewares.verifyRegister, (_req, res) => {
     res.status(200).render('login', { message: 'Cadastro efetuado com sucesso!' });
+  });
+
+app
+  .route('/recipes/:id')
+  .get(middlewares.auth(false), async (req, res) => {
+    const {
+      instructions,
+      name,
+      ingredients,
+      userRecipeId,
+    } = await recipeController.getRecipeById(req.params.id);
+    const { id: userId } = req.user || {};
+
+    const access = userId === userRecipeId;
+
+    return res.status(200).render('recipesDetails', { instructions, name, ingredients, access });
   });
 
 app.get('/login', userController.loginForm);
