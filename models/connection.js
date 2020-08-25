@@ -14,13 +14,13 @@ const config = {
 module.exports = async () =>
   connect
     ? Promise.resolve(connect)
-    : await mysqlx
+    : mysqlx
         .getSession(config)
         .then(async (session) => {
           connect = await session.getSchema('cookmaster');
           return connect;
         })
         .catch((error) => {
-          console.error(error);
-          process.exit(1);
+          new Error(error);
+          return process.exit(1);
         });
