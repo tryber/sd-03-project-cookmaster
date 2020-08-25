@@ -1,25 +1,28 @@
-require('dotenv/config');
 const mysqlx = require('@mysql/xdevapi');
+require('dotenv/config');
 
-// https://course.betrybe.com/back-end/architecture/mvc/part-1#mvc-com-express
-
-const connection = () => {
-  return mysqlx.getSession({
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    host: process.env.HOSTNAME,
-    port: 33060,
-    schema: 'cookmaster',
-  })
-  .then(async (session) => {
-    const schema;
-    schema = await session.getSchema('cookmaster');
-    return schema;
-  })
-  .catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
+const config = {
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  host: process.env.HOSTNAME,
+  port: 33060,
+  socketPath: '/var/run/mysqld/mysqld.sock',
 };
 
-module.exports = connection;
+// https://github.com/tryber/sd-03-live-lectures/blob/catch-up/express-mvc/models/connect.js
+
+let schema;
+
+module.exports = () => (
+  schema
+    ? Promise.resolve(schema)
+    : mysqlx
+      .getSession(config)
+      .then(async (session) => {
+        return schema = await session.getSchema('cookmaster')
+      })
+      .catch((err) => {
+        console.error(err);
+        process.exit(1);
+      })
+);
