@@ -8,11 +8,7 @@ const getAll = async () =>
         .select(['id', 'user', 'name', 'ingredients', 'instructions'])
         .execute(),
     )
-    .then((results) => {
-      const data = results.fetchAll();
-      console.log(data);
-      return data;
-    })
+    .then((results) => results.fetchAll())
     .then((recipes) =>
       recipes.map(([id, user, name, ingredients, instructions]) => ({
         id,
