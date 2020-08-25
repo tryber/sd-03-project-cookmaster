@@ -30,7 +30,7 @@ const findByEmail = async (email) =>
     .then(([id, password, first_name, last_name] = []) => {
       if (!email) return null;
       return { id, email, password, name: first_name, lastName: last_name };
-    });
+    }).catch((error) => new Error(error.message));
 
 /**
  * Busca um usuário através do seu ID
@@ -50,7 +50,8 @@ const findById = async (id) =>
     .then(([email, password, first_name, last_name] = []) => {
       if (!id) return null;
       return { id, email, password, name: first_name, lastName: last_name };
-    });
+    })
+    .catch((error) => new Error(error.message));
 
 module.exports = {
   findByEmail,
