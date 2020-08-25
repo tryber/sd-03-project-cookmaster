@@ -4,7 +4,6 @@ const cookieParser = require('cookie-parser');
 
 const middlewares = require('./middlewares');
 const { userController, recipeController } = require('./controllers');
-const { query } = require('express');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -43,7 +42,7 @@ app
     const recipeName = req.query.recipe;
     if (!recipeName) return res.status(200).render('recipesSearch', { recipes: null });
     const recipes = await recipeController.recipesByName(recipeName);
-    res.status(200).render('recipesSearch', { recipes });
+    return res.status(200).render('recipesSearch', { recipes });
   });
 
 app

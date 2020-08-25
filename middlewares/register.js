@@ -31,7 +31,7 @@ function verifyRegister(req, res, next) {
 
     if (!email || !password || !firstName || !lastName) {
       return res.status(400).send('Faltou informação');
-    } 
+    }
     const message = conditions([
       [email, 0],
       [password, 0],

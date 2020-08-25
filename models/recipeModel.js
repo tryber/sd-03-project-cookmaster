@@ -38,7 +38,7 @@ async function recipesById(id) {
 async function recipesByName(name) {
   const recipesTable = await recipes();
   const recipesFiltered = await recipesTable
-    .select(['user_id', 'user', 'name', ])
+    .select(['user_id', 'user', 'name'])
     .where('name LIKE :name')
     .bind('name', `%${name}%`)
     .execute();
