@@ -31,7 +31,7 @@ const findByEmail = async (email) =>
       if (!email) return null;
       return { id, email, password, name: first_name, lastName: last_name };
     })
-    .catch((error) => new Error(error.message));
+    .catch((error) => console.error(error));
 
 /**
  * Busca um usuário através do seu ID
@@ -52,7 +52,7 @@ const findById = async (id) =>
       if (!id) return null;
       return { id, email, password, name: first_name, lastName: last_name };
     })
-    .catch((error) => new Error(error.message));
+    .catch((error) => console.error(error));
 
 module.exports = {
   findByEmail,
