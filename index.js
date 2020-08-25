@@ -13,8 +13,15 @@ app.set('view engine', 'ejs');
 app.set('views', './views');
 
 app.get('/', (_req, res) => {
-  return res.render('home');
+  return res.render('first');
 });
+
+app.get('/login', (_req, res) => {
+  return res.render('users/login')
+});
+
+
+
 
 app.get('/admin', middlewares.auth(), (req, res) => {
   return res.render('admin/home', { user: req.user });
