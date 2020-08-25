@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cookmaster - Home</title>
-  </head>
-  <body>
-    <h1>Cookmaster!</h1>
-    <h2>Receitas</h2>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookmaster - Home</title>
+</head>
+
+<body>
+  <h1>Cookmaster!</h1>
+  <h2>Receitas</h2>
+  {
+  <ul style="background-color: antiquewhite">
+    <% recipes.forEach(recipe => { %>
+    <li><%= recipe.name %> - <%= recipe.user %></li>
+    <a href="/recipesDetails/:id">Ver mais</a>
+    <%})%>
+  </ul>
+  }
+  <form action="/recipes" method="POST">
+    <button data-testid="nova-receita" type="submit">Nova receita</button>
+  </form>
+  <form action="/search" method="POST">
+    <button data-testid="buscar-receita" type="submit">Buscar receita</button>
+  </form>
+  <form action="/login" method="POST">
+    <button data-testid="login" type="submit">Login</button>
+  </form>
+  <form action="/" method="POST">
+    <button data-testid="logout" type="submit">Logout</button>
+  </form>
+</body>
+
 </html>
