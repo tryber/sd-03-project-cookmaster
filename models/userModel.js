@@ -4,7 +4,7 @@
  * @param {string} email Email do usuário a ser encontrado
  */
 const findByEmail = async (email) => {
-  return TEMP_USER;
+  return 'TEMP_USER';
 };
 
 /**
@@ -12,7 +12,7 @@ const findByEmail = async (email) => {
  * @param {string} id ID do usuário
  */
 const findById = async (id) => {
-  return TEMP_USER;
+  return 'TEMP_USER';
 };
 
 module.exports = {
