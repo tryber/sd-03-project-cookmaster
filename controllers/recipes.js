@@ -2,18 +2,17 @@ const RecipeModel = require('../models/recipes');
 
 const listRecipes = async (_req, res) => {
   const recipes = await RecipeModel.getAll();
-
   res.render('listRecipes', { recipes, message: null });
 };
 
 const newRecipe = async (req, res) => {
-  const { name, age } = req.body;
+  const { user, name, ingredients, instructions } = req.body;
 
-  if (!RecipeModel.isValid(name, age)) {
-    res.status(402).render('listRecipes', { recipes: null, message: 'Nome ou idade inválidos' });
+  if (!RecipeModel.isValid(user, name, ingredients, instructions)) {
+    res.status(402).render('listRecipes', { recipes: null, message: 'Receita inválida' });
   }
 
-  await RecipeModel.add(name, parseInt(age, 10));
+  await RecipeModel.add(user, name, ingredients, instructions);
 
   res.status(201).render('success');
 };

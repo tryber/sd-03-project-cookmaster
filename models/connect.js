@@ -8,7 +8,7 @@ module.exports = () => schema
     .getSession({
       host: 'localhost',
       user: 'root',
-      password: '',
+      password: 'password',
       port: 33060
     })
     .then(async (session) => {

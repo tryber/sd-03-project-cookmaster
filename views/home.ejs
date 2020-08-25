@@ -10,14 +10,17 @@
 <body>
   <h1>Cookmaster!</h1>
   <h2>Receitas</h2>
-  {
-  <ul style="background-color: antiquewhite">
+  <% if (message) { %>
+  <h1><%= message %></h1>
+  <% } %>
+  <% if (recipes) {%>
+  <ul>
     <% recipes.forEach(recipe => { %>
     <li><%= recipe.name %> - <%= recipe.user %></li>
     <a href="/recipesDetails/:id">Ver mais</a>
     <%})%>
   </ul>
-  }
+  <% } %>
   <form action="/recipes" method="POST">
     <button data-testid="nova-receita" type="submit">Nova receita</button>
   </form>
