@@ -19,7 +19,7 @@ module.exports = () => (
     : mysqlx
       .getSession(config)
       .then(async (session) => {
-        return schema = await session.getSchema('cookmaster')
+        return schema = await session.getSchema('cookmaster');
       })
       .catch((err) => {
         console.error(err);
