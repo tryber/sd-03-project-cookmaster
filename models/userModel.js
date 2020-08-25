@@ -20,16 +20,17 @@ const findByEmail = async (email) =>
   connection()
     .then((db) =>
       db
-        .getTable('cookmaster')
+        .getTable('user')
         .select(['id', 'email', 'password', 'first_name', 'last_name'])
         .where('email = :email')
         .bind('email', email)
         .execute(),
     )
     .then((results) => results.fetchAll()[0])
-    .then(([id, email, password, first_name, last_name] = []) =>
-      email ? { id, email, password, name: first_name, lastName: last_name } : null,
-    );
+    .then(([id, password, first_name, last_name] = []) => {
+      if (!email) return null;
+      return { id, email, password, name: first_name, lastName: last_name };
+    });
 
 /**
  * Busca um usuário através do seu ID
@@ -39,16 +40,17 @@ const findById = async (id) =>
   connection()
     .then((db) =>
       db
-        .getTable('cookmaster')
+        .getTable('user')
         .select(['id', 'email', 'password', 'first_name', 'last_name'])
         .where('id = :id')
         .bind('id', id)
         .execute(),
     )
     .then((results) => results.fetchAll()[0])
-    .then(([id, email, password, first_name, last_name] = []) =>
-      id ? { id, email, password, name: first_name, lastName: last_name } : null,
-    );
+    .then(([email, password, first_name, last_name] = []) => {
+      if (!id) return null;
+      return { id, email, password, name: first_name, lastName: last_name };
+    });
 
 module.exports = {
   findByEmail,
