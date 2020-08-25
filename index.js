@@ -1,11 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-require('dotenv/config');
 
 const middlewares = require('./middlewares');
 const controllers = require('./controllers');
+const connection = require('./models/connection');
 
+connection().then(() => {
+  console.log('Conectado ao MySQL!');
+});
 
 console.log('MYSQL', process.env.MYSQL_PASSWORD);
 
