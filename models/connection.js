@@ -2,6 +2,7 @@ require('dotenv/config');
 const mysqlx = require('@mysql/xdevapi');
 
 // https://course.betrybe.com/back-end/architecture/mvc/part-1#mvc-com-express
+
 const connection = () => {
   return mysqlx.getSession({
     user: process.env.MYSQL_USER,
