@@ -18,17 +18,11 @@
     </header>
     <div>
       <h2>Receitas</h2>
-      <button data-testid="buscar-receita">Buscar Receita</button>
+      <a href="/recipes/search"><button data-testid="buscar-receita">Buscar Receita</button></a>
       <% if (login) { %> <button data-testid="nova-receita">Nova Receita</button> <% } %>
     </div>
     <div>
-      <% recipes.forEach(({ username, recipeName }) => { %>
-        <div>
-          <p> <%= recipeName %> </p>
-          <p> <%= username %> </p>
-          <a href="/recipes/<%= id %>">Ver mais</a>
-        </div>
-      <% }); %>
+      <%- include('recipesCard') %>
     </div>
   </body>
 </html>

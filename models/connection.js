@@ -16,7 +16,7 @@ async function connectionDB(db) {
     schema = await conn.getSchema(db);
     return schema;
   } catch (err) {
-    process.exit(1);
+    return process.exit(1);
   }
 }
 

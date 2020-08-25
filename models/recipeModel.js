@@ -9,11 +9,11 @@ async function getAllWithUsers() {
   const recipesTable = await recipes();
 
   const recipesAndUsers = await recipesTable
-    .select(['user', 'name'])
+    .select(['id', 'user', 'name'])
     .execute();
   const all = await recipesAndUsers.fetchAll();
 
-  return all.map(([username, recipeName]) => ({ username, recipeName }));
+  return all.map(([id, username, recipeName]) => ({ id, username, recipeName }));
 }
 
 async function recipesById(id) {
@@ -31,12 +31,24 @@ async function recipesById(id) {
     name,
     ingredients: ingredients.split(','),
     instructions,
-    userRecipeId
+    userRecipeId,
   }));
 }
 
+async function recipesByName(name) {
+  const recipesTable = await recipes();
+  const recipesFiltered = await recipesTable
+    .select(['user_id', 'user', 'name', ])
+    .where('name LIKE :name')
+    .bind('name', `%${name}%`)
+    .execute();
+  const all = await recipesFiltered.fetchAll();
+
+  return all.map(([id, username, recipeName]) => ({ id, username, recipeName }));
+}
 
 module.exports = {
   getAllWithUsers,
   recipesById,
+  recipesByName,
 };

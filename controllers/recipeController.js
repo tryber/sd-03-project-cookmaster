@@ -10,11 +10,16 @@ async function recipeDetails(req, res) {
   const { id: userId } = req.user || {};
 
   const access = userId === userRecipeId;
-  console.log(await recipeModel.recipesById(req.params.id))
+
   return res.status(200).render('recipesDetails', { instructions, name, ingredients, access });
+}
+
+async function recipesByName(name) {
+  return recipeModel.recipesByName(name);
 }
 
 module.exports = {
   listRecipes,
   recipeDetails,
+  recipesByName,
 };

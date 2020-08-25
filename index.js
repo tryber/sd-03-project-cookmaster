@@ -20,7 +20,7 @@ app.set('views', './views');
 
 app.get('/', async (_req, res) => {
   const recipes = await recipeController.listRecipes();
-  return res.render('home', { recipes, login: null, id: 1 });
+  return res.render('home', { recipes, login: null });
 });
 
 app.get('/admin', middlewares.auth(), (req, res) => {
@@ -36,13 +36,19 @@ app
     res.status(200).render('login', { message: 'Cadastro efetuado com sucesso!' });
   });
 
-app
-  .route('/recipes/:id')
-  .get(middlewares.auth(false), recipeController.recipeDetails);
 
 app
   .route('/recipes/search')
-  .get()
+  .get(async (req, res) => {
+    const recipeName = req.query.recipe;
+    if (!recipeName) return res.status(200).render('recipesSearch', { recipes: null });
+    const recipes = await recipeController.recipesByName(recipeName);
+    res.status(200).render('recipesSearch', { recipes });
+  });
+
+app
+  .route('/recipes/:id')
+  .get(middlewares.auth(false), recipeController.recipeDetails);
 
 app.get('/login', userController.loginForm);
 app.get('/logout', userController.logout);
