@@ -16,43 +16,57 @@ de fato, realize a busca no banco de dados */
  * Busca um usuário através do seu email e, se encontrado, retorna-o.
  * @param {string} email Email do usuário a ser encontrado
  */
-const findByEmail = async (email) =>
-  connection()
-    .then((db) =>
-      db
-        .getTable('user')
-        .select(['id', 'email', 'password', 'first_name', 'last_name'])
-        .where('email = :email')
-        .bind('email', email)
-        .execute(),
-    )
-    .then((results) => results.fetchAll()[0])
-    .then(([id, password, first_name, last_name] = []) => {
-      if (!email) return null;
-      return { id, email, password, name: first_name, lastName: last_name };
-    })
-    .catch((error) => console.error(error));
+const findByEmail = async (userEmail) => {
+  try {
+    const db = await connection();
+    const searchQuery = await db
+      .getTable('user')
+      .select(['id', 'email', 'password', 'first_name', 'last_name'])
+      .where('email = :email')
+      .bind('email', userEmail)
+      .execute();
+    const results = await searchQuery.fetchAll()[0];
+    return results
+      ? results.map(([id, email, password, firstName, lastName]) => ({
+        id,
+        email,
+        password,
+        firstName,
+        lastName,
+      }))
+      : null;
+  } catch (error) {
+    return error;
+  }
+};
 
 /**
  * Busca um usuário através do seu ID
  * @param {string} id ID do usuário
  */
-const findById = async (id) =>
-  connection()
-    .then((db) =>
-      db
-        .getTable('user')
-        .select(['id', 'email', 'password', 'first_name', 'last_name'])
-        .where('id = :id')
-        .bind('id', id)
-        .execute(),
-    )
-    .then((results) => results.fetchAll()[0])
-    .then(([email, password, first_name, last_name] = []) => {
-      if (!id) return null;
-      return { id, email, password, name: first_name, lastName: last_name };
-    })
-    .catch((error) => console.error(error));
+const findById = async (userId) => {
+  try {
+    const db = await connection();
+    const searchQuery = await db
+      .getTable('user')
+      .select(['id', 'email', 'password', 'first_name', 'last_name'])
+      .where('id = :id')
+      .bind('id', userId)
+      .execute();
+    const results = await searchQuery.fetchAll()[0];
+    return results
+      ? results.map(([id, email, password, firstName, lastName]) => ({
+        id,
+        email,
+        password,
+        firstName,
+        lastName,
+      }))
+      : null;
+  } catch (error) {
+    return error;
+  }
+};
 
 module.exports = {
   findByEmail,
