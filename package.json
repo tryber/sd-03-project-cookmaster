@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
+    "dev": "node index.js",
     "start:watch": "nodemon index.js",
     "cypress:open": "cypress open"
   },
@@ -14,7 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/betrybe/project-cookmaster.git"
   },
-  "author": "",
+  "author": "William Igor",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/betrybe/project-cookmaster/issues"
