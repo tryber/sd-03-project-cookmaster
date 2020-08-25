@@ -8,7 +8,8 @@
       2,
       "always"
     ],
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "no-console": ["error", { "allow": ["error"] }]
   },
   "env": {
     "browser": true,
