@@ -38,19 +38,11 @@ app
 
 app
   .route('/recipes/:id')
-  .get(middlewares.auth(false), async (req, res) => {
-    const {
-      instructions,
-      name,
-      ingredients,
-      userRecipeId,
-    } = await recipeController.getRecipeById(req.params.id);
-    const { id: userId } = req.user || {};
+  .get(middlewares.auth(false), recipeController.recipeDetails);
 
-    const access = userId === userRecipeId;
-
-    return res.status(200).render('recipesDetails', { instructions, name, ingredients, access });
-  });
+app
+  .route('/recipes/search')
+  .get()
 
 app.get('/login', userController.loginForm);
 app.get('/logout', userController.logout);
