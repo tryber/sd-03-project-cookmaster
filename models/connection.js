@@ -11,7 +11,7 @@ const config = {
 
 let schema;
 
-module.exports = () =>
+module.exports = () => (
   schema
     ? Promise.resolve(schema)
     : mysqlx
@@ -23,4 +23,5 @@ module.exports = () =>
         .catch((err) => {
           console.error(err);
           process.exit(1);
-        });
+        })
+);

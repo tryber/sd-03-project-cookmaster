@@ -15,12 +15,12 @@ const findByEmail = async (email) =>
         .execute(),
     )
     .then((result) => result.fetchAll()[0])
-    .then(([id, email, password, first_name, last_name]) => ({
-      id,
-      email,
+    .then(([userId, userEmail, password, name, lastName]) => ({
+      id: userId,
+      email: userEmail,
       password,
-      name: first_name,
-      lastName: last_name,
+      name,
+      lastName,
     }));
 
 /**
@@ -38,12 +38,12 @@ const findById = async (id) =>
         .execute(),
     )
     .then((result) => result.fetchAll()[0])
-    .then((id, email, password, first_name, last_name) => ({
-      id,
-      email,
+    .then((userId, userEmail, password, name, lastName) => ({
+      id: userId,
+      email: userEmail,
       password,
-      name: first_name,
-      lastName: last_name,
+      name,
+      lastName,
     }));
 
 module.exports = {
