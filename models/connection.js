@@ -3,9 +3,9 @@ const mysqlx = require('@mysql/xdevapi');
 let schema;
 
 async function connection() {
-  if (schema) Promise.resolve(schema);
+  if (schema) return Promise.resolve(schema);
   try {
-    return mysqlx
+    return schema = mysqlx
     .getSession({
       host: process.env.HOSTNAME,
       user: process.env.MYSQL_USER,

@@ -14,7 +14,7 @@ app.set('views', './views');
 
 app.get('/', async (_req, res) => {
   const recipes = await recipeController.listRecipes();
-  return res.render('home', { recipes, login: null });
+  return res.render('home', { recipes, login: null, id: 1 });
 });
 
 app.get('/admin', middlewares.auth(), (req, res) => {
@@ -27,7 +27,7 @@ app
     res.status(200).render('register');
   })
   .post(middlewares.verifyRegister, (_req, res) => {
-    res.status(200).render('login');
+    res.status(200).render('login', { message: 'Cadastro efetuado com sucesso!' });
   });
 
 app.get('/login', userController.loginForm);
