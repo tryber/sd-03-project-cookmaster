@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Signup</title>
+  </head>
+  <body>
+    <nav>
+      <span>Cookmaster - Signup</span>
+    </nav>
+    <% if (message) {%>
+    <div class="message"><%= message %></div>
+    <% } %>
+    <form action="/login" method="POST">
+      <label for="emailInput">Email: </label>
+      <input required type="text" name="email" id="emailInput" data-testid="email" /><br />
+      <label for="passwordInput">Senha: </label>
+      <input required type="password" name="password" id="passwordInput" data-testid="senha" /><br />
+      <label for="passwordConfirm">Confirmar Senha: </label>
+      <input required
+        type="password"
+        name="passwordConfirm"
+        id="passwordConfirm"
+        data-testid="confirmar-senha"
+      /><br />
+      <label for="name">Nome: </label>
+      <input required type="text" name="name" id="name" data-testid="nome" /><br />
+      <label for="lastName">Sobrenome: </label>
+      <input required type="text" name="lastName" id="lastName" data-testid="sobrenome" /><br />
+      <button type="submit" data-testid="entrar">Cadastrar</button>
+    </form>
+    <button data-testid="login" onclick="window.location.pathname='/login'">Login</button>
+  </body>
+</html>

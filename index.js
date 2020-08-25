@@ -20,6 +20,8 @@ app.get('/admin', middlewares.auth(), (req, res) => {
 
 app.get('/login', controllers.userController.loginForm);
 app.get('/logout', controllers.userController.logout);
+app.get('/signup', controllers.userController.signupForm);
 app.post('/login', controllers.userController.login);
+app.post('/signup', controllers.userController.signup);
 
 app.listen(3000, () => console.log('Listening on 3000'));
