@@ -20,7 +20,7 @@ function conditions(array) {
     if (userFeature.length < size || !userFeature.match(PATTERN[userFeature])) {
       message = inválidMessages[userFeature];
     }
-    return null
+    return null;
   });
   return message;
 }
