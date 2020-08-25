@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+
+  <body>
+    <div>
+      <p>
+        Cookmaster
+      </p>
+      <% if(user && user.name) { %>
+      <div>
+        <p><%= user.name %></p>
+        <a href="/logout" data-testid="logout">Logout</a>
+      </div>
+      <% } else { %>
+      <a href="/login" data-testid="login">Login</a>
+      <% } %>
+    </div>
+  </body>
+
+</html>
