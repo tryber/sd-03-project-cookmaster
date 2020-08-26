@@ -19,7 +19,7 @@ const SIZE = {
   password: 6,
   firstName: 3,
   lastName: 3,
-}
+};
 
 function conditions(obj) {
   let message = null;
