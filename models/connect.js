@@ -11,7 +11,7 @@ const config = {
   socketPath: '/var/run/mysqld/mysqld.sock',
 };
 
-module.exports = () => schema
+module.exports = () => (schema
   ? Promise.resolve(schema)
   : mysql
     .getSession(config)
@@ -22,4 +22,5 @@ module.exports = () => schema
     .catch((err) => {
       console.error(err);
       process.exit(1);
-    });
+    })
+);
