@@ -7,5 +7,17 @@
   </head>
   <body>
     <h1>Boas vindas ao Cookmaster!</h1>
+    <% if (recipes) {%>
+      <div>
+        <h2>Receitas</h2>
+        <% recipes.map(recipe => { %>
+        <div>
+          <p><%= recipe.name %></p>
+          <p>Autor: <%= recipe.user %></p>
+          <a href="/recipes/<%= recipe.id %>">Ver mais</a>
+        </div>
+        <%})%>
+      </div>
+      <% } %>
   </body>
 </html>
