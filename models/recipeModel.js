@@ -39,7 +39,29 @@ const findRecipeById = async (id) =>
       instructions,
     }));
 
+const findRecipesByQuery = async (search) =>
+  connection()
+    .then((db) =>
+      db
+        .getTable('recipes')
+        .select(['id', 'user_id', 'user', 'name', 'ingredients', 'instructions'])
+        .where('name LIKE', '%' + search + '%')
+        .bind('name', search)
+        .execute(),
+    )
+    .then((results) => results.fetchAll())
+    .then((recipes) =>
+      recipes.map(([id, user, name, ingredients, instructions]) => ({
+        id,
+        user,
+        name,
+        ingredients,
+        instructions,
+      })),
+    );
+
 module.exports = {
   getAll,
   findRecipeById,
+  findRecipesByQuery,
 };

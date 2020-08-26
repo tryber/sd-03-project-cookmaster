@@ -3,19 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cookmaster - Home</title>
+    <title>Cookmaster - Search</title>
   </head>
   <body>
-    <%- include('navbar', {user: user, area: "Home"}); %>
+    <%- include('navbar', { user: user, area: "Home" }); %>
     <div>
-      <% if (user) {%>
-      <button data-testid="nova-receita">Nova Receita</button>
-      <%}%>
-      <button data-testid="buscar-receita" onclick="window.location.pathname='/recipes/search'">Buscar Receita</button>
+      <form action="/recipes/search" method="GET">
+        <input data-testid="receita" name="q" type="text" value=<%= value %> />
+        <button data-testid="buscar" type="submit">Buscar</button>
+      </form>
     </div>
     <% if (recipes) {%>
     <div>
-      <h2>Receitas</h2>
       <% recipes.map(recipe => { %>
       <div>
         <p>Receita: <%= recipe.name %></p>

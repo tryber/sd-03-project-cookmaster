@@ -18,7 +18,18 @@ const recipeDetails = async (req, res) => {
   return res.render('details', { recipe, message: null, user: req.user });
 };
 
+const searchRecipes = async (req, res) => {
+  const { q } = req.query;
+
+  if (q === '') return res.render('search', { recipes: null, message: null, user: req.user, value: null });
+
+  const recipes = await recipeModel.findRecipesByQuery(q);
+  console.log(recipes);
+  return res.render('search', { recipes, message: null, user: req.user, value: q });
+};
+
 module.exports = {
   listRecipes,
   recipeDetails,
+  searchRecipes,
 };
