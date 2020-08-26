@@ -8,7 +8,7 @@
 
   <body>
     <h1>Cookmaster</h1>
-    <p>Usuário atual: <%= `${user.name} ${user.lastName}` %></p>
+    <p>Usuário atual: <%= `${user.firstName} ${user.lastName}` %></p>
     <pre><%= JSON.stringify(user, null, 4) %></pre>
     <button type="button" data-testid="buscar-receita">Buscar Receita</button>
     <button type="button" data-testid="nova-receita">Nova Receita</button>

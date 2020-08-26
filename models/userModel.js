@@ -1,29 +1,31 @@
-/* Quando você implementar a conexão com o banco, não deve mais precisar desse objeto */
-const TEMP_USER = {
-  id: 'd2a667c4-432d-4dd5-8ab1-b51e88ddb5fe',
-  email: 'taylor.doe@company.com',
-  password: 'password',
-  name: 'Taylor',
-  lastName: 'Doe',
-};
+const connect = require('../models/connect');
 
 /* Substitua o código das funções abaixo para que ela,
 de fato, realize a busca no banco de dados */
 
-/**
- * Busca um usuário através do seu email e, se encontrado, retorna-o.
- * @param {string} email Email do usuário a ser encontrado
- */
+const getUser = async () =>
+  connect()
+    .then((db) => db.getTable('users').select(
+      ['id', 'email', 'password', 'first_name', 'last_name']).execute())
+      .then((results) => results.fetchAll())
+      .then((cook) => cook.map(([id, email, password, firstName, lastName]) => (
+        { id, email, password, firstName, lastName }
+      )));
+
+const findShearch = async (objParam, emailOrId) => {
+  const user = await getUser();
+  const userShearced = user.find((userEmail) => userEmail[objParam] === emailOrId);
+  return userShearced;
+}
+
 const findByEmail = async (email) => {
-  return TEMP_USER;
+  const user = await findShearch('email', email)
+  return user;
 };
 
-/**
- * Busca um usuário através do seu ID
- * @param {string} id ID do usuário
- */
 const findById = async (id) => {
-  return TEMP_USER;
+  const user = await findShearch('id', id)
+  return user;
 };
 
 module.exports = {
