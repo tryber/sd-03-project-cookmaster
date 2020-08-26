@@ -46,7 +46,7 @@ async function createRecipe(req, _res, next) {
     recipeName,
     ingredients,
     instructions,
-  )
+  );
   next();
 }
 

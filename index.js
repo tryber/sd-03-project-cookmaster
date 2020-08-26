@@ -32,7 +32,7 @@ app.route('/register')
   .get(
     (_req, res) => {
       res.status(200).render('register');
-    }
+    },
   ).post(middlewares.verifyRegister, (_req, res) => {
     res.status(200).render('login', { message: 'Cadastro efetuado com sucesso!' });
   });
@@ -45,13 +45,13 @@ app.route('/recipes/new')
     middlewares.auth(true),
     (_req, res) => {
       res.status(200).render('createRecipe');
-    }
+    },
   ).post(
     middlewares.auth(true),
     recipeController.createRecipe,
     (_req, res) => {
       res.status(200).render('createRecipe');
-    }
+    },
   );
 
 
