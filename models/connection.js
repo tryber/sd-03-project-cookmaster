@@ -12,11 +12,13 @@ const config = {
 };
 
 const connection = async () => {
-  connect ? Promise.resolve(connect) : await msqlx.getSession(config)
-    .then((session) => {
-      connect = session.getSchema('cookmaster')
+  return connect ? Promise.resolve(connect) : msqlx.getSession(config)
+    .then(async (session) => {
+      connect = await session.getSchema('cookmaster');
       return connect;
-    }).catch((err) => console.error(err), process.exit(1))
+    }).catch((err) => console.error(err), process.exit(1));
 };
 
 module.exports = connection;
+
+// width: calc(100% - 100)

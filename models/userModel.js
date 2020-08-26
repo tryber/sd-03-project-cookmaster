@@ -13,7 +13,11 @@ const findByEmail = async (email) => {
 
   if (!resulSearch) return null;
 
-  return resulSearch;
+  resulSearch.map(([id, email, password]) => ({
+    id,
+    email,
+    password,
+  }));
 };
 
 const findById = async (idf) => {
@@ -30,7 +34,7 @@ const findById = async (idf) => {
   if (!resulSearch) return null;
 
   const [email, password, id] = resulSearch;
-  return { email, password, id};
+  return { email, password, id };
 };
 
 module.exports = {
