@@ -6,14 +6,7 @@
     <title>Cookmaster - Home</title>
   </head>
   <body>
-    <nav>
-      <span>Cookmaster - Home</span>
-      <% if (!user) {%>
-      <button data-testid="login" onclick="window.location.pathname='/login'">Login</button>
-      <%}%> <% if (user) {%>
-      <button data-testid="logout" onclick="window.location.pathname='/logout'">Logout</button>
-      <%}%>
-    </nav>
+    <%- include('navbar', {user: user, area: "Home"}); %>
     <div>
       <% if (user) {%>
       <button data-testid="nova-receita">Nova Receita</button>
