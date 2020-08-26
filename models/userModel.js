@@ -29,7 +29,7 @@ const findByEmail = async (email) => {
     .execute();
 
   const user = users.fetchAll();
-  return user.map(([,, password, name, lastName]) => (
+  return user.map(([id,, password, name, lastName]) => (
     { id, email, password, name, lastName }
   ))[0];
 };
@@ -47,7 +47,7 @@ const findById = async (id) => {
     .execute();
 
   const user = users.fetchAll();
-  return user.map(([id, email, password, name, lastName]) => (
+  return user.map(([, email, password, name, lastName]) => (
     { id, email, password, name, lastName }
   ))[0];
 };
