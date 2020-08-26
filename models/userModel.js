@@ -7,14 +7,14 @@ de fato, realize a busca no banco de dados */
  * Busca um usuário através do seu email e, se encontrado, retorna-o.
  * @param {string} email Email do usuário a ser encontrado
  */
-const findByEmail = async (email) => {
+const findByEmail = async (emailInput) => {
   try {
     const db = await connect();
     const query = await db
       .getTable('users')
       .select(['id', 'email', 'password', 'first_name', 'last_name'])
       .where('email = :email')
-      .bind('email', email)
+      .bind('email', emailInput)
       .execute();
     const results = await query.fetchAll();
     return results
@@ -36,14 +36,14 @@ const findByEmail = async (email) => {
  * Busca um usuário através do seu ID
  * @param {string} id ID do usuário
  */
-const findById = async (id) => {
+const findById = async (idInput) => {
   try {
     const db = await connect();
     const query = await db
       .getTable('users')
       .select(['id', 'email', 'password', 'first_name', 'last_name'])
       .where('id = :id')
-      .bind('id', id)
+      .bind('id', idInput)
       .execute();
     const results = await query.fetchAll();
     return results
