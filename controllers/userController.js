@@ -3,9 +3,9 @@ const { SESSIONS } = require('../middlewares/auth');
 
 const userModel = require('../models/userModel');
 
-// Fonte regex para validação de email:
+// Referência regex para validação de email:
 // https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
-// const regexEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i;
+const regexEmail = /^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
 
 const loginForm = (req, res) => {
   const { token = '' } = req.cookies || {};
@@ -52,7 +52,7 @@ const signupForm = (_req, res) => res.render('signup', { message: null });
 const signup = async (req, res) => {
   const { email, password, passwordConfirm, name, lastName } = req.body;
 
-  if (email.length < 5)
+  if (!regexEmail.test(email))
     return res.render('signup', {
       message: 'Email incorreto',
     });

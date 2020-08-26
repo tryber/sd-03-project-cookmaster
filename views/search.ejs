@@ -9,7 +9,7 @@
     <%- include('navbar', { user: user, area: "Home" }); %>
     <div>
       <form action="/recipes/search" method="GET">
-        <input data-testid="receita" name="q" type="text" value=<%= value %> />
+        <input data-testid="receita" name="q" type="text" />
         <button data-testid="buscar" type="submit">Buscar</button>
       </form>
     </div>

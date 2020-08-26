@@ -5,17 +5,15 @@ const getAll = async () =>
     .then((db) =>
       db
         .getTable('recipes')
-        .select(['id', 'user', 'name', 'ingredients', 'instructions'])
+        .select(['id', 'user', 'name'])
         .execute(),
     )
     .then((results) => results.fetchAll())
     .then((recipes) =>
-      recipes.map(([id, user, name, ingredients, instructions]) => ({
+      recipes.map(([id, user, name]) => ({
         id,
         user,
         name,
-        ingredients,
-        instructions,
       })),
     );
 
@@ -44,19 +42,17 @@ const findRecipesByQuery = async (search) =>
     .then((db) =>
       db
         .getTable('recipes')
-        .select(['id', 'user_id', 'user', 'name', 'ingredients', 'instructions'])
-        .where(`name LIKE %${search}%`)
-        .bind('name', search)
+        .select(['id', 'user', 'name'])
+        .where('name like :name')
+        .bind('name', `%${search}%`)
         .execute(),
     )
     .then((results) => results.fetchAll())
     .then((recipes) =>
-      recipes.map(([id, user, name, ingredients, instructions]) => ({
+      recipes.map(([id, user, name]) => ({
         id,
         user,
         name,
-        ingredients,
-        instructions,
       })),
     );
 
