@@ -6,6 +6,27 @@
     <title>Cookmaster - Home</title>
   </head>
   <body>
-    <h1>Boas vindas ao Cookmaster!</h1>
+    <div>
+      <p>Cookmaster</p>
+      <% if(logged) { %>
+        <a href="/logout" data-testid="logout">Logout</a>
+        <% } else { %>
+          <a href="/login" data-testid="login">Login</a>
+      <% } %>
+    </div>
+    <h1>Receitas</h1>
+
+    <% (recipes).forEach(recipe => { %>
+      <div>
+         <h2> <%= recipe.name %> </h2>
+        <h3><%= recipe.user %></h3>
+        <a href="">Ver mais</a>
+      </div>
+    <% }) %>
+
+    <% if(logged) { %>
+    <button data-testid="nova-receita">Nova Receita</button>
+    <% } %>
+    <button data-testid="buscar-receita">Buscar Receita</button>
   </body>
 </html>
