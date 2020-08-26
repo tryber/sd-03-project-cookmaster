@@ -5,7 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cookmaster - Home</title>
   </head>
+  <header>Cookmaster
+    <%const user = 'Marco'%>
+    <nav>
+      <%if (!user) {%>
+        <a data-testid="login">Login</a>
+      <%}%>
+      <%if (user) {%>
+        <a data-testid="logout">Logout</a>
+      <%}%>
+    </nav>
+  </header>
   <body>
-    <h1>Boas vindas ao Cookmaster!</h1>
+    <div>
+      <h1>Receitas<h1>
+      <button data-testid="buscar-receita">Buscar Receita</button>
+    </div>
+    <% if (listResume) {%>
+      <div>
+        <% listResume.map(recipe => { %>
+        <div>
+          <p>Receita: <%= recipe.name %></p>
+          <p>Autor: <%= recipe.user %></p>
+          <a href="Link">Ver mais</a>
+        </div>
+        <%})%>
+      </div>
+      <% } %>
   </body>
 </html>
