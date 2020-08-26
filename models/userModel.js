@@ -27,14 +27,17 @@ const findByEmail = async (userEmail) => {
       .execute();
     const results = await searchQuery.fetchAll();
     return results
-      ? results.reduce((acc, [id, email, password, name, lastName]) => ({
-        ...acc,
-        id,
-        email,
-        password,
-        name,
-        lastName,
-      }), {})
+      ? results.reduce(
+        (acc, [id, email, password, name, lastName]) => ({
+          ...acc,
+          id,
+          email,
+          password,
+          name,
+          lastName,
+        }),
+        {},
+      )
       : null;
   } catch (error) {
     return error;
@@ -56,15 +59,34 @@ const findById = async (userId) => {
       .execute();
     const results = await searchQuery.fetchAll();
     return results
-      ? results.reduce((acc, [id, email, password, name, lastName]) => ({
-        ...acc,
-        id,
-        email,
-        password,
-        name,
-        lastName,
-      }), {})
+      ? results.reduce(
+        (acc, [id, email, password, name, lastName]) => ({
+          ...acc,
+          id,
+          email,
+          password,
+          name,
+          lastName,
+        }),
+        {},
+      )
       : null;
+  } catch (error) {
+    return error;
+  }
+};
+
+const createUser = async (email, password, name, lastName) => {
+  const verifyDB = Boolean(findByEmail(email));
+  if (verifyDB) return null;
+  try {
+    const db = await connection();
+    const updateQuery = await db
+      .getTable('users')
+      .insert(['email', 'password', 'first_name', 'last_name'])
+      .values(email, password, name, lastName)
+      .execute();
+    return updateQuery;
   } catch (error) {
     return error;
   }
@@ -73,4 +95,5 @@ const findById = async (userId) => {
 module.exports = {
   findByEmail,
   findById,
+  createUser,
 };
