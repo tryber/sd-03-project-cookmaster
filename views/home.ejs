@@ -19,7 +19,9 @@
     <div>
       <h2>Receitas</h2>
       <a href="/recipes/search"><button data-testid="buscar-receita">Buscar Receita</button></a>
-      <% if (login) { %> <button data-testid="nova-receita">Nova Receita</button> <% } %>
+      <% if (login) { %>
+        <a href="/recipes/new"><button data-testid="nova-receita">Nova Receita</button></a>
+      <% } %>
     </div>
     <div>
       <%- include('recipesCard') %>

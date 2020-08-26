@@ -17,17 +17,17 @@ app.use((req, _res, next) => {
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-app.get('/', async (_req, res) => {
+app.get('/', middlewares.auth(false), async (req, res) => {
+  const { id } = req.user || {};
   const recipes = await recipeController.listRecipes();
-  return res.render('home', { recipes, login: null });
+  return res.render('home', { recipes, login: id });
 });
 
 app.get('/admin', middlewares.auth(), (req, res) => {
   return res.render('admin/home', { user: req.user });
 });
 
-app
-  .route('/register')
+app.route('/register')
   .get((_req, res) => {
     res.status(200).render('register');
   })
@@ -36,18 +36,30 @@ app
   });
 
 
-app
-  .route('/recipes/search')
-  .get(async (req, res) => {
-    const recipeName = req.query.recipe;
-    if (!recipeName) return res.status(200).render('recipesSearch', { recipes: null });
-    const recipes = await recipeController.recipesByName(recipeName);
-    return res.status(200).render('recipesSearch', { recipes });
-  });
+app.route('/recipes/search')
+  .get(recipeController.getRecipesByName);
 
-app
-  .route('/recipes/:id')
+
+app.route('/recipes/new')
+  .get(
+    middlewares.auth(true),
+    (_req, res) => {
+      res.status(200).render('createRecipe');
+    }
+  ).post(
+    /* FZER O POST DE NEW E FALTA O ONCLIKC button*/
+  );
+
+
+app.route('/recipes/:id')
   .get(middlewares.auth(false), recipeController.recipeDetails);
+
+app.route('/me/recipe')
+    .get(
+      middlewares.auth(true),
+      // userController.getSelfRecipes,
+      /* Own Recipes */
+    );
 
 app.get('/login', userController.loginForm);
 app.get('/logout', userController.logout);
