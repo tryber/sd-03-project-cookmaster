@@ -27,12 +27,12 @@ const findByEmail = async (userEmail) => {
       .execute();
     const results = await searchQuery.fetchAll();
     return results
-      ? results.reduce((acc, [id, email, password, firstName, lastName]) => ({
+      ? results.reduce((acc, [id, email, password, name, lastName]) => ({
         ...acc,
         id,
         email,
         password,
-        firstName,
+        name,
         lastName,
       }), {})
       : null;
@@ -54,15 +54,16 @@ const findById = async (userId) => {
       .where('id = :id')
       .bind('id', userId)
       .execute();
-    const results = await searchQuery.fetchAll()[0];
+    const results = await searchQuery.fetchAll();
     return results
-      ? results.map(([id, email, password, firstName, lastName]) => ({
+      ? results.reduce((acc, [id, email, password, name, lastName]) => ({
+        ...acc,
         id,
         email,
         password,
-        firstName,
+        name,
         lastName,
-      }))
+      }), {})
       : null;
   } catch (error) {
     return error;

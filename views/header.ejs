@@ -13,7 +13,7 @@
       </p>
       <% if(user) { %>
       <div>
-        <p><strong><%= user.id %></strong> </p>
+        <p><strong><%= `${user.name} ${user.lastName}` %></strong> </p>
         <button data-testid="logout" onclick="window.location.pathname='/logout'">Logout</button>
       </div>
       <% } else { %>
