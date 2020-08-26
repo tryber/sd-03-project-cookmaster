@@ -4,7 +4,7 @@ const findAllRecipes = async () => {
   try {
     const db = await connection();
     const searchQuery = await db.getTable('recipes').select(['user', 'name']).execute();
-    const results = await searchQuery.fetchAll()[0];
+    const results = await searchQuery.fetchAll();
     return results
       ? results.map(([user, name]) => ({
         user,

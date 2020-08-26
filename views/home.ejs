@@ -8,20 +8,18 @@
   </head>
 
   <body>
-    <%- include('header', {user:{}})%>
+    <%- include('header', {user})%>
     <% if(user) { %>
     <button type="button" data-testid="nova-receita">Nova receita</button>
     <% } %>
     <button type="button" data-testid="buscar-receita">Buscar receita</button>
     <h1>Receitas</h1>
-    <% if(recipes) { %>
-    <% recipes.forEach(recipe => { %>
+    <% recipes && recipes.forEach(recipe => { %>
     <p>Receita: <%= recipe.name %> </p>
     <p>Usuário: <%= recipe.user %> </p>
-    <a href="">Ver mais</a>
+    <a href=<% `recipes/${recipe.id}` %>>Ver mais</a>
     </div>
     <% }) %>
-    <% } %>
     <div>
   </body>
 
