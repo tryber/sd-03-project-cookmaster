@@ -1,3 +1,4 @@
+require('dotenv/config');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -47,7 +48,9 @@ app.route('/recipes/new')
       res.status(200).render('createRecipe');
     }
   ).post(
-    /* FZER O POST DE NEW E FALTA O ONCLIKC button*/
+
+    /* FAZER O POST DE NEW
+    E FALTA O ONCLIKC button de ingredients*/
   );
 
 
