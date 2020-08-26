@@ -14,7 +14,7 @@ const loginForm = (req, res) => {
   });
 };
 
-const login = async (req, res, _next) => {
+const login = async (req, res, next) => {
   const { email, password, redirect } = req.body;
 
   if (!email || !password) {
