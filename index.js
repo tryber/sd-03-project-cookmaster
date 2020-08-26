@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const { connection } = require('./database');
+// const { connection } = require('./database');
 
 const middlewares = require('./middlewares');
 const controllers = require('./controllers');
