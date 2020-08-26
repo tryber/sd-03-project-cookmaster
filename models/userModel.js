@@ -49,7 +49,7 @@ const findById = async (userId) => {
   try {
     const db = await connection();
     const searchQuery = await db
-      .getTable('user')
+      .getTable('users')
       .select(['id', 'email', 'password', 'first_name', 'last_name'])
       .where('id = :id')
       .bind('id', userId)

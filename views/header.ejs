@@ -11,13 +11,13 @@
       <p>
         Cookmaster
       </p>
-      <% if(user && user.name) { %>
+      <% if(user) { %>
       <div>
-        <p><%= user.name %></p>
-        <a href="/logout" data-testid="logout">Logout</a>
+        <p><strong><%= user.id %></strong> </p>
+        <button data-testid="logout" onclick="window.location.pathname='/logout'">Logout</button>
       </div>
       <% } else { %>
-      <a href="/login" data-testid="login">Login</a>
+      <button data-testid="login" onclick="window.location.pathname='/login'">Login</button>
       <% } %>
     </div>
   </body>
