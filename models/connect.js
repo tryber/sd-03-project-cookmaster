@@ -1,7 +1,6 @@
-require('dotenv/config');
-
 const mysql = require('@mysql/xdevapi');
 let schema;
+require('dotenv/config');
 
 const config = {
   user: process.env.MYSQL_USER,
@@ -11,7 +10,7 @@ const config = {
   socketPath: '/var/run/mysqld/mysqld.sock',
 };
 
-module.exports = () => { return schema
+module.exports = () => schema
   ? Promise.resolve(schema)
   : mysql
     .getSession(config)
@@ -19,8 +18,7 @@ module.exports = () => { return schema
       schema = await session.getSchema('cookmaster');
       return schema;
     })
-    .catch((err) => {
+    .catch(err => {
       console.error(err);
       process.exit(1);
     });
-};

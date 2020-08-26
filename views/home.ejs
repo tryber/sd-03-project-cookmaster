@@ -7,5 +7,13 @@
   </head>
   <body>
     <h1>Boas vindas ao Cookmaster!</h1>
+    <h2>Receitas</h2>
+    <button type="button" data-testid="buscar-receita">Buscar Receita</button>
+    <button onclick="window.location.pathname='/login'" data-testid="login">Login</button>
+    <% recipes.map(el => {%>
+      <h1> <%= el.name %></h1>
+      <h3> <%= el.user_id %></h3>
+      <a href="">Ver mais</a>
+    <%})%>
   </body>
 </html>
