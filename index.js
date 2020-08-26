@@ -4,13 +4,6 @@ const cookieParser = require('cookie-parser');
 
 const middlewares = require('./middlewares');
 const controllers = require('./controllers');
-const connection = require('./models/connection');
-
-connection().then(() => {
-  console.log('Conectado ao MySQL!');
-});
-
-console.log('MYSQL', process.env.MYSQL_PASSWORD);
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,9 +12,7 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-app.get('/', (_req, res) => {
-  return res.render('home');
-});
+app.get('/', middlewares.auth(false), controllers.recipeController.recipeList);
 
 app.get('/admin', middlewares.auth(), (req, res) => {
   return res.render('admin/home', { user: req.user });
