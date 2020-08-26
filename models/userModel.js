@@ -1,12 +1,12 @@
 const connection = require('./connection');
 
-const findByEmail = async (email) => {
+const findByEmail = async (EMAIL) => {
   const db = await connection();
 
   const results = db.getTable('users')
     .select('email')
     .where('email = :email')
-    .bind('email', email)
+    .bind('email', EMAIL)
     .execute();
 
   const resulSearch = results.fetchAll();
@@ -20,13 +20,13 @@ const findByEmail = async (email) => {
   }));
 };
 
-const findById = async (idf) => {
+const findById = async (ID) => {
   const db = await connection();
 
   const results = await db.getTable('users')
     .select('id')
     .where('id = :id')
-    .bind('id', idf)
+    .bind('id', ID)
     .execute();
 
   const resulSearch = results.fetchAll();
