@@ -20,20 +20,21 @@ const findByEmail = async (userEmail) => {
   try {
     const db = await connection();
     const searchQuery = await db
-      .getTable('user')
+      .getTable('users')
       .select(['id', 'email', 'password', 'first_name', 'last_name'])
       .where('email = :email')
       .bind('email', userEmail)
       .execute();
-    const results = await searchQuery.fetchAll()[0];
+    const results = await searchQuery.fetchAll();
     return results
-      ? results.map(([id, email, password, firstName, lastName]) => ({
+      ? results.reduce((acc, [id, email, password, firstName, lastName]) => ({
+        ...acc,
         id,
         email,
         password,
         firstName,
         lastName,
-      }))
+      }), {})
       : null;
   } catch (error) {
     return error;
