@@ -4,7 +4,7 @@ const listRecipes = async (req, res) => {
   try {
     const recipes = await recipesModel.findAllRecipes();
     if (req.user) return res.render('home', { recipes, user: req.user });
-    return res.render('home', { recipes, user: {} });
+    return res.render('home', { recipes, user: null });
   } catch (error) {
     return error;
   }
