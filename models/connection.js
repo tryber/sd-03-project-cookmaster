@@ -1,8 +1,7 @@
 // Referência usada para criar a conexão com o banco de dados:
 // https://github.com/tryber/sd-03-live-lectures/blob/catch-up/express-mvc/models/connect.js
-
-const mysqlx = require('@mysql/xdevapi');
 require('dotenv/config');
+const mysqlx = require('@mysql/xdevapi');
 
 const config = {
   user: process.env.MYSQL_USER,
