@@ -9,11 +9,17 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.use((req, _res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  // console.log(`${res} ${res}`);
+  next();
+});
+
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-app.get('/', (_req, res) => {
-  return res.render('home');
+app.get('/', middlewares.auth(false), (req, res) => {
+  return res.render('home', {user: req.user});
 });
 
 app.get('/admin', middlewares.auth(), (req, res) => {

@@ -6,6 +6,26 @@
     <title>Cookmaster - Home</title>
   </head>
   <body>
-    <h1>Boas vindas ao Cookmaster!</h1>
+    <h2>Home - não autenticado</h2>
+    <div>
+      <h3>Cookmaster</h3>
+      <% if(user) { %>
+      <a data-testid="logout" href="/logout">Logout</a> <% } %> <%if(!user) {%>
+
+      <a data-testid="login" href="/login">Login</a>
+      <% } %>
+    </div>
+    <div>
+      <h2>Receitas</h2>
+      <button data-testid="buscar-receita">Buscar Receitas</button>
+    </div>
+    <div>
+      <div>
+        <h4>Nome Receita</h4>
+        <p>Autor</p>
+        <a href="Link">Ver Mais</a>
+      </div>
+    </div>
+    <button data-testid="nova-receita">Nova Receita</button>
   </body>
 </html>
