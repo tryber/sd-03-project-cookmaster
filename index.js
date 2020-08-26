@@ -31,10 +31,10 @@ app.get('/admin', middlewares.auth(), (req, res) => {
 app.route('/register')
   .get(
     (_req, res) => {
-      res.status(200).render('register');
+      res.status(200).render('register', { message: null });
     },
   ).post(middlewares.verifyRegister, (_req, res) => {
-    res.status(200).render('login', { message: 'Cadastro efetuado com sucesso!' });
+    res.status(200).render('register', { message: 'Cadastro efetuado com sucesso!' });
   });
 
 app.route('/recipes/search')
