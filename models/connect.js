@@ -1,5 +1,6 @@
-const mysql = require('@mysql/xdevapi');
 let schema;
+const mysql = require('@mysql/xdevapi');
+
 require('dotenv/config');
 
 const config = {

@@ -3,5 +3,5 @@ const cookController = require('./cookController');
 
 module.exports = {
   userController,
-  cookController
+  cookController,
 };
