@@ -16,8 +16,8 @@ const getAllRecipes = async () =>
 /* Substitua o código das funções abaixo para que ela,
 de fato, realize a busca no banco de dados */
 
-const registerUser = async (email, password, name, lastName) =>
-  connect().then((db) => db.getTable('users'));
+// const registerUser = async (email, password, name, lastName) =>
+//   connect().then((db) => db.getTable('users'));
 
 /**
  * Busca um usuário através do seu email e, se encontrado, retorna-o.
