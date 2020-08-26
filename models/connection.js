@@ -12,7 +12,7 @@ const config = {
   socketPath: '/var/run/mysqld/mysqld.sock',
 };
 
-module.exports = () =>
+const connect = () =>
   schema
     ? Promise.resolve(schema)
     : mysqlx
@@ -25,3 +25,5 @@ module.exports = () =>
           console.error(err);
           process.exit(1);
         });
+
+module.exports = connect
