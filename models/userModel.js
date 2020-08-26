@@ -1,16 +1,26 @@
 const { v4: uuid } = require('uuid');
 const connection = require('./connection');
+const Serializer = require('../utils/serializer');
 
 const findByEmail = async (email) => {
   const db = await connection();
   const users = await db.getTable('users');
-  const user = await users.select().where('email = :email')
+  let user = await users.select().where('email = :email')
     .bind('email', email).execute();
-
-  return user.fetchOne();
+  user = user.fetchOne();
+  user = Serializer.user(Object.values(user));
+  return user;
 };
 
-const findById = async (id) => id;
+const findById = async (id) => {
+  const db = await connection();
+  const users = await db.getTable('users');
+  let user = await users.select().where('id = :id')
+    .bind('id', id).execute();
+  user = user.fetchOne();
+  user = Serializer.user(Object.values(user));
+  return user;
+};
 
 async function createUser({
   email, senha, name, last_name: lastName,

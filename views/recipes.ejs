@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Receitas</title>
+  </head>
+  <body>
+    <h1><%= recipe.name %></h1>
+    <h3><%= recipe.user %></h3>
+    <% if (isOwner) {%>
+    <div>
+      <a href="/edit"  data-testid="editar-receita">Editar Receita</a >
+      <a href="/delete" data-testid="excluir-receita">Excluir Receita</a>
+    </div>
+    <% }%>
+    <h2>Ingredientes</h2>
+    <% recipe.ingredients.forEach((ingredient) => { %>
+    <p><%= ingredient %></p>
+    <% }) %>
+    <h2>Modo de Preparo</h2>
+    <p><%= recipe.instructions %></p>
+  </body>
+</html>

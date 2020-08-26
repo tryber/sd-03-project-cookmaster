@@ -3,6 +3,7 @@ const { SESSIONS } = require('../middlewares/auth');
 
 const userModel = require('../models/userModel');
 const Validation = require('../utils/validation');
+const Serializer = require('../utils/serializer');
 
 const loginForm = (req, res) => {
   const { token = '' } = req.cookies || {};
@@ -26,7 +27,7 @@ const login = async (req, res) => {
   }
 
   const user = await userModel.findByEmail(email);
-  if (!user || user[2] !== password) {
+  if (!user || user.password !== password) {
     return res.render('admin/login', {
       message: 'Email ou senha incorretos',
       redirect: null,
@@ -54,7 +55,7 @@ async function singIn(req, res) {
   }
   const { error } = await userModel.createUser(info);
   if (!error) {
-    res.render('admin/signin', { message: 'Cadastro efetuado com sucesso!' });
+    return res.render('admin/signin', { message: 'Cadastro efetuado com sucesso!' });
   }
 }
 

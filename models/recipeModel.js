@@ -9,4 +9,12 @@ async function getAllRecipes() {
   return recipe.fetchAll().map(serializer.recipe);
 }
 
-module.exports = { getAllRecipes };
+async function getRecipeById(id) {
+  const db = await connection();
+  const recipes = await db.getTable('recipes');
+  const recipe = await recipes.select().where('id = :id').bind('id', id).execute();
+
+  return serializer.recipe(recipe.fetchOne());
+}
+
+module.exports = { getAllRecipes, getRecipeById };
