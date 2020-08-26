@@ -2,6 +2,7 @@ const { v4: uuid } = require('uuid');
 const { SESSIONS } = require('../middlewares/auth');
 
 const userModel = require('../models/userModel');
+const Validation = require('../utils/validation');
 
 const loginForm = (req, res) => {
   const { token = '' } = req.cookies || {};
@@ -45,8 +46,21 @@ const logout = (req, res) => {
   return res.render('admin/logout');
 };
 
+async function singIn(req, res) {
+  const info = req.body;
+  const { message } = Validation.validadeData(info);
+  if (message) {
+    return res.render('admin/signin', { message });
+  }
+  const { error } = await userModel.createUser(info);
+  if (!error) {
+    res.render('admin/signin', { message: 'Cadastro efetuado com sucesso!' });
+  }
+}
+
 module.exports = {
   login,
   loginForm,
   logout,
+  singIn,
 };

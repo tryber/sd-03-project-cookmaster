@@ -14,13 +14,10 @@ app.set('views', './views');
 
 app.get('/', controllers.homeController.home);
 
-app.get('/cadastro',(req,res) => {
-  return res.render('admin/signin')
-})
+app.get('/cadastro', (req, res) => res.render('admin/signin', { message: '' }));
+app.post('/cadastro', controllers.userController.singIn);
 
-app.get('/admin', middlewares.auth(), (req, res) => {
-  return res.render('admin/home', { user: req.user });
-});
+app.get('/admin', middlewares.auth(), (req, res) => res.render('admin/home', { user: req.user }));
 
 app.get('/login', controllers.userController.loginForm);
 app.get('/logout', controllers.userController.logout);

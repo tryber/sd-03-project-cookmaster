@@ -1,12 +1,6 @@
+const { v4: uuid } = require('uuid');
 const connection = require('./connection');
 
-/* Substitua o código das funções abaixo para que ela,
-de fato, realize a busca no banco de dados */
-
-/**
- * Busca um usuário através do seu email e, se enscontrado, retorna-o.
- * @param {string} email Email do usuário a ser encontrado
- */
 const findByEmail = async (email) => {
   const db = await connection();
   const users = await db.getTable('users');
@@ -16,13 +10,26 @@ const findByEmail = async (email) => {
   return user.fetchOne();
 };
 
-/**
- * Busca um usuário através do seu ID
- * @param {string} id ID do usuário
- */
 const findById = async (id) => id;
+
+async function createUser({
+  email, senha, name, last_name: lastName,
+}) {
+  try {
+    const db = await connection();
+    const users = await db.getTable('users');
+    await users
+      .insert(['email', 'password', 'first_name', 'last_name'])
+      .values(email, senha, name, lastName)
+      .execute();
+    return { message: 'sucess' };
+  } catch (err) {
+    return { error: err };
+  }
+}
 
 module.exports = {
   findByEmail,
   findById,
+  createUser,
 };
