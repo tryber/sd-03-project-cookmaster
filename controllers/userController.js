@@ -36,7 +36,7 @@ const login = async (req, res, next) => {
   SESSIONS[token] = user.id;
 
   res.cookie('token', token, { httpOnly: true, sameSite: true });
-  return res.redirect(redirect || '/admin');
+  return res.redirect(redirect || '/');
 };
 
 const logout = (req, res) => {
