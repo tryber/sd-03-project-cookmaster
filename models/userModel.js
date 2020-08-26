@@ -16,15 +16,15 @@ const findShearch = async (objParam, emailOrId) => {
   const user = await getUser();
   const userShearced = user.find((userEmail) => userEmail[objParam] === emailOrId);
   return userShearced;
-}
+};
 
 const findByEmail = async (email) => {
-  const user = await findShearch('email', email)
+  const user = await findShearch('email', email);
   return user;
 };
 
 const findById = async (id) => {
-  const user = await findShearch('id', id)
+  const user = await findShearch('id', id);
   return user;
 };
 

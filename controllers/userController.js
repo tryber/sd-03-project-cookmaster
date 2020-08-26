@@ -22,7 +22,7 @@ const login = async (req, res, next) => {
       message: 'Preencha o email e a senha',
       redirect: null,
     });
-  
+
   const user = await userModel.findByEmail(email);
   if (!user || user.password !== password)
     return res.render('admin/login', {
