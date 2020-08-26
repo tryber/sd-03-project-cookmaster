@@ -49,13 +49,21 @@ app.route('/recipes/new')
     }
   ).post(
     middlewares.auth(true),
-    userController.createRecipe,
-    
+    recipeController.createRecipe,
+    (_req, res) => {
+      res.status(200).render('createRecipe');
+    }
   );
 
 
 app.route('/recipes/:id')
   .get(middlewares.auth(false), recipeController.recipeDetails);
+
+app.route('/recipes/:id/edit')
+    .get(
+      middlewares.auth(true),
+      recipeController.editRecipe
+    )
 
 app.route('/me/recipe')
     .get(

@@ -54,32 +54,10 @@ async function getSelfRecipes(req, _res, next) {
   next();
 }
 
-async function createRecipe(req, _res, next) {
-  const {
-    id: userId,
-    name: userName,
-  } = req.user;
-  const {
-    recipeName = null,
-    ingredients = null,
-    instructions = null,
-  } = req.body;
-
-  recipeModel.createNewRecipe(
-    userId,
-    userName,
-    recipeName,
-    ingredients,
-    instructions,
-  )
-  next();
-}
-
 module.exports = {
   login,
   loginForm,
   logout,
   register,
   getSelfRecipes,
-  createRecipe,
 };
