@@ -26,23 +26,21 @@ router.get('/:id', middlewares.auth(false), async (req, res) => {
   if (!recipe) return res.redirect('/');
   const user = req.user || {};
   res.render('recipes/details', { recipe, user, recipeId: req.params.id });
+  return;
 });
 
 router.get('/:id/edit', middlewares.auth(true), async (req, res) => {
   const recipeRequest = await recipeModel.getRecipe(req.params.id);
-
   if (!recipeRequest) return res.redirect('/');
-
   const { title, ingredients, detailsRecipe, idUser } = recipeRequest;
-
   if (req.user.id !== idUser) return res.redirect('/');
-
   res.render('recipes/editRecipe', {
     title,
     ingredients,
     detailsRecipe,
     id: req.params.id,
   });
+  return;
 });
 
 router.post('/:id', middlewares.auth(true), async ({ body, params: { id }, user }, res) => {
