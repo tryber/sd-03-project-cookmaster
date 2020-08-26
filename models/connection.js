@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 const mysqlx = require('@mysql/xdevapi');
 
 const config = {
@@ -11,7 +11,7 @@ const config = {
 
 let schema;
 
-module.exports = () => schema
+module.exports = () => (schema
   ? Promise.resolve(schema)
   : mysqlx
     .getSession(config)
@@ -19,7 +19,7 @@ module.exports = () => schema
       schema = await session.getSchema('cookmaster');
       return schema;
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
       process.exit(1);
-    });
+    }));
