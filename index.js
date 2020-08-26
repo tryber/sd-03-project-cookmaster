@@ -29,10 +29,11 @@ app.get('/admin', middlewares.auth(), (req, res) => {
 });
 
 app.route('/register')
-  .get((_req, res) => {
-    res.status(200).render('register');
-  })
-  .post(middlewares.verifyRegister, (_req, res) => {
+  .get(
+    (_req, res) => {
+      res.status(200).render('register');
+    }
+  ).post(middlewares.verifyRegister, (_req, res) => {
     res.status(200).render('login', { message: 'Cadastro efetuado com sucesso!' });
   });
 

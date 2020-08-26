@@ -22,13 +22,11 @@ async function recipeDetails(_req, res) {
   return res.status(200).render('recipesDetails', { instructions, name, ingredients, access });
 }
 
-async function getRecipesByName(name) {
-  async (req, res) => {
-    const recipeName = req.query.recipe;
-    if (!recipeName) return res.status(200).render('recipesSearch', { recipes: null });
-    const recipes = await recipeModel.recipesByName(name);
-    return res.status(200).render('recipesSearch', { recipes });
-  }
+async function getRecipesByName(req, res) {
+  const recipeName = req.query.recipe;
+  if (!recipeName) return res.status(200).render('recipesSearch', { recipes: null });
+  const recipes = await recipeModel.recipesByName(recipeName);
+  return res.status(200).render('recipesSearch', { recipes });
 }
 
 async function createRecipe(req, _res, next) {

@@ -14,7 +14,7 @@ const loginForm = (req, res) => {
   });
 };
 
-const login = async (req, res, _next) => {
+const login = async (req, res) => {
   const { email, password, redirect } = req.body;
 
   if (!email || !password)
@@ -47,7 +47,7 @@ async function register(email, password, firstName, lastName) {
   return userModel.registerUser(email, password, firstName, lastName);
 }
 
-async function getSelfRecipes(req, _res, next) {
+async function getSelfRecipes(req, res, next) {
   const { id } = req.user;
   const ownRecipes = await recipeModel.getUserRecipesById(id);
   res.status(200).render('', { ownRecipes });

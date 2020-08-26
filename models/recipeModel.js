@@ -47,12 +47,12 @@ async function recipesByName(name) {
   return all.map(([id, username, recipeName]) => ({ id, username, recipeName }));
 }
 
-async function getUserRecipesById(id) {
+async function getUserRecipesById(recipeId) {
   const recipesTable = await recipes();
   const userRecipes = recipesTable
     .select([])
     .where('user_id = :id')
-    .bind('id', id)
+    .bind('id', recipeId)
     .execute();
 
   const all = userRecipes.fetchAll();
@@ -73,18 +73,9 @@ async function createNewRecipe(userId, user, name, ingredients, instructions) {
     .execute();
 }
 
-async function editRecipe() {
-  const recipesTable = await recipes();
-  recipesTable
-    .update()
-    .set()
-    .execute();
-}
-
 async function deleteRecipe() {
   const recipesTable = await recipes();
- recipesTable
-  .delete(); 
+  recipesTable.delete();
 }
 
 module.exports = {
