@@ -10,9 +10,9 @@
   <body>
     <%- include('header', {user})%>
     <% if(user) { %>
-    <button type="button" data-testid="nova-receita">Nova receita</button>
+    <button type="button" data-testid="nova-receita">Nova Receita</button>
     <% } %>
-    <button type="button" data-testid="buscar-receita">Buscar receita</button>
+    <button type="button" data-testid="buscar-receita">Buscar Receita</button>
     <h1>Receitas</h1>
     <% recipes && recipes.forEach(recipe => { %>
     <p>Receita: <%= recipe.name %> </p>
