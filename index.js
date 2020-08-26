@@ -1,10 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-
 const middlewares = require('./middlewares');
 const controllers = require('./controllers');
-const recipesController = require('./controllers/recipes');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -13,22 +11,23 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-app.get('/', (_req, res) => {
-  return res.render('home');
-});
+app.get('/', middlewares.auth(false), controllers.userAuth.recipesAuth);
 
-app.get('/admin', middlewares.auth(), (req, res) => {
+app.get('/admin', middlewares.auth(true), (req, res) => {
   return res.render('admin/home', { user: req.user });
 });
 
+app.use('/recipes', controllers.recipesController.router);
 app.get('/login', controllers.userController.loginForm);
+
+app.get('/register', controllers.userController.renderForm);
+app.post('/register', controllers.userController.createUser);
+
 app.get('/logout', controllers.userController.logout);
 app.post('/login', controllers.userController.login);
 
-app.get('/recipes', recipesController.listRecipes);
+app.use('/me', controllers.userInfoController.router);
 
-app.post('/recipes', recipesController.newRecipe);
-
-app.get('/recipes/:id', recipesController.recipeDetails);
+app.get('*', (_req, res) => res.send('Página não encontrada.'));
 
 app.listen(3000, () => console.log('Listening on 3000'));

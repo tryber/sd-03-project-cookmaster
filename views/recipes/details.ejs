@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detalhes da Receita</title>
+  <style>
+    .Data_details {
+      margin-top: 7vh;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="Data_details">
+      <% if(user.id === recipe.idUser){ %>
+      <button type="button" onclick="window.location.href='<%= `/recipes/${recipeId}/edit` %>'">
+        Editar Receita
+      </button>
+      <button type="button" onclick="window.location.href='<%= `/recipes/${recipeId}/delete` %>'">
+        Excluir Receita
+      </button>
+      <% } %>
+      <% if(recipe){ %>
+      <h2><%= recipe.title%></h2>
+      <p><%= recipe.userName%></p>
+      <h3>Ingredientes</h3>
+      <p><%= recipe.ingredients%></p>
+      <h3>Modo de Preparo</h3>
+      <p><%= recipe.detailsRecipe %></p>
+      <% } %>
+      <button onclick="window.location.pathname='/'">Voltar</button>
+    </div>
+  </div>
+</body>
+
+</html>

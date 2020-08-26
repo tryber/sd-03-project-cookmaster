@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro</title>
+</head>
+
+<body>
+  <div>
+    <h6>Cookmaster - Pesquisa de receitas</h6>
+    <form action=<%= `/recipes/search` %> method="GET">
+      <label for="q">Título da Receita</label>
+      <input data-testid="receita" type="text" id="q" name="q">
+      <br>
+      <button data-testid="buscar" type="submit">Pesquisar</button>
+    </form>
+    <button onclick="window.location.pathname='/'">Voltar</button>
+    <% if(recipesLike) { %>
+    <% recipesLike.map((recipe) => { %>
+    <div class="Recipe_selection">
+      <h3><%=`${recipe.title}`%></h3>
+      <p><%=`${recipe.user}`%></p>
+      <a href="<%=`/recipes/${recipe.id}`%>">Ver mais</a>
+    </div>
+    <% }) %>
+    <% } %>
+  </div>
+</body>
+
+</html>

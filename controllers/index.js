@@ -1,7 +1,11 @@
 const userController = require('./userController');
-const recipes = require('./recipes');
+const recipesController = require('./recipesController');
+const userAuth = require('./userAuth');
+const userInfoController = require('./userInfoController');
 
 module.exports = {
   userController,
-  recipes,
+  recipesController,
+  userAuth,
+  userInfoController,
 };

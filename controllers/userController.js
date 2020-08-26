@@ -1,6 +1,5 @@
 const { v4: uuid } = require('uuid');
 const { SESSIONS } = require('../middlewares/auth');
-
 const userModel = require('../models/userModel');
 
 const loginForm = (req, res) => {
@@ -23,7 +22,7 @@ const login = async (req, res, next) => {
       redirect: null,
     });
 
-  const user = await userModel.findByEmail(email);
+  const user = await userModel.findBy(email, 'email');
   if (!user || user.password !== password)
     return res.render('admin/login', {
       message: 'Email ou senha incorretos',
@@ -43,8 +42,19 @@ const logout = (req, res) => {
   res.render('admin/logout');
 };
 
+const createUser = async (req, res) => {
+  const { error, message } = await userModel.createUser(req.body);
+  res.render('admin/register', { error, message });
+};
+
+const renderForm = async (_req, res) => {
+  res.render('admin/register', { error: '', message: '' });
+};
+
 module.exports = {
   login,
   loginForm,
   logout,
+  createUser,
+  renderForm,
 };
