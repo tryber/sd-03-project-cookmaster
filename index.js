@@ -48,9 +48,9 @@ app.route('/recipes/new')
       res.status(200).render('createRecipe');
     }
   ).post(
-
-    /* FAZER O POST DE NEW
-    E FALTA O ONCLIKC button de ingredients*/
+    middlewares.auth(true),
+    userController.createRecipe,
+    
   );
 
 

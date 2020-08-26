@@ -64,6 +64,7 @@ async function createRecipe(req, _res, next) {
     ingredients = null,
     instructions = null,
   } = req.body;
+
   recipeModel.createNewRecipe(
     userId,
     userName,

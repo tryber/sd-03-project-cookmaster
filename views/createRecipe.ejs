@@ -6,13 +6,17 @@
   <title>Document</title>
 </head>
 <body>
-  <form method="POST">
+  <form method="POST" id="recipe-form">
     <label for="recipe-name">Nome da Receita
       <input type="text" name="recipeName" id="recipe-name" data-testid="nome-receita">
     </label>
 
-    <input type="text" name="ingredients" id="ingredients" data-testid="ingredientes">
-    <button type="button" data-testid="adicionar-ingrediente" onClick="">
+    <h3>Ingredientes</h3>
+    <ul id="ingredients-list"></ul>
+    <input type="hidden" id="hidden-input" name="ingredients">
+
+    <input type="text" id="ingredients" data-testid="ingredientes">
+    <button type="button" data-testid="adicionar-ingrediente" onClick="addIngredient()">
       Adicionar Ingrediente
     </button>
 
@@ -24,5 +28,57 @@
       Salvar Receita
     </button>
   </form>
+  <script>
+    function createDelBtn() {
+      const delBtn = document.createElement('button');
+
+      delBtn.innerText = 'Excluir Ingrediente';
+
+      delBtn.addEventListener('click', (event) => {
+        const item = event.target.parentNode;
+        const list = item.parentNode;
+        list.removeChild(item);
+      });
+
+      return delBtn;
+    }
+
+    function addIngredient() {
+      const ingredientInput = document.getElementById('ingredients');
+
+      const item = document.createElement('li');
+      item.innerText = ingredientInput.value;
+
+      const delBtn = createDelBtn();
+
+      item.appendChild(delBtn);
+      const list = document.getElementById('ingredients-list');
+      list.appendChild(item);
+
+      ingredientInput.innerText = '';
+    }
+
+    window.onload = () => {
+      const form = document.getElementById('recipe-form');
+      form.addEventListener('submit', (event) => {
+        console.log('ak', event)
+        event.preventDefault();
+        const list = document.getElementById('ingredients-list').children;
+        const ings = [];
+
+        for (let i = 0; i < list.length; i += 1) {
+          ings.push(list[i].innerText.slice(0, -19));
+        }
+        
+        const hiddenInput = document.getElementById('hidden-input');
+        hiddenInput.value = ings.join(',');
+        console.log(hiddenInput.value);
+        hiddenInput.type = 'text';
+
+        const form = document.getElementById('recipe-form');
+        form.submit();
+      });
+    }
+  </script>
 </body>
 </html>
