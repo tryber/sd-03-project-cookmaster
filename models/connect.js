@@ -11,7 +11,7 @@ const config = {
   socketPath: '/var/run/mysqld/mysqld.sock',
 };
 
-module.exports = () => schema
+module.exports = () => { return schema
   ? Promise.resolve(schema)
   : mysql
     .getSession(config)
@@ -19,7 +19,8 @@ module.exports = () => schema
       schema = await session.getSchema('cookmaster');
       return schema;
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
       process.exit(1);
     });
+};
