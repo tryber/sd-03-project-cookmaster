@@ -19,16 +19,16 @@ app.set('view engine', 'ejs');
 app.set('views', './views');
 
 app.get('/', middlewares.auth(false), (req, res) => {
-  return res.render('home', {user: req.user});
+  return res.render('home', { user: req.user });
 });
 
 app.get('/admin', middlewares.auth(), (req, res) => {
   return res.render('admin/home', { user: req.user });
 });
 
-app.get('/register', (req, res) => {
-  return res.render('register')
-})
+app.get('/register', (_req, res) => {
+  return res.render('register');
+});
 
 app.get('/login', controllers.userController.loginForm);
 app.get('/logout', controllers.userController.logout);
