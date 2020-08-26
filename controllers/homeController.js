@@ -1,10 +1,13 @@
 const homeModel = require('../models/homeModel');
 
-const listRecipes = async (_req, res) => {
+const listRecipes = async (req, res) => {
   const recipes = await homeModel.getAll();
   console.log(recipes);
+  console.log(req.user);
 
   res.render('home', { recipes });
+
+
   // try {
   //   /* baseado em orientação do instrutor Roz
   //   durante plantão dia 26/08 */
@@ -14,6 +17,8 @@ const listRecipes = async (_req, res) => {
   // } catch (error) {
   //   return error;
   // }
+
+
 };
 
 module.exports = {

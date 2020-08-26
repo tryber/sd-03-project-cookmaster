@@ -18,9 +18,10 @@ app.set('views', './views');
 //   return res.render('home');
 // });
 
-app.get('/', controllers.homeController.listRecipes);
+app.get('/', middlewares.auth(false), controllers.homeController.listRecipes);
 
 app.get('/admin', middlewares.auth(), (req, res) => {
+  console.log(req);
   return res.render('admin/home', { user: req.user });
 });
 
