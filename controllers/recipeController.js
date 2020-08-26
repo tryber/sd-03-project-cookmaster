@@ -4,13 +4,21 @@ async function listRecipes() {
   return recipeModel.getAllWithUsers();
 }
 
-async function recipeDetails(req, res) {
+async function recipePermission(req, res, next) {
   const recipesList = await recipeModel.recipesById(req.params.id);
-  const { instructions, name, ingredients, userRecipeId } = recipesList[0];
+  const { userRecipeId } = recipesList[0];
   const { id: userId } = req.user || {};
 
-  const access = userId === userRecipeId;
+  res.access = userId === userRecipeId;
 
+  res.recipe = recipesList[0];
+
+  if (!res.access) res.render('home');
+  next();
+}
+
+async function recipeDetails(_req, res) {
+  const { access, recipe: { instructions, name, ingredients } } = res;
   return res.status(200).render('recipesDetails', { instructions, name, ingredients, access });
 }
 
@@ -45,9 +53,9 @@ async function createRecipe(req, _res, next) {
 }
 
 async function editRecipe(req, res) {
-  const recipesList = await recipeModel.recipesById(req.params.id);
-  const { name, ingredients, instructions } = recipesList[0];
-  res.status(200).render('editRecipe', { name, ingredients, instructions });
+  const { name, ingredients, instructions } = res.recipe;
+  const { id } = req.params;
+  res.status(200).render('editRecipe', { name, ingredients, instructions, id });
 }
 
 module.exports = {
@@ -56,4 +64,5 @@ module.exports = {
   getRecipesByName,
   createRecipe,
   editRecipe,
+  recipePermission,
 };

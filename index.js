@@ -36,10 +36,8 @@ app.route('/register')
     res.status(200).render('login', { message: 'Cadastro efetuado com sucesso!' });
   });
 
-
 app.route('/recipes/search')
   .get(recipeController.getRecipesByName);
-
 
 app.route('/recipes/new')
   .get(
@@ -57,20 +55,25 @@ app.route('/recipes/new')
 
 
 app.route('/recipes/:id')
-  .get(middlewares.auth(false), recipeController.recipeDetails);
+  .get(
+    middlewares.auth(false),
+    recipeController.recipePermission,
+    recipeController.recipeDetails,
+  );
 
 app.route('/recipes/:id/edit')
-    .get(
-      middlewares.auth(true),
-      recipeController.editRecipe
-    )
+  .get(
+    middlewares.auth(true),
+    recipeController.recipePermission,
+    recipeController.editRecipe,
+  );
 
 app.route('/me/recipe')
-    .get(
-      middlewares.auth(true),
-      // userController.getSelfRecipes,
-      /* Own Recipes */
-    );
+  .get(
+    middlewares.auth(true),
+    // userController.getSelfRecipes,
+    /* Own Recipes */
+  );
 
 app.get('/login', userController.loginForm);
 app.get('/logout', userController.logout);
