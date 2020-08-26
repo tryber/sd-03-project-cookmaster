@@ -6,14 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cookmaster - Home</title>
 </head>
-
 <body>
   <div>
     <div class="Home_recipes">
+      <h2>Cookmaster</h2>
       <h1>Receitas</h1>
       <div>
         <% if(user) { %>
-        <button type="button" onclick="window.location.pathname = '/me/recipes'">
+        <button data-testid="minhas-receitas" type="button" onclick="window.location.pathname = '/me/recipes'">
           Minhas Receitas
         </button>
         <button data-testid="nova-receita" type="button" onclick="window.location.pathname = '/recipes/new'">
@@ -47,4 +47,5 @@
     </div>
   </div>
 </body>
+
 </html>

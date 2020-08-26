@@ -16,10 +16,10 @@
   <div>
     <div class="Data_details">
       <% if(user.id === recipe.idUser){ %>
-      <button type="button" onclick="window.location.href='<%= `/recipes/${recipeId}/edit` %>'">
+      <button data-testid="editar-receita" type="button" onclick="window.location.href='<%= `/recipes/${recipeId}/edit` %>'">
         Editar Receita
       </button>
-      <button type="button" onclick="window.location.href='<%= `/recipes/${recipeId}/delete` %>'">
+      <button data-testid="excluir-receita" type="button" onclick="window.location.href='<%= `/recipes/${recipeId}/delete` %>'">
         Excluir Receita
       </button>
       <% } %>

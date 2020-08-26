@@ -9,7 +9,22 @@
   <body>
     <h1>Painel Administrativo Cookmaster</h1>
     <p>Usuário atual: <%= `${user.name} ${user.lastName}` %></p>
-    <button onclick="window.location.pathname='/logout'">Logout</button>
+    <button data-testid="logout" onclick="window.location.pathname='/logout'">Logout</button>
     <button onclick="window.location.pathname='/'">Página Inicial</button>
+    <button data-testid="nova-receita" type="button" onclick="window.location.pathname = '/recipes/new'">
+      Nova Receita
+    </button>
+    <button data-testid="minhas-receitas" type="button" onclick="window.location.pathname = '/me/recipes'">
+      Minhas Receitas
+    </button>
+    <div class="Recipes_div">
+      <% allRecipes.forEach((recipe) => {%>
+      <div class="Recipe_selection">
+        <p><%=`${recipe.recipe}`%></p>
+        <p><%=`${recipe.userName}`%></p>
+        <a href="<%=`/recipes/${recipe.id}`%>">Ver mais</a>
+      </div>
+      <% }) %>
+    </div>
   </body>
 </html>

@@ -13,7 +13,7 @@ app.set('views', './views');
 
 app.get('/', middlewares.auth(false), controllers.userAuth.recipesAuth);
 
-app.get('/admin', middlewares.auth(true), (req, res) => {
+app.get('/admin', middlewares.auth(true), controllers.userAuth.recipesAuth, (req, res) => {
   return res.render('admin/home', { user: req.user });
 });
 
