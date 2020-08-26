@@ -13,10 +13,10 @@ const recipeDetails = async (req, res) => {
 
   const ingredientsArr = ingredients.split(',');
 
-  recipe["ingredients"] = ingredientsArr;
+  recipe.ingredients = ingredientsArr;
 
-  return res.render('details', { recipe, message: null, user: req.user })
-}
+  return res.render('details', { recipe, message: null, user: req.user });
+};
 
 module.exports = {
   listRecipes,
