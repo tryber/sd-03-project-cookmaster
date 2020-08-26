@@ -6,7 +6,7 @@
     <title>Cookmaster - Search</title>
   </head>
   <body>
-    <%- include('navbar', { user: user, area: "Home" }); %>
+    <%- include('navbar', { user: user }); %>
     <div>
       <form action="/recipes/search" method="GET">
         <input data-testid="receita" name="q" type="text" />

@@ -6,12 +6,14 @@
     <title>Cookmaster - Home</title>
   </head>
   <body>
-    <%- include('navbar', {user: user, area: "Home"}); %>
+    <%- include('navbar', { user: user }); %>
     <div>
       <% if (user) {%>
       <button data-testid="nova-receita">Nova Receita</button>
       <%}%>
-      <button data-testid="buscar-receita" onclick="window.location.pathname='/recipes/search'">Buscar Receita</button>
+      <button data-testid="buscar-receita" onclick="window.location.pathname='/recipes/search'">
+        Buscar Receita
+      </button>
     </div>
     <% if (recipes) {%>
     <div>

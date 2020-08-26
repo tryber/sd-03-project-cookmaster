@@ -54,17 +54,27 @@ const signup = async (req, res) => {
 
   if (!regexEmail.test(email))
     return res.render('signup', {
-      message: 'Email incorreto',
+      message: 'O email deve ter o formato email@mail.com',
     });
 
-  if (password !== passwordConfirm || password.length < 6)
+  if (password.length < 5)
     return res.render('signup', {
-      message: 'Senha incorreta',
+      message: 'A senha deve ter pelo menos 6 caracteres',
     });
 
-  if (name.length < 3 || lastName.length < 3)
+  if (password !== passwordConfirm)
     return res.render('signup', {
-      message: 'Nome ou sobrenome incorretos',
+      message: 'As senhas tem que ser iguais',
+    });
+
+  if (name.length < 2 || typeof name !== 'string')
+    return res.render('signup', {
+      message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+    });
+
+  if (lastName.length < 2 || typeof lastName !== 'string')
+    return res.render('signup', {
+      message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
     });
 
   await userModel.registerUser(email, password, name, lastName);

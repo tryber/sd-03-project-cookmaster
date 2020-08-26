@@ -28,8 +28,11 @@ const searchRecipes = async (req, res) => {
   return res.render('search', { recipes, message: null, user: req.user });
 };
 
+const newRecipeForm = async (req, res) => res.render('admin/new', { user: req.user });
+
 module.exports = {
   listRecipes,
   recipeDetails,
   searchRecipes,
+  newRecipeForm,
 };

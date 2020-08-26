@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - New Recipe</title>
+  </head>
+  <body>
+    <%- include('../navbar', { user: user }); %>
+    <h1>Nova Receita</h1>
+    <form action="/recipes" method="POST">
+      <label for="recipeName">Nome da Receita</label><br />
+      <input type="text" name="name" id="recipeName" data-testid="nome-receita" /><br />
+      <input type="text" name="ingredients" id="ingredients" data-testid="ingredientes" /><br />
+      <button for="ingredients" data-testid="adicionar-ingrediente">Adicionar Ingrediente</button>
+      <br />
+      <label for="preparo">Modo de Preparo</label><br />
+      <input type="text" name="preparo" id="preparo" data-testid="modo-de-preparo" /><br />
+      <button type="submit" data-testid="postar-receita">Salvar Receita</button>
+    </form>
+  </body>
+</html>
