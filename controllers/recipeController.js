@@ -24,7 +24,7 @@ const searchRecipes = async (req, res) => {
   if (q === '') return res.render('search', { recipes: null, message: null, user: req.user, value: null });
 
   const recipes = await recipeModel.findRecipesByQuery(q);
-  console.log(recipes);
+
   return res.render('search', { recipes, message: null, user: req.user, value: q });
 };
 

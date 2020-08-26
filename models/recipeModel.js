@@ -45,7 +45,7 @@ const findRecipesByQuery = async (search) =>
       db
         .getTable('recipes')
         .select(['id', 'user_id', 'user', 'name', 'ingredients', 'instructions'])
-        .where('name LIKE', '%' + search + '%')
+        .where(`name LIKE %${search}%`)
         .bind('name', search)
         .execute(),
     )
