@@ -22,7 +22,7 @@ const findByEmail = (email) =>
     .select(['id', 'email', 'password', 'first_name', 'last_name'])
     .where('email = :email')
     .bind('email', email)
-    .execute()
+    .execute(),
   )
   .then((results) => results.fetchAll()[0])
   .then((results) => ({
@@ -43,7 +43,7 @@ const findById = (id) =>
     .select(['id', 'email', 'password', 'first_name', 'last_name'])
     .where('id = :id')
     .bind('id', id)
-    .execute()
+    .execute(),
   )
   .then((results) => results.fetchAll()[0])
   .then((results) => ({

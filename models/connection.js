@@ -14,16 +14,20 @@ const config = {
 // Ref.: https://github.com/tryber/sd-03-live-lectures/blob/catch-up/express-mvc/models/connect.js
 let schema;
 
-module.exports = () => schema
-  ? Promise.resolve(schema)
-  : mysqlx
-    .getSession(config)
-    .then(async (session) => {
-      schema = await session.getSchema('cookmaster');
-      return schema;
-    })
-    .catch(err => {
-      console.error(err);
-      process.exit(1);
-    });
+module.exports = () => {
+  return ( 
+    schema ?
+    Promise.resolve(schema)
+    : mysqlx
+      .getSession(config)
+      .then(async (session) => {
+        schema = await session.getSchema('cookmaster');
+        return schema;
+      })
+      .catch((err) => {
+        console.error(err);
+        process.exit(1);
+      })
+    );
+  };
 // Fim da Ref.
