@@ -5,19 +5,19 @@ const { connection } = require('./database');
 
 const middlewares = require('./middlewares');
 const controllers = require('./controllers');
-const userModel = require('./models/userModel');
+// const userModel = require('./models/userModel');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-connection.connect((err) => {
-  if (err) {
-    return console.error('erro: ' + err.message);
-  }
+// connection.connect((err) => {
+//   if (err) {
+//     return console.error('erro: ' + err.message);
+//   }
 
-  console.log('Connected to the MySQL server.');
-});
+//   console.log('Connected to the MySQL server.');
+// });
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
