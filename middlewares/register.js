@@ -50,11 +50,10 @@ function verifyRegister(req, res, next) {
       return res.status(400).render('register', { message: invalidMessages.confirmPassword });
     }
     register(email, password, firstName, lastName);
+    return next();
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Something went wrong during register');
+    return res.status(500).send('Something went wrong during register');
   }
-  return next();
 }
 
 module.exports = {

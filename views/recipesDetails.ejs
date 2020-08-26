@@ -7,14 +7,20 @@
 </head>
 <body>
   <% if (access) { %>
-    <a href=""><button data-testid="editar-receita">Editar Receita</button></a>
-    <a href=""><button data-testid="excluir-receita">Excluir Receita</button></a>
+    <a href="/recipes/<%= userId %>/edit">
+      <button data-testid="editar-receita">Editar Receita</button>
+    </a>
+    <a href="/recipes/<%= userId %>/delete">
+      <button data-testid="excluir-receita">Excluir Receita</button>
+    </a>
   <% } %>
   <h2><%= name %></h2>
   <h3>Ingredientes</h3>
-  <% ingredients.forEach((ing) => { %>
-    <%= ing %>
-  <% }); %>
+  <ul>
+    <% ingredients.forEach((ing) => { %>
+      <li><%= ing %></li>
+    <% }); %>
+  </ul>
   <h3>Ingredientes</h3>
   <%= instructions %>
 </body>

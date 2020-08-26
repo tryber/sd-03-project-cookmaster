@@ -20,8 +20,9 @@ app.set('views', './views');
 
 app.get('/', middlewares.auth(false), async (req, res) => {
   const { id } = req.user || {};
+  const login = (id || id === 0);
   const recipes = await recipeController.listRecipes();
-  return res.render('home', { recipes, login: id });
+  return res.render('home', { recipes, login });
 });
 
 app.get('/admin', middlewares.auth(), (req, res) => {

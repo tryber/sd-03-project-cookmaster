@@ -27,11 +27,11 @@ async function recipesById(id) {
 
   const all = await recipe.fetchAll();
 
-  return all.map(([userRecipeId, name, ingredients, instructions]) => ({
+  return all.map(([userId, name, ingredients, instructions]) => ({
     name,
     ingredients: ingredients.split(','),
     instructions,
-    userRecipeId,
+    userId,
   }));
 }
 
@@ -49,7 +49,7 @@ async function recipesByName(name) {
 
 async function getUserRecipesById(recipeId) {
   const recipesTable = await recipes();
-  const userRecipes = recipesTable
+  const userRecipes = await recipesTable
     .select([])
     .where('user_id = :id')
     .bind('id', recipeId)

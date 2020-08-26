@@ -6,20 +6,23 @@ async function listRecipes() {
 
 async function recipePermission(req, res, next) {
   const recipesList = await recipeModel.recipesById(req.params.id);
-  const { userRecipeId } = recipesList[0];
-  const { id: userId } = req.user || {};
+  const recipe = recipesList[0];
 
-  res.access = userId === userRecipeId;
+  if (!recipe) res.send('Não temos essa receita');
 
-  res.recipe = recipesList[0];
+  const { userId } = recipe;
+  const { id: clientId } = req.user || {};
 
-  if (!res.access) res.render('home');
+  res.access = clientId === userId;
+  res.recipe = recipe;
+
   next();
 }
 
 async function recipeDetails(_req, res) {
-  const { access, recipe: { instructions, name, ingredients } } = res;
-  return res.status(200).render('recipesDetails', { instructions, name, ingredients, access });
+  const { access, recipe: { instructions, name, ingredients, userId } } = res;
+  return res.status(200)
+    .render('recipesDetails', { instructions, name, ingredients, access, userId });
 }
 
 async function getRecipesByName(req, res) {
