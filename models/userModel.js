@@ -13,7 +13,7 @@ const findByEmail = async (EMAIL) => {
 
   if (!resulSearch) return null;
 
-  resulSearch.map(([id, email, password]) => ({
+  return resulSearch.map(([id, email, password]) => ({
     id,
     email,
     password,
