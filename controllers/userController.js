@@ -66,7 +66,7 @@ const signup = async (req, res) => {
     return res.render('signup', {
       message: 'Nome ou sobrenome incorretos',
     });
-  
+
   await userModel.registerUser(email, password, name, lastName);
 
   res.status(201).render('signup', { message: 'Cadastro efetuado com sucesso!' });
