@@ -77,8 +77,6 @@ const findById = async (userId) => {
 };
 
 const createUser = async (email, password, name, lastName) => {
-  const verifyDB = Boolean(findByEmail(email));
-  if (verifyDB) return null;
   try {
     const db = await connection();
     const updateQuery = await db
