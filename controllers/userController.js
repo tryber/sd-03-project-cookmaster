@@ -8,7 +8,7 @@ const loginForm = (req, res) => {
 
   if (SESSIONS[token]) return res.redirect('/');
 
-  return res.render('admin/login', {
+  return res.render('login', {
     message: null,
     redirect: req.query.redirect,
   });

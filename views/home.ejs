@@ -10,8 +10,8 @@
     <div>
       <h3>Cookmaster</h3>
       <% if(user) { %>
-      <a data-testid="logout" href="/logout">Logout</a> <% } %> <%if(!user) {%>
-
+      <a data-testid="logout" href="/logout">Logout</a> <% } %> 
+      <%if(!user) {%>
       <a data-testid="login" href="/login">Login</a>
       <% } %>
     </div>
@@ -26,6 +26,8 @@
         <a href="Link">Ver Mais</a>
       </div>
     </div>
+    <%if(!user) {%>
     <button data-testid="nova-receita">Nova Receita</button>
+    <% } %>
   </body>
 </html>
