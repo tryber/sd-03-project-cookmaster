@@ -12,4 +12,15 @@ const listRecipes = async (req, res) => {
   }
 };
 
-module.exports = { listRecipes };
+const listRecipeByID = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const recipeDetails = await recipesModel.findRecipeByID(id);
+    if (req.user) return res.render('home', { recipeDetails, user: req.user });
+    return res.render('home', { recipeDetails, user: null });
+  } catch (error) {
+    return error;
+  }
+};
+
+module.exports = { listRecipes, listRecipeByID };
