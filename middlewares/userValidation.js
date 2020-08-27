@@ -6,7 +6,7 @@ const validateName = (name = '') => name && /^[A-Z][a-z]{2,}$/i.test(name);
 /* Regex obtido em
 https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address */
 const validateEmail = (email = '') => email
-  && /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(
+  && /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(
     email,
   );
 
