@@ -26,13 +26,13 @@ const getCookieById = async (id) =>
           :
         null));
 
-const getCookieByName = async (name) =>
+const getCookieByName = async (foodName) =>
 connect()
   .then((db) =>
     db
       .getTable('recipes').select(['user_id', 'user', 'name', 'ingredients', 'instructions'])
       .where('name = :name')
-      .bind('name', name)
+      .bind('name', foodName)
       .execute(),
     )
     .then((results) => results.fetchAll()[0])
