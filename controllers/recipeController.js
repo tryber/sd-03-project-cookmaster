@@ -27,13 +27,9 @@ const listRecipesByQuery = async (req, res) => {
     const { user } = req;
     const searchedRecipes = await recipesModel.searchRecipes(q);
 
-    if (user && searchedRecipes) return res.render('recipes/search', { recipes: searchedRecipes, user });
+    if (user) return res.render('recipes/search', { recipes: searchedRecipes, user });
 
-    if (user && !searchedRecipes) return res.render('recipes/search', { recipes: [], user });
-
-    if (!user && searchedRecipes) return res.render('recipes/search', { recipes: searchedRecipes, user: null });
-
-    return res.render('recipes/search', { recipes: [], user: null });
+    return res.render('recipes/search', { recipes: searchedRecipes, user: null });
   } catch (error) {
     return error;
   }
