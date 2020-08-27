@@ -8,25 +8,27 @@ const TEMP_USER = {
   lastName: 'Doe',
 };
 
-/* Substitua o código das funções abaixo para que ela,
-de fato, realize a busca no banco de dados */
-
-/**
- * Busca um usuário através do seu email e, se encontrado, retorna-o.
- * @param {string} email Email do usuário a ser encontrado
- */
 const findByEmail = async (email) => {
-  await connect()
-    .getTable('users')
-    .select();
-
-  return TEMP_USER;
+  try {
+    const user = await connect()
+      .then((db) => db
+      .getTable('users')
+      .select()
+      .where('email = :email')
+      .bind('email', email)
+      .execute(),
+    )
+    .then((results) => results.fetchAll()[0])
+    .then(([id, email, password, first_name, last_name]) => ({
+      id, email, password, first_name, last_name
+    }));
+    return user;
+  } catch (err) {
+    console.error(err);
+    process.exit(1)
+  }
 };
 
-/**
- * Busca um usuário através do seu ID
- * @param {string} id ID do usuário
- */
 const findById = async (id) => {
   return TEMP_USER;
 };
