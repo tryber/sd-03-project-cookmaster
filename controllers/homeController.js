@@ -5,20 +5,7 @@ const listRecipes = async (req, res) => {
   console.log(recipes);
   console.log(req.user);
 
-  res.render('home', { recipes });
-
-
-  // try {
-  //   /* baseado em orientação do instrutor Roz
-  //   durante plantão dia 26/08 */
-  //   const recipes = await homeModel.getAllRecipes();
-  //   if (req.user) return res.render('home', { recipes, user: req.user });
-  //   return res.render('home', { recipes, user: null });
-  // } catch (error) {
-  //   return error;
-  // }
-
-
+  res.render('home', { recipes, user: req.user });
 };
 
 module.exports = {
