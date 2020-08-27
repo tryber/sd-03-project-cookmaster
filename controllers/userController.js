@@ -51,12 +51,15 @@ const logout = (req, res) => {
 const validateFields = (form) => {
   const errors = [];
   // Validações
-  // Ref. Regex email em https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
-  // Obs.: Tive que transformar em função porque o codeclimate reclamava de 'Unnecessary escape character: [. '
-  const regexEmail = (eml) => /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(eml);
+  /*
+  Ref. Regex email obtida em https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address
+  O padrão obtido em https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+  não passou porque o codeclimate reclamava de 'Unnecessary escape character: [. '
+  */
+  const regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
   // Ref. Regex name em https://stackoverflow.com/questions/3532053/regular-expression-for-only-characters-a-z-a-z
   const regexName = /^[a-z]*$/i;
-  if (!regexEmail(form.email)) {
+  if (!regexEmail.test(form.email)) {
     errors.push('O email deve ter o formato email@mail.com');
   }
   if (!form.password || form.password.length < 6) {
