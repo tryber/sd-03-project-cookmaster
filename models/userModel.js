@@ -10,9 +10,9 @@ const findByEmail = async (email) => {
     .bind('email', email)
     .execute();
 
-    const [id, firstName, lastName, password] = await results.fetchOne();
+  const [id, firstName, lastName, password] = await results.fetchOne();
 
-    return firstName ? { id, firstName, lastName, password } : null;
+  return firstName ? { id, firstName, lastName, password } : null;
 };
 
 const findById = async (id) => {
