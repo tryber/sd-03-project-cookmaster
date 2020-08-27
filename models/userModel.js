@@ -14,7 +14,7 @@ const findByEmail = async (uEmail) => {
     .then(([id, email, password, firstName, lastName]) => ({
       id, email, password, name: `${firstName} ${lastName}`,
     }));
-    console.log(user);
+
     return user;
   } catch (err) {
     console.error(err);
