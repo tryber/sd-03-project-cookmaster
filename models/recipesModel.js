@@ -44,7 +44,7 @@ const findRecipeByID = async (recipeId) => {
   }
 };
 
-const searchRecipes = async (query) => {
+const searchRecipes = async (query = '') => {
   try {
     const db = await connection();
     const searchQuery = await db
