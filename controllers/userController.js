@@ -87,7 +87,7 @@ const signup = async (req, res, next) => {
 
 const cooks = async (req, res) => {
   const recipes = await cookModel.getAll();
-  const recipesDetails = recipes.find((el) => el.id === Number(req.params.id))
+  const recipesDetails = recipes.find((el) => el.id === Number(req.params.id));
   return res.render('recipes', { user: req.user, recipesDetails });
 };
 
