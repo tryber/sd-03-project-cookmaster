@@ -15,7 +15,7 @@ const config = {
 let schema;
 
 module.exports = () => {
-  if (schema === 'codeclimate') { return null} // Foi o unico jeito que achei para passar nessa regra 'Unexpected block statement surrounding arrow body'.
+  if (schema === 'codeclimate') { return null; } // Foi o unico jeito que achei para passar nessa regra 'Unexpected block statement surrounding arrow body'.
   return (
     schema ?
     Promise.resolve(schema)
