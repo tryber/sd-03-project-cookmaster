@@ -7,7 +7,8 @@ async function recipesDescription(req, res) {
   if (req && req.user) {
     id = req.user.id;
   }
-  res.render('recipes', { recipe, isOwner: id === recipe.id });
+
+  res.render('recipes', { recipe, isOwner: id && id === recipe.userId, id: recipe.id });
 }
 
 async function searchRecipes(req, res) {
@@ -29,9 +30,8 @@ async function newRecipePOST(req, res) {
     recipe.ingredients = recipe.ingredients.join(',');
   }
   user.user = `${user.first_name} ${user.last_name}`;
-  console.log(recipe, user);
-  await Recipes.createRecipe(user, recipe);
-  res.redirect('/recipes/new');
+  const recId = await Recipes.createRecipe(user, recipe);
+  res.redirect('/');
 }
 
 async function editRecipe(req, res) {
@@ -51,14 +51,13 @@ async function editRecipePOST(req, res) {
   if (typeof recipe.ingredients === 'object') {
     recipe.ingredients = recipe.ingredients.join(',');
   }
-  await Recipes.updateRecipe(user.id, recipe);
+  await Recipes.updateRecipe(req.params.id, recipe);
   return res.redirect(`/recipes/${req.params.id}`);
 }
 
 async function deleteRecipe(req, res) {
   const { user } = req;
   const recipe = await Recipes.getRecipeById(req.params.id);
-  console.log(recipe);
   if (!recipe) { return res.status(404).send('Message not found'); }
   if (!user) { return res.status(401).send('sai pra lá jacaré'); }
   if (recipe.userId !== user.id) {
@@ -77,10 +76,16 @@ async function deleteRecipePOST(req, res) {
   }
   const { password } = await User.findById(user.id);
   if (password !== req.body.password) {
-    return res.render('admin/delete', { message: 'Senha Incorreta' });
+    return res.render('admin/delete', { message: 'Senha Incorreta.' });
   }
   await Recipes.deleteRecipe(req.params.id);
   return res.redirect('/');
+}
+
+async function myRecipes(req, res) {
+  const { id } = req.user;
+  const recipes = await Recipes.getRecipeByUser(id);
+  res.render('admin/meRecipes', { recipes });
 }
 
 module.exports = {
@@ -91,5 +96,6 @@ module.exports = {
   editRecipe,
   editRecipePOST,
   deleteRecipe,
+  myRecipes,
   deleteRecipePOST,
 };

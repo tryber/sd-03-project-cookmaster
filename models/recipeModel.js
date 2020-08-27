@@ -9,14 +9,22 @@ async function getAllRecipes() {
   return recipe.fetchAll().map(serializer.recipe);
 }
 
+async function getRecipeByUser(id) {
+  const db = await connection();
+  const recipes = await db.getTable('recipes');
+  const recipe = await recipes.select().where('user_id = :id').bind('id', id).execute();
+
+  return recipe.fetchAll().map(serializer.recipe);
+}
+
 async function createRecipe({ id, user }, { name, ingredients, instructions }) {
   const db = await connection();
   const recipes = await db.getTable('recipes');
-  await recipes.insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
+  const recipe = await recipes.insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
     .values(id, user, name, ingredients, instructions)
     .execute();
 
-  return { messa: 'ok' };
+  return recipe.getAutoIncrementValue();
 }
 
 async function getRecipeById(id) {
@@ -39,15 +47,18 @@ async function updateRecipe(id, { name, ingredients, instructions }) {
   try {
     const db = await connection();
     const recipes = await db.getTable('recipes');
-    await recipes.update()
+    const newe = await recipes.update()
       .set('name', name)
       .set('ingredients', ingredients)
       .set('instructions', instructions)
       .where('id = :id')
       .bind('id', id)
       .execute();
+    console.log(id, name, ingredients, instructions);
+    console.log('newe', newe.getAffectedItemsCount());
     return { message: 'ok' };
   } catch (err) {
+    console.log(err);
     return console.error(err);
   }
 }
@@ -66,5 +77,11 @@ async function deleteRecipe(id) {
 }
 
 module.exports = {
-  getAllRecipes, getRecipeById, searchRecipe, createRecipe, updateRecipe, deleteRecipe,
+  getAllRecipes,
+  getRecipeById,
+  searchRecipe,
+  createRecipe,
+  updateRecipe,
+  deleteRecipe,
+  getRecipeByUser,
 };

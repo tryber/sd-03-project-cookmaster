@@ -28,6 +28,8 @@ app.get('/recipes/:id/edit', middlewares.auth(), controllers.recipesController.e
 app.get('/recipes/:id/delete', middlewares.auth(), controllers.recipesController.deleteRecipe);
 app.post('/recipes/:id/delete', middlewares.auth(), controllers.recipesController.deleteRecipePOST);
 
+app.get('/me/recipes', middlewares.auth(), controllers.recipesController.myRecipes);
+
 app.get('/login', controllers.userController.loginForm);
 app.get('/logout', controllers.userController.logout);
 app.post('/login', controllers.userController.login);

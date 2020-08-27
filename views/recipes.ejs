@@ -10,8 +10,8 @@
     <h3><%= recipe.user %></h3>
     <% if (isOwner) {%>
     <div>
-      <a href="/edit"  data-testid="editar-receita">Editar Receita</a >
-      <a href="/delete" data-testid="excluir-receita">Excluir Receita</a>
+      <a href="/recipes/<%=id%>/edit"  data-testid="editar-receita">Editar Receita</a >
+      <a href="/recipes/<%=id%>/delete" data-testid="excluir-receita">Excluir Receita</a>
     </div>
     <% }%>
     <h2>Ingredientes</h2>
