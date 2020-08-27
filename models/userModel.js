@@ -12,7 +12,7 @@ const findByEmail = async (email) => {
 
   const [id, firstName, lastName, password] = await results.fetchOne();
 
-  return firstName ? { id, firstName, lastName, password } : null;
+  return firstName ? { id, firstName, lastName, password, email } : null;
 };
 
 const findById = async (id) => {
@@ -20,14 +20,14 @@ const findById = async (id) => {
 
   const results = await db
     .getTable('users')
-    .select(['first_name', 'last_name', 'password'])
+    .select(['first_name', 'last_name', 'password', 'email'])
     .where('id = :id')
     .bind('id', id)
     .execute();
 
-  const [firstName, lastName, password] = await results.fetchOne();
+  const [firstName, lastName, password, email] = await results.fetchOne();
 
-  return firstName ? { id, firstName, lastName, password } : null;
+  return firstName ? { id, firstName, lastName, password, email } : null;
 };
 
 module.exports = {
