@@ -13,8 +13,8 @@ const findByEmail = async (mail) => {
       db
         .getTable('users')
         .select(['id', 'email', 'password', 'first_name', 'last_name'])
-        .where('email = :email')
-        .bind('email', email)
+        .where('email = :mail')
+        .bind('mail', mail)
         .execute(),
     )
     .then((results) => results.fetchAll()[0])
@@ -38,7 +38,7 @@ const findById = async (ids) => {
         .getTable('users')
         .select(['id', 'email', 'password', 'first_name', 'last_name'])
         .where('id = :id')
-        .bind('id', id)
+        .bind('id', ids)
         .execute(),
     )
     .then((results) => results.fetchAll()[0])
