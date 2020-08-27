@@ -18,7 +18,7 @@ const findByValue = async (email, param) =>
       )
       .then((results) => results.fetchAll()[0])
       .then(([id, email, password, firstName, lastName] = []) => (
-        email
+        password
           ?
           { id, email, password, firstName, lastName }
           :

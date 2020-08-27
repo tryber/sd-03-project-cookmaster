@@ -9,8 +9,7 @@ const newRecipe = async (_req, res) => {
   res.render('admin/newRecipe');
 };
 
-const setNewRecipe = async (req, res) => {
-  console.log(req.body);
+const setNewRecipe = async (_req, res) => {
   res.send('ok');
 };
 
