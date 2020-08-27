@@ -35,4 +35,22 @@ const listRecipesByQuery = async (req, res) => {
   }
 };
 
-module.exports = { listRecipes, listRecipeByID, listRecipesByQuery };
+const registryRecipe = async (req, res) => {
+  const { id, name: userName } = req.user;
+  const { name, ingredients, instructions } = req.body;
+  try {
+    if (req.body) {
+      await recipesModel.createRecipe(id, userName, name, ingredients, instructions);
+      return res.redirect('/');
+    }
+    return res.render('recipes/new', {
+      message: 'Campos inválido',
+    });
+  } catch (error) {
+    return error;
+  }
+};
+
+module.exports = {
+  listRecipes, listRecipeByID, listRecipesByQuery, registryRecipe,
+};

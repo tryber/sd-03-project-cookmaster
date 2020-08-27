@@ -24,10 +24,19 @@ app.get('/login', controllers.userController.loginForm);
 app.get('/logout', controllers.userController.logout);
 app.post('/login', controllers.userController.login);
 
-app.post('/recipes');
-app.get('recipes/new', middlewares.auth());
-app.get('/recipes/search', middlewares.auth(false), controllers.recipeController.listRecipesByQuery);
-app.get('/recipes/:id', middlewares.auth(false), middlewares.recipeFilter, controllers.recipeController.listRecipeByID);
+app.post('/recipes', middlewares.auth(), controllers.recipeController.registryRecipe);
+app.get('recipes/new', middlewares.auth(), (req, res) => res.render('recipes/new', { user: req.user }));
+app.get(
+  '/recipes/search',
+  middlewares.auth(false),
+  controllers.recipeController.listRecipesByQuery,
+);
+app.get(
+  '/recipes/:id',
+  middlewares.auth(false),
+  middlewares.recipeFilter,
+  controllers.recipeController.listRecipeByID,
+);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
