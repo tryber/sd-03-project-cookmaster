@@ -5,6 +5,10 @@ const listCook = async (_req, res) => {
   return res.render('home', { recipes });
 };
 
+const searchRecipe = async(_req, res) =>{
+  return res.render('searchRecipes')
+}
+
 const newRecipe = async (_req, res) => {
   res.render('admin/newRecipe');
 };
@@ -30,4 +34,5 @@ module.exports = {
   cooks,
   admin,
   setNewRecipe,
+  searchRecipe,
 };
