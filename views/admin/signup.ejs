@@ -15,15 +15,15 @@
     <% } %>
     <form action="/signup" method="post">
       <label for="emailInput">Email: </label>
-      <input type="text" name="email" id="emailInput" data-testid="email">
+      <input type="text" name="email" id="emailInput" data-testid="email" required>
       <label for="passwordInput">Senha: </label>
-      <input type="password" name="password" id="passwordInput" data-testid="senha">
+      <input type="password" name="password" id="passwordInput" data-testid="senha" required>
       <label for="confirmPassword">Confirmar Senha: </label>
-      <input type="password" name="confirmPassword" id="confirmPassword" data-testid="confirmar-senha">
+      <input type="password" name="confirmPassword" id="confirmPassword" data-testid="confirmar-senha" required>
       <label for="userName">Nome: </label>
-      <input type="text" name="name" id="userName" data-testid="nome">
+      <input type="text" name="name" id="userName" data-testid="nome" required>
       <label for="userLastName">Sobrenome: </label>
-      <input type="text" name="lastName" id="userLastName" data-testid="sobrenome">
+      <input type="text" name="lastName" id="userLastName" data-testid="sobrenome" required>
       <button type="submit" data-testid="cadastrar">Cadastre-se</button>
       <a href="/login" data-testid="login">Fazer login</a>
     </form>
