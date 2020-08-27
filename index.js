@@ -73,6 +73,16 @@ app.route('/recipes/:id/edit')
     recipeController.showRecipeToEdit,
   );
 
+app.route('/recipes/:id/delete')
+  .get(
+    middlewares.auth(true),
+    recipeController.deleteForm,
+  ).post(
+    middlewares.auth(false),
+    userController.confirmPassword,
+    recipeController.deleteRecipe,
+  );
+
 app.route('/me/recipes')
   .get(middlewares.auth(true), userController.getSelfRecipes);
 

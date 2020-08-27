@@ -1,4 +1,4 @@
-const recipeModel = require('../models/recipeModel');
+const { recipeModel } = require('../models');
 
 async function listRecipes() {
   return recipeModel.getAllWithUsers();
@@ -67,9 +67,19 @@ function showRecipeToEdit(req, res) {
   res.status(200).render('editRecipe', {
     id,
     name,
-    ingredients: ingredients.join(','),
     instructions,
+    ingredients: ingredients.join(','),
   });
+}
+
+async function deleteRecipe(req, res) {
+  const { id } = req.params;
+  await recipeModel.deleteRecipe(id);
+  res.redirect('/');
+}
+
+async function deleteForm(_req, res) {
+  res.render('deleteForm', { message: null });
 }
 
 module.exports = {
@@ -79,5 +89,7 @@ module.exports = {
   createRecipe,
   editRecipe,
   recipePermission,
-  showRecipeToEdit
+  showRecipeToEdit,
+  deleteForm,
+  deleteRecipe,
 };

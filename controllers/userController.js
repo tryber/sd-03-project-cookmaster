@@ -53,10 +53,21 @@ async function getSelfRecipes(req, res) {
   res.status(200).render('ownRecipes', { recipes });
 }
 
+async function confirmPassword(req, res, next) {
+  const { password } = req.body;
+  const { id } = req.user;
+  const { password: correctPassword } = await userModel.findById(id);
+  if (correctPassword !== password) {
+    return res.render('deleteForm', { message: 'Senha Incorreta.' });
+  }
+  return next();
+}
+
 module.exports = {
   login,
   loginForm,
   logout,
   register,
   getSelfRecipes,
+  confirmPassword,
 };

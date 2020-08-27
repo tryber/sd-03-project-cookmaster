@@ -86,9 +86,14 @@ async function updateRecipe(id, name = '', ingredients = '', instructions = '') 
     .execute();
 }
 
-async function deleteRecipe() {
+async function deleteRecipe(id) {
   const recipesTable = await recipes();
-  recipesTable.delete();
+  await recipesTable
+    .delete()
+    .where('id = :id')
+    .limit(1)
+    .bind('id', id)
+    .execute();
 }
 
 module.exports = {
