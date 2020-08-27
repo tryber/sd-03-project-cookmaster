@@ -24,6 +24,8 @@ app.get('/login', controllers.userController.loginForm);
 app.get('/logout', controllers.userController.logout);
 app.post('/login', controllers.userController.login);
 
+app.post('/recipes');
+app.get('recipes/new');
 app.get('/recipes/search', middlewares.auth(false), controllers.recipeController.listRecipesByQuery);
 app.get('/recipes/:id', middlewares.auth(false), middlewares.recipeFilter, controllers.recipeController.listRecipeByID);
 
