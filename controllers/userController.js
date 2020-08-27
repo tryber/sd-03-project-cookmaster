@@ -52,7 +52,7 @@ const registry = async (req, res) => {
 
   await userModel.createUser(email, password, name, lastName);
 
-  return res.render('/signup', {
+  return res.render('admin/signup', {
     message: req.message || null,
     redirect: null,
   });
