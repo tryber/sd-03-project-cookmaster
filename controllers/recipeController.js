@@ -12,12 +12,17 @@ const listRecipes = async (req, res) => {
   }
 };
 
-const listRecipeByID = (req, res) => {
-  const { recipeDetails, user } = req;
-  if (recipeDetails && user) {
-    return res.render('recipeDetails', { recipeDetails, user });
+const listRecipeByID = async (req, res) => {
+  try {
+    const { recipeDetails, user } = req;
+    console.log(recipeDetails)
+    if (recipeDetails && user) {
+      return res.render('details', { recipeDetails, user });
+    }
+    return res.render('details', { recipeDetails, user: null });
+  } catch (error) {
+    return error;
   }
-  return res.render('recipeDetails', { recipeDetails, user: null });
 };
 
 module.exports = { listRecipes, listRecipeByID };

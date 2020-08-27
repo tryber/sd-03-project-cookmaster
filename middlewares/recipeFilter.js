@@ -2,15 +2,13 @@ const recipesModel = require('../models/recipesModel');
 
 const splitIngredientsValues = (string = '') => string.split(',');
 
-const recipeDetailsMiddleware = async (req, res, next) => {
-  const { id } = req.params;
+const recipeDetailsMiddleware = async (req, _res, next) => {
   try {
+    const { id } = req.params;
     const recipeDetails = await recipesModel.findRecipeByID(id);
-    const { ingredients } = recipeDetails;
-
-    const filteredRecipeDetails = {
+    const filteredRecipeDetails = await {
       ...recipeDetails,
-      ingredients: [...splitIngredientsValues(ingredients)],
+      ingredients: [...splitIngredientsValues(recipeDetails.ingredients)],
     };
 
     req.recipeDetails = filteredRecipeDetails;
@@ -21,4 +19,4 @@ const recipeDetailsMiddleware = async (req, res, next) => {
   }
 };
 
-module.exports = { recipeDetailsMiddleware };
+module.exports = recipeDetailsMiddleware;

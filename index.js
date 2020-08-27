@@ -15,8 +15,6 @@ app.set('views', './views');
 
 app.get('/', middlewares.auth(false), controllers.recipeController.listRecipes);
 
-app.get('/recipes/:id', middlewares.auth(false), middlewares.recipeFilter, controllers.recipeController.listRecipeByID);
-
 app.get('/signup', controllers.userController.registry);
 app.post('/signup', middlewares.validation, controllers.userController.registry);
 
@@ -25,6 +23,8 @@ app.get('/admin', middlewares.auth(), (req, res) => res.render('admin/home', { u
 app.get('/login', controllers.userController.loginForm);
 app.get('/logout', controllers.userController.logout);
 app.post('/login', controllers.userController.login);
+
+app.get('/recipes/:id', middlewares.auth(false), middlewares.recipeFilter, controllers.recipeController.listRecipeByID);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));

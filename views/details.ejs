@@ -25,14 +25,14 @@
     <div>
       <h2>Ingredientes</h2>
       <ul>
-        <% recipesDetails.ingredients && recipesDetails.ingredients.forEach(ingredient => { %>
+        <% recipeDetails && recipeDetails.ingredients.forEach(ingredient => { %>
         <li><%= ingredient %></li>
         <% }) %>
       </ul>
     </div>
     <div>
       <h2>Modo de Preparo</h2>
-      <p><%= recipesDetails.instructions %></p>
+      <p><%= recipeDetails.instructions %></p>
     </div>
     <% } %>
 
