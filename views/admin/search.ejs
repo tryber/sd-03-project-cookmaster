@@ -15,8 +15,8 @@
   </form>
   <div>
     <%recipes.map(e => { %>
-     <p><%=e.recipeName %></p> 
-     <p><%=e.user %></p> 
+     <p><%=e.recipeName %></p>
+     <p><%=e.user %></p>
      <a href=<%= `/recipe/${e.id}` %>>Ver mais</a>
      <%}) %>
   </div>

@@ -29,7 +29,7 @@ function checkpass(password, passConfirm) {
   return true;
 }
 
-function checkname (firstName, lastName) {
+function checkname(firstName, lastName) {
   if (firstName < 3) return { message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' };
   if (lastName < 3) return { message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' };
   return true;
