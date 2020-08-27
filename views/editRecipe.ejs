@@ -18,25 +18,22 @@
     </label>
 
     <h3>Ingredientes</h3>
-    <ul id="ingredients-list">
-      <% ingredients.forEach((ing) => { %>
-        <li>
-          <%= ing %>
-          <div>
-            <button>Excluir Ingrediente</button>
-          </div>
-        </li>
-     <% }); %>
-    </ul>
-    <input type="hidden" id="hidden-input" name="ingredients">
+    <ul id="ingredients-list"></ul>
+    <input type="hidden" value="<%= ingredients %>" id="hidden-input" name="ingredients">
 
     <input type="text" id="ingredients" data-testid="ingredientes">
-    <button type="button" data-testid="adicionar-ingrediente" onClick="addIngredient()">
+    <button type="button" data-testid="adicionar-ingrediente" id="add-ingredient-btn">
       Adicionar Ingrediente
     </button>
 
     <label for="instructions">Modo de Preparo
-      <input type="text" name="instructions" id="instructions" data-testid="modo-de-preparo">
+      <input
+        type="text"
+        name="instructions"
+        id="instructions"
+        data-testid="modo-de-preparo"
+        value="<%= instructions %> "
+      >
     </label>
 
     <button type="submit" data-testid="postar-receita">
@@ -45,6 +42,15 @@
   </form>
   <script>
     window.onload = () => {
+      const hiddenInput = document.getElementById('hidden-input');
+      const ingredients = hiddenInput.value.split(',');
+      const listContainer = document.getElementById('ingredients-list');
+
+      ingredients.forEach(addLiIngredient);
+
+      const btnOfIngs = document.getElementById('add-ingredient-btn');
+      btnOfIngs.addEventListener('click', addIngredient);
+
       function submitForm(event) {
         event.preventDefault();
         const list = document.getElementById('ingredients-list').children;
@@ -67,11 +73,7 @@
 
         delBtn.innerText = 'Excluir Ingrediente';
 
-        delBtn.addEventListener('click', (event) => {
-          const item = event.target.parentNode;
-          const list = item.parentNode;
-          list.removeChild(item);
-        });
+        delBtn.addEventListener('click', removeIngredient);
 
         const wrapper = document.createElement('div');
         wrapper.appendChild(delBtn);
@@ -79,18 +81,28 @@
         return wrapper;
       }
 
-      function addIngredient() {
-        const ingredientInput = document.getElementById('ingredients');
-        const ingredient = ingredientInput.value;
+      function removeIngredient(event) {
+        const item = event.target.parentNode.parentNode;
+        const list = item.parentNode;
+        list.removeChild(item);
+      }
 
+      function addLiIngredient(ing) {
         const item = document.createElement('li');
-        item.innerText = ingredient;
+        item.innerText = ing;
 
         const delBtnWrapper = createDelBtn();
 
         item.appendChild(delBtnWrapper);
         const list = document.getElementById('ingredients-list');
         list.appendChild(item);
+      }
+
+      function addIngredient() {
+        const ingredientInput = document.getElementById('ingredients');
+        const ingredient = ingredientInput.value;
+
+        addLiIngredient(ingredient);
 
         ingredientInput.value = '';
       }

@@ -47,11 +47,10 @@ async function register(email, password, firstName, lastName) {
   return userModel.registerUser(email, password, firstName, lastName);
 }
 
-async function getSelfRecipes(req, res, next) {
+async function getSelfRecipes(req, res) {
   const { id } = req.user;
-  const ownRecipes = await recipeModel.getUserRecipesById(id);
-  res.status(200).render('', { ownRecipes });
-  next();
+  const recipes = await recipeModel.getUserRecipesById(id);
+  res.status(200).render('ownRecipes', { recipes });
 }
 
 module.exports = {

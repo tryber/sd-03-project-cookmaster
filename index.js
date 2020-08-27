@@ -51,7 +51,7 @@ app.route('/recipes/new')
     middlewares.auth(true),
     recipeController.createRecipe,
     (_req, res) => {
-      res.status(200).render('createRecipe');
+      res.status(200).redirect('/');
     },
   );
 
@@ -61,21 +61,20 @@ app.route('/recipes/:id')
     middlewares.auth(false),
     recipeController.recipePermission,
     recipeController.recipeDetails,
+  ).post(
+    recipeController.recipePermission,
+    recipeController.editRecipe,
   );
 
 app.route('/recipes/:id/edit')
   .get(
     middlewares.auth(true),
     recipeController.recipePermission,
-    recipeController.editRecipe,
+    recipeController.showRecipeToEdit,
   );
 
-app.route('/me/recipe')
-  .get(
-    middlewares.auth(true),
-    // userController.getSelfRecipes,
-    /* Own Recipes */
-  );
+app.route('/me/recipes')
+  .get(middlewares.auth(true), userController.getSelfRecipes);
 
 app.get('/login', userController.loginForm);
 app.get('/logout', userController.logout);

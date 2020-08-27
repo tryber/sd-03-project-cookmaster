@@ -7,10 +7,10 @@
 </head>
 <body>
   <% if (access) { %>
-    <a href="/recipes/<%= userId %>/edit">
+    <a href="/recipes/<%= id %>/edit">
       <button data-testid="editar-receita">Editar Receita</button>
     </a>
-    <a href="/recipes/<%= userId %>/delete">
+    <a href="/recipes/<%= id %>/delete">
       <button data-testid="excluir-receita">Excluir Receita</button>
     </a>
   <% } %>

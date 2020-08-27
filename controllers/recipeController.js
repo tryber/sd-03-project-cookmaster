@@ -6,23 +6,24 @@ async function listRecipes() {
 
 async function recipePermission(req, res, next) {
   const recipesList = await recipeModel.recipesById(req.params.id);
-  const recipe = recipesList[0];
+  const recipe = recipesList[0] || {};
 
   if (!recipe) res.send('Não temos essa receita');
 
   const { userId } = recipe;
-  const { id: clientId } = req.user || {};
+  const { id } = req.user || {};
 
-  res.access = clientId === userId;
+  res.access = id === userId;
   res.recipe = recipe;
 
   next();
 }
 
-async function recipeDetails(_req, res) {
-  const { access, recipe: { instructions, name, ingredients, userId } } = res;
+async function recipeDetails(req, res) {
+  const { access, recipe: { instructions, name, ingredients } } = res;
+  const id = req.params.id;
   return res.status(200)
-    .render('recipesDetails', { instructions, name, ingredients, access, userId });
+    .render('recipesDetails', { instructions, name, ingredients, access, id });
 }
 
 async function getRecipesByName(req, res) {
@@ -54,9 +55,21 @@ async function createRecipe(req, _res, next) {
 }
 
 async function editRecipe(req, res) {
-  const { name, ingredients, instructions } = res.recipe;
+  const { recipeName, ingredients, instructions } = req.body;
   const { id } = req.params;
-  res.status(200).render('editRecipe', { name, ingredients, instructions, id });
+  await recipeModel.updateRecipe(id, recipeName, ingredients, instructions);
+  res.status(200).redirect('/me/recipes');
+}
+
+function showRecipeToEdit(req, res) {
+  const { name, ingredients, instructions } = res.recipe || {};
+  const { id } = req.params;
+  res.status(200).render('editRecipe', {
+    id,
+    name,
+    ingredients: ingredients.join(','),
+    instructions,
+  });
 }
 
 module.exports = {
@@ -66,4 +79,5 @@ module.exports = {
   createRecipe,
   editRecipe,
   recipePermission,
+  showRecipeToEdit
 };
