@@ -5,7 +5,6 @@ const getAllRecipes = async () => {
     const db = await connect();
     const searchDb = await db.getTable('recipes').select(['user', 'name']).execute();
     const results = await searchDb.fetchAll();
-    console.log(results);
     return results ? results.map(([user, name]) => ({ user, name })) : [];
   } catch (err) {
     console.error(err);
