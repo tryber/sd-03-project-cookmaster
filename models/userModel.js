@@ -10,11 +10,9 @@ const findByEmail = async (email) => {
     .bind('email', email)
     .execute();
 
-  const [ id, first_name, last_name, password ] = await results.fetchOne();
+  const [id, first_name, last_name, password] = await results.fetchOne();
 
-  return first_name
-    ? { id, firstName: first_name, lastName: last_name, password }
-    : null;
+  return first_name ? { id, firstName: first_name, lastName: last_name, password } : null;
 };
 
 const findById = async (id) => {
@@ -27,11 +25,9 @@ const findById = async (id) => {
     .bind('id', id)
     .execute();
 
-  const [ first_name, last_name, password ] = await results.fetchOne();
+  const [first_name, last_name, password] = await results.fetchOne();
 
-  return first_name
-    ? { id, firstName: first_name, lastName: last_name, password }
-    : null;
+  return first_name ? { id, firstName: first_name, lastName: last_name, password } : null;
 };
 
 module.exports = {
