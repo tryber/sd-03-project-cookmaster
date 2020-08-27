@@ -8,10 +8,10 @@ const finfByRecipes = async () => {
     const response = await sharchRecipes.fetchAll();
     return response
       ? response.map(([id, user, name]) => ({
-          id,
-          user,
-          name,
-        }))
+        id,
+        user,
+        name,
+      }))
       : null;
   } catch (error) {
     return error;

@@ -20,6 +20,6 @@ module.exports = () => {
           return schema;
         })
         .catch((error) => {
-          console.error(error);
+          console.log(error);
         });
 };
