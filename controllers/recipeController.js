@@ -9,4 +9,14 @@ const showRecipes = async (req, res) => {
   });
 };
 
-module.exports = { showRecipes };
+const showOneRecipe = async (req, res) => {
+  console.log(await recipeModel.getRecipeById(req.params.id));
+  const recipe = await recipeModel.getRecipeById(req.params.id);
+  res.render('details', {
+    recipe,
+    message: null,
+    user: req.user,
+  });
+};
+
+module.exports = { showRecipes, showOneRecipe };

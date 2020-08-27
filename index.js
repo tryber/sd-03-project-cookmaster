@@ -15,10 +15,11 @@ app.set('views', './views');
 
 app.get('/', middlewares.auth(false), controllers.recipeController.showRecipes);
 
-app.get('/admin', middlewares.auth(), (req, res) => res.render('admin/home', { user: req.user }));
+app.get('/admin', middlewares.auth(false), (req, res) => res.render('admin/home', { user: req.user }));
 
 app.get('/login', controllers.userController.loginForm);
 app.get('/logout', controllers.userController.logout);
 app.post('/login', controllers.userController.login);
+app.get('/recipes/:id', middlewares.auth(false), controllers.recipeController.showOneRecipe);
 
 app.listen(3000, () => console.log('Listening on 3000'));
