@@ -71,4 +71,20 @@ const searchRecipes = async (query) => {
   }
 };
 
-module.exports = { findAllRecipes, findRecipeByID, searchRecipes };
+const createRecipe = async (userID, user, name, ingredients, instructions) => {
+  try {
+    const db = await connection();
+    const updateQuery = await db
+      .getTable('recipes')
+      .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
+      .values(userID, user, name, ingredients, instructions)
+      .execute();
+    return updateQuery;
+  } catch (error) {
+    return error;
+  }
+};
+
+module.exports = {
+  findAllRecipes, findRecipeByID, searchRecipes, createRecipe,
+};
