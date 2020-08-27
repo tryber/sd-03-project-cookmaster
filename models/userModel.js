@@ -1,4 +1,4 @@
-const connect = require('./connection');
+const connect = require('./connect');
 
 const findUserByEmail = async (email) => {
   const db = await connect();
