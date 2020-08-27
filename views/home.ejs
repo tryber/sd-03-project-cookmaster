@@ -17,8 +17,8 @@
     <div>
       <button type="button" data-testid="buscar-receita" onclick="window.location.pathname='/recipes/search'">Buscar Receita</button>
       <h1>Receitas</h1>
-      <div>
-        <% recipes && recipes.forEach(recipe => { %>
+      <% recipes && recipes.forEach(recipe => { %>
+        <div>
         <p>Receita: <%= recipe.name %> </p>
         <p>Usuário: <%= recipe.user %> </p>
         <a href="/recipes/<%= recipe.id %>" %>>Ver mais</a>

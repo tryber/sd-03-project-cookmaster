@@ -6,18 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cookmaster - Busca de receitas </title>
   </head>
-  <%- include('header', {user})%>
+  <%- include('../header', {user})%>
   <h1>Buscar Receitas</h1>
   <form action="/recipes/search" method="GET">
     <input type="text" name="q" id="search-input" data-testid="receita">
     <button type="submit" data-testid="buscar">Buscar</button>
   </form>
-  <div>
-    <% recipes && recipes.forEach(recipe => { %>
+  <% recipes && recipes.forEach(recipe => { %>
+    <div>
     <p>Receita: <%= recipe.name %> </p>
     <p>Usuário: <%= recipe.user %> </p>
     <a href="/recipes/<%= recipe.id %>" %>>Ver mais</a>
   </div>
+  <% }) %>
   <body>
   </body>
 

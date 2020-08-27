@@ -30,7 +30,7 @@ const validationMessages = {
 async function ValidateUser(email, password, confirmPassword, name, lastName) {
   const searchUser = await getUser(email);
   switch (true) {
-    case email === searchUser:
+    case email === searchUser && password && confirmPassword && name && lastName:
       return validationMessages.user;
     case !validateEmail(email):
       return validationMessages.email;

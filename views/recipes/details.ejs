@@ -8,7 +8,7 @@
   </head>
 
   <body>
-    <%- include('header', {user})%>
+    <%- include('../header', {user})%>
     <% if(user) { %>
     <div>
       <button type="button" data-testid="editar-receita" onclick="window.location.pathname='/recipes/edit'">Editar
