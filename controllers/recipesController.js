@@ -26,6 +26,7 @@ router.get('/:id', middlewares.auth(false), async (req, res) => {
   if (!recipe) return res.redirect('/');
   const user = req.user || {};
   res.render('recipes/details', { recipe, user, recipeId: req.params.id });
+  return null;
 });
 
 router.get('/:id/edit', middlewares.auth(true), async (req, res) => {
@@ -39,6 +40,7 @@ router.get('/:id/edit', middlewares.auth(true), async (req, res) => {
     detailsRecipe,
     id: req.params.id,
   });
+  return null;
 });
 
 router.post('/:id', middlewares.auth(true), async ({ body, params: { id }, user= req.user }, res) => {

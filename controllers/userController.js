@@ -45,10 +45,10 @@ const logout = (req, res) => {
 const createUser = async (req, res, next) => {
   const { error, message } = await userModel.createUser(req.body);
   if (message || error)
-  return res.render('admin/login', {
-    message: 'Cadastro efetuado com sucesso!',
-    redirect: null,
-  });
+    return res.render('admin/login', {
+      message: 'Cadastro efetuado com sucesso!',
+      redirect: null,
+    });
 };
 
 const renderForm = async (_req, res) => {

@@ -37,17 +37,17 @@ const getRecipe = async (id) =>
     },
     );
 
-const user = `SELECT CONCAT(us.first_name, ' ', us.last_name) FROM users AS us
+const user1 = `SELECT CONCAT(us.first_name, ' ', us.last_name) FROM users AS us
 WHERE id = ?`;
 
-const insertRecipe = async ({ user, title, ing, ins, id }) =>
+const insertRecipe = async ({ title, ing, ins, id }) =>
   connection()
     .then((db) =>
       db
         .getSchema('cookmaster')
         .getTable('recipes')
         .insert(['user', 'name', 'ingredients', 'instructions', 'user_id'])
-        .values([user, title, ing, ins, id])
+        .values([user1, title, ing, ins, id])
         .execute(),
     );
 
