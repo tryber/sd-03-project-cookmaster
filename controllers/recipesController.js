@@ -43,7 +43,7 @@ router.get('/:id/edit', middlewares.auth(true), async (req, res) => {
   return null;
 });
 
-router.post('/:id', middlewares.auth(true), async ({ body, params: { id }, user= req.user }, res) => {
+router.post('/:id', middlewares.auth(true), async ({ body, params: { id }, user = req.user }, res) => {
   const recipe = {
     title: body.title,
     ingredients: body.ingredients,
