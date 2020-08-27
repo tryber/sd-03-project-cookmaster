@@ -2,9 +2,9 @@ const mysqlx = require('@mysql/xdevapi');
 
 let schema;
 
-module.exports = () => schema
-  ? Promise.resolve(schema)
-  : mysqlx
+module.exports = () => {
+  if (schema) return Promise.resolve(schema)
+  return mysqlx
     .getSession({
       host: process.env.HOSTNAME,
       user: process.env.MYSQL_USER,
@@ -19,3 +19,4 @@ module.exports = () => schema
       console.error(err);
       process.exit(1);
     });
+}

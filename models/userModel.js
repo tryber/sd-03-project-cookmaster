@@ -1,12 +1,5 @@
 const connect = require('./connect');
 /* Quando você implementar a conexão com o banco, não deve mais precisar desse objeto */
-const TEMP_USER = {
-  id: 'd2a667c4-432d-4dd5-8ab1-b51e88ddb5fe',
-  email: 'taylor.doe@company.com',
-  password: 'password',
-  name: 'Taylor',
-  lastName: 'Doe',
-};
 
 /* Substitua o código das funções abaixo para que ela,
 de fato, realize a busca no banco de dados */
@@ -23,17 +16,17 @@ const findByEmail = async (email) =>
         .select(['id', 'first_name', 'last_name', 'password'])
         .where('email = :email')
         .bind('email', email)
-        .execute()
+        .execute(),
     )
     .then((results) => results.fetchAll()[0])
-    .then(([id, first_name, last_name, password]) => (
+    .then(([id, firstName, lastName, password]) => (
       first_name
       ?
       {
         id,
-        firstName: first_name,
-        lastName: last_name,
-        password
+        firstName,
+        lastName,
+        password,
       }
       :
       null
@@ -48,26 +41,24 @@ const findById = async (id) =>
     .then((db) =>
       db
         .getTable('users')
-        .select(['id', 'first_name', 'last_name', 'password'])
+        .select(['first_name', 'last_name', 'password'])
         .where('id = :id')
         .bind('id', id)
-        .execute()
+        .execute(),
     )
     .then((results) => results.fetchAll()[0])
-    .then(([id, first_name, last_name, password]) => (
+    .then(([firstName, lastName, password]) => (
       first_name
       ?
       {
         id,
-        firstName: first_name,
-        lastName: last_name,
+        firstName,
+        lastName,
         password,
       }
       :
       null
-    ))
-
-
+    ));
 
 // findByEmail('bruno.batista@gmail.com').then(result => console.log(result));
 // findById(1).then(result => console.log(result));

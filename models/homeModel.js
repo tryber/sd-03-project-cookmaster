@@ -6,7 +6,7 @@ const getAll = () =>
       db
         .getTable('recipes')
         .select(['id', 'user', 'name'])
-        .execute()
+        .execute(),
     )
     .then((results) => results.fetchAll())
     .then((recipes) => recipes.map(([id, user, name]) => ({ id, user, name })));
@@ -14,5 +14,5 @@ const getAll = () =>
 // getAll().then((res) => console.log(res));
 
 module.exports = {
-  getAll
-}
+  getAll,
+};
