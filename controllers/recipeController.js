@@ -35,7 +35,7 @@ const listRecipesByQuery = async (req, res) => {
 
     return res.render('recipes/search', { recipes: [], user: null });
   } catch (error) {
-    return error;
+    throw new Error(error.message);
   }
 };
 
