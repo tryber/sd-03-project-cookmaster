@@ -1,6 +1,5 @@
 const { v4: uuid } = require('uuid');
 const { SESSIONS } = require('../middlewares/auth');
-
 const userModel = require('../models/userModel');
 
 const loginForm = (req, res) => {
@@ -32,17 +31,52 @@ const login = async (req, res) => {
   SESSIONS[token] = user.id;
 
   res.cookie('token', token, { httpOnly: true, sameSite: true });
-  res.redirect(redirect || '/admin');
+  return res.redirect(redirect || '/admin');
 };
 
 const logout = (req, res) => {
   res.clearCookie('token');
+
   if (!req.cookies || !req.cookies.token) return res.redirect('/login');
-  res.render('admin/logout');
+
+  return res.render('admin/logout');
 };
+
+// REGISTER
+
+const registerForm = (_req, res) => { res.render('admin/signup', { message: null }); };
+
+const registerUser = async (req, res) => {
+  const {
+    email,
+    password,
+    passconfirm,
+    firstName,
+    lastName,
+  } = req.body;
+
+  const validation = await userModel.isValid(email, password, passconfirm, firstName, lastName);
+
+  res.render('admin/signup', {
+    message: {
+      validation,
+    },
+  });
+};
+
+// Edition
 
 module.exports = {
   login,
   loginForm,
   logout,
+
+  // Register
+  registerUser,
+  registerForm,
+
+  // Edition
+  // userEdit,
+  // userEditForm,
+
 };

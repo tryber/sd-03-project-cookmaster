@@ -12,14 +12,16 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-app.get('/', middlewares.auth(false), controllers.recipeController.recipeList);
-
 app.get('/admin', middlewares.auth(), (req, res) => {
   return res.render('admin/home', { user: req.user });
 });
 
+app.get('/', middlewares.auth(false), controllers.recipeController.recipeList);
 app.get('/login', controllers.userController.loginForm);
-app.get('/logout', controllers.userController.logout);
 app.post('/login', controllers.userController.login);
+app.get('/logout', controllers.userController.logout);
+
+app.get('/signup', middlewares.auth(false), controllers.userController.registerForm);
+app.post('/signup', middlewares.auth(false), controllers.userController.registerUser);
 
 app.listen(3000, () => console.log('Listening on 3000'));
