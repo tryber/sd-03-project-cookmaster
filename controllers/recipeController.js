@@ -10,7 +10,6 @@ const showRecipes = async (req, res) => {
 };
 
 const showOneRecipe = async (req, res) => {
-  console.log(await recipeModel.getRecipeById(req.params.id));
   const recipe = await recipeModel.getRecipeById(req.params.id);
   res.render('details', {
     recipe,
