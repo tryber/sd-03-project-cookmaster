@@ -1,6 +1,6 @@
 const connect = require('./connect');
 
-const findUserByEmail = async (email) => {
+const findByEmail = async (email) => {
   const db = await connect();
 
   const results = await db
@@ -10,14 +10,14 @@ const findUserByEmail = async (email) => {
     .bind('email', email)
     .execute();
 
-  const user = results.fetchAll()[0];
+  const [ id, first_name, last_name, password ] = await results.fetchOne();
 
-  return user.firstName
-    ? { id: user.id, firstName: user.first_name, lastName: user.last_name, password: user.password }
+  return first_name
+    ? { id, firstName: first_name, lastName: last_name, password }
     : null;
 };
 
-const findUserById = async (id) => {
+const findById = async (id) => {
   const db = await connect();
 
   const results = await db
@@ -35,6 +35,6 @@ const findUserById = async (id) => {
 };
 
 module.exports = {
-  findUserByEmail,
-  findUserById,
+  findByEmail,
+  findById,
 };
