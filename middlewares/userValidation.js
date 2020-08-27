@@ -15,11 +15,12 @@ const getUser = async (userEmail) => {
   return !!user;
 };
 
-// Regex obtido em https://regexr.com/3e48o
-const validateEmail = (email) => email && email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
+/* Regex obtido em https://html.spec.whatwg.org/multipage/
+input.html#valid-e-mail-address */
+const validateEmail = (email) => email && (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/).test(email);
 
 // Regex criado com orientação do instrutor Neto
-const validateName = (name) => name && name.match(/^[A-Z][a-z]{3,}$/);
+const validateName = (name) => name && (/^[A-Z][a-z]{3,}$/).test(name);
 
 const verifyPasswords = (userPassword, passwordConfirm) => {
   if (userPassword < 6) return validationMessages.password;
