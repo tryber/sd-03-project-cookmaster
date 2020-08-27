@@ -31,7 +31,9 @@ const listRecipesByQuery = async (req, res) => {
 
     if (user && !searchedRecipes) return res.render('recipes/search', { recipes: [], user });
 
-    return res.render('recipes/search', { recipes: searchedRecipes, user: null });
+    if (!user && searchedRecipes) return res.render('recipes/search', { recipes: searchedRecipes, user: null });
+
+    return res.render('recipes/search', { recipes: [], user: null });
   } catch (error) {
     return error;
   }

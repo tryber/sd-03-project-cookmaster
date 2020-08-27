@@ -44,6 +44,8 @@ const findRecipeByID = async (recipeId) => {
   }
 };
 
+/* bind realizado conforme documentação
+https://dev.mysql.com/doc/x-devapi-userguide/en/parameter-binding.html */
 const searchRecipes = async (query = '') => {
   try {
     const db = await connection();
