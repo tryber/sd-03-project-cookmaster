@@ -84,5 +84,5 @@ module.exports = {
   getSelfRecipes,
   confirmPassword,
   sendUserEditForm,
-  changeUserInformation
+  changeUserInformation,
 };

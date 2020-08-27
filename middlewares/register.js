@@ -44,7 +44,6 @@ function verifyRegister(req, res, next) {
     }
     return next();
   } catch (err) {
-    console.error(err)
     return res.status(500).send('Something went wrong during register');
   }
 }

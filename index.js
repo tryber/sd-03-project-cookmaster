@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser');
 
 const middlewares = require('./middlewares');
 const { userController, recipeController } = require('./controllers');
-const register = require('./middlewares/register');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
