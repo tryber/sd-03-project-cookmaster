@@ -1,6 +1,6 @@
+// Ref. Código já veio pronto em /admin/login. O código abaixo foi baseado nele
 const { v4: uuid } = require('uuid');
 const { SESSIONS } = require('../middlewares/auth');
-
 const userModel = require('../models/userModel');
 
 const loginForm = (req, res) => {
@@ -8,7 +8,7 @@ const loginForm = (req, res) => {
 
   if (SESSIONS[token]) return res.redirect('/');
 
-  return res.render('admin/login', {
+  return res.render('signup', {
     message: null,
     redirect: req.query.redirect,
   });
@@ -17,14 +17,14 @@ const loginForm = (req, res) => {
 const login = async (req, res, next) => {
   const { email, password, redirect } = req.body;
   if (!email || !password)
-    return res.render('admin/login', {
+    return res.render('signup', {
       message: 'Preencha o email e a senha',
       redirect: null,
     });
 
   const user = await userModel.findByEmail(email);
   if (!user || user.password !== password)
-    return res.render('admin/login', {
+    return res.render('signup', {
       message: 'Email ou senha incorretos',
       redirect: null,
     });
@@ -33,7 +33,7 @@ const login = async (req, res, next) => {
   SESSIONS[token] = user.id;
 
   res.cookie('token', token, { httpOnly: true, sameSite: true });
-  res.redirect(redirect || '/admin');
+  res.redirect(redirect || '/');
 };
 
 const logout = (req, res) => {

@@ -6,19 +6,22 @@
     <title>Cookmaster - Home</title>
   </head>
   <header>Cookmaster
-    <%const user = 'Marco'%>
+    <%// const user = 'Marco'%>
     <nav>
       <%if (!user) {%>
-        <a data-testid="login">Login</a>
+        <a href="/login" data-testid="login">Login</a>
       <%}%>
       <%if (user) {%>
-        <a data-testid="logout">Logout</a>
+        <a href="/logout" data-testid="logout">Logout</a>
       <%}%>
     </nav>
   </header>
   <body>
     <div>
       <h1>Receitas<h1>
+      <%if (user) {%>
+        <button data-testid="nova-receita">Nova Receita</button>
+      <%}%>
       <button data-testid="buscar-receita">Buscar Receita</button>
     </div>
     <% if (listResume) {%>
