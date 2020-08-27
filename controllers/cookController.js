@@ -10,9 +10,7 @@ const searchRecipe = async (req, res) => {
   recipes = await (cookModel.getAll());
   if (req.query.search === undefined) {
     return res.render('searchRecipes', { user: req.user, recipes });
-  }
-
-  if (req.query.search !== undefined) {
+  } else {
     const test = [await cookModel.getCookieByName(req.query.search)];
     recipes = test;
     return res.render('searchRecipes', { user: req.user, recipes });
