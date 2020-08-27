@@ -53,12 +53,12 @@ const emailRegex = RegExp(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\
 const validString = (value) => !/^[a-zA-Z]+$/.test(value);
 
 const renderReturn = (message, res, value) => {
-  if(value)
-  return res.render('admin/signup', {
-    message,
-    redirect: null,
-  })
-}
+  if (value)
+    return res.render('admin/signup', {
+      message,
+      redirect: null,
+    });
+};
 
 const signup = async (req, res, next) => {
   const { email, password, confirmPassword, name, lastName } = req.body;
