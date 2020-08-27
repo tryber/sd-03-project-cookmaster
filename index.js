@@ -18,7 +18,10 @@ app.get('/cadastro', (req, res) => res.render('admin/signin', { message: '' }));
 app.post('/cadastro', controllers.userController.singIn);
 
 app.get('/admin', middlewares.auth(), (req, res) => res.render('admin/home', { user: req.user }));
-app.get('/recipes/:id', middlewares.auth(false), controllers.recipesController.recipes);
+app.get('/recipes/search', controllers.recipesController.searchRecipes);
+app.get('/recipes/new', middlewares.auth(), controllers.recipesController.newRecipe);
+app.post('/recipes', middlewares.auth(), controllers.recipesController.newRecipePOST);
+app.get('/recipes/:id', middlewares.auth(false), controllers.recipesController.recipesDescription);
 
 app.get('/login', controllers.userController.loginForm);
 app.get('/logout', controllers.userController.logout);
