@@ -27,4 +27,8 @@ app.get('/login', controllers.userController.loginForm);
 app.get('/logout', controllers.userController.logout);
 app.post('/login', controllers.userController.login);
 
+// Ref. Linhas acima do endPoint /login
+app.get('/signin', controllers.userController.signinForm);
+app.post('/signin', controllers.userController.signin);
+
 app.listen(3000, () => console.log('Listening on 3000'));

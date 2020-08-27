@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Cadastro</title>
+  </head>
+  <body>
+    <% if (message) {%>
+    <div class="message">
+      <%= message %>
+    </div>
+    <% } %>
+    <form action="/signin" method="POST">
+      <legend>Cookmaster Cadastro</legend>
+      <%if (error.length > 0) {%>
+          <%for (let i =0; i < error.length; i += 1 ){%>
+            <li><%=error[i]%></li>
+          <%}%>
+      <%}%>
+      <label for="emailInput">Email: </label>
+      <input data-testid="email" type="text" name="email" id="emailInput" /><br />
+      <label for="passwordInput">Senha: </label>
+      <input data-testid="senha" type="password" name="password" id="passwordInput" /><br />
+      <label for="passwordRetype">Confirmar Senha: </label>
+      <input data-testid="confirmar-senha" type="password" name="passwordRetype" id="passwordRetype" /><br />
+      <label for="nameInput">Nome: </label>
+      <input data-testid="nome" type="text" name="name" id="nameInput" /><br />
+      <label for="surnameInput">Sobrenome: </label>
+      <input data-testid="sobrenome" type="text" name="surname" id="surnameInput" /><br />
+      <% if (redirect) { %>
+      <input
+        type="hidden"
+        name="redirect"
+        value="<%= decodeURIComponent(redirect) %>"
+      />
+      <% } %>
+      <div>
+        <a data-testid="login" href="/login">Fazer Login</a>
+        <button data-testid="cadastrar" type="submit">Cadastre-se</button>
+      </div>
+    </form>
+  </body>
+</html>

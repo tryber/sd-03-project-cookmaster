@@ -12,6 +12,7 @@
     </div>
     <% } %>
     <form action="/login" method="POST">
+      <legend>Cookmaster Login</legend>
       <label for="emailInput">Email: </label>
       <input data-testid="email" type="text" name="email" id="emailInput" /><br />
       <label for="passwordInput">Senha: </label>
@@ -23,7 +24,10 @@
         value="<%= decodeURIComponent(redirect) %>"
       />
       <% } %>
-      <button data-testid="entrar" type="submit">Entrar</button>
+      <div>
+        <a data-testid="cadastrar" href="/signin">Cadastre-se</a>
+        <button data-testid="entrar" type="submit">Entrar</button>
+      </div>
     </form>
   </body>
 </html>
