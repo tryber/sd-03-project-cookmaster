@@ -2,8 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const getRecipes = require('./controllers');
-const userModel = require('./models/userModel');
-
 const middlewares = require('./middlewares');
 const controllers = require('./controllers');
 
