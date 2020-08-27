@@ -5,13 +5,18 @@ const listCook = async (_req, res) => {
   return res.render('home', { recipes });
 };
 
-const newRecipe = async (req, res) => {
+const newRecipe = async (_req, res) => {
   res.render('admin/newRecipe');
 };
 
+const setNewRecipe = async (req, res) => {
+  console.log(req.body)
+  res.send('ok')
+};
+
 const cooks = async (req, res) => {
-  const recipes = await cookModel.getAll();
-  const recipesDetails = recipes.find((el) => el.id === Number(req.params.id));
+  const { id } = req.params;
+  const recipesDetails = await cookModel.getCookieById(id);
   return res.render('recipes', { user: req.user, recipesDetails });
 };
 
@@ -25,4 +30,5 @@ module.exports = {
   newRecipe,
   cooks,
   admin,
+  setNewRecipe,
 };

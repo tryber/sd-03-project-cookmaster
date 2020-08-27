@@ -23,6 +23,7 @@ app.post('/signup', controllers.userController.signup);
 app.get('/signup', controllers.userController.signupForm);
 app.get('/recipes/new', middlewares.auth(), controllers.cookController.newRecipe);
 app.get('/recipes/:id', middlewares.auth(false), controllers.cookController.cooks);
+app.post('/recipes', middlewares.auth(), controllers.cookController.setNewRecipe);
 app.get('/logout', controllers.userController.logout);
 
 app.listen(3000, () => console.log(process.env.HOSTNAME));

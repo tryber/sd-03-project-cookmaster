@@ -1,17 +1,5 @@
 const connect = require('../models/connect');
 
-/* Substitua o código das funções abaixo para que ela,
-de fato, realize a busca no banco de dados */
-
-const getUser = async () =>
-  connect()
-    .then((db) => db.getTable('users').select(
-      ['id', 'email', 'password', 'first_name', 'last_name']).execute())
-      .then((results) => results.fetchAll())
-      .then((cook) => cook.map(([id, email, password, firstName, lastName]) => (
-        { id, email, password, firstName, lastName }
-      )));
-
 const setUser = async (userValues) =>
   connect()
     .then((db) => db.getTable('users').insert(
@@ -19,21 +7,39 @@ const setUser = async (userValues) =>
       .values(userValues.email, userValues.password, userValues.name, userValues.lastName)
       .execute());
 
-const findShearch = async (objParam, emailOrId) => {
-  const user = await getUser();
-  const userShearced = user.find((userEmail) => userEmail[objParam] === emailOrId);
-  return userShearced;
-};
+const findByEmail = async (email) =>
+  connect()
+    .then((db) => 
+      db
+        .getTable('users').select(['id', 'email', 'password', 'first_name', 'last_name'])
+        .where('email = :email')
+        .bind('email', email)
+        .execute()
+      )
+      .then((results) => results.fetchAll()[0])
+      .then(([id, email, password, firstName, lastName] = []) =>
+        id 
+          ?
+          { id, email, password, firstName, lastName }
+          :
+        null);
 
-const findByEmail = async (email) => {
-  const user = await findShearch('email', email);
-  return user;
-};
-
-const findById = async (id) => {
-  const user = await findShearch('id', id);
-  return user;
-};
+const findById = async (id) =>
+  connect()
+    .then((db) => 
+      db
+        .getTable('users').select(['id', 'email', 'password', 'first_name', 'last_name'])
+        .where('id = :id')
+        .bind('id', id)
+        .execute()
+      )
+      .then((results) => results.fetchAll()[0])
+      .then(([id, email, password, firstName, lastName] = []) =>
+        id 
+          ?
+          { id, email, password, firstName, lastName }
+          :
+        null);
 
 module.exports = {
   findByEmail,
