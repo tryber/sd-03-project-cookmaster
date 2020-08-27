@@ -13,5 +13,10 @@
     <button type="button" data-testid="buscar-receita">Buscar Receita</button>
     <button type="button" data-testid="nova-receita">Nova Receita</button>
     <button onclick="window.location.pathname='/logout'" data-testid="logout">Logout</button>
+    <% recipes.map(el => {%>
+      <h1> <%= el.name %></h1>
+      <h3> <%= el.user %></h3>
+      <a href="/recipes/<%= el.id %>">Ver mais</a>
+    <%})%>
   </body>
 </html>

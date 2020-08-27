@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Recipes</title>
+  </head>
+  <body>
+    <h1>Cookmaster</h1>
+    <h2>Receitas</h2>
+    <button type="button" data-testid="buscar-receita">Buscar Receita</button>
+    <% if (user===undefined) { %>
+      <button onclick="window.location.pathname='/login'" data-testid="login">Login</button>
+    <% } %>
+    <% if (user) { %>
+      <h1><%= user.firstName %></h1>
+      <button onclick="window.location.pathname='/logout'" data-testid="logout">Logout</button>
+      <button onclick="window.location.pathname='/edit'" data-testid="editar-receita">
+        Editar 
+      </button>
+      <button onclick="window.location.pathname='/delete'" data-testid="excluir-receita">
+        Excluir Receita
+      </button>
+    <% } %>
+    <h1><%= recipesDetails.name %></h1>
+    <h3><%= recipesDetails.user %></h3>
+    <h2>Ingredientes</h2>
+    <% recipesDetails.ingredients.split(',').map(el => {%>
+      <p> <%= el %></p>
+    <%})%>
+    <h2>Modo de Preparo</h2>
+    <span><%= recipesDetails.instructions %></span>
+  </body>
+</html>

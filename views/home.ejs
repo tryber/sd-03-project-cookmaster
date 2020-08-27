@@ -13,7 +13,7 @@
     <% recipes.map(el => {%>
       <h1> <%= el.name %></h1>
       <h3> <%= el.user %></h3>
-      <a href="">Ver mais</a>
+      <a href="/recipes/<%= el.id %>">Ver mais</a>
     <%})%>
   </body>
 </html>

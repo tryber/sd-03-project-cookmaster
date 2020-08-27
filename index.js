@@ -15,12 +15,11 @@ app.set('views', './views');
 
 app.get('/', controllers.cookController.listCook);
 
-app.get('/admin', middlewares.auth(), (req, res) => {
-  return res.render('admin/home', { user: req.user });
-});
+app.get('/admin', middlewares.auth(), controllers.userController.admin);
 
 app.get('/login', controllers.userController.loginForm);
 app.get('/signup', controllers.userController.signupForm);
+app.get('/recipes/:id', middlewares.auth(false), controllers.userController.cooks);
 app.get('/logout', controllers.userController.logout);
 app.post('/login', controllers.userController.login);
 app.post('/signup', controllers.userController.signup);
