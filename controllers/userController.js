@@ -23,6 +23,12 @@ const login = async (req, res, next) => {
     });
 
   const user = await userModel.findByEmail(email);
+  if (typeof (user) === 'undefined')
+    return res.render('signup', {
+      message: 'Usuário não cadastrado',
+      redirect: null,
+    });
+
   if (!user || user.password !== password)
     return res.render('signup', {
       message: 'Email ou senha incorretos',

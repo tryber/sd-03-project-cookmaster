@@ -25,13 +25,18 @@ const findByEmail = (email) =>
     .execute(),
   )
   .then((results) => results.fetchAll()[0])
-  .then((results) => ({
-    id: results[0],
-    email: results[1],
-    password: results[2],
-    name: results[3],
-    lastName: results[4],
-  }));
+  .then((results) => {
+    if (results) {
+      return ({
+        id: results[0],
+        email: results[1],
+        password: results[2],
+        name: results[3],
+        lastName: results[4],
+      });
+    }
+    return undefined;
+  });
 
 /**
  * Busca um usuário através do seu ID
@@ -46,13 +51,18 @@ const findById = (id) =>
     .execute(),
   )
   .then((results) => results.fetchAll()[0])
-  .then((results) => ({
-    id: results[0],
-    email: results[1],
-    password: results[2],
-    name: results[3],
-    lastName: results[4],
-  }));
+  .then((results) => {
+    if (results) {
+      return ({
+        id: results[0],
+        email: results[1],
+        password: results[2],
+        name: results[3],
+        lastName: results[4],
+      });
+    }
+    return undefined;
+  });
 
 module.exports = {
   findByEmail,
