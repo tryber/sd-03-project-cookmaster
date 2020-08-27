@@ -23,7 +23,7 @@ const login = async (req, res, next) => {
       redirect: null,
     });
 
-  const user = await userModel.findByEmail(email);
+  const user = await userModel.findByValue(email, 'email');
   if (!user || user.password !== password)
     return res.render('admin/login', {
       message: 'Email ou senha incorretos',
@@ -80,7 +80,7 @@ const signup = async (req, res, next) => {
   renderReturn('As senhas tem que ser iguais', res, password !== confirmPassword);
 
   await userModel.setUser(req.body);
-  const user = await userModel.findByEmail(email);
+  const user = await userModel.findByValue(email, 'email');
   return renderReturn('Cadastro efetuado com sucesso!', res, user);
 };
 

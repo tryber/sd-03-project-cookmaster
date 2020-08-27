@@ -9,7 +9,7 @@ const getUser = async (req) => {
   const userId = SESSIONS[token];
   if (!userId) return null;
 
-  const user = await userModel.findById(userId);
+  const user = await userModel.findByValue(userId, 'id');
   if (!user) return null;
 
   return user;

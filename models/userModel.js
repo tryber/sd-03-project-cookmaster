@@ -7,12 +7,12 @@ const setUser = async (userValues) =>
       .values(userValues.email, userValues.password, userValues.name, userValues.lastName)
       .execute());
 
-const findByEmail = async (email) =>
+const findByValue = async (email, param) =>
   connect()
     .then((db) =>
       db
         .getTable('users').select(['id', 'email', 'password', 'first_name', 'last_name'])
-        .where('email = :email')
+        .where(`${param} = :email`)
         .bind('email', email)
         .execute(),
       )
@@ -24,25 +24,7 @@ const findByEmail = async (email) =>
           :
         null));
 
-const findById = async (id) =>
-  connect()
-    .then((db) =>
-      db
-        .getTable('users').select(['id', 'email', 'password', 'first_name', 'last_name'])
-        .where('id = :id')
-        .bind('id', id)
-        .execute(),
-      )
-      .then((results) => results.fetchAll()[0])
-      .then(([id, email, password, firstName, lastName] = []) => (
-        id
-          ?
-          { id, email, password, firstName, lastName }
-          :
-        null));
-
 module.exports = {
-  findByEmail,
-  findById,
+  findByValue,
   setUser,
 };
