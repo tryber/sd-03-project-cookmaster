@@ -8,13 +8,12 @@ const getRecipes = async () => {
   .execute();
 
   const resultsRecipes = results.fetchAll();
-  console.log('deixa ver', resultsRecipes)
 
   return resultsRecipes ? resultsRecipes.map(([id, user, name]) => ({
     id,
     user,
     name,
-  }))[0] : null;
+  })) : null;
 };
 
 // const findRecipesById = async () => {

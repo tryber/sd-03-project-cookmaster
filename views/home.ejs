@@ -4,13 +4,21 @@
     <link href="./layout/style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <%- include('navbar', {user: user}); %>
+    <h1>Cookmaster</h1>
+    <%- include('navbar', {user:user}); %>
     <h1>Receitas</h1>
-    
     <% if (user) { %>
       <button data-testid="nova-receita">Nova Receita</button>
     <% } %>
-    <a href="link">Ver mais</a>
-    <button data-testid="buscar-receita">Buscar Receita</button>
+    <div>
+      <div>
+        <% listRecipes.map((elem) => { %>
+        <h3>Receita: <%= elem.name %></h3>
+        <p>Usuário: <%= elem.user %></p>
+        <a href="/recipes/<%= elem.id %>" %>>Ver mais</a>
+        <button data-testid="buscar-receita">Buscar Receita</button>
+      </div>
+      <% }) %>
+    </div>
   </body>
 </html>

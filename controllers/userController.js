@@ -16,7 +16,6 @@ const loginForm = (req, res) => {
 
 const login = async (req, res, next) => {
   const { email, password, redirect } = req.body;
-  console.log(req.body)
   if (!email || !password)
     return res.render('admin/login', {
       message: 'Preencha o email e a senha',
@@ -35,7 +34,7 @@ const login = async (req, res, next) => {
   SESSIONS[token] = user.id;
 
   res.cookie('token', token, { httpOnly: true, sameSite: true });
-  res.redirect(redirect || '/admin');
+  res.redirect(redirect || '/');
 };
 
 
