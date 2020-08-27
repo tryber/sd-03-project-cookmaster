@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form method="POST" action="/me">
+    <label for="email">Email
+      <input value="<%= email %>" data-testid="email" name="email" id="email">
+    </label>
+    <label for="password">Senha
+      <input value="" data-testid="senha" name="password" id="password">
+    </label>
+    <label for="confirm-password">Confirmar Senha
+      <input id="confirm-password" value="" data-testid="senha" name="confirmPassword">
+    </label>
+    <label for="name">Nome
+      <input value="<%= name %>" id="name" name="firstName" data-testid="nome">
+    </label>
+    <label for="last-name">Sobrenome
+      <input value="<%= lastName %>" id="last-name" name="lastName" data-testid="sobrenome">
+    </label>
+    <button type="submit" data-testid="salvar">Salvar</button>
+  </form>
+</body>
+</html>

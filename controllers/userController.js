@@ -63,6 +63,18 @@ async function confirmPassword(req, res, next) {
   return next();
 }
 
+async function sendUserEditForm(req, res) {
+  const { id } = req.user;
+  const { lastName, name, email } = await userModel.findById(id);
+  res.render('editUser', { lastName, name, email });
+}
+
+async function changeUserInformation(req) {
+  const { id } = req.user;
+  const { password, email, lastName, firstName } = req.body;
+  userModel.changeUserInformation(id, email, password, firstName, lastName);
+}
+
 module.exports = {
   login,
   loginForm,
@@ -70,4 +82,6 @@ module.exports = {
   register,
   getSelfRecipes,
   confirmPassword,
+  sendUserEditForm,
+  changeUserInformation
 };

@@ -1,7 +1,5 @@
-const { register } = require('../controllers/userController.js');
-
 const PATTERN = {
-  email: /^[A-z0-9]*@[A-z0-9]*.com$/,
+  email: /^[A-z0-9]*.?[A-z0-9]*@[A-z0-9]*.com$/,
   password: '',
   firstName: /^[A-z]*$/,
   lastName: /^[A-z]*$/,
@@ -37,22 +35,16 @@ function conditions(obj) {
 function verifyRegister(req, res, next) {
   try {
     const { email, password, confirmPassword, firstName, lastName } = req.body;
-
-    const message = conditions({
-      email,
-      password,
-      firstName,
-      lastName,
-    });
+    const message = conditions({ email, password, firstName, lastName });
 
     if (message) {
       return res.status(400).render('register', { message });
     } else if (password !== confirmPassword) {
       return res.status(400).render('register', { message: invalidMessages.confirmPassword });
     }
-    register(email, password, firstName, lastName);
     return next();
   } catch (err) {
+    console.error(err)
     return res.status(500).send('Something went wrong during register');
   }
 }

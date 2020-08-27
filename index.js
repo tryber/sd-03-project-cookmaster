@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 
 const middlewares = require('./middlewares');
 const { userController, recipeController } = require('./controllers');
+const register = require('./middlewares/register');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -34,9 +35,24 @@ app.route('/register')
     (_req, res) => {
       res.status(200).render('register', { message: null });
     },
-  ).post(middlewares.verifyRegister, (_req, res) => {
+  ).post(middlewares.verifyRegister, (req, res) => {
+    const { email, password, firstName, lastName } = req.body;
+    register(email, password, firstName, lastName);
     res.status(200).render('register', { message: 'Cadastro efetuado com sucesso!' });
   });
+
+app.route('/me')
+  .post(
+    middlewares.auth(true),
+    middlewares.verifyRegister,
+    userController.changeUserInformation,
+  );
+
+app.route('/me/edit')
+  .get(
+    middlewares.auth(true),
+    userController.sendUserEditForm,
+  );
 
 app.route('/recipes/search')
   .get(recipeController.getRecipesByName);
