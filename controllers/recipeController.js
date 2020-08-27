@@ -6,7 +6,7 @@ const listRecipes = async (req, res) => {
     durante plantão dia 26/08 */
     const recipes = await recipesModel.findAllRecipes();
     if (req.user) return res.render('home', { recipes, user: req.user });
-    return res.render('home', { recipes, user: null });
+    return res.render('recipeDetails', { recipes, user: null });
   } catch (error) {
     return error;
   }
@@ -17,7 +17,7 @@ const listRecipeByID = async (req, res) => {
   try {
     const recipeDetails = await recipesModel.findRecipeByID(id);
     if (req.user) return res.render('home', { recipeDetails, user: req.user });
-    return res.render('home', { recipeDetails, user: null });
+    return res.render('recipeDetails', { recipeDetails, user: null });
   } catch (error) {
     return error;
   }
