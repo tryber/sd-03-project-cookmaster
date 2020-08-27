@@ -7,29 +7,32 @@
   </head>
   <body>
     <!-- include Header -->
-
+    <h1>Cookmaster</h1>
     <h1>Receitas</h1>
 
-    <!-- <% if (recipes) {%>
+    <% console.log('OQUE VEM', token) %>
+    <% if (token) {%>
       <a href="#">
         <button type="button">Minhas Receitas</button>
       </a>
       <a href="#">
-        <button type="button">Buscar Receitas</button>
-      </a>
-      <a href="#">
-        <button type="button">Nova Receita</button>
+        <button data-testid="nova-receita" type="button">Nova Receita</button>
       </a>
       <a href="#">
         <button type="button">Minha Conta</button>
       </a>
-    <% } else { %>
-      <a href="#">
-        <button type="button">Buscar Receitas</button>
+      <a href="/logout">
+        <button data-testid="logout" type="button">Logout</button>
       </a>
-    <% } %> -->
+    <% } else { %>
+      <a href="/login">
+        <button data-testid="login" type="button">Login</button>
+      </a>
+    <% } %>
 
-    <% console.log('oque veio', recipes) %>
+    <a href="#">
+      <button type="button">Buscar Receitas</button>
+    </a>
 
     <% recipes.forEach((recipe) => { %>
       <div>
