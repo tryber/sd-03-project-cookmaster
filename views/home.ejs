@@ -2,20 +2,15 @@
 <html>
   <head>
     <link href="./layout/style.css" rel="stylesheet" type="text/css" />
-    <h1>Cookmaster</h1>
   </head>
   <body>
-    <%- include('nav'); %>
+    <%- include('navbar', {user: user}); %>
     <h1>Receitas</h1>
-    <!-- somente logado: nova receita! -->
+    
     <% if (user) { %>
       <button data-testid="nova-receita">Nova Receita</button>
-      <% } %>
-      <a href="link">Ver mais</a>
-      <!-- indiferente -->
-      <button data-testid="buscar-receita">Buscar Receita</button>
-      <!-- não logado -->
-      <a href="/login" data-testid="login">Login</a>
-      <button data-testid="logout">Logout</button>
+    <% } %>
+    <a href="link">Ver mais</a>
+    <button data-testid="buscar-receita">Buscar Receita</button>
   </body>
 </html>

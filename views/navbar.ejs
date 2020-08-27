@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Admin</title>
+  </head>
+  <body>
+    <h1>Cookmaster</h1>
+    <% if (user) { %>
+      <span><%= `${user.name} ${user.lastName}` %></span>
+      <button data-testid="logout" onclick="window.location.pathname='/logout'">Logout</button>
+    <% } else { %>
+      <button data-testid="login" onclick="window.location.pathname='/login'">Login</button>
+    <% } %>
+  </body>
+</html>

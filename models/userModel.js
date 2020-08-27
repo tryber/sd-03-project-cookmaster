@@ -22,7 +22,7 @@ const findByEmail = async (EMAIL) => {
 
 const findById = async (ID) => {
   const db = await connection();
-  
+
   const results = await db.getTable('users')
     .select(['id', 'email', 'password', 'first_name', 'last_name'])
     .where('id = :id')
