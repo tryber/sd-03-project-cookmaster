@@ -11,12 +11,10 @@
     <p>Usuário atual: <%= `${user.firstName} ${user.lastName}` %></p>
     <pre><%= JSON.stringify(user, null, 4) %></pre>
     <button
-      type="button"
       onclick="window.location.pathname='/recipes/shearch'"
       data-testid="buscar-receita"
     >Buscar Receita</button>
     <button
-    type="button"
     onclick="window.location.pathname='/recipes/new'"
     data-testid="nova-receita">Nova Receita</button>
     <button onclick="window.location.pathname='/logout'" data-testid="logout">Logout</button>
