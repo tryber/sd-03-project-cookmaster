@@ -22,9 +22,10 @@ async function createRecipe({ id, user }, { name, ingredients, instructions }) {
 async function getRecipeById(id) {
   const db = await connection();
   const recipes = await db.getTable('recipes');
-  const recipe = await recipes.select().where('id = :id').bind('id', id).execute();
-
-  return serializer.recipe(recipe.fetchOne());
+  let recipe = await recipes.select().where('id = :id').bind('id', id).execute();
+  recipe = await recipe.fetchOne();
+  if (!recipe) return undefined;
+  return serializer.recipe(recipe);
 }
 
 async function searchRecipe(query) {
@@ -34,6 +35,36 @@ async function searchRecipe(query) {
   return recipe.fetchAll().map(serializer.recipe);
 }
 
+async function updateRecipe(id, { name, ingredients, instructions }) {
+  try {
+    const db = await connection();
+    const recipes = await db.getTable('recipes');
+    await recipes.update()
+      .set('name', name)
+      .set('ingredients', ingredients)
+      .set('instructions', instructions)
+      .where('id = :id')
+      .bind('id', id)
+      .execute();
+    return { message: 'ok' };
+  } catch (err) {
+    return console.error(err);
+  }
+}
+
+async function deleteRecipe(id) {
+  try {
+    const db = await connection();
+    const recipes = await db.getTable('recipes');
+    await recipes.delete()
+      .where('id=:id').bind('id', id)
+      .execute();
+    return { message: 'ok' };
+  } catch (err) {
+    return console.error(err);
+  }
+}
+
 module.exports = {
-  getAllRecipes, getRecipeById, searchRecipe, createRecipe,
+  getAllRecipes, getRecipeById, searchRecipe, createRecipe, updateRecipe, deleteRecipe,
 };

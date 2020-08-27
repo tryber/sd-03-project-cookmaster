@@ -7,7 +7,11 @@ const findByEmail = async (email) => {
   const users = await db.getTable('users');
   let user = await users.select().where('email = :email')
     .bind('email', email).execute();
+
   user = user.fetchOne();
+  if (!user) {
+    return undefined;
+  }
   user = Serializer.user(Object.values(user));
   return user;
 };

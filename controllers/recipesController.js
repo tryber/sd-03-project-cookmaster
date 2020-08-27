@@ -1,4 +1,5 @@
 const Recipes = require('../models/recipeModel');
+const User = require('../models/userModel');
 
 async function recipesDescription(req, res) {
   const recipe = await Recipes.getRecipeById(req.params.id);
@@ -33,6 +34,62 @@ async function newRecipePOST(req, res) {
   res.redirect('/recipes/new');
 }
 
+async function editRecipe(req, res) {
+  const recipe = await Recipes.getRecipeById(req.params.id);
+  res.render('admin/editRecipe', { recipe, id: req.params.id });
+}
+
+async function editRecipePOST(req, res) {
+  const { user } = req;
+  let recipe = await Recipes.getRecipeById(req.params.id);
+
+  if (!user) { return res.status(401).send('sai pra lá jacaré'); }
+  if (recipe.userId !== user.id) {
+    return res.status(401).send('Ta tentando me enganar miserávi ?');
+  }
+  recipe = req.body;
+  if (typeof recipe.ingredients === 'object') {
+    recipe.ingredients = recipe.ingredients.join(',');
+  }
+  await Recipes.updateRecipe(user.id, recipe);
+  return res.redirect(`/recipes/${req.params.id}`);
+}
+
+async function deleteRecipe(req, res) {
+  const { user } = req;
+  const recipe = await Recipes.getRecipeById(req.params.id);
+  console.log(recipe);
+  if (!recipe) { return res.status(404).send('Message not found'); }
+  if (!user) { return res.status(401).send('sai pra lá jacaré'); }
+  if (recipe.userId !== user.id) {
+    return res.status(401).send('Ta tentando me enganar miserávi ?');
+  }
+  return res.render('admin/delete', { message: '' });
+}
+
+async function deleteRecipePOST(req, res) {
+  const { user } = req;
+  const recipe = await Recipes.getRecipeById(req.params.id);
+  if (!recipe) { return res.status(404).send('Message not found'); }
+  if (!user) { return res.status(401).send('sai pra lá jacaré'); }
+  if (recipe.userId !== user.id) {
+    return res.status(401).send('Ta tentando me enganar miserávi ?');
+  }
+  const { password } = await User.findById(user.id);
+  if (password !== req.body.password) {
+    return res.render('admin/delete', { message: 'Senha Incorreta' });
+  }
+  await Recipes.deleteRecipe(req.params.id);
+  return res.redirect('/');
+}
+
 module.exports = {
-  recipesDescription, searchRecipes, newRecipe, newRecipePOST,
+  recipesDescription,
+  searchRecipes,
+  newRecipe,
+  newRecipePOST,
+  editRecipe,
+  editRecipePOST,
+  deleteRecipe,
+  deleteRecipePOST,
 };

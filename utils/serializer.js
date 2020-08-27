@@ -1,4 +1,5 @@
 function recipe(recipeAr) {
+  console.log('serializer', recipeAr);
   const [id, userId, user, name, ingredientes, instructions] = recipeAr;
   const ingredients = ingredientes.split(',');
 
