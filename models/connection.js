@@ -15,19 +15,17 @@ const config = {
 let schema;
 
 module.exports = () => {
-  return ( 
-    schema ?
-    Promise.resolve(schema)
-    : mysqlx
-      .getSession(config)
-      .then(async (session) => {
-        schema = await session.getSchema('cookmaster');
-        return schema;
-      })
-      .catch((err) => {
-        console.error(err);
-        process.exit(1);
-      })
-    );
+  return schema ?
+  Promise.resolve(schema)
+  : mysqlx
+    .getSession(config)
+    .then(async (session) => {
+      schema = await session.getSchema('cookmaster');
+      return schema;
+    })
+    .catch((err) => {
+      console.error(err);
+      process.exit(1);
+    })
   };
 // Fim da Ref.
