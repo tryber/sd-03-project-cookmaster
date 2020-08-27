@@ -18,8 +18,8 @@ de fato, realize a busca no banco de dados */
 const findByEmail = async (email) => {
   await connect()
     .getTable('users')
-    .select(['id', 'email', 'password', ]);
-  console.log(con)
+    .select();
+
   return TEMP_USER;
 };
 

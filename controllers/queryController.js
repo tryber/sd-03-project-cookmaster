@@ -14,10 +14,10 @@ const getRecipes = async (req, res) => {
   }, []);
 
   return res.render('home', {
-    filteredRecipes, isAuth: req.user, message: null
+    filteredRecipes, isAuth: req.user, message: null,
   });
-}
+};
 
 module.exports = {
   getRecipes,
-}
+};
