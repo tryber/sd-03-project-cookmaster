@@ -5,11 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Detalhes da Receita</title>
-  <style>
-    .Data_details {
-      margin-top: 7vh;
-    }
-  </style>
+  
 </head>
 
 <body>
@@ -27,11 +23,14 @@
       <h2><%= recipe.title%></h2>
       <p><%= recipe.userName%></p>
       <h3>Ingredientes</h3>
-      <p><%= recipe.ingredients%></p>
+      <a><%= recipe.ingredients%></a>
       <h3>Modo de Preparo</h3>
       <p><%= recipe.detailsRecipe %></p>
       <% } %>
       <button onclick="window.location.pathname='/'">Voltar</button>
+      <button data-testid="minhas-receitas" type="button" onclick="window.location.pathname = '/me/recipes'">
+        Minhas Receitas
+      </button>
     </div>
   </div>
 </body>

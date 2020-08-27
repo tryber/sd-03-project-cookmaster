@@ -9,7 +9,7 @@
 
 <body>
   <div>
-    <h6>Cookmaster - Cadastro</h6>
+    <h2>Cadastro</h2>
     <% if (error || message) { %>
     <div class="message">
       <p><%= error || message %></p>
@@ -18,23 +18,24 @@
     <form action="/register" method="POST">
       <label for="email">Email</label>
       <input data-testid="email" type="text" id="email" name="email">
-
+      <br>
       <label for="typePass">Senha</label>
       <input data-testid="senha" type="password" id="typePass" name="typePass">
-
+      <br>
       <label for="confirmPass">Confirmar Senha</label>
       <input data-testid="confirmar-senha" type="password" id="confirmPass" name="confirmPass">
-
+      <br>
       <label for="name">Nome</label>
       <input data-testid="nome" type="text" id="name" name="name">
-
+      <br>
       <label for="lastName">Sobrenome</label>
       <input data-testid="sobrenome" type="text" id="lastName" name="lastName">
 
     </form>
-    <button data-testid="login" type="button" onclick="window.location.pathname = '/login'">
-      Login
+    <button data-testid="cadastrar" type="submit" onclick="window.location.pathname = '/admin/login'">
+      Cadastre-se
     </button>
   </div>
 </body>
+
 </html>
