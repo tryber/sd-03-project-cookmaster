@@ -5,16 +5,16 @@ const listCook = async (_req, res) => {
   return res.render('home', { recipes });
 };
 
-const searchRecipe = async(_req, res) =>{
-  return res.render('searchRecipes')
-}
+const searchRecipe = async (_req, res) => {
+  return res.render('searchRecipes');
+};
 
 const newRecipe = async (_req, res) => {
-  res.render('admin/newRecipe');
+  return res.render('admin/newRecipe');
 };
 
 const setNewRecipe = async (_req, res) => {
-  res.send('ok');
+  return res.send('ok');
 };
 
 const cooks = async (req, res) => {
