@@ -15,7 +15,7 @@ const listRecipes = async (req, res) => {
 const listRecipeByID = (req, res) => {
   const { recipeDetails, user } = req;
   if (recipeDetails && user) {
-    return res.render('home', { recipeDetails, user: req.user });
+    return res.render('recipeDetails', { recipeDetails, user });
   }
   return res.render('recipeDetails', { recipeDetails, user: null });
 };
