@@ -12,17 +12,26 @@ const listRecipes = async (req, res) => {
   }
 };
 
-const listRecipeByID = async (req, res) => {
-  try {
-    const { recipeDetails, user } = req;
+const listRecipeByID = (req, res) => {
+  const { recipeDetails, user } = req;
 
-    if (recipeDetails && user) {
-      return res.render('details', { recipeDetails, user });
-    }
-    return res.render('details', { recipeDetails, user: null });
+  if (recipeDetails && user) {
+    return res.render('recipes/details', { recipeDetails, user });
+  }
+  return res.render('recipes/details', { recipeDetails, user: null });
+};
+
+const listRecipesByQuery = async (req, res) => {
+  try {
+    const { q } = req.query;
+    const { user } = req;
+    const searchedRecipes = await recipesModel.searchRecipes(q);
+
+    if (user) return res.render('recipes/search', { recipes: searchedRecipes, user });
+    return res.render('recipes/search', { recipes: searchedRecipes, user: null });
   } catch (error) {
     return error;
   }
 };
 
-module.exports = { listRecipes, listRecipeByID };
+module.exports = { listRecipes, listRecipeByID, listRecipesByQuery };
