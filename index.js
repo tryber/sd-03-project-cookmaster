@@ -1,3 +1,5 @@
+require('dotenv/config');
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -12,16 +14,22 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-app.get('/', (_req, res) => {
-  return res.render('home');
+app.get('/', middlewares.auth(false), (req, res) => {
+  return controllers.queryController.getRecipes(req, res);
 });
 
-app.get('/admin', middlewares.auth(), (req, res) => {
+app.get('/admin', middlewares.auth(true), (req, res) => {
   return res.render('admin/home', { user: req.user });
 });
 
-app.get('/login', controllers.userController.loginForm);
-app.get('/logout', controllers.userController.logout);
+app.get('/login', middlewares.auth(false), (req, res) => {
+  return controllers.userController.loginForm(req, res);
+});
+
+app.get('/logout', middlewares.auth(true), (req, res) => {
+  return controllers.userController.logout(req, res);
+});
+
 app.post('/login', controllers.userController.login);
 
 app.listen(3000, () => console.log('Listening on 3000'));

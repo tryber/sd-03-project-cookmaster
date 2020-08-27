@@ -1,4 +1,5 @@
-/* Quando você implementar a conexão com o banco, não deve mais precisar desse objeto */
+const connect = require('./connection');
+
 const TEMP_USER = {
   id: 'd2a667c4-432d-4dd5-8ab1-b51e88ddb5fe',
   email: 'taylor.doe@company.com',
@@ -15,6 +16,10 @@ de fato, realize a busca no banco de dados */
  * @param {string} email Email do usuário a ser encontrado
  */
 const findByEmail = async (email) => {
+  await connect()
+    .getTable('users')
+    .select(['id', 'email', 'password', ]);
+  console.log(con)
   return TEMP_USER;
 };
 

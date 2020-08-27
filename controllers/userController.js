@@ -34,13 +34,14 @@ const login = async (req, res, next) => {
   SESSIONS[token] = user.id;
 
   res.cookie('token', token, { httpOnly: true, sameSite: true });
-  res.redirect(redirect || '/admin');
+  res.redirect(redirect || '/');
 };
 
 const logout = (req, res) => {
+  const { redirect } = req.body;
   res.clearCookie('token');
   if (!req.cookies || !req.cookies.token) return res.redirect('/login');
-  res.render('admin/logout');
+  res.redirect(redirect || '/');
 };
 
 module.exports = {
