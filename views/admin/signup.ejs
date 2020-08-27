@@ -15,7 +15,7 @@
     <% } %>
     <form action="/signup" method="post">
       <label for="emailInput">Email: </label>
-      <input type="text" name="email" id="emailInput" data-testid="email" required>
+      <input type="email" name="email" id="emailInput" data-testid="email" required>
       <label for="passwordInput">Senha: </label>
       <input type="password" name="password" id="passwordInput" data-testid="senha" required>
       <label for="confirmPassword">Confirmar Senha: </label>
@@ -24,7 +24,7 @@
       <input type="text" name="name" id="userName" data-testid="nome" required>
       <label for="userLastName">Sobrenome: </label>
       <input type="text" name="lastName" id="userLastName" data-testid="sobrenome" required>
-      <button type="submit" data-testid="cadastrar">Cadastre-se</button>
+      <button type="submit" data-testid="cadastrar">Cadastrar-se</button>
       <a href="/login" data-testid="login">Fazer login</a>
     </form>
   </body>
