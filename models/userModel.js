@@ -9,7 +9,7 @@ const setUser = async (userValues) =>
 
 const findByEmail = async (email) =>
   connect()
-    .then((db) => 
+    .then((db) =>
       db
         .getTable('users').select(['id', 'email', 'password', 'first_name', 'last_name'])
         .where('email = :email')
