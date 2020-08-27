@@ -1,0 +1,4 @@
+.flex-recipes {
+  display: flex;
+  flex-wrap: wrap;
+}

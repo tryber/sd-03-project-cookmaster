@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookmaster - Admin</title>
+</head>
+
+<body>
+  <div>
+    <div style="display: flex; justify-content: space-between; align-items: center; background-color: grey;">
+      <h1>Cookmaster</h1>
+      <%if (recipeInfo.user) {%>
+      <form action="/logout" method="POST">
+        <button data-testid="logout" type="submit">Logout</button>
+      </form>
+      <%}%>
+      <%if (!recipeInfo.user) {%>
+      <form action="/login" method="POST">
+        <button data-testid="login"type="submit">Login</button>
+      </form>
+      <%}%>
+    </div>
+    <div style="width: 80%; margin: auto; display: flex; flex-direction: column;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-direction: column;">
+        <h2 style="color: red"><%= recipeInfo.name %></h2>
+        <%if (user && recipeInfo.userId === user[0]) {%>
+          <form action="/recipes/<%=recipeInfo.id%>/edit" method="GET">
+            <button data-testid="editar-receita" type="submit">Editar Receita</button>
+          </form>
+          <%}%>
+          <%if (user && recipeInfo.userId === user[0]) {%>
+            <form action="/recipes/<%=recipeInfo.id%>/delete" method="GET">
+              <button data-testid="excluir-receita" type="submit">Excluir Receita</button>
+            </form>
+            <%}%>
+        <p>Enviado por<%= recipeInfo.user %> </p>
+        <h3>Ingredientes</h3>
+        <p><%= recipeInfo.ingredients %></p>
+        <h3>Modo de Preparo</h3>
+        <p><%= recipeInfo.instructions %></p>
+    </div>
+  </div>
+</body>
+
+</html>
