@@ -12,16 +12,15 @@ const config = {
   socketPath: '/var/run/mysqld/mysqld.sock',
 };
 
-module.exports = () => schema
-  ? Promise.resolve(schema)
-  : mysqlx
-      .getSession(config)
-      .then(async (session) => {
-        schema = await session.getSchema('cookmaster');
-        return schema;
-      })
-      .catch((err) => {
-        console.error(err);
-        process.exit(1);
-      });
-
+module.exports = async () => {
+  if (schema) return Promise.resolve(schema);
+  try {
+    const session = await mysqlx.getSession(config);
+    console.log('Mysql connected to node');
+    schema = await session.getSchema('cookmaster');
+    return schema;
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+};

@@ -1,10 +1,15 @@
 const connect = require('./connect');
 
-const getRecipesNamesAndAuthors = async () =>
-  connect()
-    .then((db) => console.log(db.getTable('recipes')) && db.getTable('recipes'))
-    .select(['user', 'name']).execute()
-    .then((results) => results.fetchAll())
-    .then((recipes) => recipes.map(([user, name]) => ({ user, name })));
-
-module.exports = {getRecipesNamesAndAuthors};
+const getAllRecipes = async () => {
+  try{
+    const db = await connect();
+    const searchDb = await db.getTable('recipes').select(['user', 'name']).execute()
+    const results = await searchDb.fetchAll()
+    console.log(results)
+    return results ? results.map(([user, name]) => ({ user, name })) : [];
+  } catch (err){
+    console.error(err)
+    process.exit(1)
+  }
+};
+module.exports = {getAllRecipes};
