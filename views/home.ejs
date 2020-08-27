@@ -20,11 +20,13 @@
       <button data-testid="buscar-receita">Buscar Receitas</button>
     </div>
     <div>
-      <div>
-        <h4>nome da receita</h4>
-        <p>nome do usuário</p>
-        <a href="Link">Ver mais</a>
-      </div>
+      <% recipes && recipes.forEach(recipe => { %>
+        <div>
+          <h4><%= recipe.name %></h4>
+          <p><%= recipe.user %></p>
+          <a href="Link">Ver mais</a>
+        </div>
+      <% })%>
     </div>
     <%if(user) {%>
     <button data-testid="nova-receita">Nova Receita</button>

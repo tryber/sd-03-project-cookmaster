@@ -18,12 +18,18 @@ app.use((req, _res, next) => {
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-app.get('/', middlewares.auth(false), (req, res) => {
-  return res.render('home', { user: req.user });
+app.get('/', middlewares.auth(false), async(req, res) => {
+  console.log(controllers.recipeController.listRecipes)
+  return res.render('home', {
+    user: req.user,
+    recipes: controllers.recipeController.listRecipes ,
+  });
 });
 
 app.get('/admin', middlewares.auth(), (req, res) => {
-  return res.render('admin/home', { user: req.user });
+  return res.render('admin/home', {
+    user: req.user,
+  });
 });
 
 app.get('/register', (_req, res) => {
