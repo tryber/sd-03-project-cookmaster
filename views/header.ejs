@@ -7,19 +7,21 @@
   </head>
 
   <body>
-    <div>
-      <p>
+    <header>
+      <h3>
         Cookmaster
-      </p>
-      <% if(user) { %>
-      <div>
-        <p><strong><%= `${user.name} ${user.lastName}` %></strong> </p>
-        <button data-testid="logout" onclick="window.location.pathname='/logout'">Logout</button>
-      </div>
-      <% } else { %>
-      <button data-testid="login" onclick="window.location.pathname='/login'">Login</button>
-      <% } %>
-    </div>
+      </h3>
+      <nav>
+        <div>
+          <% if(user) { %>
+          <p><strong><%= `${user.name} ${user.lastName}` %></strong> </p>
+          <button data-testid="logout" onclick="window.location.pathname='/logout'">Logout</button>
+          <% } else { %>
+          <button data-testid="login" onclick="window.location.pathname='/login'">Login</button>
+          <% } %>
+        </div>
+      </nav>
+    </header>
   </body>
 
 </html>

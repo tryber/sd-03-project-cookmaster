@@ -15,7 +15,7 @@
     </div>
     <% } %>
     <div>
-      <button type="button" data-testid="buscar-receita">Buscar Receita</button>
+      <button type="button" data-testid="buscar-receita" onclick="window.location.pathname='/recipes/search'">Buscar Receita</button>
       <h1>Receitas</h1>
       <div>
         <% recipes && recipes.forEach(recipe => { %>
