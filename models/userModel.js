@@ -3,45 +3,47 @@ const connection = require('./connection');
 const findByEmail = async (EMAIL) => {
   const db = await connection();
 
-  const results = db.getTable('users')
-    .select('email')
+  const results = await db.getTable('users')
+    .select(['id', 'email', 'password', 'first_name', 'last_name'])
     .where('email = :email')
     .bind('email', EMAIL)
     .execute();
 
   const resulSearch = results.fetchAll();
 
-  if (!resulSearch) return null;
-
-  return resulSearch.map(([id, email, password]) => ({
+  return resulSearch ? resulSearch.map(([id, email, password, names, lastName]) => ({
     id,
     email,
     password,
-  }));
+    names,
+    lastName,
+  }))[0] : null;
 };
 
 const findById = async (ID) => {
   const db = await connection();
-
+  
   const results = await db.getTable('users')
-    .select('id')
+    .select(['id', 'email', 'password', 'first_name', 'last_name'])
     .where('id = :id')
     .bind('id', ID)
     .execute();
 
   const resulSearch = results.fetchAll();
 
-  if (!resulSearch) return null;
-
-  const [email, password, id] = resulSearch;
-  return { email, password, id };
+  return resulSearch ? resulSearch.map(([id, email, password, name, lastName]) => ({
+    id,
+    email,
+    password,
+    name,
+    lastName,
+  }))[0] : null;
 };
 
 module.exports = {
   findByEmail,
   findById,
 };
-
 
 /* Quando você implementar a conexão com o banco, não deve mais precisar desse objeto */
 // const TEMP_USER = {
