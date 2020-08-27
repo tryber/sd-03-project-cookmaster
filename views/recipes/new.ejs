@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookmaster - Nova receita</title>
+  </head>
+
+  <body>
+    <%- include('../header', {user})%>
+    <h1>Nova Receita</h1>
+    <form action="/recipes" method="POST" id="ingredient-form">
+      <label for="nameInput">Nome da Receita</label>
+      <input type="text" name="name" id="nameInput" data-testid="nome-receita">
+      <fieldset>
+        <legend>Ingredientes</legend>
+        <input type="hidden" name="ingredients" id="ingredients" />
+        <ul id="ingredients_list"></ul>
+        <input type="text" name="ingredient" id="ingredient" data-testid="ingredientes">
+        <button type="button" id="adicionar-ingrediente" data-testid="adicionar-ingrediente">Adicionar
+          Ingrediente</button>
+      </fieldset>
+      <textarea name="instructions" id="instructionsInput" cols="50" rows="30" data-testid="modo-de-preparo"></textarea>
+      <button type="button" onclick="window.location.pathname='/'">Voltar</button>
+      <button type="submit" data-testid="postar-receita">Salvar Receita</button>
+    </form>
+
+  </body>
+  <script>
+    let ingredientForm = document.getElementById('ingredient-form');
+    let ingredientList = document.getElementById('ingredients_list');
+    let ingredientValue = document.getElementById('ingredient');
+    let ingredientsAcc = document.getElementById('ingredients');
+    let ingredientButton = document.getElementById('adicionar-ingrediente');
+
+    const deleteBtn = () => {
+      const btn = document.createElement('button');
+      btn.innerText = 'Excluir Ingrediente';
+      btn.type = 'button';
+      btn.addEventListener('click', (event) => {
+        /*Removendo itens da lista que está
+        dois níveis acima */
+        const parentElement = event.target.parentNode;
+        const grandparentElement = event.target.parentNode.parentNode;
+        grandparentElement.removeChild(parentElement);
+      })
+
+      return btn;
+
+    }
+
+    const createIngredient = () => {
+      let ingredient = document.createElement('li');
+      ingredient.innerHTML = ingredientValue.value;
+      ingredient.appendChild(deleteBtn());
+      ingredientList.appendChild(ingredient);
+    }
+
+    window.onload = () => {
+      ingredientButton.addEventListener('click', createIngredient);
+
+      //Criando string de ingredientes
+      ingredientForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const ingredientsValue = ingredientList
+        .children
+        .reduce((acc, children) => children.type !== 'button' ? [...acc, children.innerText] : acc, [])
+        .join(',');
+
+        const IngredientsValuesJoin = ingredientsAcc.value = ingredientValue
+
+        return IngredientsValuesJoin;
+      })
+    }
+  </script>
+
+</html>
