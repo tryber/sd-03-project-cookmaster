@@ -15,13 +15,14 @@ app.set('views', './views');
 
 app.get('/', controllers.cookController.listCook);
 
-app.get('/admin', middlewares.auth(), controllers.userController.admin);
+app.get('/admin', middlewares.auth(), controllers.cookController.admin);
 
 app.get('/login', controllers.userController.loginForm);
-app.get('/signup', controllers.userController.signupForm);
-app.get('/recipes/:id', middlewares.auth(false), controllers.userController.cooks);
-app.get('/logout', controllers.userController.logout);
 app.post('/login', controllers.userController.login);
 app.post('/signup', controllers.userController.signup);
+app.get('/signup', controllers.userController.signupForm);
+app.get('/recipes/new', middlewares.auth(), controllers.cookController.newRecipe)
+app.get('/recipes/:id', middlewares.auth(false), controllers.cookController.cooks);
+app.get('/logout', controllers.userController.logout);
 
 app.listen(3000, () => console.log(process.env.HOSTNAME));

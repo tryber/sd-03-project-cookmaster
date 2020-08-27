@@ -2,7 +2,6 @@ const { v4: uuid } = require('uuid');
 const { SESSIONS } = require('../middlewares/auth');
 
 const userModel = require('../models/userModel');
-const cookModel = require('../models/cookModel');
 
 const loginForm = (req, res) => {
   const { token = '' } = req.cookies || {};
@@ -85,17 +84,6 @@ const signup = async (req, res, next) => {
   return renderReturn('Cadastro efetuado com sucesso!', res, user);
 };
 
-const cooks = async (req, res) => {
-  const recipes = await cookModel.getAll();
-  const recipesDetails = recipes.find((el) => el.id === Number(req.params.id));
-  return res.render('recipes', { user: req.user, recipesDetails });
-};
-
-const admin = async (req, res) => {
-  const recipes = await cookModel.getAll();
-  return res.render('admin/home', { user: req.user, recipes });
-};
-
 const logout = (req, res) => {
   res.clearCookie('token');
   if (!req.cookies || !req.cookies.token) return res.redirect('/login');
@@ -108,6 +96,4 @@ module.exports = {
   signup,
   signupForm,
   logout,
-  cooks,
-  admin,
 };
