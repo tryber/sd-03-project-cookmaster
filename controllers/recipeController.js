@@ -1,5 +1,4 @@
 const recipeModel = require('../models/recipeModel');
-const { recipeController } = require('.');
 
 const listRecipes = async (req, res) => {
   const recipes = await recipeModel.getAll();
@@ -36,8 +35,6 @@ const newRecipe = async (req, res) => {
   const { recipeName, ingredients, instructions } = req.body;
   const { name, lastName, id } = req.user;
   const userFullName = `${name} ${lastName}`;
-
-  console.log(req.body);
 
   await recipeModel.createNewRecipe(id, userFullName, recipeName, ingredients, instructions);
 
