@@ -11,13 +11,15 @@ const config = {
   socketPath: '/var/run/mysqld/mysqld.sock',
 };
 
-module.exports = () =>
-  schema
-    ? Promise.resolve(schema)
-    : mysqlx
-        .getSession(config)
-        .then((session) => session.getSchema('cookmaster'))
-        .catch((err) => {
-          console.error(err);
-          process.exit(1);
-        });
+module.exports = () => {
+  if (schema) {
+    return Promise.resolve(schema);
+  }
+  return mysqlx
+    .getSession(config)
+    .then((session) => session.getSchema('cookmaster'))
+    .catch((err) => {
+      console.error(err);
+      process.exit(1);
+    });
+};
