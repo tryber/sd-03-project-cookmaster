@@ -10,8 +10,8 @@ const newRecipe = async (_req, res) => {
 };
 
 const setNewRecipe = async (req, res) => {
-  console.log(req.body)
-  res.send('ok')
+  console.log(req.body);
+  res.send('ok');
 };
 
 const cooks = async (req, res) => {

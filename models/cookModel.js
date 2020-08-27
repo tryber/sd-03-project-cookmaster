@@ -11,22 +11,22 @@ const getAll = async () =>
 
 const getCookieById = async (id) =>
   connect()
-    .then((db) => 
+    .then((db) =>
       db
         .getTable('recipes').select(['user_id', 'user', 'name', 'ingredients', 'instructions'])
         .where('id = :id')
         .bind('id', id)
-        .execute()
+        .execute(),
       )
       .then((results) => results.fetchAll()[0])
-      .then(([userId, user, name, ingredients, instructions] = []) =>
-        userId 
+      .then(([userId, user, name, ingredients, instructions] = []) => (
+        userId
           ?
         { userId, user, name, ingredients, instructions }
           :
-        null);
+        null));
 
-//const setNewRecipes = async (RecipeVal) =>
+// const setNewRecipes = async (RecipeVal) =>
 //  connect()
 //    .then((db) => db.getTable('recipes')
 //    .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
@@ -34,5 +34,5 @@ const getCookieById = async (id) =>
 
 module.exports = {
   getAll,
-  getCookieById
+  getCookieById,
 };

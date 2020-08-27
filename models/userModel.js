@@ -14,32 +14,32 @@ const findByEmail = async (email) =>
         .getTable('users').select(['id', 'email', 'password', 'first_name', 'last_name'])
         .where('email = :email')
         .bind('email', email)
-        .execute()
+        .execute(),
       )
       .then((results) => results.fetchAll()[0])
-      .then(([id, email, password, firstName, lastName] = []) =>
-        id 
+      .then(([id, email, password, firstName, lastName] = []) => (
+        email
           ?
           { id, email, password, firstName, lastName }
           :
-        null);
+        null));
 
 const findById = async (id) =>
   connect()
-    .then((db) => 
+    .then((db) =>
       db
         .getTable('users').select(['id', 'email', 'password', 'first_name', 'last_name'])
         .where('id = :id')
         .bind('id', id)
-        .execute()
+        .execute(),
       )
       .then((results) => results.fetchAll()[0])
-      .then(([id, email, password, firstName, lastName] = []) =>
-        id 
+      .then(([id, email, password, firstName, lastName] = []) => (
+        id
           ?
           { id, email, password, firstName, lastName }
           :
-        null);
+        null));
 
 module.exports = {
   findByEmail,
