@@ -12,8 +12,9 @@ const findByEmail = async (uEmail) => {
     )
     .then((results) => results.fetchAll()[0])
     .then(([id, email, password, firstName, lastName]) => ({
-      id, email, password, firstName, lastName,
+      id, email, password, name: `${firstName} ${lastName}`,
     }));
+    console.log(user);
     return user;
   } catch (err) {
     console.error(err);
