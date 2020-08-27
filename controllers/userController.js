@@ -45,8 +45,22 @@ const logout = (req, res) => {
   return res.render('admin/logout');
 };
 
+const registry = async (req, res) => {
+  const {
+    email, password, name, lastName,
+  } = req.body;
+
+  await userModel.createUser(email, password, name, lastName);
+
+  return res.render('/signup', {
+    message: req.message || null,
+    redirect: null,
+  });
+};
+
 module.exports = {
   login,
   loginForm,
   logout,
+  registry,
 };
