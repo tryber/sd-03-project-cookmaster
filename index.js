@@ -24,6 +24,7 @@ app.get('/login', controllers.userController.loginForm);
 app.get('/logout', controllers.userController.logout);
 app.post('/login', controllers.userController.login);
 
+app.get('recipes/search', middlewares.auth(false), controllers.recipeController.listRecipesByQuery);
 app.get('/recipes/:id', middlewares.auth(false), middlewares.recipeFilter, controllers.recipeController.listRecipeByID);
 
 const PORT = process.env.PORT || 3000;
