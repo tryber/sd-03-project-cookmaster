@@ -10,17 +10,21 @@
   <body>
     <%- include('header', {user})%>
     <% if(user) { %>
-    <button type="button" data-testid="nova-receita">Nova Receita</button>
-    <% } %>
-    <button type="button" data-testid="buscar-receita">Buscar Receita</button>
-    <h1>Receitas</h1>
-    <% recipes && recipes.forEach(recipe => { %>
-    <p>Receita: <%= recipe.name %> </p>
-    <p>Usuário: <%= recipe.user %> </p>
-    <a href=<% `/recipes/${recipe.id}` %>>Ver mais</a>
-    </div>
-    <% }) %>
     <div>
+      <button type="button" data-testid="nova-receita">Nova Receita</button>
+    </div>
+    <% } %>
+    <div>
+      <button type="button" data-testid="buscar-receita">Buscar Receita</button>
+      <h1>Receitas</h1>
+      <div>
+        <% recipes && recipes.forEach(recipe => { %>
+        <p>Receita: <%= recipe.name %> </p>
+        <p>Usuário: <%= recipe.user %> </p>
+        <a href=<% `/recipes/${recipe.id}` %>>Ver mais</a>
+      </div>
+      <% }) %>
+    </div>
   </body>
 
 </html>
