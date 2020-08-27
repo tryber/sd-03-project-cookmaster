@@ -3,5 +3,5 @@ const homeController = require('./homeController');
 
 module.exports = {
   userController,
-  homeController
+  homeController,
 };
