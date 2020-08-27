@@ -6,7 +6,7 @@ const listCook = async (_req, res) => {
 };
 
 const searchRecipe = async (_req, res) => {
-  return res.render('searchRecipes');
+  return res.send('searchRecipes');
 };
 
 const newRecipe = async (_req, res) => {
