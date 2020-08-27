@@ -18,11 +18,8 @@ const findByValue = async (email, param) =>
       )
       .then((results) => results.fetchAll()[0])
       .then(([id, email, password, firstName, lastName] = []) => (
-        password
-          ?
-          { id, email, password, firstName, lastName }
-          :
-        null));
+        { id, email, password, firstName, lastName }
+      ));
 
 module.exports = {
   findByValue,
