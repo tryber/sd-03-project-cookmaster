@@ -15,7 +15,7 @@ app.set('views', './views');
 
 app.get('/', middlewares.auth(false), controllers.recipeController.listRecipes);
 
-app.get('/signup', (_req, res) => res.render('admin/signup', { message: null }));
+app.get('/signup', controllers.userController.registry);
 app.post('/signup', middlewares.validation, controllers.userController.registry);
 
 app.get('/admin', middlewares.auth(), (req, res) => res.render('admin/home', { user: req.user }));

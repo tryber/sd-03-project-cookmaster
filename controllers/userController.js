@@ -46,11 +46,10 @@ const logout = (req, res) => {
 };
 
 const registry = async (req, res) => {
-  const {
-    email, password, name, lastName,
-  } = req.body;
-
-  if (req.validate) {
+  if (req.body && req.validate) {
+    const {
+      email, password, name, lastName,
+    } = req.body;
     await userModel.createUser(email, password, name, lastName);
     return res.render('admin/signup', {
       message: req.message,
@@ -59,7 +58,7 @@ const registry = async (req, res) => {
   }
 
   return res.render('admin/signup', {
-    message: req.message,
+    message: req.message || null,
     redirect: null,
   });
 };
