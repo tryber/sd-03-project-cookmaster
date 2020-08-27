@@ -31,7 +31,6 @@ const findById = async (id) => {
       .bind('id', id)
       .execute();
     const result = await searchDb.fetchAll()[0];
-    console.log(result);
     return result;
   } catch (err) {
     console.error(err);
