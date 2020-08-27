@@ -26,7 +26,6 @@ router.get('/:id', middlewares.auth(false), async (req, res) => {
   if (!recipe) return res.redirect('/');
   const user = req.user || {};
   res.render('recipes/details', { recipe, user, recipeId: req.params.id });
-  return;
 });
 
 router.get('/:id/edit', middlewares.auth(true), async (req, res) => {
@@ -40,7 +39,6 @@ router.get('/:id/edit', middlewares.auth(true), async (req, res) => {
     detailsRecipe,
     id: req.params.id,
   });
-  return;
 });
 
 router.post('/:id', middlewares.auth(true), async ({ body, params: { id }, user= req.user }, res) => {
@@ -60,15 +58,10 @@ router.post('/:id', middlewares.auth(true), async ({ body, params: { id }, user=
 
 router.get('/:id/delete', middlewares.auth(true), async (req, res) => {
   const recipeRequest = await recipeModel.getRecipe(req.params.id);
-
   if (!recipeRequest) return res.redirect('/');
-
   const { idUser } = recipeRequest;
-
   const { id } = req.user;
-
   if (id !== idUser) return res.redirect('/');
-
   return res.render('delete/delete', { wrongPass: false, id: req.params.id });
 });
 
@@ -85,7 +78,6 @@ router.post('/:id/delete', middlewares.auth(true), async ({ body, user, params }
   }
 
   await recipeModel.deleteRecipe(params.id);
-
   return res.redirect('/');
 });
 

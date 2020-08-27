@@ -40,20 +40,20 @@ const getRecipe = async (id) =>
 const user = `SELECT CONCAT(us.first_name, ' ', us.last_name) FROM users AS us
 WHERE id = ?`;
 
-const insertRecipe = async ({ userName, title, ing, ins, id }) =>
+const insertRecipe = async ({ user, title, ing, ins, id }) =>
   connection()
     .then((db) =>
       db
         .getSchema('cookmaster')
         .getTable('recipes')
         .insert(['user', 'name', 'ingredients', 'instructions', 'user_id'])
-        .values([userName = user, title, ing, ins, id])
+        .values([user, title, ing, ins, id])
         .execute(),
     );
 
-const createRecipe = async ({ title, ingredients, detailsRecipe }, user) => {
+const createRecipe = async ({ title, ingredients, detailsRecipe }, userName) => {
   if (!title || !ingredients || !detailsRecipe) return { message: 'Preencha todos os campos.' };
-  const toInsert = { title, ing: ingredients, ins: detailsRecipe, id: user };
+  const toInsert = { title, ing: ingredients, ins: detailsRecipe, id: userName };
   const id = await insertRecipe(toInsert)
     .then((result) => result.getAutoIncrementValue());
   return { message: 'Receita cadastrada.', id };
