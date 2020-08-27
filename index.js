@@ -20,7 +20,9 @@ app.get('/admin', middlewares.auth(), (req, res) => {
 });
 
 app.get('/login', controllers.userController.loginForm);
+app.get('/signup', controllers.userController.signupForm);
 app.get('/logout', controllers.userController.logout);
 app.post('/login', controllers.userController.login);
+app.post('/signup', controllers.userController.signup);
 
 app.listen(3000, () => console.log(process.env.HOSTNAME));

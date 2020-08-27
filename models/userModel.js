@@ -12,6 +12,13 @@ const getUser = async () =>
         { id, email, password, firstName, lastName }
       )));
 
+const setUser = async (userValues) =>
+  connect()
+    .then((db) => db.getTable('users').insert(
+      ['email', 'password', 'first_name', 'last_name'])
+      .values(userValues.email, userValues.password, userValues.name, userValues.lastName)
+      .execute());
+
 const findShearch = async (objParam, emailOrId) => {
   const user = await getUser();
   const userShearced = user.find((userEmail) => userEmail[objParam] === emailOrId);
@@ -31,4 +38,5 @@ const findById = async (id) => {
 module.exports = {
   findByEmail,
   findById,
+  setUser,
 };
