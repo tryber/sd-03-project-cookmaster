@@ -27,10 +27,10 @@ const findById = async (id) => {
     .bind('id', id)
     .execute();
 
-  const user = results.fetchAll()[0];
+  const [ first_name, last_name, password ] = await results.fetchOne();
 
-  return user.firstName
-    ? { id: user.id, firstName: user.first_name, lastName: user.last_name, password: user.password }
+  return first_name
+    ? { id, firstName: first_name, lastName: last_name, password }
     : null;
 };
 
