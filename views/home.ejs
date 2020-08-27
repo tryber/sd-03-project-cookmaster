@@ -20,17 +20,17 @@
     </div>
     <%})%>
   </div>
-  <% } %>
   <% if (user === recipe.user) {%>
-  <div>
-    <a href="recipes/:id/edit">
-      <button type="button" data-testid="editar-receita">Editar Receita</button>
-    </a>
-    <a href="recipes/:id/delete">
-      <button type="button" data-testid="excluir-receita">Excluir Receita</button>
-    </a>
-    </div>
-  <%}%>
+    <div>
+      <a href="recipes/:id/edit">
+        <button type="button" data-testid="editar-receita">Editar Receita</button>
+      </a>
+      <a href="recipes/:id/delete">
+        <button type="button" data-testid="excluir-receita">Excluir Receita</button>
+      </a>
+      </div>
+    <%}%>
+  <% } %>
 </body>
 
 </html>
