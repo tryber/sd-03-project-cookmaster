@@ -28,8 +28,10 @@ app.post('/signup', controllers.userController.signup);
 app.get('/recipes/search', middlewares.auth(false), controllers.recipeController.searchRecipes);
 app.get('/recipes/new', middlewares.auth(), controllers.recipeController.newRecipeForm);
 
-app.post('/recipes', middlewares.auth());
+app.post('/recipes', middlewares.auth(), controllers.recipeController.newRecipe);
 
 app.get('/recipes/:id', middlewares.auth(false), controllers.recipeController.recipeDetails);
+// app.post('/recipes/:id', middlewares.auth(), controllers.recipeController.editRecipeForm);
+app.get('/recipes/:id/edit', middlewares.auth(), controllers.recipeController.editRecipeForm);
 
 app.listen(3000, () => console.log('Listening on 3000'));

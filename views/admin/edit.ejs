@@ -8,8 +8,8 @@
   <body>
     <%- include('../navbar', { user: user }); %> <% if (message) {%>
     <div class="message"><%= message %></div>
-    <% } %>
-    <h1>Cadastrar Receita</h1>
+    <% } %> <% if (recipe) {%>
+    <h1>Editar Receita</h1>
     <form id="new-recipe-form" action="/recipes" method="POST">
       <label for="recipeName">Nome da Receita</label><br />
       <input
@@ -18,8 +18,12 @@
         name="recipeName"
         id="recipeName"
         data-testid="nome-receita"
-      /><br />
-      <ul id="ingredientesList"></ul>
+        value=<%= recipe.name %>
+      />
+      <br />
+      <ul id="ingredientesList">
+        <% window.onload = () => addIngredient(recipe.ingredients) %>
+      </ul>
       <input type="text" name="ingredients" id="ingredients" data-testid="ingredientes" />
       <button
         for="ingredients"
@@ -37,9 +41,11 @@
         name="instructions"
         id="instructions"
         data-testid="modo-de-preparo"
+        value=<%= recipe.instructions %>
       /><br />
       <button type="submit" data-testid="postar-receita">Salvar Receita</button>
     </form>
+    <% } %>
   </body>
   <script>
     const addIngredientButton = document.querySelector('#add-ingredient-button');
@@ -64,6 +70,26 @@
         deleteButton.remove();
       });
     };
+
+    const addIngredient = (ingredients) => {
+      ingredients.map(ingredient => {
+        const item = document.createElement('li');
+        const deleteButton = document.createElement('button');
+
+        item.innerText = ingredient;
+        deleteButton.innerText = 'Excluir ingrediente';
+        item.className = 'ingredient-item';
+        deleteButton.className = 'delete-button';
+
+        document.querySelector('#ingredientesList').appendChild(item);
+        document.querySelector('#ingredientesList').appendChild(deleteButton);
+
+        deleteButton.addEventListener('click', () => {
+          item.remove();
+          deleteButton.remove();
+        });
+      });
+    }
 
     // const onSubmit = () => {
     //   const ingredients = document.querySelectorAll('.ingredient-item');

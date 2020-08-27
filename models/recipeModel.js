@@ -2,12 +2,7 @@ const connection = require('./connection');
 
 const getAll = async () =>
   connection()
-    .then((db) =>
-      db
-        .getTable('recipes')
-        .select(['id', 'user', 'name'])
-        .execute(),
-    )
+    .then((db) => db.getTable('recipes').select(['id', 'user', 'name']).execute())
     .then((results) => results.fetchAll())
     .then((recipes) =>
       recipes.map(([id, user, name]) => ({
@@ -56,8 +51,18 @@ const findRecipesByQuery = async (search) =>
       })),
     );
 
+const createNewRecipe = async (userId, user, name, ingredients, instructions) =>
+  connection().then((db) =>
+    db
+      .getTable('recipes')
+      .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
+      .values(userId, user, name, ingredients, instructions)
+      .execute(),
+  );
+
 module.exports = {
   getAll,
   findRecipeById,
   findRecipesByQuery,
+  createNewRecipe,
 };

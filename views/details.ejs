@@ -7,10 +7,11 @@
   </head>
   <body>
     <%- include('navbar', { user: user }); %>
+    <% console.log(recipe) %>
     <div>
       <% if (user && user.id === recipe.userId) {%>
       <div>
-        <button data-testid="editar-receita" onclick="window.location.pathname='/edit'">
+        <button data-testid="editar-receita" onclick="window.location.pathname='/recipes/<%= recipe.recipeId %>/edit'">
           Editar Receita
         </button>
         <button data-testid="excluir-receita" onclick="window.location.pathname='/delete'">
