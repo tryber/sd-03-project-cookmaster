@@ -6,7 +6,28 @@
     <title>Cookmaster - newRecipe</title>
   </head>
   <body>
-    <H1>Procurar</H1>
+    <% if (user===undefined) { %>
+      <button onclick="window.location.pathname='/login'" data-testid="login">Login</button>
+    <% } %>
+    <% if (user) { %>
+      <h1><%= user.firstName %></h1>
+      <button onclick="window.location.pathname='/logout'" data-testid="logout">Logout</button>
+    <% } %>
+    <h1>Buscar Receitas</h1>
+    <form action="/recipes/shearch" method="GET">
+      <input type="text" name="search" value="" id="searchInput" data-testid="receita" /><br />
+      <button
+        type="submit"
+        data-testid="buscar"
+      >Buscar</button>
+    </form>
+    <%console.log(recipes[0])%>
+    <%if (recipes[0] !== null) { %>
+    <% recipes.map(el => {%>
+      <h1> <%= el.name %></h1>
+      <h3> <%= el.user %></h3>
+      <a href="/recipes/<%= el.id %>">Ver mais</a>
+    <%})}%>
     </form>
   </body>
 </html>

@@ -8,7 +8,11 @@
   <body>
     <h1>Cookmaster</h1>
     <h2>Receitas</h2>
-    <button type="button" data-testid="buscar-receita">Buscar Receita</button>
+    <button
+      type="button"
+      onclick="window.location.pathname='/recipes/shearch'"
+      data-testid="buscar-receita"
+    >Buscar Receita</button>
     <button onclick="window.location.pathname='/login'" data-testid="login">Login</button>
     <% recipes.map(el => {%>
       <h1> <%= el.name %></h1>

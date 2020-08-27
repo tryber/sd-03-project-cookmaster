@@ -26,6 +26,23 @@ const getCookieById = async (id) =>
           :
         null));
 
+const getCookieByName = async (name) =>
+connect()
+  .then((db) =>
+    db
+      .getTable('recipes').select(['user_id', 'user', 'name', 'ingredients', 'instructions'])
+      .where('name = :name')
+      .bind('name', name)
+      .execute(),
+    )
+    .then((results) => results.fetchAll()[0])
+    .then(([userId, user, name, ingredients, instructions] = []) => (
+      userId
+        ?
+      { userId, user, name, ingredients, instructions }
+        :
+      null));
+
 // const setNewRecipes = async (RecipeVal) =>
 //  connect()
 //    .then((db) => db.getTable('recipes')
@@ -35,4 +52,5 @@ const getCookieById = async (id) =>
 module.exports = {
   getAll,
   getCookieById,
+  getCookieByName,
 };
