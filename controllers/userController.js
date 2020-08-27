@@ -52,7 +52,8 @@ const emailRegex = RegExp(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\
 
 const validString = (value) => !/^[a-zA-Z]+$/.test(value);
 
-const renderReturn = (message, res) => {
+const renderReturn = (message, res, value) => {
+  if(value)
   return res.render('admin/signup', {
     message,
     redirect: null,
@@ -61,27 +62,26 @@ const renderReturn = (message, res) => {
 
 const signup = async (req, res, next) => {
   const { email, password, confirmPassword, name, lastName } = req.body;
+  const valuesObject = Object.values(req.body).map((el) => !el).includes(true);
+  renderReturn('Preencha todos os dados', res, valuesObject);
 
-  if (Object.values(req.body).map((el) => !el).includes(true)){
-    return renderReturn('Preencha todos os dados', res)
-  } else if(!emailRegex.test(email)) {
-    return renderReturn('O email deve ter o formato email@mail.com', res)
-  } else if(password.length < 6) {
-    return renderReturn('A senha deve ter pelo menos 6 caracteres', res)
-  } else if(password !== confirmPassword) {
-    return renderReturn('As senhas tem que ser iguais', res)
-  } else if(name.length < 3 || validString(name)) {
-    return renderReturn(
-      'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras', res
-    )
-  } else {
-    await userModel.setUser(req.body);
-    const user = await userModel.findByEmail(email);
-    if (user)
-    return renderReturn(
-      'Cadastro efetuado com sucesso!', res
-    );
-  }
+  renderReturn('O email deve ter o formato email@mail.com', res, !emailRegex.test(email));
+
+  renderReturn('A senha deve ter pelo menos 6 caracteres', res, password.length < 6);
+
+  renderReturn('As senhas tem que ser iguais', res, password !== confirmPassword);
+
+  renderReturn('O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+    res, name.length < 3 || validString(name));
+
+  renderReturn('O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+    res, lastName.length < 3 || validString(lastName));
+
+  renderReturn('As senhas tem que ser iguais', res, password !== confirmPassword);
+
+  await userModel.setUser(req.body);
+  const user = await userModel.findByEmail(email);
+  renderReturn('Cadastro efetuado com sucesso!', res, user);
 };
 
 const logout = (req, res) => {
