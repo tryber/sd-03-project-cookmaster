@@ -3,7 +3,6 @@ const { SESSIONS } = require('../middlewares/auth');
 
 const userModel = require('../models/userModel');
 const Validation = require('../utils/validation');
-const Serializer = require('../utils/serializer');
 
 const loginForm = (req, res) => {
   const { token = '' } = req.cookies || {};

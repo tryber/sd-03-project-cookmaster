@@ -29,8 +29,8 @@ async function newRecipePOST(req, res) {
   if (typeof recipe.ingredients === 'object') {
     recipe.ingredients = recipe.ingredients.join(',');
   }
-  user.user = `${user.first_name} ${user.last_name}`;
-  const recId = await Recipes.createRecipe(user, recipe);
+  user.user = `${user.firstName} ${user.lastName}`;
+  await Recipes.createRecipe(user, recipe);
   res.redirect('/');
 }
 
@@ -69,17 +69,16 @@ async function deleteRecipe(req, res) {
 async function deleteRecipePOST(req, res) {
   const { user } = req;
   const recipe = await Recipes.getRecipeById(req.params.id);
-  if (!recipe) { return res.status(404).send('Message not found'); }
-  if (!user) { return res.status(401).send('sai pra lá jacaré'); }
-  if (recipe.userId !== user.id) {
-    return res.status(401).send('Ta tentando me enganar miserávi ?');
-  }
   const { password } = await User.findById(user.id);
-  if (password !== req.body.password) {
-    return res.render('admin/delete', { message: 'Senha Incorreta.' });
+  if (!recipe) { res.status(404).send('Message not found'); } else if (!user) { res.status(401).send('sai pra lá jacaré'); } else if (recipe.userId !== user.id) {
+    res.status(401).send('Ta tentando me enganar miserávi ?');
+  } else if (password !== req.body.password) {
+    res.render('admin/delete', { message: 'Senha Incorreta.' });
+  } else {
+    await Recipes.deleteRecipe(req.params.id);
+    return res.redirect('/');
   }
-  await Recipes.deleteRecipe(req.params.id);
-  return res.redirect('/');
+  return undefined;
 }
 
 async function myRecipes(req, res) {

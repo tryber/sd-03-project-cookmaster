@@ -1,4 +1,3 @@
-const { v4: uuid } = require('uuid');
 const connection = require('./connection');
 const Serializer = require('../utils/serializer');
 

@@ -7,11 +7,11 @@ function recipe(recipeAr) {
   };
 }
 
-function user(userarr) {
-  const [id, email, password, first_name, last_name] = userarr;
+function userSerializer(userarr) {
+  const [id, email, password, firstName, lastName] = userarr;
   return {
-    id, email, password, first_name, last_name,
+    id, email, password, firstName, lastName,
   };
 }
 
-module.exports = { recipe, user };
+module.exports = { recipe, user: userSerializer };
