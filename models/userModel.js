@@ -47,12 +47,12 @@ const validateLastName = ({ lastName }) => {
 };
 
 const validatePassword = ({ typePass }) => {
-  if (typePass.length < 6) return  'A senha deve ter pelo menos 6 caracteres';
+  if (typePass.length < 6) return 'A senha deve ter pelo menos 6 caracteres';
   return true;
 };
 
-const validateConfPassword = ({ confirmPass }) => {
-  if (confirmPass === !typePass) return  'As senhas tem que ser iguais';
+const validateConfPassword = ({ confirmPass, typePass }) => {
+  if (confirmPass === !typePass) return 'As senhas tem que ser iguais';
   return true;
 };
 

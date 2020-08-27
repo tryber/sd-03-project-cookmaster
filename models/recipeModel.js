@@ -38,7 +38,7 @@ const getRecipe = async (id) =>
     );
 
 const user = `SELECT CONCAT(us.first_name, ' ', us.last_name) FROM users AS us
-WHERE id = ?;`
+WHERE id = ?`;
 
 const insertRecipe = async ({ userName, title, ing, ins, id }) =>
   connection()
