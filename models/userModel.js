@@ -20,7 +20,7 @@ const findByEmail = async (email) =>
     )
     .then((results) => results.fetchAll()[0])
     .then(([id, firstName, lastName, password]) => (
-      first_name
+      firstName
       ?
       {
         id,
@@ -48,7 +48,7 @@ const findById = async (id) =>
     )
     .then((results) => results.fetchAll()[0])
     .then(([firstName, lastName, password]) => (
-      first_name
+      firstName
       ?
       {
         id,
