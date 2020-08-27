@@ -11,7 +11,7 @@
     <%- include('header', {user})%>
     <% if(user) { %>
     <div>
-      <button type="button" data-testid="nova-receita">Nova Receita</button>
+      <button type="button" data-testid="nova-receita" onclick="window.location.pathname='/recipes/new'">Nova Receita</button>
     </div>
     <% } %>
     <div>
