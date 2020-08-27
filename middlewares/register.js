@@ -2,6 +2,7 @@ const { register } = require('../controllers/userController.js');
 
 const PATTERN = {
   email: /^[A-z0-9]*@[A-z0-9]*.com$/,
+  password: '',
   firstName: /^[A-z]*$/,
   lastName: /^[A-z]*$/,
 };
