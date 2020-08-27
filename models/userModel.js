@@ -51,7 +51,7 @@ const patternName = /[a-zA-Z]/;
 const isValid = async (email, password, passconfirm, firstName, lastName) => {
   let message = '';
 
-  if (email && patternEmail.test(email) === false) {
+  if (patternEmail.test(email) === false) {
     message = 'O email deve ter o formato email@mail.com';
   }
 
