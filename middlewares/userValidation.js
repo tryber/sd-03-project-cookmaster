@@ -1,59 +1,65 @@
 const userModel = require('../models/userModel');
 
+// Regex criado com orientação do instrutor Neto
+const validateName = (name = '') => name && /^[A-Z][a-z]{2,}$/i.test(name);
+
+/* Regex obtido em
+https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address */
+const validateEmail = (email = '') => email
+  && /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(
+    email,
+  );
+
+const getUser = async (userEmail = '') => {
+  try {
+    const user = userEmail && (await userModel.findByEmail(userEmail));
+    return user.email;
+  } catch (error) {
+    return error;
+  }
+};
+
 const validationMessages = {
+  user: 'Usuário já cadastrado, por favor faça login',
   email: 'O email deve ter o formato email@mail.com',
   password: 'A senha deve ter pelo menos 6 caracteres',
   confirmPassword: 'As senhas tem que ser iguais',
   name: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
   lastName: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-  user: 'Usuário já cadastrado, por favor faça login',
   default: 'Cadastro efetuado com sucesso!',
 };
 
-const getUser = async (userEmail) => {
-  const user = await userModel.findByEmail(userEmail);
-  return !!user;
-};
-
-/* Regex obtido em https://html.spec.whatwg.org/multipage/
-input.html#valid-e-mail-address */
-const validateEmail = (email) => email && (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/).test(email);
-
-// Regex criado com orientação do instrutor Neto
-const validateName = (name) => name && (/^[A-Z][a-z]{3,}$/).test(name);
-
-const verifyPasswords = (userPassword, passwordConfirm) => {
-  if (userPassword < 6) return validationMessages.password;
-  if (passwordConfirm !== userPassword) return validationMessages.confirmPassword;
-  return null;
-};
-
-const verifyNames = (userName, userlastName) => {
-  if (!validateName(userName)) return validationMessages.name;
-  if (!validateName(userlastName)) return validationMessages.lastName;
-  return null;
-};
-
-function ValidateUser(email, password, confirmPassword, name, lastName) {
-  if (getUser(email)) return validationMessages.user;
-  if (!validateEmail(email)) return validationMessages.email;
-  if (verifyPasswords(password, confirmPassword)) return verifyPasswords(password, confirmPassword);
-  if (verifyNames(name, lastName)) return verifyNames(name, lastName);
-  return validationMessages.default;
+async function ValidateUser(email, password, confirmPassword, name, lastName) {
+  const searchUser = await getUser(email);
+  switch (true) {
+    case email === searchUser:
+      return validationMessages.user;
+    case !validateEmail(email):
+      return validationMessages.email;
+    case password.length < 6:
+      return validationMessages.password;
+    case confirmPassword !== password:
+      return validationMessages.confirmPassword;
+    case !validateName(name):
+      return validationMessages.name;
+    case !validateName(lastName):
+      return validationMessages.lastName;
+    default:
+      return validationMessages.default;
+  }
 }
 
-const registerValidationMiddleware = (req, _res, next) => {
+const registerValidationMiddleware = async (req, _res, next) => {
   const {
-    email,
-    password,
-    confirmPassword,
-    name,
-    lastName,
+    email, password, confirmPassword, name, lastName,
   } = req.body;
-
-  const dataValidation = ValidateUser(email, password, confirmPassword, name, lastName);
-
+  const dataValidation = await ValidateUser(email, password, confirmPassword, name, lastName);
   req.message = dataValidation;
+  if (req.message === validationMessages.default) {
+    req.validate = true;
+  } else {
+    req.validate = false;
+  }
 
   return next();
 };

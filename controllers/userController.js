@@ -50,10 +50,16 @@ const registry = async (req, res) => {
     email, password, name, lastName,
   } = req.body;
 
-  await userModel.createUser(email, password, name, lastName);
+  if (req.validate) {
+    await userModel.createUser(email, password, name, lastName);
+    return res.render('admin/signup', {
+      message: req.message,
+      redirect: null,
+    });
+  }
 
   return res.render('admin/signup', {
-    message: req.message || null,
+    message: req.message,
     redirect: null,
   });
 };
