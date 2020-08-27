@@ -14,7 +14,7 @@ const searchRecipe = async (req, res) => {
 
   const test = [await cookModel.getCookieByName(req.query.search)];
   recipes = test;
-  return res.render('searchRecipes', { user: req.user, recipes })
+  return res.render('searchRecipes', { user: req.user, recipes });
 };
 
 const newRecipe = async (_req, res) => res.render('admin/newRecipe');
