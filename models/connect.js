@@ -20,7 +20,7 @@ const connect = async () => {
     return schema;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return process.exit(1);
   }
 };
-module.exports = connect
+module.exports = connect;

@@ -1,6 +1,6 @@
 const connect = require('./connect');
 
-const getAllRecipes = async () => {
+async function getAllRecipes() {
   try {
     const db = await connect();
     const searchDb = await db.getTable('recipes').select(['user', 'name']).execute();
@@ -8,7 +8,7 @@ const getAllRecipes = async () => {
     return results ? results.map(([user, name]) => ({ user, name })) : [];
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return process.exit(1);
   }
-};
+}
 module.exports = { getAllRecipes };

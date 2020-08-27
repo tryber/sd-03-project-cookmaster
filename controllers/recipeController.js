@@ -7,7 +7,7 @@ const listRecipes = async (req, res) => {
     return res.render('home', { recipes, user: 0 });
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return process.exit(1);
   }
 };
 module.exports = { listRecipes };
