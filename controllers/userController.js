@@ -1,7 +1,7 @@
 const { v4: uuid } = require('uuid');
 const { SESSIONS } = require('../middlewares/auth');
 
-const userModel = require('../models/userModel');
+const { userModel, recipeModel } = require('../models');
 
 const loginForm = (req, res) => {
   const { token = '' } = req.cookies || {};
@@ -14,7 +14,7 @@ const loginForm = (req, res) => {
   });
 };
 
-const login = async (req, res, next) => {
+const login = async (req, res) => {
   const { email, password, redirect } = req.body;
 
   if (!email || !password)
@@ -34,7 +34,7 @@ const login = async (req, res, next) => {
   SESSIONS[token] = user.id;
 
   res.cookie('token', token, { httpOnly: true, sameSite: true });
-  res.redirect(redirect || '/admin');
+  res.redirect(redirect || '/');
 };
 
 const logout = (req, res) => {
@@ -43,8 +43,46 @@ const logout = (req, res) => {
   res.render('admin/logout');
 };
 
+async function register(email, password, firstName, lastName) {
+  return userModel.registerUser(email, password, firstName, lastName);
+}
+
+async function getSelfRecipes(req, res) {
+  const { id } = req.user;
+  const recipes = await recipeModel.getUserRecipesById(id);
+  res.status(200).render('ownRecipes', { recipes });
+}
+
+async function confirmPassword(req, res, next) {
+  const { password } = req.body;
+  const { id } = req.user;
+  const { password: correctPassword } = await userModel.findById(id);
+  if (correctPassword !== password) {
+    return res.render('deleteForm', { message: 'Senha Incorreta.' });
+  }
+  return next();
+}
+
+async function sendUserEditForm(req, res) {
+  const { id } = req.user;
+  const { lastName, name, email } = await userModel.findById(id);
+  res.render('editUser', { lastName, name, email });
+}
+
+async function changeUserInformation(req, res) {
+  const { id } = req.user;
+  const { password, email, lastName, firstName } = req.body;
+  userModel.changeUserInformation(id, email, password, firstName, lastName);
+  res.redirect('/');
+}
+
 module.exports = {
   login,
   loginForm,
   logout,
+  register,
+  getSelfRecipes,
+  confirmPassword,
+  sendUserEditForm,
+  changeUserInformation,
 };
