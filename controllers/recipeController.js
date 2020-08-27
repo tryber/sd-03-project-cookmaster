@@ -7,5 +7,5 @@ const listRecipes = async (_req, res) => {
 };
 
 module.exports = {
-  listRecipes
+  listRecipes,
 };
