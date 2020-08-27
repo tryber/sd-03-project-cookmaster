@@ -37,7 +37,7 @@ app.route('/register')
     },
   ).post(middlewares.verifyRegister, (req, res) => {
     const { email, password, firstName, lastName } = req.body;
-    register(email, password, firstName, lastName);
+    userController.register(email, password, firstName, lastName);
     res.status(200).render('register', { message: 'Cadastro efetuado com sucesso!' });
   });
 

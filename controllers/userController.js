@@ -69,10 +69,11 @@ async function sendUserEditForm(req, res) {
   res.render('editUser', { lastName, name, email });
 }
 
-async function changeUserInformation(req) {
+async function changeUserInformation(req, res) {
   const { id } = req.user;
   const { password, email, lastName, firstName } = req.body;
   userModel.changeUserInformation(id, email, password, firstName, lastName);
+  res.redirect('/');
 }
 
 module.exports = {
