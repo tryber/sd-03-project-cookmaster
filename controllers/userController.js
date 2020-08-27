@@ -82,7 +82,7 @@ const signup = async (req, res, next) => {
 
   await userModel.setUser(req.body);
   const user = await userModel.findByEmail(email);
-  renderReturn('Cadastro efetuado com sucesso!', res, user);
+  return renderReturn('Cadastro efetuado com sucesso!', res, user);
 };
 
 const cooks = async (req, res) => {
