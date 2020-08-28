@@ -20,17 +20,15 @@ de fato, realize a busca no banco de dados */
 //   return TEMP_USER;
 // };
 
-const objectDestructure = ({id, email, password, ...object}) => {
-  return { id, email,  password, name: object.first_name,  lastName: object.last_name };
-}
+const objectDestructure = ({ id, email, password, ...object }) => {
+  return { id, email, password, name: object.first_name, lastName: object.last_name };
+};
 
 const findByEmail = async (email) =>
   connection()
     .then((db) => db.getTable('users').select().execute())
     .then((users) => users.objects.filter((user) => user.email === email))
     .then((user) => objectDestructure(user[0]));
-
-
 
 /**
  * Busca um usuário através do seu ID
