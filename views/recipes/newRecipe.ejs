@@ -10,9 +10,9 @@
   <body>
     <%- include('../header', {user})%>
     <h1>Nova Receita</h1>
-    <form action="/recipes" method="POST" id="ingredient-form">
+    <form action="/recipes" method="POST">
       <label for="nameInput">Nome da Receita</label>
-      <input type="text" name="name" id="nameInput" data-testid="nome-receita">
+      <input type="text" name="name" id="nameInput" data-testid="nome-receita" required>
       <fieldset>
         <legend>Ingredientes</legend>
         <input type="hidden" name="ingredients" id="ingredients" />
@@ -21,17 +21,19 @@
         <button type="button" id="adicionar-ingrediente" data-testid="adicionar-ingrediente">Adicionar
           Ingrediente</button>
       </fieldset>
-      <textarea name="instructions" id="instructionsInput" cols="50" rows="30" data-testid="modo-de-preparo"></textarea>
+      <label for="instructionsInput">Modo de preparo: </label>
+      <textarea name="instructions" id="instructionsInput" cols="50" rows="30" data-testid="modo-de-preparo"
+        required></textarea>
       <button type="button" onclick="window.location.pathname='/'">Voltar</button>
       <button type="submit" data-testid="postar-receita">Salvar Receita</button>
     </form>
 
   </body>
   <script>
-    let ingredientForm = document.getElementById('ingredient-form');
+    let ingredients = [];
     let ingredientList = document.getElementById('ingredients_list');
     let ingredientValue = document.getElementById('ingredient');
-    let ingredientsAcc = document.getElementById('ingredients');
+    let ingredientsInput = document.getElementById('ingredients');
     let ingredientButton = document.getElementById('adicionar-ingrediente');
 
     const deleteBtn = () => {
@@ -42,8 +44,17 @@
         /*Removendo itens da lista que está
         dois níveis acima */
         const parentElement = event.target.parentNode;
-        const grandparentElement = event.target.parentNode.parentNode;
-        grandparentElement.removeChild(parentElement);
+        /* selecionando innerText do parentNode, retirando o texto do button
+        que também compõe o innerText da li como um todo */
+        const parentNodeInnerText = parentElement.innerText.slice(0, -19);
+
+        const grandparentElement = parentElement.parentNode;
+
+        // filtrando ingredientes excluidos
+        ingredients = ingredients.filter((ingredient) => ingredient !== parentNodeInnerText);
+        ingredientsInput.value = ingredients.join(',');
+
+        return grandparentElement.removeChild(parentElement);
       })
 
       return btn;
@@ -53,26 +64,16 @@
     const createIngredient = () => {
       let ingredient = document.createElement('li');
       ingredient.innerHTML = ingredientValue.value;
+      ingredients.push(ingredientValue.value);
+      ingredientsInput.value = ingredients.join(',');
       ingredient.appendChild(deleteBtn());
       ingredientList.appendChild(ingredient);
+
+      return ingredientValue.value = '';
     }
 
     window.onload = () => {
       ingredientButton.addEventListener('click', createIngredient);
-
-      //Criando string de ingredientes
-      ingredientForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-
-        const ingredientsValue = ingredientList
-        .children
-        .reduce((acc, children) => children.type !== 'button' ? [...acc, children.innerText] : acc, [])
-        .join(',');
-
-        const IngredientsValuesJoin = ingredientsAcc.value = ingredientValue
-        console.log(IngredientsValuesJoin);
-        return IngredientsValuesJoin;
-      })
     }
   </script>
 

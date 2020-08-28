@@ -25,12 +25,12 @@ app.get('/logout', controllers.userController.logout);
 app.post('/login', controllers.userController.login);
 
 app.post('/recipes', middlewares.auth(), controllers.recipeController.registryRecipe);
-app.get('recipes/new', middlewares.auth(), (req, res) => res.render('recipes/new', { user: req.user }));
 app.get(
   '/recipes/search',
   middlewares.auth(false),
   controllers.recipeController.listRecipesByQuery,
 );
+app.get('/recipes/new', middlewares.auth(), (req, res) => res.render('recipes/newRecipe', { user: req.user }));
 app.get(
   '/recipes/:id',
   middlewares.auth(false),
