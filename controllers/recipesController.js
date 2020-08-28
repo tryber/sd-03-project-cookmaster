@@ -18,10 +18,8 @@ const recipesById = async (req, res) => {
 
 const findRecipes = async (req, res) => {
   const { q } = req.query; const { user } = req;
-  //const id = res.end(req.params.id);
   if (!q) return res.render('searchRecipes', { searchRecipe: [], user });
   const searchRecipe = await recipeModel.getRecipesByQuery(q);
-
   return res.render('searchRecipes', { searchRecipe, user });
 };
 
