@@ -37,15 +37,15 @@ const addUser = async (email, password, firstName, lastName) => {
     .insert(['email', 'password', 'first_name', 'last_name'])
     .values(email, password, firstName, lastName)
     .execute();
-}
+};
 
 const emailIsValid = (email = '') => email.match(/\S+@\w+\.\w{2,6}(\.\w{2})?/i);
 
 const passwordIsValid = (password = '') => password.length > 5;
 
-const confirmedPassword = (password = '', confirmPassword = '') => password === confirmPassword;
+const confirmedPassword = (password = '', confirmPassword = '') => (password === confirmPassword);
 
-const nameIsValid = (name = '') => name.match(/^\w{3,}/i)
+const nameIsValid = (name = '') => name.match(/^\w{3,}/i);
 
 module.exports = {
   findByEmail,

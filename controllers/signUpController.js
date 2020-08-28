@@ -7,13 +7,12 @@ const renderSignUp = async (_req, res) => {
     confirmPasswordMessage: null,
     firstNameMessage: null,
     lastNameMessage: null,
+    successMessage: null,
   });
 };
 
 const newUser = async (req, res) => {
   const { email, password, confirmPassword, firstName, lastName } = req.body;
-
-  console.log(req.body)
 
   let emailMessage = null;
   let passwordMessage = null;
@@ -29,7 +28,7 @@ const newUser = async (req, res) => {
     passwordMessage = 'A senha deve ter pelo menos 6 caracteres';
   }
 
-  if (!userModel.confirmedPassword(confirmPassword)) {
+  if (!userModel.confirmedPassword(password, confirmPassword)) {
     confirmPasswordMessage = 'As senhas tem que ser iguais';
   }
 
@@ -42,21 +41,28 @@ const newUser = async (req, res) => {
     lastNameMessage = 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras';
   }
 
-  if (emailMessage || passwordMessage || confirmPassword || firstNameMessage || lastNameMessage) {
-    res
-      .status(402)
-      .render('admin/signUp', {
-        emailMessage,
-        passwordMessage,
-        confirmPasswordMessage,
-        firstNameMessage,
-        lastNameMessage,
-      });
+  if (emailMessage || passwordMessage || confirmPasswordMessage || firstNameMessage || lastNameMessage) {
+    console.log('passei aqui')
+    res.status(402).render('admin/signUp', {
+      emailMessage,
+      passwordMessage,
+      confirmPasswordMessage,
+      firstNameMessage,
+      lastNameMessage,
+      successMessage: null,
+    });
   }
 
   await userModel.addUser(email, password, firstName, lastName);
 
-  res.status(201).render('home', { message: null });
+  res.status(201).render('admin/signUp', {
+    emailMessage,
+    passwordMessage,
+    confirmPasswordMessage,
+    firstNameMessage,
+    lastNameMessage,
+    successMessage: 'Cadastro efetuado com sucesso!',
+  });
 };
 
 module.exports = {

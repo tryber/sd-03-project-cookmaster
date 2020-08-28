@@ -56,18 +56,22 @@
             <label for="firstNameInput">Nome: </label>
             <input type="text" name="firstName" id="firstNameInput" data-testid="nome" />
             <% if (firstNameMessage) {%>
-              <div class="message">
-                <span class="helper-text" data-error="wrong" data-success="right"><%= firstNameMessage %></span>
-              </div>
+            <div class="message">
+              <span class="helper-text" data-error="wrong" data-success="right"
+                ><%= firstNameMessage %></span
+              >
+            </div>
             <% } %>
           </div>
           <div class="input-field col s12">
             <label for="lastNameInput">Sobrenome: </label>
-            <input type="text" name="lastName" id="lastNameInput data-testid="sobrenome" />
+            <input type="text" name="lastName" id="lastNameInput" data-testid="sobrenome" />
             <% if (lastNameMessage) {%>
-              <div class="message">
-                <span class="helper-text" data-error="wrong" data-success="right"><%= lastNameMessage %></span>
-              </div>
+            <div class="message">
+              <span class="helper-text" data-error="wrong" data-success="right"
+                ><%= lastNameMessage %></span
+              >
+            </div>
             <% } %>
           </div>
         </div>
@@ -86,6 +90,11 @@
               >
                 Cadastre-se
               </button>
+              <% if (successMessage) {%>
+                <div class="message">
+                  <span class="helper-text" data-error="wrong" data-success="right"><%= successMessage %></span>
+                </div>
+              <% } %>
             </div>
           </div>
         </div>
