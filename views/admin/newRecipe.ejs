@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookmaster - Registrar</title>
+  <link rel="stylesheet" type="text/css" href="/app.css" />
+</head>
+
+<body>
+  <h1>Nova Receita</h1>
+  <form>
+    <div style="display: flex; flex-direction: column;">
+      <label for="name">Nome da Receita: </label>
+      <input style="height: 30px;" data-testid="nome-receita" type="text" name="name" id="name" /><br />
+
+    </div>
+    <h3>ingredientes</h3>
+    <div style="display: flex;">
+      <div style="flex-direction: column;">
+      </div>
+      <ul id="ingredients">
+        <input style="margin-right: 10px;" data-testid="ingredientes" id="ingredient" type="text"
+           /><br />
+        <button id="addIngredient" data-testid="adicionar-ingrediente">Adicionar Ingrediente</button><br>
+      </ul>
+    </div>
+    </div>
+    <input id="ing" name="ingredients"/>
+    <div style="display: flex; flex-direction: column;">
+      <label for="instructions">Modo de Preparo: </label>
+      <input style="height: 100px;" data-testid="modo-de-preparo" type="text" name="instructions"
+        id="instructions" /><br />
+    </div>
+    <input formaction="/recipes" formmethod="POST" data-testid="postar-receita" type="submit" value="Salvar Receita" />
+  </form>
+  <script>
+    let items = [];
+    document.getElementById('addIngredient').addEventListener('click', (e) => {
+      e.preventDefault();
+      const item = document.createElement('li');
+      const deleteButton = document.createElement('button')
+      const inputValue = document.getElementById('ingredient').value;
+      item.innerHTML = inputValue;
+      const div = document.createElement('div');
+      div.id = `ingredients-div-${inputValue}`
+      deleteButton.innerHTML = 'Excluir Ingrediente';
+      document.getElementById('ingredients').appendChild(div);
+      document.getElementById(`ingredients-div-${inputValue}`).appendChild(item);
+      document.getElementById(`ingredients-div-${inputValue}`).appendChild(deleteButton);
+      items = [...items, document.getElementById("ingredient").value];
+      const string = items.join(',');
+      document.getElementById('ingredient').value = '';
+      deleteButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById(`ingredients-div-${inputValue}`).remove();
+      })
+      document.getElementById('ing').value = items.join(',');
+    })
+  </script>
+</body>
+
+</html>

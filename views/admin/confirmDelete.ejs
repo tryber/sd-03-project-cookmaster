@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookmaster - Admin</title>
+</head>
+
+<body>
+  <form>
+    <label for="pass-confirm">Senha</label>
+    <input data-testid="senha" type="text" name="password" id="pass-confirm" /><br />
+    <input data-testid="cancelar" type="submit" formaction="/" formmethod="GET" value="Cancelar">
+    <input data-testid="confirmar" type="submit" formaction="/recipes/<%=id%>/delete" formmethod="POST"
+      value="Confirmar">
+    <%if (message) { %>
+    <p><%=message%></p>
+    <%} %>
+  </form>
+</body>
+
+</html>

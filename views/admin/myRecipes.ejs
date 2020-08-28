@@ -11,9 +11,6 @@
   <div>
     <div style="display: flex; justify-content: space-between; align-items: center; background-color: grey;">
       <h1>Cookmaster</h1>
-      <form action="/me/edit" method="GET">
-        <button data-testid="minha-conta" type="submit">Minha Conta</button>
-      </form>
       <%if (user) {%>
       <form action="/logout" method="POST">
         <button data-testid="logout" type="submit">Logout</button>
@@ -27,9 +24,9 @@
     </div>
     <div style="width: 80%; margin: auto; display: flex; flex-direction: column;">
       <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h2>Receitas</h2>
-        <form action="/recipes/search" method="GET">
-        <button type="submit" style="background-color: aqua;" data-testid="buscar-receita">Buscar Receita</button>
+        <h2>Minhas Receitas</h2>
+        <form action="/recipes/new" method="GET">
+        <button type="submit" style="background-color: aqua;" data-testid="buscar-receita">Nova Receita</button>
         </form>
       </div>
       <div style="display: flex; flex-wrap: wrap">
@@ -37,18 +34,10 @@
       <div class="flex-recipes" style="display: flex; flex-direction: column; width: 25%; justify-content: center; align-items: center; background-color: grey; margin: 20px;">
         <p style="color: red"><%= recipe.name %></p>
         <p><%= recipe.user %></p>
-        <a href=<%= `/recipe/${recipe.id}` %>>Ver mais</a>
+        <a href=<%= `/recipe/${recipe.recipeId}` %>>Ver mais</a>
       </div>
       <% }) %>
       <div>
-        <%if (user) {%>
-          <form action="/recipes/new" method="GET">
-            <button data-testid="nova-receita" type="submit">Nova Receita</button>
-          </form>
-          <%}%>
-          <form action="/me/recipes" method="GET">
-            <button data-testid="minhas-receitas" type="submit">Minhas Receitas</button>
-          </form>
       </div>
     </div>
   </div>

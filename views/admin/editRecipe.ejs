@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookmaster - Admin</title>
+</head>
+
+<body>
+  <form action="/recipes/<%= recipeInfo.id%>" method="POST">
+    <h1>Editar Receita</h1>
+    <label for="name">Nome da Receita: </label>
+    <input data-testid="nome-receita" type="text" name="name" id="name" value="<%= recipeInfo.name%> " /><br />
+    <ul id="ul"></ul>
+    <%ingredient.forEach(e => {%>
+    <div id="div-<%=e%>">
+      <li><%=e%></li>
+      <button onclick="delevent(event)" id="<%=e%>">Excluir Ingrediente</button>
+    </div>
+    <%})%>
+    <div style="display: flex;">
+      <input data-testid="ingredientes" type="text" id="ingredients" /><br />
+      <button id="addIngredient" data-testid="adicionar-ingrediente">Adicionar Ingrediente</button><br>
+    </div>
+    <input type="text" id="str-ing" name="ingredients" value="<%= recipeInfo.ingredients%>" /><br />
+    <label for="instructions">Modo de Preparo: </label>
+    <input data-testid="modo-de-preparo" type="text" name="instructions" id="instructions"
+      value="<%= recipeInfo.instructions%> " /><br />
+    <button type="submit" data-testid="postar-receita" type="submit">Salvar
+      Receita</button>
+  </form>
+  <script>
+    let items = document.getElementById('str-ing').value.split(',');
+    const delevent = (e) => {
+      e.preventDefault();
+      document.getElementById('str-ing').value = items.filter(el => el !== e.target.id).join(',');
+      items = items.filter(el => el !== e.target.id);
+      document.getElementById(`div-${e.target.id}`).remove();
+    }
+
+    document.getElementById('addIngredient').addEventListener('click', (e) => {
+      e.preventDefault();
+      const item = document.createElement('li');
+      const deleteButton = document.createElement('button');
+      const inputValue = document.getElementById('ingredients').value;
+      item.innerHTML = inputValue;
+      const div = document.createElement('div');
+      div.id = `ingredients-div-${inputValue}`;
+      deleteButton.innerHTML = 'Excluir Ingrediente';
+      document.getElementById('ul').appendChild(div);
+      document.getElementById(`ingredients-div-${inputValue}`).appendChild(item);
+      document.getElementById(`ingredients-div-${inputValue}`).appendChild(deleteButton);
+      items = [...items, document.getElementById('ingredients').value];
+      document.getElementById('str-ing').value = items.join(',');
+      document.getElementById('ingredients').value = '';
+      deleteButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById(`ingredients-div-${inputValue}`).remove();
+        items = items.filter(el => el !== inputValue);
+        document.getElementById('str-ing').value = items.join(',');
+      });
+    });
+  </script>
+</body>
+
+</html>

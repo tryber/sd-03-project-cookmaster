@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Registrar</title>
+  </head>
+  <body>
+    <form action="/register" method="POST">
+      <label for="emailInput">Email: </label>
+      <input data-testid="email" type="text" name="email" id="emailInput" /><br />
+      <label for="passwordInput">Senha: </label>
+      <input data-testid="senha" type="password" name="password" id="passwordInput" /><br />
+      <label for="pass-confirm">Confirmar Senha: </label>
+      <input data-testid="confirmar-senha" type="password" name="passConfirm" id="pass-confirm" /><br />
+      <label for="name">Nome: </label>
+      <input data-testid="nome" type="text" name="firstName" id="name" /><br />
+      <label for="lastname">Sobrenome: </label>
+      <input data-testid="sobrenome" type="text" name="lastName" id="lastname" /><br />
+      <button data-testid="cadastrar" type="submit">Registrar</button>
+    </form>
+    <form action="/login" method="GET">
+      <button data-testid="login" type="submit">Login</button>
+    </form>
+    <% if (message) {%>
+      <p class="message">
+        <%= message %>
+      </p>
+      <% } %>
+  </body>
+</html>
