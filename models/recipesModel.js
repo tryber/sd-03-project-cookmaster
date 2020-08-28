@@ -65,8 +65,58 @@ const findRecipesByName = async (q) => {
   }
 };
 
+async function newRecipe(userId, user, name, ingredients, instructions) {
+  try {
+    const db = await connection();
+    const query = await db.getTable('recipes')
+      .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
+      .values(userId, user, name, ingredients, instructions)
+      .execute();
+    return query;
+  } catch (error) {
+    return error;
+  }
+};
+
+async function updateRecipe(id, name = '', ingredients = '', instructions = '') {
+  try{
+    const db = await connection();
+    const query = await db.getTable('recipes')
+      .update()
+      .set('name', name)
+      .set('ingredients', ingredients)
+      .set('instructions', instructions)
+      .where('id = :id')
+      .bind('id', id)
+      .execute();
+
+    return query;
+  } catch (error) {
+    return error;
+  }
+};
+
+async function deleteRecipe(id) {
+  try{
+    const db = await connection();
+    const query = await db.getTable('recipes')
+      .delete()
+      .where('id = :id')
+      .limit(1)
+      .bind('id', id)
+      .execute();
+  
+    return query;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   findAllRecipes,
   findRecipeById,
   findRecipesByName,
+  newRecipe,
+  updateRecipe,
+  deleteRecipe,
 };

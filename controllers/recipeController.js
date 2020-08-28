@@ -32,8 +32,26 @@ const searchRecipes = async (req, res) => {
   }
 };
 
-const newRecipe = async(req, res) => {
+const newRecipe = async (req, res) => {
+  const {
+    id: userId,
+    name: userName,
+  } = req.user;
+  const {
+    recipeName = null,
+    ingredients = null,
+    instructions = null,
+  } = req.body;
 
+  const newRecipe = recipesModel.newRecipe(
+    userId,
+    userName,
+    recipeName,
+    ingredients,
+    instructions,
+  );
+
+  if (newRecipe) return res.status(200).redirect('/');
 };
 
 module.exports = {
