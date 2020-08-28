@@ -65,10 +65,10 @@
       let ingredient = document.createElement('li');
       ingredient.innerHTML = ingredientValue.value;
 
-        // inserindo ingredientes e atualizando input hidden
+      // inserindo ingredientes e atualizando input hidden
       ingredients.push(ingredientValue.value);
       ingredientsInput.value = ingredients.join(',');
-      
+
       ingredient.appendChild(deleteBtn());
       ingredientList.appendChild(ingredient);
 
