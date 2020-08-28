@@ -15,34 +15,37 @@ de fato, realize a busca no banco de dados */
  * Busca um usuário através do seu email e, se encontrado, retorna-o.
  * @param {string} email Email do usuário a ser encontrado
  */
-// const findByEmail = async (email) => {
-
-//   return TEMP_USER;
-// };
-
-const objectDestructure = ({ id, email, password, ...object }) => {
-  return { id, email, password, name: object.first_name, lastName: object.last_name };
-};
 
 const findByEmail = async (email) =>
   connection()
-    .then((db) => db.getTable('users').select().execute())
-    .then((users) => users.objects.filter((user) => user.email === email))
-    .then((user) => objectDestructure(user[0]));
+    .then((db) => db
+      .getTable('users')
+      .select(['id', 'email', 'password', 'first_name', 'last_name'])
+      .where('email = :email')
+      .bind('email', email)
+      .execute())
+    .then((results) => results.fetchOne())
+    .then(([id, email, password, first_name, last_name]) => (
+    { id, email, password, name: first_name, lastName: last_name}));
+
 
 /**
  * Busca um usuário através do seu ID
  * @param {string} id ID do usuário
  */
-// const findById = async (id) => {
-//   return TEMP_USER;
-// };
 
 const findById = async (id) =>
   connection()
-    .then((db) => db.getTable('users').select().execute())
-    .then((users) => users.objects.filter((user) => user.id === id))
-    .then((user) => objectDestructure(user[0]));
+    .then((db) => db
+      .getTable('users')
+      .select(['id', 'email', 'password', 'first_name', 'last_name'])
+      .where('id = :id')
+      .bind('id', id)
+      .execute())
+    .then((result) => result.fetchOne())
+    .then(([id, email, password, first_name, last_name]) => (
+      { id, email, password, name: first_name, lastName: last_name }
+    ));
 
 module.exports = {
   findByEmail,
