@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastre-se</title>
+  </head>
+  <body>
+    <h1>Cookmaster - Cadastro</h1>
+    <% if (message) {%>
+      <div class="message">
+        <%= message %>
+      </div>
+    <% } %>
+    <form action="/signup" method="post">
+      <label for="email">Email</label>
+      <input data-testid="email" type="text" name="email" id="emailInput" /><br />
+      <label for="senha">Senha</label>
+      <input data-testid="senha" type="password" name="senha" id="senhaInput" /><br />
+      <label for="confirmarsenha">Confirmar Senha</label>
+      <input data-testid="confirmar-senha" type="password" name="confirmarsenha" id="confirmarInput" /><br />
+      <label for="nome">Nome</label>
+      <input data-testid="nome" type="text" name="nome" id="nomeInput" /><br />
+      <label for="sobrenome">Sobrenome</label>
+      <input data-testid="sobrenome" type="text" name="sobrenome" id="sobrenomeInput" /><br />
+      <button data-testid="cadastrar" type="submit">Cadastar-se</button>
+    </form>
+    <button data-testid="login">Login</button>
+  </body>
+</html>
