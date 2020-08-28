@@ -118,27 +118,25 @@
     </header>
     <section>
       <div class="container">
-        <span class="title">Receitas</span>
-        <div>
-          <a href="/recipes/search"><button data-testid="buscar-receita">Buscar Receitas</button></a>
-          <% if (user) { %>
-            <button data-testid="minhas-receitas">Minhas Receitas</button>
-            <button data-testid="nova-receita">Nova Receita</button>
-            <button data-testid="minha-conta">Minha Conta</button>
-          <% } %>
-        </div>
+        <span class="title">Buscar Receitas</span>
+        <form method="GET">
+          <input data-testid="receita" type="text" name="q"/>
+          <button data-testid="buscar" type="submit" >Buscar</button>
+        </form>
       </div>
-      <div class="container">
-        <% recipes.forEach(({ name, user, id }) => { %>
-          <div class="recipe shadow default-color">
-            <div>
-              <h2><%= name %></h2>
-              <h4><%= user %></h4>
+      <% if (recipes)  { %>
+        <div class="container">
+          <% recipes.forEach(({ name, user, id }) => { %>
+            <div class="recipe shadow default-color">
+              <div>
+                <h2><%= name %></h2>
+                <h4><%= user %></h4>
+              </div>
+              <a href=<%=`/recipes/${id}`%>>Ver mais</a>
             </div>
-            <a href=<%=`recipes/${id}`%>>Ver mais</a>
-          </div>
-        <% }) %>
-      </div>
+          <% }) %>
+        </div>
+      <% } %>
     </section>
   </body>
 </html>

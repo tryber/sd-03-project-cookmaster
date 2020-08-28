@@ -21,7 +21,22 @@ const detailsPage = async (req, res) => {
   }
 };
 
+const searchPage = async (req, res) => {
+  const { q } = req.query;
+  if (!q && q !== '') {
+    return res.render('admin/searchRecipes', { recipes: null, user: req.user });
+  }
+
+  const recipes = await recipesModel.findRecipeByName(q);
+  try {
+    res.render('admin/searchRecipes', { recipes, user: req.user, query: q});
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 module.exports = {
   homePage,
   detailsPage,
+  searchPage,
 };
