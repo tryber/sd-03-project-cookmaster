@@ -49,9 +49,27 @@ const registryRecipe = async (req, res) => {
       await recipesModel.createRecipe(id, userName, name, ingredients, instructions);
       return res.redirect('/');
     }
-    return res.render('recipes/new', {
+    return res.render('recipes/newRecipe', {
       message: 'Campos inválido',
     });
+  } catch (error) {
+    return error;
+  }
+};
+
+const updateRecipe = async (req, res) => {
+  const { user, params, body } = req;
+  const { id } = params;
+  const { name, ingredients, instructions } = body;
+
+  // Para comparação de id de usuário logado com autor da receita
+  const checkRecipe = await recipesModel.findRecipeByID(id);
+  try {
+    if (req.body && checkRecipe.userId === user.id) {
+      await recipesModel.updateRecipe(id, name, ingredients, instructions);
+      return res.redirect(`/recipes/${id}`);
+    }
+    return res.status(401).send('Acesso Negado');
   } catch (error) {
     return error;
   }
@@ -63,4 +81,5 @@ module.exports = {
   listRecipeForUpdateByID,
   listRecipesByQuery,
   registryRecipe,
+  updateRecipe,
 };

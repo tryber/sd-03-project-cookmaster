@@ -37,7 +37,7 @@ app.get(
   middlewares.recipeFilter,
   controllers.recipeController.listRecipeByID,
 );
-app.post('/recipes/:id', middlewares.auth());
+app.post('/recipes/:id', middlewares.auth(), controllers.recipeController.updateRecipe);
 app.get(
   '/recipes/:id/edit',
   middlewares.auth(),
