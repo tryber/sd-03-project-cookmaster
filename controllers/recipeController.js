@@ -38,13 +38,13 @@ const newRecipe = async (req, res) => {
 
   await recipeModel.createNewRecipe(id, userFullName, recipeName, ingredients, instructions);
 
-  return res.render('admin/new', { message: 'Receita cadastrada com sucesso', user: req.user });
+  return res.redirect('/');
 };
 
 const editRecipeForm = async (req, res) => {
   const recipe = await recipeModel.findRecipeById(req.params.id);
   const { id } = req.user;
-  const { ingredients, userId } = recipe;
+  const { ingredients, userId, recipeId } = recipe;
   const ingredientsArr = ingredients.split(',');
 
   recipe.ingredients = ingredientsArr;
@@ -56,7 +56,6 @@ const editRecipeForm = async (req, res) => {
 
 const editRecipe = async (req, res) => {
   const { recipeName, ingredients, instructions } = req.body;
-  console.log(req.body);
 
   await recipeModel.editRecipe(req.params.id, recipeName, ingredients[0], instructions);
 

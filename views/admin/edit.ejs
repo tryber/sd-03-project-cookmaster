@@ -13,7 +13,6 @@
     <form action="/recipes/<%= recipe.recipeId %> " method="POST">
       <label for="recipeName">Nome da Receita</label><br />
       <input
-        required
         type="text"
         name="recipeName"
         id="recipeName"
@@ -38,7 +37,6 @@
       <br />
       <label for="instructions">Modo de Preparo</label><br />
       <input
-        required
         type="text"
         name="instructions"
         id="instructions"
@@ -61,7 +59,7 @@
       const deleteButton = document.createElement('button');
 
       item.innerText = ingredientInput.value;
-      deleteButton.innerText = 'Excluir ingrediente';
+      deleteButton.innerText = 'Excluir Ingrediente';
 
       ingredientsArray.push(ingredientInput.value);
       ingredients.value = ingredientsArray.join(',');
@@ -90,7 +88,7 @@
         ingredientsArray.push(ingredientItems[i].innerText);
         ingredients.value = ingredientsArray.join(',');
 
-        deleteButton.innerText = 'Excluir ingrediente';
+        deleteButton.innerText = 'Excluir Ingrediente';
         deleteButton.className = 'delete-button';
 
         ingredientItems[i].insertAdjacentElement('afterend', deleteButton);
