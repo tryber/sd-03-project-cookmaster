@@ -1,4 +1,4 @@
-import('config/config');
+import 'config/config';
 const mysqlx = require('@mysql/xdevapi');
 
 const connection = () => (
