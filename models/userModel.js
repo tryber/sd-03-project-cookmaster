@@ -45,37 +45,30 @@ const insertRegister = async (email, password, firstName, lastName) => {
       .execute());
 };
 
-const patternEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi;
 const patternName = /[a-zA-Z]/;
 
+const validEmail = (email) => {
+  const patternEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi;
+  if (patternEmail.test(email) === false) return false;
+  return true;
+};
+
 const isValid = async (email, password, passconfirm, firstName, lastName) => {
-  let message = '';
+  if (validEmail(email) === false) return 'O email deve ter o formato email@mail.com';
 
-  if (patternEmail.test(email) === false) {
-    message = 'O email deve ter o formato email@mail.com';
-  }
+  if (password.length < 6) return 'A senha deve ter pelo menos 6 caracteres';
 
-  if (password.length <= 5) {
-    message = 'A senha deve ter pelo menos 6 caracteres';
-  }
-
-  if (password !== passconfirm) {
-    message = 'As senhas tem que ser iguais';
-  }
+  if (password !== passconfirm) return 'As senhas tem que ser iguais';
 
   if (patternName.test(firstName) === false || firstName.length < 3) {
-    message = 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letrass';
+    return 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letrass';
   }
 
   if (patternName.test(lastName) === false || lastName.length < 3) {
-    message = 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letrass';
+    return 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letrass';
   }
 
-  await insertRegister(email, password, firstName, lastName);
-
-  message = 'Cadastro efetuado com sucesso!';
-
-  return message;
+  return true;
 };
 
 module.exports = {
