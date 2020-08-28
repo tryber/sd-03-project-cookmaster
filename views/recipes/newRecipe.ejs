@@ -44,13 +44,13 @@
         /*Removendo itens da lista que está
         dois níveis acima */
         const parentElement = event.target.parentNode;
+        const grandparentElement = parentElement.parentNode;
+
         /* selecionando innerText do parentNode, retirando o texto do button
         que também compõe o innerText da li como um todo */
         const parentNodeInnerText = parentElement.innerText.slice(0, -19);
 
-        const grandparentElement = parentElement.parentNode;
-
-        // filtrando ingredientes excluidos
+        // filtrando ingredientes excluidos e atualizando input hidden
         ingredients = ingredients.filter((ingredient) => ingredient !== parentNodeInnerText);
         ingredientsInput.value = ingredients.join(',');
 
@@ -64,8 +64,11 @@
     const createIngredient = () => {
       let ingredient = document.createElement('li');
       ingredient.innerHTML = ingredientValue.value;
+
+        // inserindo ingredientes e atualizando input hidden
       ingredients.push(ingredientValue.value);
       ingredientsInput.value = ingredients.join(',');
+
       ingredient.appendChild(deleteBtn());
       ingredientList.appendChild(ingredient);
 
