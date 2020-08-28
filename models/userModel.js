@@ -5,7 +5,7 @@ const TEMP_USER = {
   password: 'password',
   name: 'Taylor',
   lastName: 'Doe',
-}
+};
 
 /* Substitua o código das funções abaixo para que ela,
 de fato, realize a busca no banco de dados */
