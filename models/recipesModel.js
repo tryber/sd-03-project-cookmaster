@@ -58,13 +58,11 @@ const searchRecipes = async (query) => {
       .execute();
     const results = await searchQuery.fetchAll();
     return results
-      ? results.map(
-        ([id, user, name]) => ({
-          id,
-          user,
-          name,
-        }),
-      )
+      ? results.map(([id, user, name]) => ({
+        id,
+        user,
+        name,
+      }))
       : null;
   } catch (error) {
     return error;
@@ -85,6 +83,28 @@ const createRecipe = async (userID, user, name, ingredients, instructions) => {
   }
 };
 
+const updateRecipe = async (id, name, ingredients, instructions) => {
+  try {
+    const db = await connection();
+    const updateQuery = await db
+      .getTable('recipes')
+      .update()
+      .set('name', name)
+      .set('ingredients', ingredients)
+      .set('instructions', instructions)
+      .where('id = :id')
+      .bind('id', id)
+      .execute();
+    return updateQuery;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
-  findAllRecipes, findRecipeByID, searchRecipes, createRecipe,
+  findAllRecipes,
+  findRecipeByID,
+  searchRecipes,
+  createRecipe,
+  updateRecipe,
 };
