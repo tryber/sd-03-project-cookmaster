@@ -1,15 +1,10 @@
-const Recipe = require("../models/recipeModel");
+const Recipe = require('../models/recipeModel');
 
-const listRecipes = async (_req, res) => {
-  try {
-    const recipes = await Recipe.getAllRecipes();
-    return res.render('home', { recipes });
-  } catch (error) {
-    console.log(error);
-  }
-  // Renderiza todas as receitas na ejs home
+const listRecipes = async (req, res) => {
+  const recipes = await Recipe.getAllRecipes();
+    res.render('home', { user: req.user, recipes });
+  // Pega o usuário do userData no auth.js
+  // Retorna todas as receitas para serem renderizadas no ejs da home
 };
 
-module.exports = {
-  listRecipes
-}
+module.exports = { listRecipes };

@@ -14,6 +14,24 @@ const loginForm = (req, res) => {
   });
 };
 
+const regForm = (req, res) => {
+  const { token = '' } = req.cookies || {};
+  if (SESSIONS[token]) return res.redirect('/login');
+  // Se tiver logado, não faz sentido registrar
+  return res.render('admin/register', {
+    message: 'Cadastre um novo usuário',
+    redirect: req.query.redirect,
+  });
+};
+
+const register = async (req, res) => {
+  const { email, pass1, pass2, firstName, lastName } = req.body;
+  const response = userModel.valiDate(email, pass1, pass2, firstName, lastName);
+  response === true ? // Todos os campos foram validados
+  res.status(201).render('userCreated', { message: 'Cadastro efetuado com sucesso!' }) :
+  res.status(402).render('admin/register', { message: response })
+};
+
 const login = async (req, res, next) => {
   const { email, password, redirect } = req.body;
 
@@ -34,7 +52,8 @@ const login = async (req, res, next) => {
   SESSIONS[token] = user.id;
 
   res.cookie('token', token, { httpOnly: true, sameSite: true });
-  res.redirect(redirect || '/admin');
+  res.redirect(redirect || '/');
+  // Manda o usuário pra home após efetuar o login
 };
 
 const logout = (req, res) => {
@@ -46,5 +65,7 @@ const logout = (req, res) => {
 module.exports = {
   login,
   loginForm,
+  register,
+  regForm,
   logout,
 };
