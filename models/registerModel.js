@@ -10,7 +10,7 @@ const addUser = (email, password, name, lastName) =>
   );
 
 const newUserIsValid = (email, password, confirmPassword, name, lastName) => {
-  const emailRegEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  const emailRegEx = /^[\w-\.]+@([w-]+\.)+[w-]{2,4}$/;
   const nameRegEx = /^[a-zA-Z]+$/i;
   const messageArr = [];
   if (!emailRegEx.test(email)) messageArr.push('O email deve ter o formato email@mail.com');
