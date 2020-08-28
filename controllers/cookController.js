@@ -18,18 +18,16 @@ const searchRecipe = async (req, res) => {
 };
 
 const lala = [];
-const newRecipe = async (_req, res) => {
-  return res.render('admin/newRecipe', { lala });
-};
+const newRecipe = (_req, res) => res.render('admin/newRecipe', { lala });
 
 const setNewRecipe = async (req, res) => {
   const { remove, name, ingredient, instructions } = req.body;
-  if(name.length>0 && ingredient.lenght>0 && instructions.length>0)
-  console.log('test')
-  if(remove!==undefined)
-  lala.splice(remove, 1);
-  if(remove===undefined)
-  lala.push(ingredient);
+  if (name.length > 0 && ingredient.lenght > 0 && instructions.length > 0)
+    return res.render('admin/newRecipe', { lala });
+  if (remove !== undefined)
+    lala.splice(remove, 1);
+  if (remove === undefined)
+    lala.push(ingredient);
   return res.render('admin/newRecipe', { lala });
 };
 
