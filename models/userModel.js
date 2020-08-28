@@ -47,7 +47,7 @@ async function updateUser({
   try {
     const db = await connection();
     const users = await db.getTable('users');
-    const user = await users.update()
+    await users.update()
       .set('email', email)
       .set('password', password)
       .set('first_name', firstName)
