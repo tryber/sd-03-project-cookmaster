@@ -8,8 +8,8 @@ const findAllRecipes = async () =>
 const findRecipeById = async (id) =>
   connection()
     .then((db) => db.getTable('recipes').select().execute())
-    .then((recipes) => recipes.objects.filter((recipe) => recipe.id === parseInt(id)))
-    .then((recipes) => recipes[0])
+    .then((recipes) => recipes.objects.filter((recipe) => recipe.id === parseInt(id, 10)))
+    .then((recipes) => recipes[0]);
 
 module.exports = {
   findAllRecipes,
