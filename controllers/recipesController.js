@@ -1,5 +1,7 @@
 const recipeModel = require('../models/recipeModel');
 
+// const token = uuid();
+// SESSIONS[token] = user.id;
 
 const recipes = async (req, res) => {
   const { user } = req;
@@ -8,6 +10,13 @@ const recipes = async (req, res) => {
   return res.render('home', { listRecipes, user });
 };
 
+const recipesById = async (req, res) => {
+  const { user } = req;
+  const recipesId = await recipeModel.getRecipesById();
+  return res.render('detailsRecipes', { recipesId, user })
+}
+
 module.exports = {
   recipes,
+  recipesById,
 };
