@@ -10,14 +10,14 @@ function validadeEmail(email, senha, confSenha) {
   if (senha !== confSenha) {
     return { message: 'As senhas tem que ser iguais' };
   }
-  return undefined;
+  return {};
 }
 
 function validadeData({
   email, senha, conf_senha: confSenha, name, last_name: lastName,
 }) {
   const { message } = validadeEmail(email, senha, confSenha);
-  if (message) return message;
+  if (message) return { message };
   if (name.length < 3 || name.match(/\d/gm)) {
     return { message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' };
   }
