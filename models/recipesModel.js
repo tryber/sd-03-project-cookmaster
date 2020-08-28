@@ -76,7 +76,7 @@ async function newRecipe(userId, user, name, ingredients, instructions) {
   } catch (error) {
     return error;
   }
-};
+}
 
 async function updateRecipe(id, name = '', ingredients = '', instructions = '') {
   try{
@@ -94,10 +94,10 @@ async function updateRecipe(id, name = '', ingredients = '', instructions = '') 
   } catch (error) {
     return error;
   }
-};
+}
 
 async function deleteRecipe(id) {
-  try{
+  try {
     const db = await connection();
     const query = await db.getTable('recipes')
       .delete()
@@ -105,12 +105,12 @@ async function deleteRecipe(id) {
       .limit(1)
       .bind('id', id)
       .execute();
-  
+
     return query;
   } catch (error) {
     return error;
   }
-};
+}
 
 module.exports = {
   findAllRecipes,

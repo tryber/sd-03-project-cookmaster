@@ -32,7 +32,7 @@ const searchRecipes = async (req, res) => {
   }
 };
 
-const newRecipe = async (req, res) => {
+const addRecipe = async (req, res) => {
   const {
     id: userId,
     name: userName,
@@ -43,7 +43,7 @@ const newRecipe = async (req, res) => {
     instructions = null,
   } = req.body;
 
-  const newRecipe = recipesModel.newRecipe(
+  await recipesModel.newRecipe(
     userId,
     userName,
     recipeName,
@@ -51,12 +51,12 @@ const newRecipe = async (req, res) => {
     instructions,
   );
 
-  if (newRecipe) return res.status(200).redirect('/');
+  return res.status(200).redirect('/');
 };
 
 module.exports = {
   showAllRecipes,
   showRecipeDetails,
   searchRecipes,
-  newRecipe,
+  addRecipe,
 };
