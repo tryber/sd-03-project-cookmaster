@@ -52,24 +52,7 @@ const findById = async (userId) => {
   return userIdParams;
 };
 
-const isValid = (email, password, firstName, lastName) => {
-  if (!email || !password || !firstName || !lastName) return false;
-  if (typeof email !== 'string' || typeof password !== 'string'
-    || typeof firstName !== 'string' || typeof lastName !== 'string') return false;
-  return true;
-};
-
-const insertUser = async (email, password, firstName, lastName) => {
-  const db = await getSchema();
-  await db.getTable('users')
-    .insert(['email', 'password', 'first_name', 'last_name'])
-    .values(email, password, firstName, lastName)
-    .execute();
-};
-
 module.exports = {
   findByEmail,
   findById,
-  isValid,
-  insertUser
 };
