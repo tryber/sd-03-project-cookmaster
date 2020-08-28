@@ -46,7 +46,7 @@ const insertRegister = async (email, password, firstName, lastName) => {
 };
 
 const patternName = /[a-zA-Z]/;
-const patternEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi;
+const patternEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
 const isValid = async (email, password, passconfirm, firstName, lastName) => {
   if (password.length < 6) return 'A senha deve ter pelo menos 6 caracteres';
@@ -70,6 +70,7 @@ const isValidTwo = (email, firstName, lastName) => {
   }
   return undefined;
 };
+
 module.exports = {
   findByEmail,
   findById,
