@@ -7,6 +7,7 @@ const TEMP_USER = {
   lastName: 'Doe',
 };
 
+const connection = require('./connection');
 /* Substitua o código das funções abaixo para que ela,
 de fato, realize a busca no banco de dados */
 
@@ -14,17 +15,44 @@ de fato, realize a busca no banco de dados */
  * Busca um usuário através do seu email e, se encontrado, retorna-o.
  * @param {string} email Email do usuário a ser encontrado
  */
-const findByEmail = async (email) => {
-  return TEMP_USER;
-};
+// const findByEmail = async (email) => {
+
+//   return TEMP_USER;
+// };
+
+const findByEmail = async (email) =>
+  connection()
+    .then((db) => db.getTable('users').select().execute())
+    .then((users) => users.objects.filter((user) => user.email === email))
+    .then((id, email, password, ...user) => ({
+      id,
+      email,
+      password,
+      name: user.first_name,
+      lastName: user.last_name,
+    }));
+
+
 
 /**
  * Busca um usuário através do seu ID
  * @param {string} id ID do usuário
  */
-const findById = async (id) => {
-  return TEMP_USER;
-};
+// const findById = async (id) => {
+//   return TEMP_USER;
+// };
+
+const findById = async (id) =>
+  connection()
+    .then((db) => db.getTable('users').select(['id']).execute())
+    .then((users) => users.objects.filter((user) => user.id === id))
+    .then((id, email, password, ...user) => ({
+      id,
+      email,
+      password,
+      name: user.first_name,
+      lastName: user.last_name,
+    }));
 
 module.exports = {
   findByEmail,

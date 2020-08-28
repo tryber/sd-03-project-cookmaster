@@ -4,8 +4,92 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cookmaster - Home</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+
+      .recipe {
+        border: 1px solid rgb(41, 41, 41);
+        border-radius: 4px;
+        margin: 5px;
+        padding: 1%;
+        width: 350px;
+        height: 100px;
+      }
+
+      header {
+        background-color: #f2f2f2;
+        color: rgb(41, 41, 41);
+        display: flex;
+        font-size: larger;
+        font-weight: 700;
+        justify-content: space-between;
+        margin: 0;
+        padding: 1%;
+      }
+
+      h2 {
+        margin: 1%;
+      }
+
+      section {
+        border: 1px solid rgb(41, 41, 41);
+        border-radius: 4px;
+        margin-top: 10px;
+      }
+
+      .shadow {
+        box-shadow: 0px 0px 9px 3px rgba(41,41,41,.25);
+      }
+
+      .pointer {
+        cursor: pointer;
+      }
+
+    </style>
   </head>
   <body>
-    <h1>Boas vindas ao Cookmaster!</h1>
+    <header class="shadow">
+      <span>Cookmaster</span>
+      <% if (!user) { %>
+        <a href="/login"><span class="pointer" data-testid="login">Login</span></a>
+      <% } else { %>
+        <div>
+          <span> <%= `${user.name} ${user.lastName}` %>|</span>
+          <span class="pointer" data-testid="logout">Logout</span>
+        </div>
+
+      <% } %>
+    </header>
+    <section>
+      <div class="container">
+        <span>Receitas</span>
+        <div>
+          <button data-testid="buscar-receita">Buscar Receitas</button>
+          <% if (user) { %>
+            <button data-testid="minhas-receitas">Minhas Receitas</button>
+            <button data-testid="nova-receita">Nova Receita</button>
+            <button data-testid="minha-conta">Minha Conta</button>
+          <% } %>
+        </div>
+      </div>
+      <div class="container">
+        <% recipes.forEach(({ name, user }) => { %>
+          <div class="recipe">
+            <h2><%= name %></h2>
+            <h4><%= user %></h4>
+            <a href="/:id">Ver mais</a>
+          </div>
+        <% }) %>
+      </div>
+    </section>
   </body>
 </html>
