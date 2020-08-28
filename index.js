@@ -20,6 +20,8 @@ app.set('views', './views');
 // gets for routes
 
 app.get('/', middlewares.auth(false), controllers.recipeController.recipes);
+app.get('/admin/cadastro', middlewares.auth(false), controllers.userController.registerForm);
+app.post('/admin/cadastro', middlewares.auth(false), controllers.userController.register);
 
 app.get('/admin', middlewares.auth(), (req, res) => {
   return res.render('admin/home', { user: req.user });

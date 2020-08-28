@@ -40,7 +40,18 @@ const findById = async (ID) => {
   }))[0] : null;
 };
 
+const registerInBank = async (registerValues) => {
+  const { email, password, first_name, last_name } = registerValues;
+  const db = await connection();
+  const insertInto = db.getTable('users')
+  .insert(['email', 'password', 'first_name', 'last_name'])
+  .values(email, password, first_name, last_name)
+  .execute();
+  return insertInto;
+};
+
 module.exports = {
+  registerInBank,
   findByEmail,
   findById,
 };

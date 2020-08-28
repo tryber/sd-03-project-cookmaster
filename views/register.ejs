@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <h2>Cadastro</h2>
+  </head>
+  <body>
+     <% if (message) {%>
+    <div class="message"><%= message %></div>
+    <% } %>
+    <form action="/admin/cadastro" method="POST">
+      <label for="emailInput">Email: </label>
+      <input required data-testid="email" type="text" name="email" id="emailInput" /><br />
+      <label for="passwordInput">Senha: </label>
+      <input required data-testid="senha" type="password" name="password" id="passwordInput" /><br />
+      <label for="passwordConfirm">Confirmar Senha: </label>
+      <input required data-testid="confirmar-senha" type="password" name="confirPassword" id="passwordConfirm" /><br />
+      <label for="nameInput">Nome: </label>
+      <input required data-testid="nome" type="text" name="first_name" id="nameInput" /><br />
+      <label for="surnameInput">Sobrenome: </label>
+      <input required data-testid="sobrenome" type="text" name="last_name" id="surnameInput" /><br />
+      <button type="submit" data-testid="cadastrar">Cadastar-se</button>
+    </form>
+    <button type="button" data-testid="login" onclick="window.location.pathname='/login'">Login</button>
+  </body>
+</html>
