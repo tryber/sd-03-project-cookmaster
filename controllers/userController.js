@@ -122,14 +122,14 @@ const showMyRecipes = async (req, res) => {
   res.render('myRecipes', { recipes, user: req.user });
 };
 
-const showUserInfo = (req, res) => {
-  const user = findById(req.user[0]);
+const showUserInfo = async (req, res) => {
+  const user = await findById(req.user[0]);
   res.render('userInfo', { user });
 };
 
 const editUserInfo = (req, res) => {
-  const user = findById(req.user[0]);
-  res.render('userInfo', { user });
+  userModel.updateUserInDB(req.user[0], req.body);
+  res.redirect('/');
 };
 
 module.exports = {

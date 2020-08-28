@@ -147,6 +147,23 @@ const showMyRecipesFromDB = (id) => connection()
   .then((results) => results.fetchAll())
   .then((recipes) => recipes.map(([recipeId, name, user]) => ({ recipeId, name, user })));
 
+const updateUserInDB = (id, {
+  email, password, confirmPass, firstName, lastName,
+}) => {
+  if (password === confirmPass) {
+    connection()
+      .then((db) => db.getTable('users')
+        .update()
+        .set('email', email)
+        .set('password', password)
+        .set('first_name', firstName)
+        .set('last_name', lastName)
+        .where('id = :id')
+        .bind('id', id)
+        .execute());
+  }
+};
+
 module.exports = {
   findByEmail,
   findById,
@@ -158,4 +175,5 @@ module.exports = {
   upDateRecipeInDB,
   checkPassword,
   showMyRecipesFromDB,
+  updateUserInDB,
 };
