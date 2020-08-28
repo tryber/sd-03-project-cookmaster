@@ -46,24 +46,6 @@ const logout = (req, res) => {
 const signup = async (req, res) => {
   res.clearCookie('token');
   const { email, password, confirmPassword, name, lastName } = req.body;
-  if (name.length < 3)
-    res.render('admin/signup', { redirect: null, message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' });
-
-  if (lastName.length < 3)
-    res.render('admin/signup', { redirect: null, message: 'O segundo  nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' });
-
-  if (password.length < 6)
-    res.render('admin/signup', { redirect: null, message: 'A senha deve ter pelo menos 6 caracteres' });
-
-  if (password !== confirmPassword)
-    res.render('admin/signup', { redirect: null, message: 'As senhas tem que ser iguais' });
-
-  /* if (!insertValidation(email, password, confirmPassword, name, lastName)) {
-    return res.render('admin/signup', {
-      message: 'Erro ao realizar cadastro.',
-      redirect: null,
-    });
-  } */
 
   await userModel.insertUser(email, password, name, lastName);
 
