@@ -70,25 +70,24 @@
       <% } %>
     </header>
     <section>
+      <span>Eviada por: <%= recipe.user %></span>
       <div class="container">
-        <span>Receitas</span>
+        <span>Receita: <%= recipe.name %></span>
         <div>
           <button data-testid="buscar-receita">Buscar Receitas</button>
           <% if (user) { %>
-            <button data-testid="minhas-receitas">Minhas Receitas</button>
-            <button data-testid="nova-receita">Nova Receita</button>
-            <button data-testid="minha-conta">Minha Conta</button>
+            <a href="/edit"><button data-testid="editar-receita">Editar receita</button></a>
+            <a href="/delete"><button data-testid="excluir-receita">Excluir receita</button></a>
           <% } %>
         </div>
       </div>
-      <div class="container">
-        <% recipes.forEach(({ name, user, id }) => { %>
-          <div class="recipe">
-            <h2><%= name %></h2>
-            <h4><%= user %></h4>
-            <a href=<%=`recipes/${id}`%>>Ver mais</a>
-          </div>
+      <div>
+        <h2>Ingredientes</h2>
+        <% recipe.ingredients.split(',').forEach((ingredient) => { %>
+          </br><span><%= ingredient %></span>
         <% }) %>
+        <h2>Modo de Preparo</h2>
+        <p> <%= recipe.instructions %></p>
       </div>
     </section>
   </body>
