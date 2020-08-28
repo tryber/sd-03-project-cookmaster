@@ -52,7 +52,7 @@ const signup = async (req, res) => {
   if (lastName.length < 3)
     res.render('admin/signup', { redirect: null, message: 'O segundo  nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' });
 
-  if (password.length < 6 )
+  if (password.length < 6)
     res.render('admin/signup', { redirect: null, message: 'A senha deve ter pelo menos 6 caracteres' });
 
   if (password !== confirmPassword)

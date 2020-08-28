@@ -17,14 +17,14 @@ const findAllRecipes = async () => {
   }
 };
 
-const findRecipeById = async (userId) => {
+const findRecipeById = async (inputId) => {
   try {
     const db = await connection();
     const query = await db
       .getTable('recipes')
       .select(['id', 'user_id', 'user', 'name', 'ingredients', 'instructions'])
       .where('id = :id')
-      .bind('id', userId)
+      .bind('id', inputId)
       .execute();
 
     const results = await query.fetchAll();
