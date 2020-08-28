@@ -28,12 +28,12 @@ app.get('/recipes/:id', middlewares.auth(false), controllers.recipeController.sh
 app.get('/login', controllers.userController.loginForm);
 app.get('/logout', controllers.userController.logout);
 app.get('/signup', (_req, res) => {
-  res.render('admin/signup', { message: null, redirect: null })
+  res.render('admin/signup', { message: null, redirect: null });
 });
 
 
 app.post('/login', controllers.userController.login);
 app.post('/signup', controllers.userController.signup);
-//app.post('/recipes', controllers.userController.newRecipe)
+// app.post('/recipes', controllers.userController.newRecipe)
 
 app.listen(3000, () => console.log('Listening on 3000'));

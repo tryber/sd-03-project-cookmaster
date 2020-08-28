@@ -10,28 +10,27 @@ const showAllRecipes = async (req, res) => {
 };
 
 const showRecipeDetails = async (req, res) => {
-  try{
+  try {
     const { id } = req.params;
     const recipe = await recipesModel.findRecipeById(id);
-    return recipe 
-      ? res.render('recipe', { recipe, user: req.user || null })
+    return recipe ? res.render('recipe', { recipe, user: req.user || null })
       : res.status(404).render('notFound');
   } catch (error) {
     return error;
   }
-}
+};
 
 const searchRecipes = async (req, res) => {
   try {
     const { q } = req.query;
     const recipes = await recipesModel.findRecipesByName(q);
-    if(!q) return res.render('search', {recipes: null, user: req.user || null });
+    if (!q) return res.render('search', { recipes: null, user: req.user || null });
 
-    return res.render('search', {recipes, user: req.user || null});
-  } catch(error) {
+    return res.render('search', { recipes, user: req.user || null });
+  } catch (error) {
     return error;
   }
-}
+};
 
 module.exports = {
   showAllRecipes,

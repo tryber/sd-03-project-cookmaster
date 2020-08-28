@@ -8,7 +8,7 @@ const insertValidation = (email, password, confirmPassword, name, lastName) => {
   if (confirmPassword !== password) return false;
 
   return true;
-}
+};
 
 const insertUser = async (email, password, name, lastName) => {
   try {
@@ -19,8 +19,8 @@ const insertUser = async (email, password, name, lastName) => {
       .values(email, password, name, lastName)
       .execute();
 
-      return query;
-  } catch(error) {
+    return query;
+  } catch (error) {
     return error;
   }
 };
