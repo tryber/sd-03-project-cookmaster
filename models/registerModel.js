@@ -9,6 +9,13 @@ const addUser = (email, password, name, lastName) =>
       .execute(),
   );
 
+
+const nameIsValid = (name) => {
+  const nameRegEx = /^[a-zA-Z]+/i;
+  if (!nameRegEx.test(name) || name.length < 3) return true;
+  return false;
+}
+
 const newUserIsValid = (email, password, confirmPassword, name, lastName) => {
   const emailRegEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}/;
   const nameRegEx = /^[a-zA-Z]+/i;
@@ -19,11 +26,11 @@ const newUserIsValid = (email, password, confirmPassword, name, lastName) => {
 
   if (password !== confirmPassword) messageArr.push('As senhas tem que ser iguais');
 
-  if (!nameRegEx.test(name) || name.length < 3) {
+  if (nameIsValid(name)) {
     messageArr.push('O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras');
   }
 
-  if (!nameRegEx.test(lastName) || lastName.length < 3) {
+  if (nameIsValid(lastName)) {
     messageArr.push('O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras');
   }
   return messageArr;
