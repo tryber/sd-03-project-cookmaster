@@ -45,7 +45,7 @@ const getRecipesByQuery = async (query) => {
   return findByQuery ? findByQuery.map(([id, user, name]) => ({
     id, user, name,
   })) : null;
-}
+};
 
 module.exports = {
   getRecipes,

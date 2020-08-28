@@ -13,14 +13,13 @@ const recipes = async (req, res) => {
 const recipesById = async (req, res) => {
   const { user } = req;
   const recipesId = await recipeModel.getRecipesById();
-  return res.render('detailsRecipes', { recipesId, user })
+  return res.render('detailsRecipes', { recipesId, user });
 };
 
 const findRecipes = async (req, res) => {
   const { q } = req.query; const { user } = req;
-  // 
-  // const id = res.end(req.params.id);
-  if (!q) return res.render('searchRecipes', { searchRecipe: [], user })
+  //const id = res.end(req.params.id);
+  if (!q) return res.render('searchRecipes', { searchRecipe: [], user });
   const searchRecipe = await recipeModel.getRecipesByQuery(q);
 
   return res.render('searchRecipes', { searchRecipe, user });
