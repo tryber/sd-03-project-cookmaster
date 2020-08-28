@@ -48,38 +48,35 @@ const signup = (_req, res) => {
   res.render('signup', { message: null });
 };
 
+// const userValidation = ({mail, password, confPassword, name, lastname}) => (
+
+// );
+
+const errorMessages = {
+  emailinvalido: 'O email deve ter o formato email@mail.com',
+  senhapequena: 'A senha deve ter pelo menos 6 caracteres',
+  senhaigual: 'As senhas tem que ser iguais',
+  primeironome: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+  segundonome: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+  sucesso: 'Cadastro efetuado com sucesso!',
+};
+
 const createUser = async (req, res) => {
   const { email, senha, confirmarsenha, nome, sobrenome } = req.body;
   const validaEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-  if (!validaEmail.test(email)) {
-    return res.render('signup', {
-      message: 'O email deve ter o formato email@mail.com',
-    });
-  }
-  if (senha.length < 6) {
-    return res.render('signup', {
-      message: 'A senha deve ter pelo menos 6 caracteres',
-    });
-  }
-  if (senha !== confirmarsenha) {
-    return res.render('signup', {
-      message: 'As senhas tem que ser iguais',
-    });
-  }
-  if (nome.length < 3) {
-    return res.render('signup', {
-      message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-    });
-  }
-  if (sobrenome.length < 3) {
-    return res.render('signup', {
-      message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-    });
-  }
+
+  if (!validaEmail.test(email)) res.render('signup', { message: errorMessages.emailinvalido });
+
+  if (senha.length < 6) res.render('signup', { message: errorMessages.senhapequena });
+
+  if (senha !== confirmarsenha) res.render('signup', { message: errorMessages.senhaigual });
+
+  if (nome.length < 3) res.render('signup', { message: errorMessages.primeironome });
+
+  if (sobrenome.length < 3) res.render('signup', { message: errorMessages.segundonome });
+  
   await createUserModel.userCreate(email, senha, nome, sobrenome);
-  return res.render('signup', {
-    message: 'Cadastro efetuado com sucesso!',
-  });
+  return res.render('signup', { message: errorMessages.sucesso });
 };
 
 module.exports = {
