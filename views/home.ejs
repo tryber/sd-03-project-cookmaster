@@ -8,9 +8,19 @@
   <body>
     <div>
       <h1>Cookmaster</h1>
+      <% if(!user) { %>
+      <a href="/login" data-testid="login">
+        <button>Login</button>
+      </a>
+      <% } %>
+      <% if(user) { %>
+      <button data-testid="logout" type="button" onclick="window.location.pathname = '/logout'">
+        Logout
+      </button>
+      <% } %>
     </div>
     <h2>Receitas</h2>
-    <%recipes.forEach(recipe => { %>
+    <% recipes.forEach(recipe => { %>
     <div>
       <p><%= recipe.name %></p>
       <p><%= recipe.user %></p>
@@ -18,10 +28,10 @@
     </div>
     <% }) %>
     <button data-testid="buscar-receita">Buscar Receita</button>
-    <!-- <% if(logged) { %> -->
-    <button>
-      <a href="/new-recipes" data-testid="nova-receita">Nova Receita</a>
+    <% if(user) { %>
+    <button data-testid="nova-receita" onclick="window.location.pathname='/new-recipes'">
+      Nova Receita
     </button>
-    <!-- <% } %> -->
+    <% } %>
   </body>
 </html>

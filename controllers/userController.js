@@ -8,13 +8,13 @@ const loginForm = (req, res) => {
 
   if (SESSIONS[token]) return res.redirect('/');
 
-  return res.render('admin/login', {
+  return res.render('login', {
     message: null,
     redirect: req.query.redirect,
   });
 };
 
-const login = async (req, res, next) => {
+const login = async (req, res, _next) => {
   const { email, password, redirect } = req.body;
 
   if (!email || !password)
@@ -34,7 +34,7 @@ const login = async (req, res, next) => {
   SESSIONS[token] = user.id;
 
   res.cookie('token', token, { httpOnly: true, sameSite: true });
-  res.redirect(redirect || '/admin');
+  res.redirect(redirect || '/');
 };
 
 const logout = (req, res) => {
