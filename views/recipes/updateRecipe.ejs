@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookmaster - Nova receita</title>
+  </head>
+
+  <body>
+    <%- include('../header', {user})%>
+    <h1>Nova Receita</h1>
+    <form action="/recipes" method="POST">
+      <label for="nameInput">Nome da Receita</label>
+      <input type="text" name="name" id="nameInput" data-testid="nome-receita" required>
+      <fieldset>
+        <legend>Ingredientes</legend>
+        <input type="hidden" name="ingredients" id="ingredients" />
+        <ul id="ingredients_list"></ul>
+        <input type="text" name="ingredient" id="ingredient" data-testid="ingredientes">
+        <button type="button" id="adicionar-ingrediente" data-testid="adicionar-ingrediente">Adicionar
+          Ingrediente</button>
+      </fieldset>
+      <label for="instructionsInput">Modo de preparo: </label>
+      <textarea name="instructions" id="instructionsInput" cols="50" rows="30" data-testid="modo-de-preparo"
+        required></textarea>
+      <button type="button" onclick="window.location.pathname='/'">Voltar</button>
+      <button type="submit" data-testid="postar-receita">Salvar Receita</button>
+    </form>
+
+  </body>
+  <script>
+    let ingredients = [];
+    let ingredientList = document.getElementById('ingredients_list');
+    let ingredientValue = document.getElementById('ingredient');
+    let ingredientsInput = document.getElementById('ingredients');
+    let ingredientButton = document.getElementById('adicionar-ingrediente');
+
+    const deleteBtn = () => {
+      const btn = document.createElement('button');
+      btn.innerText = 'Excluir Ingrediente';
+      btn.type = 'button';
+      btn.addEventListener('click', (event) => {
+        /*Removendo itens da lista que está
+        dois níveis acima */
+        const parentElement = event.target.parentNode;
+        /* selecionando innerText do parentNode, retirando o texto do button
+        que também compõe o innerText da li como um todo */
+        const parentNodeInnerText = parentElement.innerText.slice(0, -19);
+
+        const grandparentElement = parentElement.parentNode;
+
+        // filtrando ingredientes excluidos
+        ingredients = ingredients.filter((ingredient) => ingredient !== parentNodeInnerText);
+        ingredientsInput.value = ingredients.join(',');
+
+        return grandparentElement.removeChild(parentElement);
+      })
+
+      return btn;
+
+    }
+
+    const createIngredient = () => {
+      let ingredient = document.createElement('li');
+      ingredient.innerHTML = ingredientValue.value;
+      ingredients.push(ingredientValue.value);
+      ingredientsInput.value = ingredients.join(',');
+      ingredient.appendChild(deleteBtn());
+      ingredientList.appendChild(ingredient);
+
+      return ingredientValue.value = '';
+    }
+
+    window.onload = () => {
+      ingredientButton.addEventListener('click', createIngredient);
+    }
+  </script>
+
+</html>
