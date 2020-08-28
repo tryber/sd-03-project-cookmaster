@@ -17,9 +17,21 @@ const searchRecipe = async (req, res) => {
   return res.render('searchRecipes', { user: req.user, recipes });
 };
 
-const newRecipe = async (_req, res) => res.render('admin/newRecipe');
+const lala = [];
+const newRecipe = async (_req, res) => {
+  return res.render('admin/newRecipe', { lala });
+};
 
-const setNewRecipe = async (_req, res) => res.send('ok');
+const setNewRecipe = async (req, res) => {
+  const { remove, name, ingredient, instructions } = req.body;
+  if(name.length>0 && ingredient.lenght>0 && instructions.length>0)
+  console.log('test')
+  if(remove!==undefined)
+  lala.splice(remove, 1);
+  if(remove===undefined)
+  lala.push(ingredient);
+  return res.render('admin/newRecipe', { lala });
+};
 
 const cooks = async (req, res) => {
   const { id } = req.params;
