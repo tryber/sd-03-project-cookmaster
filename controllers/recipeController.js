@@ -13,7 +13,7 @@ const recipeDetails = async (req, res) => {
 
   if (!recipe) return res.status(404).render('recipe/notFound');
 
-  res.status(200).render('recipe/recipeDetail', { recipe, user: req.user });
+  return res.status(200).render('recipe/recipeDetail', { recipe, user: req.user });
 };
 
 module.exports = {
