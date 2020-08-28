@@ -6,7 +6,7 @@ const userCreate = async (email, senha, nome, sobrenome) =>
       .getTable('users')
       .insert(['email', 'password', 'first_name', 'last_name'])
       .values(email, senha, nome, sobrenome)
-      .execute()
+      .execute(),
   );
 
 module.exports = {
