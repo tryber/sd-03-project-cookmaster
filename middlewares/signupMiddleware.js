@@ -12,7 +12,7 @@ const findUser = async (userEmail = '') => {
 const allowedSizes = {
   email: 0,
   password: 6,
-  firstName: 3,
+  name: 3,
   lastName: 3,
 };
 
