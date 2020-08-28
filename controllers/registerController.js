@@ -31,4 +31,4 @@ const registerForm = (req, res) => {
 module.exports = {
   register,
   registerForm,
-}
+};

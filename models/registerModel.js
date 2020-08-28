@@ -6,7 +6,7 @@ const emailIsValid = (email) => {
     return true;
   }
   return false;
-}
+};
 
 const passwordLengthIsValid = (password) => (password.length >= 6 ? 1 : 0);
 
