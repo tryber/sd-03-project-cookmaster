@@ -39,10 +39,10 @@ const findById = async (ID) => {
     .bind('id', ID)
     .execute();
 
-  const response = sharchUser.fetchAll();
+  const responseSharchUser = sharchUser.fetchAll();
 
-  return response
-    ? response.reduce(
+  return responseSharchUser
+    ? responseSharchUser.reduce(
       (acc, [id, email, password, name, lastName]) => ({
         ...acc,
         id,

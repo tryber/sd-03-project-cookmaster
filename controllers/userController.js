@@ -60,16 +60,25 @@ const informMessage = {
 const registerUser = async (req, res) => {
   const { email, password, confirmPassword, name, lastName } = req.body;
 
-  if (!regexEmail.test(email)) return res.render('register', { message: informMessage.email });
+  if (!regexEmail.test(email)) {
+    return res.render('register', { message: informMessage.email });
+  }
 
-  if (password.length < 5) return res.render('register', { message: informMessage.password });
+  if (password.length < 5) {
+    return res.render('register', { message: informMessage.password });
+  }
 
-  if (confirmPassword !== password)
+  if (confirmPassword !== password) {
     return res.render('register', { message: informMessage.confirmPassword });
+  }
 
-  if (name.length < 3) return res.render('register', { message: informMessage.name });
+  if (name.length < 3) {
+    return res.render('register', { message: informMessage.name });
+  }
 
-  if (lastName.length < 3) return res.render('register', { message: informMessage.lastName });
+  if (lastName.length < 3) {
+    return res.render('register', { message: informMessage.lastName });
+  }
 
   await userModel.createUser(email, password, name, lastName);
   return res.status(200).render('register', { message: 'Cadastro efetuado com sucesso!' });

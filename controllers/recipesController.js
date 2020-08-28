@@ -24,4 +24,17 @@ const listRecipesById = async (req, res) => {
   }
 };
 
-module.exports = { listRecipes, listRecipesById };
+const listsharchRecipes = async (req, res) => {
+  try {
+    const { query } = req.query;
+    const { user } = req;
+
+    if (!query) return res.render('sharchRecipes', { sharchRecipes: [], user });
+    const sharchRecipes = await recipesModal.findSharchRecipe(query);
+    return res.render('sharchRecipes', { sharchRecipes, user });
+  } catch (error) {
+    return error;
+  }
+};
+
+module.exports = { listRecipes, listRecipesById, listsharchRecipes };

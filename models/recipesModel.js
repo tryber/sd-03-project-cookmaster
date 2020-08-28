@@ -27,7 +27,7 @@ const findRecipesById = async () => {
 
   const responseRecipe = await recipe.fetchAll();
   return responseRecipe
-    ? responseRecipe.map(([id, user_id, user, name, ingredients, instructions]) => ({
+    ? responseRecipe.map(([id, userId, user, name, ingredients, instructions]) => ({
       id,
       user_id,
       user,
@@ -38,7 +38,26 @@ const findRecipesById = async () => {
     : null;
 };
 
+// query retirada de:
+// https://stackoverflow.com/questions/40824845/using-a-like-sql-statement-in-express-node/40824981
+
+const findSharchRecipe = async (query) => {
+  const db = await connection();
+
+  const results = await db.getTable('recipes')
+    .select(['id', 'user', 'name'])
+    .where('name like :name')
+    .bind('name', `%${query}%`)
+    .execute();
+  const responseRecipeQuery = results.fetchAll();
+
+  return responseRecipeQuery ? responseRecipeQuery.map(([id, user, name]) => ({
+    id, user, name,
+  })) : null;
+};
+
 module.exports = {
   finfByRecipes,
   findRecipesById,
+  findSharchRecipe,
 };
