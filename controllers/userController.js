@@ -2,6 +2,7 @@ const { v4: uuid } = require('uuid');
 const { SESSIONS } = require('../middlewares/auth');
 
 const userModel = require('../models/userModel');
+const { findById } = require('../models/userModel');
 
 const loginForm = (req, res) => {
   const { token = '' } = req.cookies || {};
@@ -121,6 +122,15 @@ const showMyRecipes = async (req, res) => {
   res.render('myRecipes', { recipes, user: req.user });
 };
 
+const showUserInfo = (req, res) => {
+  const user = findById(req.user[0]);
+  res.render('userInfo', { user });
+};
+
+const editUserInfo = (req, res) => {
+
+};
+
 module.exports = {
   login,
   loginForm,
@@ -140,4 +150,6 @@ module.exports = {
   removeItem,
   showMyRecipes,
   editIngredients,
+  showUserInfo,
+  editUserInfo,
 };

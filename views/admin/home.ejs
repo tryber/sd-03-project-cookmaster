@@ -11,6 +11,9 @@
   <div>
     <div style="display: flex; justify-content: space-between; align-items: center; background-color: grey;">
       <h1>Cookmaster</h1>
+      <form action="/me/edit" method="GET">
+        <button data-testid="minha-conta" type="submit">Minha Conta</button>
+      </form>
       <%if (user) {%>
       <form action="/logout" method="POST">
         <button data-testid="logout" type="submit">Logout</button>

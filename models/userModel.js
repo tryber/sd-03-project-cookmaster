@@ -20,25 +20,26 @@ const findByEmail = async (email) => {
 
 function checkmail(email) {
   if (!email || email.length < 5) return { message: 'O email deve ter o formato email@mail.com' };
-  return true;
+  return {};
 }
 
 function checkpass(password, passConfirm) {
   if (!password || password.length < 6) return { message: 'A senha deve ter pelo menos 6 caracteres' };
   if (password !== passConfirm) return { message: 'As senhas tem que ser iguais' };
-  return true;
+  return {};
 }
 
 function checkname(firstName, lastName) {
   if (firstName < 3) return { message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' };
   if (lastName < 3) return { message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' };
-  return true;
+  return {};
 }
 
 const checkInfo = (email, password, passConfirm, firstName, lastName) => {
-  checkmail(email);
-  checkpass(password, passConfirm);
-  checkname(firstName, lastName);
+  console.log(checkpass(password, passConfirm).message)
+  if (checkmail(email).message) return (checkmail(email));
+  if (checkpass(password, passConfirm).message) return checkpass(password, passConfirm);
+  if (checkname(firstName, lastName).message) return checkname(firstName, lastName);
   connection()
     .then((db) => db.getTable('users')
       .insert(['email', 'password', 'first_name', 'last_name'])
@@ -49,7 +50,7 @@ const checkInfo = (email, password, passConfirm, firstName, lastName) => {
 
 const findById = async (id) => connection()
   .then((db) => db.getTable('users')
-    .select(['id', 'email', 'first_name', 'last_name'])
+    .select(['id', 'email', 'first_name', 'last_name', 'password'])
     .where('id = :id')
     .bind('id', id)
     .execute())

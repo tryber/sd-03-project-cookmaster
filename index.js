@@ -30,5 +30,7 @@ app.get('/me/recipes', middlewares.auth(), controllers.userController.showMyReci
 app.get('/login', controllers.userController.loginForm);
 app.get('/logout', controllers.userController.logout);
 app.post('/login', controllers.userController.login);
+app.get('/me/edit', middlewares.auth(), controllers.userController.showUserInfo);
+app.get('/me', middlewares.auth(), controllers.userController.editUserInfo);
 
 app.listen(3000, () => console.log('Listening on 3000'));
