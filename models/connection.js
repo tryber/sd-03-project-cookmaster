@@ -1,7 +1,8 @@
 const mysqlx = require('mysqlx');
 
 let schema;
-module.exports = () => schema
+module.exports = () => (
+  schema
   ? Promise.resolve(schema)
   : mysqlx
     .getSession({
@@ -18,4 +19,5 @@ module.exports = () => schema
     .catch((error) => {
       console.error(error);
       process.exit(1);
-    });
+    })
+);

@@ -8,9 +8,9 @@ const homePage = async (req, res) => {
   } catch (e) {
     console.error(e);
   }
-  return;
+
 };
 
 module.exports = {
   homePage,
-}
+};

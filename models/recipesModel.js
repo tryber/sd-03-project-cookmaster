@@ -7,4 +7,4 @@ const findAllRecipes = async () =>
 
 module.exports = {
   findAllRecipes,
-}
+};
