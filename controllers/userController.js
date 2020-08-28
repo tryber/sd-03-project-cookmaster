@@ -55,12 +55,17 @@ const registerUser = async (req, res) => {
     lastName,
   } = req.body;
 
-  let validation = await userModel.isValid(email, password, passconfirm, firstName, lastName);
+  let validation = userModel.isValidTwo(email, firstName, lastName);
 
-  if (validation === true) {
-    validation = 'Cadastro efetuado com sucesso!';
-    await userModel.insertRegister(email, password, firstName, lastName);
+  if (validation !== undefined) {
+    return res.render('admin/signup', {
+      message: {
+        validation,
+      },
+    });
   }
+
+  validation = await userModel.isValid(email, password, passconfirm, firstName, lastName);
 
   return res.render('admin/signup', {
     message: {
