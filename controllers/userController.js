@@ -45,7 +45,7 @@ const logout = (req, res) => {
 
 const signup = async (req, res) => {
   res.clearCookie('token');
-  const { email, password, confirmPassword, name, lastName } = req.body;
+  const { email, password, name, lastName } = req.body;
 
   await userModel.insertUser(email, password, name, lastName);
 

@@ -22,7 +22,7 @@ const regexValidations = {
   firstName: /^[A-z]*$/,
   lastName: /^[A-z]*$/,
 };
-
+ 
 const returnedMessages = {
   user: 'Usuário já existe!',
   email: 'O email deve ter o formato email@mail.com',
@@ -39,8 +39,6 @@ async function validate(user) {
   if (userExist) return returnedMessages.user;
 
   Object.entries(user).some(([key, value]) => {
-    console.log(key)
-      console.log(value)
     if (value.length < allowedSizes[key] || !value.match(regexValidations[key])) {
       console.log('entrou')
       message = returnedMessages[key];
@@ -56,13 +54,13 @@ const registerValidationMiddleware = async (req, res, next) => {
     email, password, confirmPassword, name, lastName,
   } = req.body;
 
-  const validationMessage = await validate({email, name, lastName, password, confirmPassword});
-  
+  const validationMessage = await validate({ email, name, lastName, password, confirmPassword });
+
   if (validationMessage) {
     return res.status(400).render('admin/signup', { message: validationMessage });
   } else if (password !== confirmPassword) {
     return res.status(400).render('admin/signup', { message: returnedMessages.confirmPassword });
-  };
+  }
 
   return next();
 };
