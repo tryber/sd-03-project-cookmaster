@@ -127,9 +127,9 @@ const showUserInfo = (req, res) => {
   res.render('userInfo', { user });
 };
 
-const editUserInfo = (req, res) => {
+// const editUserInfo = (req, res) => {
 
-};
+// };
 
 module.exports = {
   login,

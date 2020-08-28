@@ -36,7 +36,7 @@ function checkname(firstName, lastName) {
 }
 
 const checkInfo = (email, password, passConfirm, firstName, lastName) => {
-  console.log(checkpass(password, passConfirm).message)
+  // console.log(checkpass(password, passConfirm).message);
   if (checkmail(email).message) return (checkmail(email));
   if (checkpass(password, passConfirm).message) return checkpass(password, passConfirm);
   if (checkname(firstName, lastName).message) return checkname(firstName, lastName);
