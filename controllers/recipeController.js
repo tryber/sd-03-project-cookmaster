@@ -21,6 +21,12 @@ const listRecipeByID = (req, res) => {
   return res.render('recipes/details', { recipeDetails, user: null });
 };
 
+const listRecipeForUpdateByID = (req, res) => {
+  const { recipeDetails, user } = req;
+
+  return res.render('recipes/updateRecipe', { recipeDetails, user });
+};
+
 const listRecipesByQuery = async (req, res) => {
   try {
     const { q } = req.query;
@@ -52,5 +58,9 @@ const registryRecipe = async (req, res) => {
 };
 
 module.exports = {
-  listRecipes, listRecipeByID, listRecipesByQuery, registryRecipe,
+  listRecipes,
+  listRecipeByID,
+  listRecipeForUpdateByID,
+  listRecipesByQuery,
+  registryRecipe,
 };

@@ -38,7 +38,12 @@ app.get(
   controllers.recipeController.listRecipeByID,
 );
 app.post('/recipes/:id', middlewares.auth());
-app.get('/recipes/:id/edit', middlewares.auth());
+app.get(
+  '/recipes/:id/edit',
+  middlewares.auth(),
+  middlewares.recipeFilter,
+  controllers.recipeController.listRecipeForUpdateByID,
+);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
