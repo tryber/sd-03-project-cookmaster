@@ -79,7 +79,7 @@ async function newRecipe(userId, user, name, ingredients, instructions) {
 }
 
 async function updateRecipe(id, name = '', ingredients = '', instructions = '') {
-  try{
+  try {
     const db = await connection();
     const query = await db.getTable('recipes')
       .update()
