@@ -22,7 +22,7 @@ const regexValidations = {
   firstName: /^[A-z]*$/,
   lastName: /^[A-z]*$/,
 };
- 
+
 const returnedMessages = {
   user: 'Usuário já existe!',
   email: 'O email deve ter o formato email@mail.com',
@@ -40,14 +40,13 @@ async function validate(user) {
 
   Object.entries(user).some(([key, value]) => {
     if (value.length < allowedSizes[key] || !value.match(regexValidations[key])) {
-      console.log('entrou')
       message = returnedMessages[key];
       return true;
     }
     return false;
   });
   return message;
-};
+}
 
 const registerValidationMiddleware = async (req, res, next) => {
   const {
