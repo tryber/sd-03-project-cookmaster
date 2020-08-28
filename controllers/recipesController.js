@@ -52,7 +52,7 @@ async function editRecipePOST(req, res) {
     recipe.ingredients = recipe.ingredients.join(',');
   }
   await Recipes.updateRecipe(req.params.id, recipe);
-  return res.redirect(`/recipes/${req.params.id}`);
+  return res.redirect('/');
 }
 
 async function deleteRecipe(req, res) {
