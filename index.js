@@ -34,6 +34,6 @@ app.get('/signup', (_req, res) => {
 
 app.post('/login', controllers.userController.login);
 app.post('/signup', middlewares.registerValidationMiddleware, controllers.userController.signup);
-// app.post('/recipes', controllers.userController.newRecipe)
+app.post('/recipes', controllers.recipeController.newRecipe)
 
 app.listen(3000, () => console.log('Listening on 3000'));

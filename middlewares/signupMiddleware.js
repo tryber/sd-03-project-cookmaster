@@ -19,7 +19,7 @@ const allowedSizes = {
 const regexValidations = {
   email: /^[A-z0-9]*.?[A-z0-9]*@[A-z0-9]*.com$/,
   password: '',
-  firstName: /^[A-z]*$/,
+  name: /^[A-z]*$/,
   lastName: /^[A-z]*$/,
 };
 
@@ -53,7 +53,7 @@ const registerValidationMiddleware = async (req, res, next) => {
     email, password, confirmPassword, name, lastName,
   } = req.body;
 
-  const validationMessage = await validate({ email, name, lastName, password, confirmPassword });
+  const validationMessage = await validate({ email, password, name, lastName });
 
   if (validationMessage) {
     return res.status(400).render('admin/signup', { message: validationMessage });

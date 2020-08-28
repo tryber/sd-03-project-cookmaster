@@ -32,8 +32,13 @@ const searchRecipes = async (req, res) => {
   }
 };
 
+const newRecipe = async(req, res) => {
+
+};
+
 module.exports = {
   showAllRecipes,
   showRecipeDetails,
   searchRecipes,
+  newRecipe,
 };
