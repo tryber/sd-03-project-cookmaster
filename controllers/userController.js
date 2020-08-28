@@ -52,23 +52,24 @@ const registerForm = (_req, res) => {
 const register = async (req, res) => {
   const { password, email, last_name, confirPassword, first_name } = req.body;
   if (!validEmailRegEx.test(email)) {
-    res.render('register', {message: 'O email deve ter o formato email@mail.com'});
+    res.render('register', { message: 'O email deve ter o formato email@mail.com' });
   }
   if (password.length < 5) {
-    res.render('register', {message: 'A senha deve ter pelo menos 6 caracteres'});
+    res.render('register', { message: 'A senha deve ter pelo menos 6 caracteres' });
   }
   if (password !== confirPassword) {
     res.render('register', {
-      message: 'As senhas tem que ser iguais'});
+      message: 'As senhas tem que ser iguais'
+    });
   }
   if (first_name.length < 3) {
-    res.render('register', {message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras'});
+    res.render('register', { message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' });
   }
   if (last_name.length < 3) {
-    res.render('register', {message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' });
+    res.render('register', { message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' });
   }
   await userModel.registerInBank(req.body);
-  return res.render('register', {message: 'Cadastro efetuado com sucesso!'});
+  return res.render('register', { message: 'Cadastro efetuado com sucesso!' });
 };
 
 module.exports = {
