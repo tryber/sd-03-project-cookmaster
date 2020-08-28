@@ -59,7 +59,31 @@ async function singIn(req, res) {
   return undefined;
 }
 
+async function editUser(req, res) {
+  const { id } = req.user;
+  const user = await userModel.findById(id);
+
+  res.render('admin/editUser', { user });
+}
+
+async function editUserPOST(req, res) {
+  const { user } = req;
+  if (!user) { return res.status(401).send('Sai daqui pangaré'); }
+
+  const {
+    email, senha, name,
+  } = req.body;
+  const data = {
+    id: user.id, email, password: senha, firstName: name, lastName: req.body.last_name,
+  };
+
+  await userModel.updateUser(data);
+  return res.redirect('/');
+}
+
 module.exports = {
+  editUser,
+  editUserPOST,
   login,
   loginForm,
   logout,

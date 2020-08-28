@@ -9,15 +9,15 @@
     <%= message  %>
     <form method="POST">
       <label for="emailInput">Email: </label>
-      <input data-testid="email" type="text" name="email" id="emailInput" /><br />
+      <input required data-testid="email" type="text" name="email" id="emailInput" /><br />
       <label for="passInput">Senha: </label>
-      <input data-testid="senha" type="password" name="senha" id="passInput" /><br />
+      <input required data-testid="senha" type="password" name="senha" id="passInput" /><br />
       <label for="passConf">Confirme Senha: </label>
-      <input data-testid="confirmar-senha" type="password" name="conf_senha" id="passConf" /><br />
+      <input required data-testid="confirmar-senha" type="password" name="conf_senha" id="passConf" /><br />
       <label for="nameInput">Name: </label>
-      <input data-testid="nome" type="text" name="name" id="nameInput" /><br />
+      <input required data-testid="nome" type="text" name="name" id="nameInput" /><br />
       <label for="nickname">Sobrenome: </label>
-      <input data-testid="sobrenome" type="text" name="last_name" id="nickname" /><br />
+      <input required data-testid="sobrenome" type="text" name="last_name" id="nickname" /><br />
       <a href="/login">Fazer Login</a>
       <button data-testid="cadastrar" type="submit">cadastrar-se</button>
     </form>
