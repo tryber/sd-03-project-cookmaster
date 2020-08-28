@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cookmaster - Login</title>
+    <title>Cookmaster - Cadastro</title>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
@@ -17,8 +17,16 @@
         <%= message %>
       </div>
       <% } %>
-      <h2>Entrar no Cookmaster</h2>
-      <form action="/login" method="POST" class="form">
+      <h2>Cadastro no Cookmaster</h2>
+      <form action="/signup" method="POST" class="form">
+        <div class="form-group">
+            <label for="nameInput">Nome: </label>
+            <input class="form-control" data-testid="nome" type="text" name="name" id="nameInput" />
+        </div>
+        <div class="form-group">
+            <label for="lastNameInput">Sobrenome: </label>
+            <input class="form-control" data-testid="sobrenome" type="text" name="lastName" id="lastNameInput" />
+        </div>
         <div class="form-group">
           <label for="emailInput">Email: </label>
           <input class="form-control" data-testid="email" type="text" name="email" id="emailInput" />
@@ -27,6 +35,10 @@
           <label for="passwordInput">Senha: </label>
           <input class="form-control" data-testid="senha" type="password" name="password" id="passwordInput" />
         </div>
+        <div class="form-group">
+            <label for="confirmPasswordInput">Confirmar senha: </label>
+            <input class="form-control" data-testid="confirmar-senha" type="password" name="confirmPassword" id="confirmPasswordInput" />
+          </div>
         <% if (redirect) { %>
         <input
           type="hidden"
@@ -34,9 +46,9 @@
           value="<%= decodeURIComponent(redirect) %>"
         />
         <% } %>
-        <a href="/signup" data-testid="cadastrar">Ainda não tem um login? Cadastre-se.</a>
+        Já tem um login? <a data-testid="login" href="/login">Fazer Login</a>
         <div class="form-group">
-          <button data-testid="entrar" class="btn btn-primary" type="submit">Entrar</button>
+          <button data-testid="cadastrar" class="btn btn-primary" type="submit">Cadastrar</button>
         </div>
       </form>
     </div>

@@ -3,6 +3,28 @@ const connect = require('./connection');
 /* Substitua o código das funções abaixo para que ela,
 de fato, realize a busca no banco de dados */
 
+const insertValidation = (email, password, confirmPassword, name, lastName) => {
+  if (!email || !password || !name || !lastName) return false;
+  if (confirmPassword !== password) return false;
+
+  return true;
+}
+
+const insertUser = async (email, password, name, lastName) => {
+  try {
+    const db = await connect();
+    const query = await db
+      .getTable('users')
+      .insert(['email', 'password', 'first_name', 'last_name'])
+      .values(email, password, name, lastName)
+      .execute();
+
+      return query;
+  } catch(error) {
+    return error;
+  }
+};
+
 /**
  * Busca um usuário através do seu email e, se encontrado, retorna-o.
  * @param {string} email Email do usuário a ser encontrado
@@ -64,4 +86,6 @@ const findById = async (idInput) => {
 module.exports = {
   findByEmail,
   findById,
+  insertUser,
+  insertValidation,
 };
