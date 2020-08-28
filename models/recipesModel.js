@@ -30,13 +30,7 @@ const findRecipeByID = async (recipeId) => {
     return results
       ? results.reduce(
         (acc, [id, userId, user, name, ingredients, instructions]) => ({
-          ...acc,
-          id,
-          userId,
-          user,
-          name,
-          ingredients,
-          instructions,
+          ...acc, id, userId, user, name, ingredients, instructions,
         }),
         {},
       )
