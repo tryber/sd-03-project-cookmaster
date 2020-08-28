@@ -128,7 +128,8 @@ const showUserInfo = (req, res) => {
 };
 
 const editUserInfo = (req, res) => {
-  console.log(req, res);
+  const user = findById(req.user[0]);
+  res.render('userInfo', { user });
 };
 
 module.exports = {
