@@ -50,6 +50,7 @@ const logout = (req, res) => {
 const registerForm = (_req, res) => res.render('register', { message: null });
 
 const informMessage = {
+  cadastro: 'Cadastro efetuado com sucesso!',
   email: 'O email deve ter o formato email@mail.com',
   password: 'A senha deve ter pelo menos 6 caracteres',
   confirmPassword: 'As senhas tem que ser iguais',
@@ -81,7 +82,7 @@ const registerUser = async (req, res) => {
   }
 
   await userModel.createUser(email, password, name, lastName);
-  return res.status(200).render('register', { message: 'Cadastro efetuado com sucesso!' });
+  return res.status(200).render('register', { message: informMessage.cadastro });
 };
 
 module.exports = {

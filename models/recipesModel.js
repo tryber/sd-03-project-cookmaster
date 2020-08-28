@@ -29,7 +29,7 @@ const findRecipesById = async () => {
   return responseRecipe
     ? responseRecipe.map(([id, userId, user, name, ingredients, instructions]) => ({
       id,
-      user_id,
+      userId,
       user,
       name,
       ingredients,
@@ -44,12 +44,12 @@ const findRecipesById = async () => {
 const findSharchRecipe = async (query) => {
   const db = await connection();
 
-  const results = await db.getTable('recipes')
+  const responseSharchRecipe = await db.getTable('recipes')
     .select(['id', 'user', 'name'])
     .where('name like :name')
     .bind('name', `%${query}%`)
     .execute();
-  const responseRecipeQuery = results.fetchAll();
+  const responseRecipeQuery = responseSharchRecipe.fetchAll();
 
   return responseRecipeQuery ? responseRecipeQuery.map(([id, user, name]) => ({
     id, user, name,
