@@ -47,7 +47,7 @@ async function updateRecipe(id, { name, ingredients, instructions }) {
   try {
     const db = await connection();
     const recipes = await db.getTable('recipes');
-    const newe = await recipes.update()
+    await recipes.update()
       .set('name', name)
       .set('ingredients', ingredients)
       .set('instructions', instructions)
