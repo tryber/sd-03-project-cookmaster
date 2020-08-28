@@ -8,14 +8,13 @@ const emailIsValid = (email) => {
   return false;
 }
 
-const passwordLengthIsValid = (password) => password.length >= 6 ? true : false;
+const passwordLengthIsValid = (password) => (password.length >= 6 ? 1 : 0);
 
-const confirmPasswordIsValid = (password, confirmPassword) =>
-  password === confirmPassword ? true : false;
+const confirmPasswordIsValid = (password, confirmPassword) => (
+  password === confirmPassword ? 1 : 0
+);
 
-const confirmNameOrLastname = (input) => input.length >= 3 ? true : false;
-
-
+const confirmNameOrLastname = (input) => (input.length >= 3 ? 1 : 0);
 
 module.exports = {
   emailIsValid,
