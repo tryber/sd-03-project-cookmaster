@@ -36,6 +36,8 @@ const getRecipesByQuery = async (query) => {
   const results = await db.getTable('recipes')
     .select(['id', 'user', 'name'])
     .where('name like :name')
+    // query retirada de:
+    // https://stackoverflow.com/questions/40824845/using-a-like-sql-statement-in-express-node/40824981
     .bind('name', `%${query}%`)
     .execute();
   const findByQuery = results.fetchAll();
