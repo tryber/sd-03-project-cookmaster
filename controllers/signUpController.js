@@ -3,8 +3,8 @@ const userModel = require('../models/userModel');
 const renderSignUp = async (_req, res) => {
   res.render('admin/signUp', {
     emailMessage: null,
-    passwordMessage: null,
-    confirmPasswordMessage: null,
+    passMessage: null,
+    confirmPassMessage: null,
     firstNameMessage: null,
     lastNameMessage: null,
     successMessage: null,
@@ -50,22 +50,16 @@ const newUser = async (req, res) => {
   const { email, password, confirmPassword, firstName, lastName } = req.body;
 
   const emailMessage = handleEmailMessage(email);
-  const passwordMessage = handlePasswordMessage(password);
-  const confirmPasswordMessage = handleConfimPasswordMessage(password, confirmPassword);
+  const passMessage = handlePasswordMessage(password);
+  const confirmPassMessage = handleConfimPasswordMessage(password, confirmPassword);
   const firstNameMessage = handleFirstNameMessage(firstName);
   const lastNameMessage = handleLastNameMessage(lastName);
 
-  if (
-    emailMessage ||
-    passwordMessage ||
-    confirmPasswordMessage ||
-    firstNameMessage ||
-    lastNameMessage
-  ) {
+  if ( emailMessage || passMessage || confirmPassMessage || firstNameMessage || lastNameMessage ) {
     res.status(402).render('admin/signUp', {
       emailMessage,
-      passwordMessage,
-      confirmPasswordMessage,
+      passMessage,
+      confirmPassMessage,
       firstNameMessage,
       lastNameMessage,
       successMessage: null,
@@ -76,8 +70,8 @@ const newUser = async (req, res) => {
 
   res.status(201).render('admin/signUp', {
     emailMessage,
-    passwordMessage,
-    confirmPasswordMessage,
+    passMessage,
+    confirmPassMessage,
     firstNameMessage,
     lastNameMessage,
     successMessage: 'Cadastro efetuado com sucesso!',
