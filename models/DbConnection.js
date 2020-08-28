@@ -4,7 +4,7 @@ const connection = () => (
   mysqlx.getSession({
     user: 'clayton',
     password: 'cl172615',
-    host: '172.17.0.2',
+    host: 'localhost',
     port: 33060,
     schema: 'cookmaster',
   })
