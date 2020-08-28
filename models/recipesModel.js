@@ -22,15 +22,16 @@ const findRecipeByID = async (recipeId) => {
     const db = await connection();
     const searchQuery = await db
       .getTable('recipes')
-      .select(['user', 'name', 'ingredients', 'instructions'])
+      .select(['user_id', 'user', 'name', 'ingredients', 'instructions'])
       .where('id = :id')
       .bind('id', recipeId)
       .execute();
     const results = await searchQuery.fetchAll();
     return results
       ? results.reduce(
-        (acc, [user, name, ingredients, instructions]) => ({
+        (acc, [userId, user, name, ingredients, instructions]) => ({
           ...acc,
+          userId,
           user,
           name,
           ingredients,
