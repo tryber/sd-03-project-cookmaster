@@ -15,6 +15,11 @@ app.set('views', './views');
 
 app.get('/', middlewares.auth(false), controllers.recipesController.listRecipes);
 
+app.get('/register', controllers.userController.registerForm);
+app.post('/register', controllers.userController.registerUser);
+
+app.get('/recipes/:id', middlewares.auth(false), controllers.recipesController.listRecipesById);
+
 app.get('/admin', middlewares.auth(), (req, res) => {
   return res.render('admin/home', { user: req.user });
 });
@@ -25,4 +30,4 @@ app.get('/login', controllers.userController.loginForm);
 app.get('/logout', controllers.userController.logout);
 app.post('/login', controllers.userController.login);
 
-app.listen(3000, () => console.log('Listening on 3000'));
+app.listen(3001, () => console.log('Listening on 3000'));

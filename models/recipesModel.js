@@ -18,6 +18,27 @@ const finfByRecipes = async () => {
   }
 };
 
+const findRecipesById = async () => {
+  const db = await connection();
+  const recipe = await db
+    .getTable('recipes')
+    .select(['id', 'user_id', 'user', 'name', 'ingredients', 'instructions'])
+    .execute();
+
+  const responseRecipe = await recipe.fetchAll();
+  return responseRecipe
+    ? responseRecipe.map(([id, user_id, user, name, ingredients, instructions]) => ({
+      id,
+      user_id,
+      user,
+      name,
+      ingredients,
+      instructions,
+    }))
+    : null;
+};
+
 module.exports = {
   finfByRecipes,
+  findRecipesById,
 };

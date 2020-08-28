@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <%- include('header', {user:user}); %>
+    <h1>Receitas</h1>
+    <div>
+      <% if (user) { %>
+        <button data-testid="editar-receita" onclick="window.location.pathname='/edit'">Editar Receita</button>
+        <button data-testid="excluir-receita" onclick="window.location.pathname='/delete'">Excluir Receita</button>
+      <% } %>
+      <div>
+        <% idRecipe.map((recipe) => { %>
+          <h2>título da receita: <%= recipe.name %></h2>
+          <h3>ingredientes: <%= recipe.ingredients %></h3>
+          <p>forma de preparo: <%= recipe.instructions %></p>
+          <% }) %>
+    </div>
+  </body>
+</html>

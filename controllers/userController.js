@@ -3,6 +3,10 @@ const { SESSIONS } = require('../middlewares/auth');
 
 const userModel = require('../models/userModel');
 
+// Referência regex para validação de email:
+// https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
+const regexEmail = /^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+
 const loginForm = (req, res) => {
   const { token = '' } = req.cookies || {};
 
@@ -43,8 +47,38 @@ const logout = (req, res) => {
   res.render('admin/logout');
 };
 
+const registerForm = (_req, res) => res.render('register', { message: null });
+
+const informMessage = {
+  email: 'O email deve ter o formato email@mail.com',
+  password: 'A senha deve ter pelo menos 6 caracteres',
+  confirmPassword: 'As senhas tem que ser iguais',
+  name: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+  lastName: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+};
+
+const registerUser = async (req, res) => {
+  const { email, password, confirmPassword, name, lastName } = req.body;
+
+  if (!regexEmail.test(email)) return res.render('register', { message: informMessage.email });
+
+  if (password.length < 5) return res.render('register', { message: informMessage.password });
+
+  if (confirmPassword !== password)
+    return res.render('register', { message: informMessage.confirmPassword });
+
+  if (name.length < 3) return res.render('register', { message: informMessage.name });
+
+  if (lastName.length < 3) return res.render('register', { message: informMessage.lastName });
+
+  await userModel.createUser(email, password, name, lastName);
+  return res.status(200).render('register', { message: 'Cadastro efetuado com sucesso!' });
+};
+
 module.exports = {
   login,
   loginForm,
   logout,
+  registerUser,
+  registerForm,
 };

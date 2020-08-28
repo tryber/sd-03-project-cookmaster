@@ -13,4 +13,15 @@ const listRecipes = async (req, res) => {
   }
 };
 
-module.exports = { listRecipes };
+const listRecipesById = async (req, res) => {
+  try {
+    const { user } = req;
+    const idRecipe = await recipesModal.findRecipesById();
+
+    return res.render('details', { idRecipe, user });
+  } catch (error) {
+    return error;
+  }
+};
+
+module.exports = { listRecipes, listRecipesById };

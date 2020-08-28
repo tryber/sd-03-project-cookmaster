@@ -1,4 +1,5 @@
 const connection = require('./connection');
+const { response } = require('express');
 
 /**
  * Busca um usuário através do seu email e, se encontrado, retorna-o.
@@ -15,14 +16,17 @@ const findByEmail = async (EMAIL) => {
 
   const response = sharchUser.fetchAll();
   return response
-    ? response.reduce((acc, [id, email, password, name, lastName]) => ({
-      ...acc,
-      id,
-      email,
-      password,
-      name,
-      lastName,
-    }), {})
+    ? response.reduce(
+      (acc, [id, email, password, name, lastName]) => ({
+        ...acc,
+        id,
+        email,
+        password,
+        name,
+        lastName,
+      }),
+      {},
+    )
     : null;
 };
 
@@ -38,18 +42,32 @@ const findById = async (ID) => {
   const response = sharchUser.fetchAll();
 
   return response
-    ? response.reduce((acc, [id, email, password, name, lastName]) => ({
-      ...acc,
-      id,
-      email,
-      password,
-      name,
-      lastName,
-    }), {})
+    ? response.reduce(
+      (acc, [id, email, password, name, lastName]) => ({
+        ...acc,
+        id,
+        email,
+        password,
+        name,
+        lastName,
+      }),
+      {},
+    )
     : null;
+};
+
+const createUser = async (email, password, name, lastName) => {
+  const db = await connection();
+  const queryInsert = await db
+    .getTable('users')
+    .insert(['email', 'password', 'first_name', 'last_name'])
+    .values(email, password, name, lastName)
+    .execute();
+  return queryInsert;
 };
 
 module.exports = {
   findByEmail,
   findById,
+  createUser,
 };
