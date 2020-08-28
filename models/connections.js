@@ -1,4 +1,5 @@
 const mysqlx = require('@mysql/xdevapi');
+require('config/config')
 
 const connection = () => (
   mysqlx.getSession({
