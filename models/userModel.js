@@ -16,17 +16,17 @@ de fato, realize a busca no banco de dados */
  * @param {string} email Email do usuário a ser encontrado
  */
 
-const findByEmail = async (email) =>
+const findByEmail = async (inputEmail) =>
   connection()
     .then((db) => db
       .getTable('users')
       .select(['id', 'email', 'password', 'first_name', 'last_name'])
-      .where('email = :email')
-      .bind('email', email)
+      .where('email = :inputEmail')
+      .bind('inputEmail', inputEmail)
       .execute())
     .then((results) => results.fetchOne())
-    .then(([id, password, ...user]) => (
-    { id, email: user.email, password, name: user.first_name, lastName: user.last_name }));
+    .then(([id, email, password, first_name, last_name]) => (
+    { id, email, password, name: first_name, lastName: last_name}));
 
 
 /**
@@ -34,17 +34,17 @@ const findByEmail = async (email) =>
  * @param {string} id ID do usuário
  */
 
-const findById = async (id) =>
+const findById = async (inputId) =>
   connection()
     .then((db) => db
       .getTable('users')
       .select(['id', 'email', 'password', 'first_name', 'last_name'])
-      .where('id = :id')
-      .bind('id', id)
+      .where('id = :inputId')
+      .bind('inputId', inputId)
       .execute())
     .then((result) => result.fetchOne())
-    .then(([email, password, ...user]) => (
-      { id: user.id, email, password, name: user.first_name, lastName: user.last_name }
+    .then(([id, email, password, ...user]) => (
+      { id, email, password, name: user.first_name, lastName: user.last_name }
     ));
 
 module.exports = {
