@@ -1,6 +1,6 @@
 const connection = require('./connection');
 
-const getAll = async () => {
+const getAll = () => {
   return connection()
     .then((db) => db.getTable('recipes').select(['name', 'user']).execute())
     .then((results) => results.fetchAll())
