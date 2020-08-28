@@ -11,38 +11,57 @@ const renderSignUp = async (_req, res) => {
   });
 };
 
+const handleEmailMessage = (email) => {
+  if (!userModel.emailIsValid(email)) {
+    return 'O email deve ter o formato email@mail.com';
+  }
+  return null;
+};
+
+const handlePasswordMessage = (password) => {
+  if (!userModel.passwordIsValid(password)) {
+    return 'A senha deve ter pelo menos 6 caracteres';
+  }
+  return null;
+};
+
+const handleConfimPasswordMessage = (password, confirmPassword) => {
+  if (!userModel.confirmedPassword(password, confirmPassword)) {
+    return 'As senhas tem que ser iguais';
+  }
+  return null;
+};
+
+const handleFirstNameMessage = (firstName) => {
+  if (!userModel.nameIsValid(firstName)) {
+    return 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras';
+  }
+  return null;
+};
+
+const handleLastNameMessage = (lastName) => {
+  if (!userModel.nameIsValid(lastName)) {
+    return 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras';
+  }
+  return null;
+};
+
 const newUser = async (req, res) => {
   const { email, password, confirmPassword, firstName, lastName } = req.body;
 
-  let emailMessage = null;
-  let passwordMessage = null;
-  let confirmPasswordMessage = null;
-  let firstNameMessage = null;
-  let lastNameMessage = null;
+  const emailMessage = handleEmailMessage(email);
+  const passwordMessage = handlePasswordMessage(password);
+  const confirmPasswordMessage = handleConfimPasswordMessage(password, confirmPassword);
+  const firstNameMessage = handleFirstNameMessage(firstName);
+  const lastNameMessage = handleLastNameMessage(lastName);
 
-  if (!userModel.emailIsValid(email)) {
-    emailMessage = 'O email deve ter o formato email@mail.com';
-  }
-
-  if (!userModel.passwordIsValid(password)) {
-    passwordMessage = 'A senha deve ter pelo menos 6 caracteres';
-  }
-
-  if (!userModel.confirmedPassword(password, confirmPassword)) {
-    confirmPasswordMessage = 'As senhas tem que ser iguais';
-  }
-
-  if (!userModel.nameIsValid(firstName)) {
-    firstNameMessage =
-      'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras';
-  }
-
-  if (!userModel.nameIsValid(lastName)) {
-    lastNameMessage = 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras';
-  }
-
-  if (emailMessage || passwordMessage || confirmPasswordMessage || firstNameMessage || lastNameMessage) {
-    console.log('passei aqui')
+  if (
+    emailMessage ||
+    passwordMessage ||
+    confirmPasswordMessage ||
+    firstNameMessage ||
+    lastNameMessage
+  ) {
     res.status(402).render('admin/signUp', {
       emailMessage,
       passwordMessage,
