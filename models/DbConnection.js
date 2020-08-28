@@ -9,7 +9,7 @@ const connection = () => (
     schema: 'cookmaster',
   })
   .then((session) => (
-     session.getSchema('cookmaster')
+        session.getSchema('cookmaster')
   ))
   .catch((err) => {
     console.error(err);
