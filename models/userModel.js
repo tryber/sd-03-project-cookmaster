@@ -43,7 +43,7 @@ const findById = async (inputId) =>
       .execute())
     .then((result) => result.fetchOne())
     .then(([id, email, password, name, lastName]) => (
-      { id, email, password, name, lastName}
+      { id, email, password, name, lastName }
     ));
 
 module.exports = {
