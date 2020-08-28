@@ -13,8 +13,8 @@ const recipes = async (req, res) => {
 const recipesById = async (req, res) => {
   const { user } = req;
   const recipesId = await recipeModel.getRecipesById();
-  return res.render('detailsRecipes', { recipesId, user })
-}
+  return res.render('detailsRecipes', { recipesId, user });
+};
 
 module.exports = {
   recipes,

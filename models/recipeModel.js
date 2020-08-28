@@ -24,14 +24,13 @@ const getRecipesById = async () => {
     .execute();
 
   const findRecipes = results.fetchAll();
-  console.log('oiiii', findRecipes)
 
-  return findRecipes ? findRecipes.map(([id, user_id, name, instructions, ingredients]) => ({
-    id, instructions, ingredients, user_id, name,
+  return findRecipes ? findRecipes.map(([id, userId, name, instructions, ingredients]) => ({
+    id, instructions, ingredients, userId, name,
   })) : null;
 };
 
 module.exports = {
   getRecipes,
-  getRecipesById
+  getRecipesById,
 };
