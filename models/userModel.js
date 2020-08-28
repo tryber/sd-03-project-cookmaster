@@ -1,5 +1,4 @@
 const connection = require('./connection');
-const { response } = require('express');
 
 /**
  * Busca um usuário através do seu email e, se encontrado, retorna-o.

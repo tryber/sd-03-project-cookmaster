@@ -78,11 +78,13 @@ const registerUser = async (req, res) => {
   }
 
   if (lastName.length < 3) {
-    return res.render('register', { message: informMessage.lastName });
+    const lastNAME = res.render('register', { message: informMessage.lastName });
+    return lastNAME;
   }
 
   await userModel.createUser(email, password, name, lastName);
-  return res.status(200).render('register', { message: informMessage.cadastro });
+  const result = res.status(200).render('register', { message: informMessage.cadastro });
+  return result;
 };
 
 module.exports = {
