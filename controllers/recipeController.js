@@ -42,21 +42,30 @@ const newRecipe = async (req, res) => {
 };
 
 const editRecipeForm = async (req, res) => {
-  const {
-    recipeId,
-    userId,
-    name,
-    ingredients,
-    instructions,
-  } = await recipeModel.findRecipeById(req.params.id);
+  const recipe = await recipeModel.findRecipeById(req.params.id);
   const { id } = req.user;
+  const { ingredients, userId } = recipe;
+  const ingredientsArr = ingredients.split(',');
 
-  const insgredientsArr = ingredients.split(',');
-  const recipe = { recipeId, name, ingredients: insgredientsArr, instructions };
+  recipe.ingredients = ingredientsArr;
 
   if (userId !== id) res.redirect(`/recipes/${recipeId}`);
 
   return res.render('admin/edit', { recipe, user: req.user, message: null });
+};
+
+const editRecipe = async (req, res) => {
+  console.log(req.body);
+
+  const { name, ingredientsArr, instructions } = req.body;
+
+  await recipeModel.editRecipe(req.params.id, name, ingredientsArr, instructions);
+
+  return res.render('admin/edit', {
+    recipe: null,
+    user: req.user,
+    message: 'Receita cadastrada com sucesso!',
+  });
 };
 
 module.exports = {
@@ -66,4 +75,5 @@ module.exports = {
   newRecipeForm,
   newRecipe,
   editRecipeForm,
+  editRecipe,
 };

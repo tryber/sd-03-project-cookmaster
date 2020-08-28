@@ -10,7 +10,7 @@
     <div class="message"><%= message %></div>
     <% } %> <% if (recipe) {%>
     <h1>Editar Receita</h1>
-    <form id="new-recipe-form" action="/recipes" method="POST">
+    <form id="new-recipe-form">
       <label for="recipeName">Nome da Receita</label><br />
       <input
         required
@@ -18,8 +18,8 @@
         name="recipeName"
         id="recipeName"
         data-testid="nome-receita"
-        value=<%= recipe.name %> />
-      <br />
+        value=<%= recipe.name %>
+      /><br />
       <ul id="ingredientsList">
         <% recipe.ingredients.map(ingredient => { %>
         <li class="ingredient-item"><%= ingredient %></li>
@@ -52,7 +52,7 @@
     const addIngredientButton = document.querySelector('#add-ingredient-button');
     const ingredientsList = document.querySelector('#ingredientsList');
     const ingredientInput = document.querySelector('#ingredients');
-    //const form = document.querySelector('#new-recipe-form');
+    const form = document.querySelector('#new-recipe-form');
 
     const createNewIngredient = () => {
       const item = document.createElement('li');
@@ -89,14 +89,25 @@
       };
     };
 
-    // const onSubmit = () => {
-    //   const ingredients = document.querySelectorAll('.ingredient-item');
-    //   const ingredientsArr = ingredients.forEach(ingredient => ingredient.innerText);
-    //   console.log(ingredientsArr);
-    // }
+    const onSubmit = () => {
+      const name = document.querySelector('#recipeName');
+      const instructions = document.querySelector('#instructions');
+      const ingredients = document.querySelectorAll('.ingredient-item');
+      const ingredientsArr = [];
+
+      for (let i = 0; i < ingredients.length; i += 1) {
+        ingredientsArr.push(ingredients[i].innerText);
+      };
+
+      return {
+        name,
+        ingredients: ingredientsArr,
+        instructions,
+      };
+    }
 
     window.onload = () => addExistingIngredients();
     addIngredientButton.addEventListener('click', createNewIngredient);
-    // form.addEventListener('submit', onSubmit);
+    form.addEventListener('submit', onSubmit);
   </script>
 </html>
