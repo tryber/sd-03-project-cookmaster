@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Logout</title>
+  </head>
+  <body>
+    <h1>Editar Receita</h1>
+
+    <form action="/recipes/<%=id%>" method="POST">
+      <label for="nome-receita">Nome da Receita</label>
+      <input data-testid="nome-receita" id="nome-receita" name="name" type="text" value="<%= recipe.name %>" />
+
+      <label for="ingredientes">Ingredientes</label>
+      <ul id="ingredient-list"></ul>
+
+      <input data-testid="ingredientes" id="ingredientes" type="text" />
+      <button
+        onclick="addItem()"
+        data-testid="adicionar-ingrediente"
+        id="ingredient-button"
+        type="button"
+      >
+        Adicionar Ingrediente
+      </button>
+
+      <label for="modo-de-preparo">Modo De Preparo</label>
+      <input value="<%= recipe.instructions %>" data-testid="modo-de-preparo" id="modo-de-preparo" name="instructions" type="text"  />
+
+      <button data-testid="postar-receita" type="submit">Salvar Receita</button>
+
+    </form>
+    <script>
+
+        "<%recipe.ingredients.forEach((item) =>{ %>"
+        addItem("<%= item %>")
+        "<% }) %>"
+
+      function addItem(value) {
+        const list = document.createElement('li');
+        const input = document.getElementById('ingredientes');
+        const hidden = document.getElementById('hidden');
+        const ingredient = document.createElement('input');
+        ingredient.type = "hidden";
+
+        ingredient.value = value?value:input.value;
+        ingredient.name = 'ingredients';
+
+        const exButton = document.createElement('button');
+        exButton.type = 'button';
+        exButton.innerText = 'Excluir Ingrediente';
+        exButton.addEventListener('click', (e) => e.target.parentElement.remove());
+
+        list.innerText = value?value:input.value
+        list.appendChild(ingredient);
+        list.appendChild(exButton);
+        input.value = '';
+        document.querySelector('#ingredient-list').appendChild(list);
+      }
+    </script>
+  </body>
+</html>
