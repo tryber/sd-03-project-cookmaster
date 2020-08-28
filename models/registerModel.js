@@ -10,7 +10,7 @@ const addUser = (email, password, name, lastName) =>
   );
 
 const newUserIsValid = (email, password, confirmPassword, name, lastName) => {
-  const emailRegEx = /^[\w-\.]+@([w-]+\.)+[w-]{2,4}$/;
+  const emailRegEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   const nameRegEx = /^[a-zA-Z]+$/i;
   const messageArr = [];
   if (!emailRegEx.test(email)) messageArr.push('O email deve ter o formato email@mail.com');
@@ -23,9 +23,9 @@ const newUserIsValid = (email, password, confirmPassword, name, lastName) => {
     messageArr.push('O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras');
   }
 
-  if (!nameRegEx.test(lastName) && lastName.length >= 3) {
-    messageArr.push('O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras');
-  }
+  // if (!nameRegEx.test(lastName) && lastName.length >= 3) {
+  //   messageArr.push('O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras');
+  // }
   return messageArr;
 };
 
