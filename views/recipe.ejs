@@ -22,8 +22,12 @@
             </div>
             <div class="col">
               <% if (user) {%>
-                <button data-testid="editar-receita" class="btn btn-primary">Editar Receita</button>
-                <button data-testid="excluir-receita" class="btn btn-primary">Excluir Receita</button>
+                <a href=<%= `/recipes/edit/` + recipe.id %>>
+                  <button data-testid="editar-receita" class="btn btn-primary">Editar Receita</button>
+                </a>
+                <a href=<%= `/recipes/delete/` + recipe.id %>>
+                  <button data-testid="excluir-receita" class="btn btn-primary">Excluir Receita</button>
+                </a>
               <% } %>
             </div>
         </div>
