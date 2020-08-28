@@ -10,7 +10,7 @@
     <div class="message"><%= message %></div>
     <% } %> <% if (recipe) {%>
     <h1>Editar Receita</h1>
-    <form id="new-recipe-form">
+    <form action="/recipes/<%= recipe.recipeId %> " method="POST">
       <label for="recipeName">Nome da Receita</label><br />
       <input
         required
@@ -20,12 +20,13 @@
         data-testid="nome-receita"
         value=<%= recipe.name %>
       /><br />
+      <input type="hidden" name="ingredients" id="ingredients" data-testid="ingredientes" />
       <ul id="ingredientsList">
         <% recipe.ingredients.map(ingredient => { %>
         <li class="ingredient-item"><%= ingredient %></li>
         <%})%>
       </ul>
-      <input type="text" name="ingredients" id="ingredients" data-testid="ingredientes" />
+      <input type="text" name="ingredients" id="ingredientsInput" data-testid="ingredientes" />
       <button
         for="ingredients"
         type="button"
@@ -44,15 +45,16 @@
         data-testid="modo-de-preparo"
         value=<%= recipe.instructions %>
       /><br />
-      <button type="submit" data-testid="postar-receita">Salvar Receita</button>
+      <button type="submit" data-testid="postar-receita">Editar Receita</button>
     </form>
     <% } %>
   </body>
   <script>
     const addIngredientButton = document.querySelector('#add-ingredient-button');
     const ingredientsList = document.querySelector('#ingredientsList');
-    const ingredientInput = document.querySelector('#ingredients');
-    const form = document.querySelector('#new-recipe-form');
+    const ingredientInput = document.querySelector('#ingredientsInput');
+    const ingredients = document.querySelector('#ingredients');
+    const ingredientsArray = [];
 
     const createNewIngredient = () => {
       const item = document.createElement('li');
@@ -60,13 +62,21 @@
 
       item.innerText = ingredientInput.value;
       deleteButton.innerText = 'Excluir ingrediente';
+
+      ingredientsArray.push(ingredientInput.value);
+      ingredients.value = ingredientsArray.join(',');
+
       item.className = 'ingredient-item';
       deleteButton.className = 'delete-button';
+
       ingredientsList.appendChild(item);
       ingredientsList.appendChild(deleteButton);
       ingredientInput.value = null;
 
       deleteButton.addEventListener('click', () => {
+        ingredientsArray = ingredientsArray.filter((ingredient) => ingredient !== item.innerText);
+        ingredients.value = ingredientsArray.join(',');
+
         item.remove();
         deleteButton.remove();
       });
@@ -76,6 +86,9 @@
       const ingredientItems = document.querySelectorAll('.ingredient-item');
       for (let i = 0; i < ingredientItems.length; i += 1) {
         const deleteButton = document.createElement('button');
+
+        ingredientsArray.push(ingredientItems[i].innerText);
+        ingredients.value = ingredientsArray.join(',');
 
         deleteButton.innerText = 'Excluir ingrediente';
         deleteButton.className = 'delete-button';
@@ -89,25 +102,7 @@
       };
     };
 
-    const onSubmit = () => {
-      const name = document.querySelector('#recipeName');
-      const instructions = document.querySelector('#instructions');
-      const ingredients = document.querySelectorAll('.ingredient-item');
-      const ingredientsArr = [];
-
-      for (let i = 0; i < ingredients.length; i += 1) {
-        ingredientsArr.push(ingredients[i].innerText);
-      };
-
-      return {
-        name,
-        ingredients: ingredientsArr,
-        instructions,
-      };
-    }
-
     window.onload = () => addExistingIngredients();
     addIngredientButton.addEventListener('click', createNewIngredient);
-    form.addEventListener('submit', onSubmit);
   </script>
 </html>

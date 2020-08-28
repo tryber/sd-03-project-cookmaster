@@ -10,7 +10,7 @@
     <div class="message"><%= message %></div>
     <% } %>
     <h1>Cadastrar Receita</h1>
-    <form id="new-recipe-form" action="/recipes" method="POST">
+    <form action="/recipes" method="POST">
       <label for="recipeName">Nome da Receita</label><br />
       <input
         required
@@ -19,8 +19,9 @@
         id="recipeName"
         data-testid="nome-receita"
       /><br />
+      <input type="hidden" name="ingredients" id="ingredients" data-testid="ingredientes" />
       <ul id="ingredientesList"></ul>
-      <input type="text" name="ingredients" id="ingredients" data-testid="ingredientes" />
+      <input type="text" id="ingredientsInput" data-testid="ingredientes" />
       <button
         for="ingredients"
         type="button"
@@ -44,8 +45,9 @@
   <script>
     const addIngredientButton = document.querySelector('#add-ingredient-button');
     const ingredientsList = document.querySelector('#ingredientesList');
-    const ingredientInput = document.querySelector('#ingredients');
-    //const form = document.querySelector('#new-recipe-form');
+    const ingredientInput = document.querySelector('#ingredientsInput');
+    const ingredients = document.querySelector('#ingredients');
+    const ingredientsArray = [];
 
     const createNewIngredient = () => {
       const item = document.createElement('li');
@@ -53,25 +55,25 @@
 
       item.innerText = ingredientInput.value;
       deleteButton.innerText = 'Excluir ingrediente';
+
+      ingredientsArray.push(ingredientInput.value);
+      ingredients.value = ingredientsArray.join(',');
+
       item.className = 'ingredient-item';
       deleteButton.className = 'delete-button';
+
       ingredientsList.appendChild(item);
       ingredientsList.appendChild(deleteButton);
       ingredientInput.value = null;
 
       deleteButton.addEventListener('click', () => {
+        ingredientsArray = ingredientsArray.filter((ingredient) => ingredient !== item.innerText);
+        ingredients.value = ingredientsArray.join(',');
         item.remove();
         deleteButton.remove();
       });
     };
 
-    // const onSubmit = () => {
-    //   const ingredients = document.querySelectorAll('.ingredient-item');
-    //   const ingredientsArr = ingredients.forEach(ingredient => ingredient.innerText);
-    //   console.log(ingredientsArr);
-    // }
-
     addIngredientButton.addEventListener('click', createNewIngredient);
-    // form.addEventListener('submit', onSubmit);
   </script>
 </html>

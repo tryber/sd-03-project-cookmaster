@@ -55,11 +55,10 @@ const editRecipeForm = async (req, res) => {
 };
 
 const editRecipe = async (req, res) => {
+  const { recipeName, ingredients, instructions } = req.body;
   console.log(req.body);
 
-  const { name, ingredientsArr, instructions } = req.body;
-
-  await recipeModel.editRecipe(req.params.id, name, ingredientsArr, instructions);
+  await recipeModel.editRecipe(req.params.id, recipeName, ingredients[0], instructions);
 
   return res.render('admin/edit', {
     recipe: null,

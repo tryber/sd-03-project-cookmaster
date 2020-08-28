@@ -64,10 +64,12 @@ const editRecipe = async (recipeId, name, ingredients, instructions) =>
   connection().then((db) =>
     db
       .getTable('recipes')
-      .update(['name', 'ingredients', 'instructions'])
+      .update()
+      .set('name', name)
+      .set('ingredients', ingredients)
+      .set('instructions', instructions)
       .where('id = :id')
       .bind('id', recipeId)
-      .values(name, ingredients, instructions)
       .execute(),
   );
 

@@ -7,7 +7,6 @@
   </head>
   <body>
     <%- include('navbar', { user: user }); %>
-    <% console.log(recipe) %>
     <div>
       <% if (user && user.id === recipe.userId) {%>
       <div>
