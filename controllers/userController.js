@@ -48,10 +48,6 @@ const signup = (_req, res) => {
   res.render('signup', { message: null });
 };
 
-// const userValidation = ({mail, password, confPassword, name, lastname}) => (
-
-// );
-
 const errorMessages = {
   emailinvalido: 'O email deve ter o formato email@mail.com',
   senhapequena: 'A senha deve ter pelo menos 6 caracteres',
