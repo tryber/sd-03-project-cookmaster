@@ -22,7 +22,7 @@ const newRecipe = (_req, res) => res.render('admin/newRecipe', { lala });
 
 const setNewRecipe = async (req, res) => {
   const { remove, name, ingredient, instructions } = req.body;
-  if (name.length > 0 && ingredient.lenght > 0 && instructions.length > 0) { 
+  if (name.length > 0 && ingredient.lenght > 0 && instructions.length > 0) {
     return res.render('admin/newRecipe', { lala });
   }
   if (remove !== undefined) {
