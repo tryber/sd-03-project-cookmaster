@@ -59,7 +59,7 @@ const errorMessages = {
 
 const createUser = async (req, res) => {
   const { email, senha, confirmarsenha, nome, sobrenome } = req.body;
-  const validaEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  const validaEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
   if (!validaEmail.test(email)) res.render('signup', { message: errorMessages.emailinvalido });
 
@@ -70,7 +70,7 @@ const createUser = async (req, res) => {
   if (nome.length < 3) res.render('signup', { message: errorMessages.primeironome });
 
   if (sobrenome.length < 3) res.render('signup', { message: errorMessages.segundonome });
-  
+
   await createUserModel.userCreate(email, senha, nome, sobrenome);
   return res.render('signup', { message: errorMessages.sucesso });
 };
