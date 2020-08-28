@@ -14,13 +14,12 @@ const findRecipeById = async (id) =>
 const findRecipeByName = async (input) =>
   connection()
     .then((db) => db.getTable('recipes').select().execute())
-    .then((results)=> results.objects)
-    .then((recipes) =>
-      (input === ''
+    .then((results) => results.objects)
+    .then((recipes) => (
+      input === ''
         ? recipes
         : recipes.filter(({ name }) => name.toLowerCase().includes(input.toLowerCase()))
-      )
-    );
+    ));
 
 module.exports = {
   findAllRecipes,
