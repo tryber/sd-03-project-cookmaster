@@ -8,8 +8,6 @@ const recipes = async (req, res) => {
   return res.render('home', { listRecipes, user });
 };
 
-
-
 module.exports = {
   recipes,
 };
