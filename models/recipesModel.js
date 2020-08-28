@@ -18,8 +18,8 @@ const findRecipeById = async (id) =>
       .bind('id', id)
       .execute())
     .then((results) => results.fetchOne())
-    .then(([name, user, ingredients, instructions, ...user]) =>
-      ({ name, user, ingredients, instructions, id: user.id }));
+    .then(([name, user, ingredients, instructions, ...userData]) =>
+      ({ name, user, ingredients, instructions, id: userData.id }));
 
 const findRecipeByName = async (input) =>
   connection()
