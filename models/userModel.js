@@ -25,9 +25,8 @@ const findByEmail = async (inputEmail) =>
       .bind('inputEmail', inputEmail)
       .execute())
     .then((results) => results.fetchOne())
-    .then(([id, email, password, first_name, last_name]) => (
-    { id, email, password, name: first_name, lastName: last_name}));
-
+    .then(([id, email, password, name, lastName]) => (
+    { id, email, password, name, lastName }));
 
 /**
  * Busca um usuário através do seu ID
@@ -43,8 +42,8 @@ const findById = async (inputId) =>
       .bind('inputId', inputId)
       .execute())
     .then((result) => result.fetchOne())
-    .then(([id, email, password, ...user]) => (
-      { id, email, password, name: user.first_name, lastName: user.last_name }
+    .then(([id, email, password, name, lastName]) => (
+      { id, email, password, name, lastName}
     ));
 
 module.exports = {
