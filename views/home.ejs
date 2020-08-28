@@ -3,11 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
     <title>Cookmaster - Home</title>
     <style>
       body {
-        padding: 0;
+        font-family: 'Montserrat', sans-serif;
         margin: 0;
+        padding: 0;
       }
 
       .container {
@@ -17,23 +19,19 @@
       }
 
       .recipe {
-        border: 1px solid rgb(41, 41, 41);
-        border-radius: 4px;
+        border-radius: 6px;
         margin: 5px;
         padding: 1%;
-        width: 350px;
-        height: 100px;
+        min-width: 300px;
       }
 
       header {
-        background-color: #f2f2f2;
-        color: rgb(41, 41, 41);
         display: flex;
         font-size: larger;
         font-weight: 700;
         justify-content: space-between;
         margin: 0;
-        padding: 1%;
+        padding: 10px;
       }
 
       h2 {
@@ -41,8 +39,6 @@
       }
 
       section {
-        border: 1px solid rgb(41, 41, 41);
-        border-radius: 4px;
         margin-top: 10px;
       }
 
@@ -54,13 +50,64 @@
         cursor: pointer;
       }
 
+      .recipe a {
+        background-color: #f2f2f2;
+        border-radius: 4px;
+        color: orange;
+        cursor: pointer;
+        display: flex;
+        font-weight: 700;
+        padding: 5px;
+      }
+
+      .recipe a:hover {
+        background-color: #1e2040;
+        color:  #f2f2f2;
+        transition: background-color 1s;
+      }
+
+      .default-color {
+        background-color: #f26d6d;
+        color: #f2ddb6;
+      }
+
+      button {
+        background-color: #2A828C;
+        border: none;
+        border-radius: 5px;
+        color: #f2f2f2;
+        cursor: pointer;
+        font-weight: 700;
+        margin: 5px;
+        padding: 8px;
+      }
+
+      button:hover {
+        background-color: black;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .title {
+        font-size: 2rem;
+      }
+
+      .header-link {
+        color: #f2ddb6;
+        border: 1px solid #f2ddb6;
+        border-radius: 5px;
+        padding: 2px 4px;
+      }
+
     </style>
   </head>
   <body>
-    <header class="shadow">
+    <header class="shadow default-color">
       <span>Cookmaster</span>
       <% if (!user) { %>
-        <a href="/login"><span class="pointer" data-testid="login">Login</span></a>
+        <a href="/login"><span class="pointer header-link" data-testid="login">Login</span></a>
       <% } else { %>
         <div>
           <span> <%= `${user.name} ${user.lastName}` %>|</span>
@@ -71,7 +118,7 @@
     </header>
     <section>
       <div class="container">
-        <span>Receitas</span>
+        <span class="title">Receitas</span>
         <div>
           <button data-testid="buscar-receita">Buscar Receitas</button>
           <% if (user) { %>
@@ -83,9 +130,11 @@
       </div>
       <div class="container">
         <% recipes.forEach(({ name, user, id }) => { %>
-          <div class="recipe">
-            <h2><%= name %></h2>
-            <h4><%= user %></h4>
+          <div class="recipe shadow default-color">
+            <div>
+              <h2><%= name %></h2>
+              <h4><%= user %></h4>
+            </div>
             <a href=<%=`recipes/${id}`%>>Ver mais</a>
           </div>
         <% }) %>
