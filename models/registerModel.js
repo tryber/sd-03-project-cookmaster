@@ -19,13 +19,13 @@ const newUserIsValid = (email, password, confirmPassword, name, lastName) => {
 
   if (password !== confirmPassword) messageArr.push('As senhas tem que ser iguais');
 
-  if (!nameRegEx.test(name) && name.length >= 3) {
+  if (!nameRegEx.test(name) || name.length < 3) {
     messageArr.push('O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras');
   }
 
-  // if (!nameRegEx.test(lastName) && lastName.length >= 3) {
-  //   messageArr.push('O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras');
-  // }
+  if (!nameRegEx.test(lastName) || lastName.length < 3) {
+    messageArr.push('O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras');
+  }
   return messageArr;
 };
 
