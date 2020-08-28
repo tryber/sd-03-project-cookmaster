@@ -6,14 +6,21 @@
     <title>Cookmaster</title>
   </head>
   <body>
-    <h1>Receitas</h1>
-    <button id="nova-receita">Nova Receita</button>
+    
     <button id="buscar-receita">Buscar Receita</button>
-    <button id="login">Login</button>
+  
+    <h1>Receitas</h1>
     <div id="recipe-card">
-      <h2>Nome da Receita</h2>
-      <h3>Nome Usuario</h3>
-      <a href="Link">Ver mais</a>
-    </div>
+      <%console.log(listData)%>
+      <% listData && listData.forEach(recipe => { %>
+        <div>
+          <p><%= recipe.name %></p>
+          <p><%= recipe.user %></p>
+          <a href="#">Ver mais</a>
+          <%})%>
+        </div>
+       
+        <button data-testid="nova-receita">Nova Receita</button>
+      </div>
   </body>
 </html>

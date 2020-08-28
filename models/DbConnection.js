@@ -2,10 +2,10 @@ const mysqlx = require('@mysql/xdevapi');
 
 const connection = () => {
   return mysqlx.getSession({
-    user: 'system',
-    password: 'cl',
+    user: 'root',
+    password: '',
     host: 'localhost',
-    port: 3306,
+    port: 33060,
     schema: 'cookmaster',
   })
   .then((session) => {
