@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cookmaster - Login</title>
   </head>
+  <header>
+    <h3>Login</h3>
+  </header>
   <body>
     <% if (message) {%>
     <div class="message">
@@ -15,7 +18,6 @@
       <label for="emailInput">Email: </label>
       <input type="text" name="email" id="emailInput" data-testid="email"/><br />
       <label for="passwordInput">Senha: </label>
-      <input type="password" name="password" id="passwordInput" data-testid="senha"/><br />
       <% if (redirect) { %>
       <input
         type="hidden"
@@ -24,6 +26,7 @@
       />
       <% } %>
       <button data-testid="entrar" type="submit">Entrar</button>
+      <a href="/cadastro">Cadastrar</a>
     </form>
   </body>
 </html>
