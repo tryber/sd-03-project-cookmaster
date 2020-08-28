@@ -23,8 +23,22 @@ const findRecipes = async (req, res) => {
   return res.render('searchRecipes', { searchRecipe, user });
 };
 
+const createForm = (req, res) => res.render('createRecipes', { recipes: [], message: null, user: req.user });
+
+const createRecipes = async (req, res) => {
+  const { body, user } = req;
+  try {
+    const recipes = await recipeModel.postRecipes(body, user);
+    return res.render('createRecipes', { recipes: ['receita'], message: 'Receita cadastrada com sucesso', redirect: null, user });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 module.exports = {
   recipes,
   recipesById,
   findRecipes,
+  createRecipes,
+  createForm,
 };

@@ -16,7 +16,6 @@ const getRecipes = async () => {
   })) : null;
 };
 
-
 const getRecipesById = async () => {
   const db = await connection();
   const results = await db.getTable('recipes')
@@ -47,8 +46,22 @@ const getRecipesByQuery = async (query) => {
   })) : null;
 };
 
+const postRecipes = async (valuesRecipes, valuesUser) => {
+  const db = await connection();
+  const { nameRecipe, ingredients, instructions } = valuesRecipes;
+  let { id, name, lastName } = valuesUser;
+  const userId = id;
+  const fullName = name + '' + lastName;
+
+  await db.getTable('recipes')
+    .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
+    .values(userId, fullName, nameRecipe, instructions, ingredients)
+    .execute();
+};
+
 module.exports = {
   getRecipes,
   getRecipesByQuery,
   getRecipesById,
+  postRecipes,
 };

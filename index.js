@@ -23,10 +23,13 @@ app.get('/', middlewares.auth(false), controllers.recipeController.recipes);
 app.get('/admin/cadastro', middlewares.auth(false), controllers.userController.registerForm);
 app.post('/admin/cadastro', middlewares.auth(false), controllers.userController.register);
 app.get('/recipes/search', middlewares.auth(false), controllers.recipeController.findRecipes);
-app.get('/recipes/:id', middlewares.auth(false), controllers.recipeController.recipesById);
 app.get('/edit', controllers.userController.logout);
 app.get('/delete', controllers.userController.logout);
 
+app.get('/recipes/new', middlewares.auth(), controllers.recipeController.createForm);
+app.post('/recipes/new', middlewares.auth(), controllers.recipeController.createRecipes);
+
+app.get('/recipes/:id', middlewares.auth(false), controllers.recipeController.recipesById);
 app.get('/admin', middlewares.auth(), (req, res) => {
   return res.render('admin/home', { user: req.user });
 });

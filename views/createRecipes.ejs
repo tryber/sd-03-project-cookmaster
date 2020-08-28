@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <%- include('navbar', {user}); %>
+    <h1>Criar Receitas</h1>
+    <div>
+      <% if (message) {%>
+        <div class="message"><%= message %></div>
+        <% } %>
+      <div>
+        <p>brasil acima de tudo</p>
+        <form action="/recipes/new" method="POST">
+          <p name="<% user.name %> "><% user.name %> </p>
+          <label for="nameRecipe">Nome da Receita</label>
+          <input required id="nameRecipe" data-testid="nome-receita" type="text" name="nameRecipe"/>
+          <label for="ingredients">Ingredientes</label>
+          <input required id="ingredients" data-testid="ingredientes" type="text" name="ingredients" />
+          <button id="insertDom" type="submit" data-testid="adicionar-ingrediente">Adicionar Ingrediente</button>
+          <label for="instructions">Modo de Preparo</label>
+          <input required id="instructions" data-testid="modo-de-preparo" name="instructions" />
+          <button data-testid="postar-receita" type="submit">Salva Receita</button>
+        </form>
+        <div>
+          <% recipes.map((elem) => { %> 
+            <ul>
+              <li id="ingredientsId"> <% elem.name %></li>
+            </ul>
+          <button type="submit" id="delete">Excluir ingredientes</button>
+            <% }) %> 
+        </div>
+        <script>
+          let deleteLi = document.getElementById('delete');
+          let li = document.getElementById('ingredientsId');
+          let btn = document.addEventListener('click', function(){
+            if (li.parentNode) {
+              return li.parentNode.removeChild(deleteLi);
+            }
+          });
+          let ingredients = [];
+          let values = document.getElementById('')
+          let insert = document.addEventListener('click', function(){
+            if (insert) {
+              ingredients.push(values)
+            }
+          });
+        </script>
+    </div>
+  </body>
+</html>
