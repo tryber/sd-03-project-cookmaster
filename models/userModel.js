@@ -1,11 +1,11 @@
 /* Quando você implementar a conexão com o banco, não deve mais precisar desse objeto */
-const TEMP_USER = {
-  id: 'd2a667c4-432d-4dd5-8ab1-b51e88ddb5fe',
-  email: 'taylor.doe@company.com',
-  password: 'password',
-  name: 'Taylor',
-  lastName: 'Doe',
-};
+// const TEMP_USER = {
+//   id: 'd2a667c4-432d-4dd5-8ab1-b51e88ddb5fe',
+//   email: 'taylor.doe@company.com',
+//   password: 'password',
+//   name: 'Taylor',
+//   lastName: 'Doe',
+// };
 
 const connection = require('./connection');
 /* Substitua o código das funções abaixo para que ela,
@@ -20,17 +20,15 @@ de fato, realize a busca no banco de dados */
 //   return TEMP_USER;
 // };
 
+const objectDestructure = ({id, email, password, ...object}) => {
+  return { id, email,  password, name: object.first_name,  lastName: object.last_name };
+}
+
 const findByEmail = async (email) =>
   connection()
     .then((db) => db.getTable('users').select().execute())
     .then((users) => users.objects.filter((user) => user.email === email))
-    .then((id, email, password, ...user) => ({
-      id,
-      email,
-      password,
-      name: user.first_name,
-      lastName: user.last_name,
-    }));
+    .then((user) => objectDestructure(user[0]));
 
 
 
@@ -44,15 +42,9 @@ const findByEmail = async (email) =>
 
 const findById = async (id) =>
   connection()
-    .then((db) => db.getTable('users').select(['id']).execute())
+    .then((db) => db.getTable('users').select().execute())
     .then((users) => users.objects.filter((user) => user.id === id))
-    .then((id, email, password, ...user) => ({
-      id,
-      email,
-      password,
-      name: user.first_name,
-      lastName: user.last_name,
-    }));
+    .then((user) => objectDestructure(user[0]));
 
 module.exports = {
   findByEmail,
