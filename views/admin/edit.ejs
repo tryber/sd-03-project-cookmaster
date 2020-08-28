@@ -18,11 +18,12 @@
         name="recipeName"
         id="recipeName"
         data-testid="nome-receita"
-        value=<%= recipe.name %>
-      />
+        value=<%= recipe.name %> />
       <br />
-      <ul id="ingredientesList">
-        <% window.onload = () => addIngredient(recipe.ingredients) %>
+      <ul id="ingredientsList">
+        <% recipe.ingredients.map(ingredient => { %>
+        <li class="ingredient-item"><%= ingredient %></li>
+        <%})%>
       </ul>
       <input type="text" name="ingredients" id="ingredients" data-testid="ingredientes" />
       <button
@@ -49,7 +50,7 @@
   </body>
   <script>
     const addIngredientButton = document.querySelector('#add-ingredient-button');
-    const ingredientsList = document.querySelector('#ingredientesList');
+    const ingredientsList = document.querySelector('#ingredientsList');
     const ingredientInput = document.querySelector('#ingredients');
     //const form = document.querySelector('#new-recipe-form');
 
@@ -71,25 +72,22 @@
       });
     };
 
-    const addIngredient = (ingredients) => {
-      ingredients.map(ingredient => {
-        const item = document.createElement('li');
+    const addExistingIngredients = () => {
+      const ingredientItems = document.querySelectorAll('.ingredient-item');
+      for (let i = 0; i < ingredientItems.length; i += 1) {
         const deleteButton = document.createElement('button');
 
-        item.innerText = ingredient;
         deleteButton.innerText = 'Excluir ingrediente';
-        item.className = 'ingredient-item';
         deleteButton.className = 'delete-button';
 
-        document.querySelector('#ingredientesList').appendChild(item);
-        document.querySelector('#ingredientesList').appendChild(deleteButton);
+        ingredientItems[i].insertAdjacentElement('afterend', deleteButton);
 
         deleteButton.addEventListener('click', () => {
-          item.remove();
+          ingredientItems[i].remove();
           deleteButton.remove();
         });
-      });
-    }
+      };
+    };
 
     // const onSubmit = () => {
     //   const ingredients = document.querySelectorAll('.ingredient-item');
@@ -97,6 +95,7 @@
     //   console.log(ingredientsArr);
     // }
 
+    window.onload = () => addExistingIngredients();
     addIngredientButton.addEventListener('click', createNewIngredient);
     // form.addEventListener('submit', onSubmit);
   </script>
