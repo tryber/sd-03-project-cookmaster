@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <%- include('navbar', {user:user}); %>
+    <h1>Receitas</h1>
+    <div>
+      <form action="/recipes/search" method="GET">
+        <input type="text" data-testid="receita" name="q" />
+        <button type="submit" data-testid="buscar" >Buscar</button>
+        <% searchRecipe.map((elem) => { %>
+          <h2>Receita: <%= elem.name %></h2>
+          <h3>Autor: <%= elem.user %></h3>
+          <% }) %>
+    </form>
+  </body>
+</html>

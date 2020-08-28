@@ -10,13 +10,13 @@
     <% if (user) { %>
       <button data-testid="nova-receita">Nova Receita</button>
     <% } %>
+    <button onclick="window.location.pathname='/recipes/search'" data-testid="buscar-receita">Buscar Receita</button>
     <div>
       <div>
         <% listRecipes.map((elem) => { %>
         <h3>Receita: <%= elem.name %></h3>
         <p>Usuário: <%= elem.user %></p>
         <a href="/recipes/<%= elem.id %>" %>>Ver mais</a>
-        <button data-testid="buscar-receita">Buscar Receita</button>
       </div>
       <% }) %>
     </div>
