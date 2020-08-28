@@ -54,11 +54,8 @@ async function updateRecipe(id, { name, ingredients, instructions }) {
       .where('id = :id')
       .bind('id', id)
       .execute();
-    console.log(id, name, ingredients, instructions);
-    console.log('newe', newe.getAffectedItemsCount());
     return { message: 'ok' };
   } catch (err) {
-    console.log(err);
     return console.error(err);
   }
 }

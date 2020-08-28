@@ -56,6 +56,7 @@ async function singIn(req, res) {
   if (!error) {
     return res.render('admin/signin', { message: 'Cadastro efetuado com sucesso!' });
   }
+  return undefined;
 }
 
 module.exports = {
