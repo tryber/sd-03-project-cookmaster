@@ -11,7 +11,7 @@
     <%- include('../header', {user})%>
     <% if(user) { %>
     <div>
-      <button type="button" data-testid="editar-receita" onclick="window.location.pathname='/recipes/edit'">Editar
+      <button type="button" data-testid="editar-receita" onclick="window.location.pathname='/recipes/<%= recipeDetails.id %>/edit'">Editar
         receita</button>
       <button type="button" data-testid="excluir-receita" onclick="window.location.pathname='/recipes/delete'">Excluir
         receita</button>
