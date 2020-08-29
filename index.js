@@ -31,5 +31,5 @@ app.use('/me', controllers.userInfoController.router);
 app.get('*', (_req, res) => res.send('Página não encontrada.'));
 
 app.listen(3000, () => console.log('Listening on 3000'));
-// comentario para fazer teste
+
 // projeto feito com base em https://github.com/tryber/sd-02-project-cookmaster/pull/1
