@@ -47,9 +47,7 @@ const signup = async (req, res) => {
   try {
     res.clearCookie('token');
     const { email, password, name, lastName } = req.body;
-  
     await userModel.insertUser(email, password, name, lastName);
-  
     return res.status(201).render('admin/signup', {
       message: 'Cadastro efetuado com sucesso!',
       redirect: null,
@@ -71,7 +69,7 @@ async function confirmPassword(req, res, next) {
   } catch (error) {
     return error;
   }
-};
+}
 
 module.exports = {
   login,
