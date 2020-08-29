@@ -43,14 +43,16 @@ connect()
         :
       null));
 
-// const setNewRecipes = async (RecipeVal) =>
-//  connect()
-//    .then((db) => db.getTable('recipes')
-//    .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
-//    .values())
+const setNewRecipes = async (recipeVal, { id, firstName, lastName }) =>
+ connect()
+   .then((db) => db.getTable('recipes')
+   .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
+   .values(id, `${firstName} ${lastName}`, recipeVal.name, recipeVal.ingredient, recipeVal.instructions)
+   .execute());
 
 module.exports = {
   getAll,
   getCookieById,
   getCookieByName,
+  setNewRecipes,
 };

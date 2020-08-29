@@ -9,14 +9,14 @@
     <H1>Cadastar Receita</H1>
     <form action="/recipes" method="POST">
       <label for="recipeNameInput">Nome da Receita: </label>
-      <input type="text" name="name" id="recipeNameInput" data-testid="nome-receita" /><br />
+      <input type="text" name="name" value="<%=`${name}`||''%>" id="recipeNameInput" data-testid="nome-receita" /><br />
       <label for="ingredientInput" >Ingredientes: </label>
       <% lala.map((el, index)=>{ %>
-        <p><%= el %></p>
+        <p name="ingredientValue" value="<%=`${el}`%>"><%= el %></p>
         <button name="remove" value="<%=`${index}`%>" type="submit">Excluir Ingrediente</button>
       <%})%>
-        <input type="text" name="ingredient" id="ingredientInput" data-testid="ingredientes" /><br />
-        <button type="submit" data-testid="adicionar-ingrediente">Adicionar Ingrediente</button><br />
+      <input type="text" name="ingredient" id="ingredientInput" data-testid="ingredientes" /><br />
+      <button type="submit" data-testid="adicionar-ingrediente">Adicionar Ingrediente</button><br />
       <label for="instructionsInput" >Modo de Preparo: </label>
       <textarea
         type="text"
@@ -27,7 +27,7 @@
         data-testid="modo-de-preparo"
       ></textarea><br />
       <a href="/admin">Voltar</a>
-      <button type="submit" data-testid="postar-receita">Salvar Receita</button>
+      <button type="submit" name="save" data-testid="postar-receita">Salvar Receita</button>
     </form>
   </body>
 </html>
