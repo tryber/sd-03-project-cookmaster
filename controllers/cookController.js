@@ -17,7 +17,7 @@ const searchRecipe = async (req, res) => {
   return res.render('searchRecipes', { user: req.user, recipes });
 };
 
-let lala = [];
+const lala = [];
 const newRecipe = (_req, res) => res.render('admin/newRecipe', { lala, name: '' });
 
 const setNewRecipe = async (req, res) => {
@@ -27,8 +27,8 @@ const setNewRecipe = async (req, res) => {
     return res.render('admin/newRecipe', { lala: [], name: '' });
   }
   if (remove !== undefined) {
-  lala.splice(remove, 1);
-  return res.render('admin/newRecipe', { lala, name });
+    lala.splice(remove, 1);
+    return res.render('admin/newRecipe', { lala, name });
   }
   if (remove === undefined && ingredient.length > 0) {
     lala.push(ingredient);
