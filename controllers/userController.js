@@ -82,10 +82,26 @@ const signup = async (req, res) => {
   res.status(201).render('signup', { message: 'Cadastro efetuado com sucesso!' });
 };
 
+const editUserForm = async (req, res) => {
+  const userInfos = await userModel.findById(req.user.id);
+
+  return res.render('admin/edit-user', { userInfos, message: null, user: req.user })
+};
+
+const editUser = async (req, res) => {
+  const { email, password, passwordConfirm, name, lastName } = req.body;
+
+  await userModel.editUser(req.user.id, email, password, name, lastName);
+
+  return res.redirect('/');
+};
+
 module.exports = {
   login,
   loginForm,
   logout,
   signupForm,
   signup,
+  editUserForm,
+  editUser,
 };
