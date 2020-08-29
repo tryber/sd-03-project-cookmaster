@@ -67,7 +67,7 @@ const updateRecipe = async (req, res) => {
   try {
     if (body && checkRecipe.userId === user.id) {
       await recipesModel.updateRecipe(id, name, ingredients, instructions);
-      return res.redirect(`/recipes/${id}`);
+      return res.redirect('/');
     }
     return res.status(401).send('Acesso Negado');
   } catch (error) {
@@ -76,7 +76,9 @@ const updateRecipe = async (req, res) => {
 };
 
 const deleteRecipe = async (req, res) => {
-  const { user, params, body, validatePassword } = req;
+  const {
+    user, params, body, validatePassword,
+  } = req;
   const { id } = params;
 
   try {
