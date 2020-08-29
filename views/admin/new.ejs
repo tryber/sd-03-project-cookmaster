@@ -6,7 +6,7 @@
     <title>Cookmaster - New Recipe</title>
   </head>
   <body>
-    <%- include('../navbar', { user: user }); %> <% if (message) {%>
+    <%- include('../navbar', { user }); %> <% if (message) {%>
     <div class="message"><%= message %></div>
     <% } %>
     <h1>Nova Receita</h1>

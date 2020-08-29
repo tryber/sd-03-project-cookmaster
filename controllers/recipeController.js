@@ -62,6 +62,14 @@ const editRecipe = async (req, res) => {
   return res.redirect(`/recipes/${req.params.id}`);
 };
 
+const getUserRecipes = async (req, res) => {
+  const { id } = req.user;
+
+  const recipes = await recipeModel.findRecipesByUserId(id);
+
+  return res.render('admin/my-recipes', { recipes, user: req.user });
+};
+
 module.exports = {
   listRecipes,
   recipeDetails,
@@ -70,4 +78,5 @@ module.exports = {
   newRecipe,
   editRecipeForm,
   editRecipe,
+  getUserRecipes,
 };

@@ -3,15 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cookmaster - Search</title>
+    <title>Cookmaster - Minhas Receitas</title>
   </head>
   <body>
-    <%- include('navbar', { user }); %>
+    <%- include('../navbar', { user }); %>
     <div>
-      <form action="/recipes/search" method="GET">
-        <input data-testid="receita" name="q" type="text" />
-        <button data-testid="buscar" type="submit">Buscar</button>
-      </form>
+      <h2>Minhas Receitas</h2>
+      <button data-testid="nova-receita" onclick="window.location.pathname='/recipes/new'">Nova Receita</button>
     </div>
     <% if (recipes) {%>
     <div>
