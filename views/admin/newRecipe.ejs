@@ -12,10 +12,10 @@
       <input type="text" name="name" value="<%=`${name}`||''%>" id="recipeNameInput" data-testid="nome-receita" /><br />
       <label for="ingredientInput" >Ingredientes: </label>
       <% lala.map((el, index)=>{ %>
-        <p name="ingredientValue"  data-testid="ingredientes" value="<%=`${el}`%>"><%= el %></p>
+        <p name="ingredientValue"  value="<%=`${el}`%>"><%= el %></p>
         <button name="remove" value="<%=`${index}`%>" type="submit">Excluir Ingrediente</button>
       <%})%>
-      <input type="text" name="ingredient" id="ingredientInput" /><br />
+      <input type="text" name="ingredient" id="ingredientInput" data-testid="ingredientes" /><br />
       <button type="submit" data-testid="adicionar-ingrediente">Adicionar Ingrediente</button><br />
       <label for="instructionsInput" >Modo de Preparo: </label>
       <textarea
