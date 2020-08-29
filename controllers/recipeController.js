@@ -29,8 +29,7 @@ const searchRecipes = async (req, res) => {
   return res.render('search', { recipes, user: req.user });
 };
 
-const newRecipeForm = async (req, res) =>
-  res.render('admin/new', { user: req.user });
+const newRecipeForm = async (req, res) => res.render('admin/new', { user: req.user });
 
 const newRecipe = async (req, res) => {
   const { recipeName, ingredients, instructions } = req.body;
@@ -85,12 +84,13 @@ const deleteRecipe = async (req, res) => {
   const { password: senha } = req.body;
   const { password } = await userModel.findById(id);
 
-  if (password !== senha) res.render('admin/delete', { message: 'Senha Incorreta.', user: req.user, id: req.params.id });
+  if (password !== senha)
+    res.render('admin/delete', { message: 'Senha Incorreta.', user: req.user, id: req.params.id });
 
   await recipeModel.deleteRecipe(req.params.id);
 
-  return res.redirect(`/`);
-}
+  return res.redirect('/');
+};
 
 module.exports = {
   listRecipes,
