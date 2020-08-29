@@ -82,16 +82,15 @@ const deleteRecipe = async (req, res) => {
   const { id } = params;
 
   try {
-    if (user && !body) {
-      return res.render('recipes/delete', { id });
+    if (user && !body.password) {
+      return res.render('recipes/delete', { recipeId: id, message: null });
     }
-    if (user && body && validatePassword) {
+    if (user && body.password && validatePassword) {
       await recipesModel.deleteRecipe(id);
       return res.redirect('/');
     }
-    if (user && body && !validatePassword) {
-      await recipesModel.deleteRecipe(id);
-      return res.render('recipes/delete', { id, message: 'senha inválida' });
+    if (user && body.password && !validatePassword) {
+      return res.render('recipes/delete', { recipeId: id, message: 'senha inválida' });
     }
     return res.status(401).send('Acesso Negado');
   } catch (error) {
