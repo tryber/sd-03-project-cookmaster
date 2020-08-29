@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Login</title>
+  </head>
+  <body>
+    <header>
+      <h3>Nova Receita</h3>
+      <% if (user) { %>
+        <span><%=user.firstName%></span><span> <%=user.lastName%></span>
+        <button data-testid="logout"><a href="/logout">>Logout</a></button>
+      <% } else {%>
+        <button data-testid="login"><a href="/login">>Login</a></button>
+      <% } %>
+    </header>
+    <form action="/recipes/new" method="POST">
+      <label for="newRecipeName">Nome da Receita</label>
+      <input type="text" name="newRecipeName" id="newRecipeName" data-testid="nome-receita"/><br />
+
+      <label for="ingredient">Ingrediente</label>
+      <input type="text" name="ingredient" id="ingredient" data-testid="ingredientes"/><br />
+      <button type="button" data-testid="adicionar-ingrediente">Adicionar Ingrediente</button>
+
+      <label for="howToPrepare">Modo de Preparo</label>
+      <input type="textarea" name="howToPrepare" id="howToPrepare" data-testid="modo-de-preparo"/><br />
+
+      <button type="submit">Salvar Receita</button>
+    </form>
+    <% if (message) {%>
+      <div class="message">
+        <%= message %>
+      </div>
+    <% } %>
+  </body>
+</html>
