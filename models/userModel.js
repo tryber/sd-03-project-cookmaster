@@ -67,14 +67,14 @@ SET email = ?, first_name = ?, last_name = ?
 WHERE id = ?`;
 
 const updateUser = async ({ email, name, lastName, id }) =>
-connection()
-.then((session) =>
-session.sql(updateUserQuery)
-.bind(email)
-.bind(name)
-.bind(lastName)
-.bind(id)
-.execute());
+  connection()
+    .then((session) =>
+      session.sql(updateUserQuery)
+        .bind(email)
+        .bind(name)
+        .bind(lastName)
+        .bind(id)
+        .execute());
 
 
 module.exports = {
