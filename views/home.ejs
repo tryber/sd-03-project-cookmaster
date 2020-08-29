@@ -10,6 +10,7 @@
       <h1>Cookmaster</h1>
       <% if ( user ) { %>
       <button data-testid="logout" onclick="window.location.pathname='/logout'">Logout</button>
+      <p> <%= user.name %> </p>
       <% } else { %>
       <button data-testid="login" onclick="window.location.pathname='/login'">Login</button>
       <% } %>
@@ -19,7 +20,7 @@
     <div>
       <p><%= recipe.name %></p>
       <p><%= recipe.user %></p>
-      <a href="#">Ver mais</a>
+      <a href=<%= `/recipes/${recipe.id}` %> >Ver mais</a>
     </div>
     <% }) %> <% if ( user ) { %>
     <button data-testid="nova-receita">Nova Receita</button>

@@ -26,4 +26,6 @@ app.post('/login', controllers.userController.login);
 app.get('/signup', controllers.userController.signup);
 app.post('/signup', controllers.userController.createUser);
 
+app.get('/recipes/:id', middlewares.auth(false), controllers.homeController.checkById);
+
 app.listen(3000, () => console.log('Listening on 3000'));
