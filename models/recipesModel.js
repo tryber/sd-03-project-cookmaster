@@ -30,7 +30,13 @@ const findRecipeByID = async (recipeId) => {
     return results
       ? results.reduce(
         (acc, [id, userId, user, name, ingredients, instructions]) => ({
-          ...acc, id, userId, user, name, ingredients, instructions,
+          ...acc,
+          id,
+          userId,
+          user,
+          name,
+          ingredients,
+          instructions,
         }),
         {},
       )
@@ -112,6 +118,31 @@ const deleteRecipe = async (id) => {
   }
 };
 
+const findAllRecipesByUserID = async (UserID) => {
+  try {
+    const db = await connection();
+    const searchQuery = await db
+      .getTable('recipes')
+      .select()
+      .where('user_id = :user_id')
+      .bind('user_id', UserID)
+      .execute();
+    const results = await searchQuery.fetchAll();
+    return results
+      ? results.map(([id, userId, user, name, ingredients, instructions]) => ({
+        id,
+        userId,
+        user,
+        name,
+        ingredients,
+        instructions,
+      }))
+      : null;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   findAllRecipes,
   findRecipeByID,
@@ -119,4 +150,5 @@ module.exports = {
   createRecipe,
   updateRecipe,
   deleteRecipe,
+  findAllRecipesByUserID,
 };
