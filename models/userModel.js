@@ -1,9 +1,10 @@
+const  db  = require('./DbConnection');
 /* Quando você implementar a conexão com o banco, não deve mais precisar desse objeto */
 const TEMP_USER = {
   id: 'd2a667c4-432d-4dd5-8ab1-b51e88ddb5fe',
   email: 'taylor.doe@company.com',
   password: 'password',
-  name: 'Taylor',
+  name: 'teste',
   lastName: 'Doe',
 };
 
@@ -15,7 +16,17 @@ de fato, realize a busca no banco de dados */
  * @param {string} email Email do usuário a ser encontrado
  */
 const findByEmail = async (email) => {
-  return TEMP_USER;
+  const usuarios = await  db()
+  .then((data) => data.getTable('users')
+  .select()
+  .where('email = :email')
+  .bind('email', email)
+  .execute())
+
+const user = usuarios.fetchAll();
+return user.map(([id,email, password, name, lastName]) => (
+  { id, email, password, name, lastName }
+))[0];
 };
 
 /**
@@ -23,7 +34,16 @@ const findByEmail = async (email) => {
  * @param {string} id ID do usuário
  */
 const findById = async (id) => {
-  return TEMP_USER;
+  const usuarios = await  db()
+  .then((data) => data.getTable('users')
+  .select()
+  .where('id = :id')
+  .bind('id', id)
+  .execute())
+  const user = usuarios.fetchAll();
+return user.map(([id,email, password, name, lastName]) => (
+  { id, email, password, name, lastName }
+))[0];
 };
 
 module.exports = {

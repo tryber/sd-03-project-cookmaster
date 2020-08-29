@@ -6,10 +6,21 @@
     <title>Cookmaster</title>
   </head>
   <body>
+    <% if ( usuario) { %>
+      <button data-testid="logout" onclick="window.location.pathname='/logout'">Logout</button>
+      <a href="/me/recipes">
+        <button data-testid="minhas-receitas">Minhas Receitas</button>
+      </a>
+      <% } else { %>
+      <button data-testid="login" onclick="window.location.pathname='/login'">Login</button>
+      <% } %>
     <button id="buscar-receita">Buscar Receita</button>
+     <% if ( usuario ) { %>
+      <button data-testid="nova-receita">Nova Receita</button>
+      <% } %>
+    <h2>Cookmaster</h2>
     <h1>Receitas</h1>
     <div id="recipe-card">
-      <%console.log(listData)%>
       <% listData && listData.forEach(recipe => { %>
         <div>
           <p><%= recipe.name %></p>
@@ -17,7 +28,7 @@
           <a href="#">Ver mais</a>
           <%})%>
         </div>
-        <button data-testid="nova-receita">Nova Receita</button>
+   
       </div>
   </body>
 </html>
