@@ -46,6 +46,7 @@ return user.map(([id,email, password, name, lastName]) => (
 ))[0];
 };
 
+
 module.exports = {
   findByEmail,
   findById,
