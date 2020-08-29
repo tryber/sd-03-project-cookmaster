@@ -27,8 +27,9 @@ const setNewRecipe = async (req, res) => {
     return res.render('admin/newRecipe', { lala: [], name: '' });
   }
   if (remove !== undefined) {
+    const test = lala.filter((_el,index) => index !== Number(remove));
     lala.splice(remove, 1);
-    return res.render('admin/newRecipe', { lala, name });
+    return res.render('admin/newRecipe', { lala: test, name });
   }
   if (remove === undefined && ingredient.length > 0) {
     lala.push(ingredient);
