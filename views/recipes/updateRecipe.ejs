@@ -4,12 +4,12 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cookmaster - Nova receita</title>
+    <title>Cookmaster - Edita receita</title>
   </head>
 
   <body>
     <%- include('../header', {user})%>
-    <h1>Nova Receita</h1>
+    <h1>Editar Receita</h1>
     <form action="/recipes/<%= recipeDetails.id%>" method="POST">
       <label for="nameInput">Nome da Receita</label>
       <input type="text" name="name" id="nameInput" data-testid="nome-receita" value="<%= recipeDetails.name %>"
