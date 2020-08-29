@@ -30,7 +30,6 @@ const renderSearch = async (req, res) => {
   } catch (e) {
     console.error(e);
   }
-
 };
 
 module.exports = {

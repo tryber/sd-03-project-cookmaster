@@ -38,7 +38,7 @@ const findRecipeByName = async (input) => {
   const recipes = await results.fetchAll();
 
   return recipes.map(([id, user, name]) => ({ id, user, name }));
-}
+};
 
 module.exports = {
   getAllRecipes,
