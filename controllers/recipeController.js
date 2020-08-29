@@ -84,8 +84,9 @@ const deleteRecipe = async (req, res) => {
   const { password: senha } = req.body;
   const { password } = await userModel.findById(id);
 
-  if (password !== senha)
+  if (password !== senha) {
     res.render('admin/delete', { message: 'Senha Incorreta.', user: req.user, id: req.params.id });
+  }
 
   await recipeModel.deleteRecipe(req.params.id);
 
