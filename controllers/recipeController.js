@@ -68,7 +68,7 @@ async function recipePermission(req, res, next) {
 function showRecipeToEdit(req, res) {
   const { name, ingredients, instructions } = res.recipe || {};
   const { id } = req.params;
-  res.status(200).render('admin/updateRecipe',  {
+  res.status(200).render('admin/updateRecipe', {
     user: req.user,
     id,
     name,
