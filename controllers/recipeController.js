@@ -82,9 +82,6 @@ const deleteRecipe = async (req, res) => {
   const { id } = params;
 
   try {
-    if (user && !body.password) {
-      return res.render('recipes/delete', { recipeId: id, message: null });
-    }
     if (user && body.password && validatePassword) {
       await recipesModel.deleteRecipe(id);
       return res.redirect('/');
