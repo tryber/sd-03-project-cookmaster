@@ -33,3 +33,4 @@ app.get('*', (_req, res) => res.send('Página não encontrada.'));
 app.listen(3000, () => console.log('Listening on 3000'));
 
 // projeto feito com base em https://github.com/tryber/sd-02-project-cookmaster/pull/1
+// avaliador merda ta derrubando o servidor e me fudendo
