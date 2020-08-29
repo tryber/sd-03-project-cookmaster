@@ -59,11 +59,7 @@ const editRecipe = async (req, res) => {
 
   await recipeModel.editRecipe(req.params.id, recipeName, ingredients[0], instructions);
 
-  return res.render('admin/edit', {
-    recipe: null,
-    user: req.user,
-    message: 'Receita cadastrada com sucesso!',
-  });
+  return res.redirect(`/recipes/${req.params.id}`);
 };
 
 module.exports = {
