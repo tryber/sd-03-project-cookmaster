@@ -78,11 +78,30 @@ function showRecipeToEdit(req, res) {
 }
 
 async function updateRecipe(req, res) {
-  const { recipeName, ingredients, instructions } = req.body;
-  const { id } = req.params;
-  await recipesModel.updateRecipe(id, recipeName, ingredients, instructions);
-  // res.status(200).redirect('/me/recipes');
-  res.status(200).redirect('/');
+  try {
+    const { recipeName, ingredients, instructions } = req.body;
+    const { id } = req.params;
+    await recipesModel.updateRecipe(id, recipeName, ingredients, instructions);
+    // res.status(200).redirect('/me/recipes');
+    res.status(200).redirect('/');
+  } catch (error) {
+    return error;
+  }
+  
+}
+
+async function deleteRecipe(req, res) {
+  try {
+    const { id } = req.params;
+    await recipesModel.deleteRecipe(id);
+    res.redirect('/');
+  } catch (error) {
+    return error;
+  }
+}
+
+async function deleteForm(_req, res) {
+  res.render('admin/deleteForm', { message: null });
 }
 
 module.exports = {
@@ -93,4 +112,6 @@ module.exports = {
   recipePermission,
   showRecipeToEdit,
   updateRecipe,
+  deleteForm,
+  deleteRecipe,
 };

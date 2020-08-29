@@ -44,15 +44,33 @@ const logout = (req, res) => {
 };
 
 const signup = async (req, res) => {
-  res.clearCookie('token');
-  const { email, password, name, lastName } = req.body;
+  try {
+    res.clearCookie('token');
+    const { email, password, name, lastName } = req.body;
+  
+    await userModel.insertUser(email, password, name, lastName);
+  
+    return res.status(201).render('admin/signup', {
+      message: 'Cadastro efetuado com sucesso!',
+      redirect: null,
+    });
+  } catch (error) {
+    return error;
+  }
+};
 
-  await userModel.insertUser(email, password, name, lastName);
-
-  return res.status(201).render('admin/signup', {
-    message: 'Cadastro efetuado com sucesso!',
-    redirect: null,
-  });
+async function confirmPassword(req, res, next) {
+  try {
+    const { password } = req.body;
+    const { id } = req.user;
+    const { password: correctPassword } = await userModel.findById(id);
+    if (correctPassword !== password) {
+      return res.render('admin/deleteForm', { message: 'Senha Incorreta.' });
+    }
+    return next();
+  } catch (error) {
+    return error;
+  }
 };
 
 module.exports = {
@@ -60,4 +78,5 @@ module.exports = {
   loginForm,
   logout,
   signup,
+  confirmPassword,
 };

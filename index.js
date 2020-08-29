@@ -33,6 +33,16 @@ app.get('/signup', (_req, res) => {
   res.render('admin/signup', { message: null, redirect: null });
 });
 
+app.route('/recipes/:id/delete')
+  .get(
+    middlewares.auth(true),
+    controllers.recipeController.deleteForm,
+  ).post(
+    middlewares.auth(false),
+    controllers.userController.confirmPassword,
+    controllers.recipeController.deleteRecipe,
+  );
+
 
 app.post('/login', controllers.userController.login);
 app.post('/signup', middlewares.registerValidationMiddleware, controllers.userController.signup);
