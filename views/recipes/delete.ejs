@@ -18,7 +18,7 @@
     <% } %>
     <form action="/recipes/<%= recipeId %>/delete" method="post">
       <fieldset>
-        <h3>Confirme a exclusão da receita</h3>
+        <legend>Confirme a exclusão da receita</legend>
         <label for="password">Senha</label>
         <input type="password" name="password" id="password" data-testid="senha">
         <button type="button" onclick="window.location.pathname='/recipes/<%= recipeId %>'" data-testid="cancelar">Cancelar</button>
