@@ -14,9 +14,6 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-// app.get('/', (_req, res) => {
-//   return res.render('home');
-// });
 app.get('/', middlewares.auth(false), controllers.recipeController.showResume);
 
 app.get('/admin', middlewares.auth(), (req, res) => {
@@ -31,18 +28,20 @@ app.post('/login', controllers.userController.login);
 app.get('/signin', controllers.userController.signinForm);
 app.post('/signin', controllers.userController.signin);
 
-app.get('/recipes/:id', middlewares.auth(false), controllers.recipeController.showRecipe);
-
 app.get('/edit', (req, res) => {
   const user = req.user;
-  console.log('Página de Edição de uma receita');
   return res.render('edit', { message: null, user });
 });
 app.get('/delete', (req, res) => {
   const user = req.user;
-  console.log('Página de Exclusão de uma receita');
   return res.render('delete', { message: null, user });
 });
 
+app.get('/recipes/search', (req, res) => {
+  const user = req.user;
+  return res.render('search', { message: null, user, result: null });
+});
+app.post('/recipes/search', controllers.recipeController.searchRecipe);
+app.get('/recipes/:id', middlewares.auth(false), controllers.recipeController.showRecipe);
 
 app.listen(3000, () => console.log('Listening on 3000'));

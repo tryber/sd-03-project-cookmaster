@@ -12,7 +12,18 @@ const showRecipe = async (req, res) => {
   return res.render('recipe', { recipe, message: null, user });
 };
 
+const searchRecipe = async (req, res) => {
+  const user = req.user;
+  const { q } = req.body;
+  if (!q) {
+    return res.render('search', { message: null, user });
+  }
+  const result = await recipeModel.searchRecipe(q);
+  return res.render('search', { message: null, user, result });
+}
+
 module.exports = {
   showResume,
   showRecipe,
+  searchRecipe,
 };
