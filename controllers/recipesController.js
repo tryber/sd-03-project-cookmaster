@@ -29,9 +29,9 @@ const listsharchRecipes = async (req, res) => {
     const { query } = req.query;
     const { user } = req;
 
-    if (!query) return res.render('sharchRecipes', { sharchRecipes: [], user });
-    const sharchRecipes = await recipesModal.findSharchRecipe(query);
-    return res.render('sharchRecipes', { sharchRecipes, user });
+    if (!query) return res.render('shearchRecipes', { shearchRecipes: [], user });
+    const shearchRecipes = await recipesModal.findSharchRecipe(query);
+    return res.render('shearchRecipes', { shearchRecipes, user });
   } catch (error) {
     return error;
   }

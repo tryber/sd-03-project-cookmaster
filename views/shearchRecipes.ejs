@@ -1,0 +1,21 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <h2>search</h2>
+  </head>
+  <body>
+    <%- include('header'); %>
+    <h1>Receitas</h1>
+    <div>
+      <form action="/recipes/search" method="GET">
+        <input type="text" data-testid="receita" name="query" />
+        <button type="submit" data-testid="buscar" >Buscar</button>
+        <% shearchRecipes.map((recipe) => { %>
+          <h2>Receita: <%= recipe.name %></h2>
+          <h3>Autor: <%= recipe.user %></h3>
+          <a href="/recipes/<%= recipe.id %> "%>Ver mais</a>
+          <% }) %>
+    </form>
+  </body>
+</html>

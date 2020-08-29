@@ -18,6 +18,7 @@ app.get('/', middlewares.auth(false), controllers.recipesController.listRecipes)
 app.get('/register', controllers.userController.registerForm);
 app.post('/register', controllers.userController.registerUser);
 
+app.get('/recipes/search', middlewares.auth(false), controllers.recipesController.listsharchRecipes);
 app.get('/recipes/:id', middlewares.auth(false), controllers.recipesController.listRecipesById);
 
 app.get('/admin', middlewares.auth(), (req, res) => {
