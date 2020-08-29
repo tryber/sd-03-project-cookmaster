@@ -76,9 +76,7 @@ const updateRecipe = async (req, res) => {
 };
 
 const deleteRecipe = async (req, res) => {
-  const {
-    user, params, body, validatePassword,
-  } = req;
+  const { user, params, body, validatePassword } = req;
   const { id } = params;
 
   try {
@@ -95,6 +93,17 @@ const deleteRecipe = async (req, res) => {
   }
 };
 
+const userRecipes = async (req, res) => {
+  const { user } = req;
+  const { id } = user;
+  try {
+    const recipes = await recipesModel.findAllRecipesByUserID(id);
+    return res.render('recipes/userRecipes', { recipes, user });
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   listRecipes,
   listRecipeByID,
@@ -103,4 +112,5 @@ module.exports = {
   registryRecipe,
   updateRecipe,
   deleteRecipe,
+  userRecipes,
 };
