@@ -87,7 +87,7 @@ const deleteRecipe = async (req, res) => {
       return res.redirect('/');
     }
     if (user && body.password && !validatePassword) {
-      return res.render('recipes/delete', { recipeId: id, message: 'Senha incorreta.' });
+      return res.render('recipes/delete', { recipeId: id, message: 'Senha Incorreta.' });
     }
     return res.status(401).send('Acesso Negado');
   } catch (error) {

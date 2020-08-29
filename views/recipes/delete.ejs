@@ -13,7 +13,7 @@
     </header>
     <% if (message) {%>
     <div class="message">
-      <%= message %>
+      <h3><%= message %></h3>
     </div>
     <% } %>
     <form action="/recipes/<%= recipeId %>/delete" method="post">
