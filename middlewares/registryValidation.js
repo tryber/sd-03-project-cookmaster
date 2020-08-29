@@ -6,7 +6,9 @@ const validateName = (name = '') => name && /^[A-Z][a-z]{2,}$/i.test(name);
 /* Regex obtido em
 https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address */
 const validateEmail = (email = '') => email
-  && (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(email);
+  && /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+    email,
+  );
 
 const getUser = async (userEmail = '') => {
   try {
@@ -51,15 +53,21 @@ const registerValidationMiddleware = async (req, _res, next) => {
   const {
     email, password, confirmPassword, name, lastName,
   } = req.body;
-  const dataValidation = await ValidateUser(email, password, confirmPassword, name, lastName);
-  req.message = dataValidation;
-  if (req.message === validationMessages.default) {
-    req.validate = true;
-  } else {
-    req.validate = false;
-  }
+  try {
+    const dataValidation = await ValidateUser(email, password, confirmPassword, name, lastName);
 
-  return next();
+    req.message = dataValidation;
+
+    if (req.message === validationMessages.default) {
+      req.validate = true;
+    } else {
+      req.validate = false;
+    }
+
+    return next();
+  } catch (error) {
+    return error;
+  }
 };
 
 module.exports = registerValidationMiddleware;
