@@ -31,4 +31,18 @@ app.post('/login', controllers.userController.login);
 app.get('/signin', controllers.userController.signinForm);
 app.post('/signin', controllers.userController.signin);
 
+app.get('/recipes/:id', middlewares.auth(false), controllers.recipeController.showRecipe);
+
+app.get('/edit', (req, res) => {
+  const user = req.user;
+  console.log('Página de Edição de uma receita');
+  return res.render('edit', { message: null, user: user});
+});
+app.get('/delete', (req, res) => {
+  const user = req.user;
+  console.log('Página de Exclusão de uma receita');
+  return res.render('delete', { message: null, user: user});
+});
+
+
 app.listen(3000, () => console.log('Listening on 3000'));
