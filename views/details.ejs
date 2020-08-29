@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Details</title>
+  </head>
+  <body>
+    <header>
+      <h4>Cookmaster</h4>
+      <% if (userControl) { %>
+        <span><%=user.firstName%></span><span> <%=user.lastName%></span>
+        <button data-testid="logout"><a href="/logout">>Logout</a></button>
+      <% } else {%>
+        <button data-testid="login"><a href="/login">>Login</a></button>
+      <% } %>
+    </header>
+    <h1><%=recipeDetails.name%></h1>
+    <h4>Enviado por: <%=recipeDetails.user%></h4>
+    <% if (userControl) { %>
+      <button data-testid="editar-receita"><a href="/editar-receita">Editar Receita</a></button>
+      <button data-testid="excluir-receita"><a href="/excluir-receita">Excluir Receita</a></button>
+    <% } %>
+    <section>
+      <% recipeDetails.ingredients.forEach(ingred => { %>
+        <ul>
+          <li><%=ingred%></li>
+        </ul>
+      <% }) %>
+    </section>
+    <section>
+      <h2>Modo de Preparo</h2>
+      <p><%=recipeDetails.instructions%></p>
+    </section>
+  </body>
+</html>

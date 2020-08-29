@@ -22,6 +22,8 @@ app.get('/admin', middlewares.auth(), (req, res) => {
 app.get('/cadastro', controllers.registerController.registerForms);
 app.post('/cadastro', controllers.registerController.register);
 
+app.get('/recipes/:id', middlewares.auth(false), controllers.detailsController.recipe);
+
 app.get('/login', controllers.userController.loginForm);
 
 app.get('/logout', controllers.userController.logout);
