@@ -16,7 +16,7 @@
       </div>
       <div>
         <h2>Enviada por <%= recipe[2] %></h2>
-      </div>      
+      </div>
       <%if (user && user.id === recipe[0]) {%>
         <button data-testid="editar-receita" onclick="window.location.href='/edit';">
           Editar Receita

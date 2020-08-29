@@ -36,12 +36,12 @@ app.get('/recipes/:id', middlewares.auth(false), controllers.recipeController.sh
 app.get('/edit', (req, res) => {
   const user = req.user;
   console.log('Página de Edição de uma receita');
-  return res.render('edit', { message: null, user: user});
+  return res.render('edit', { message: null, user });
 });
 app.get('/delete', (req, res) => {
   const user = req.user;
   console.log('Página de Exclusão de uma receita');
-  return res.render('delete', { message: null, user: user});
+  return res.render('delete', { message: null, user });
 });
 
 
