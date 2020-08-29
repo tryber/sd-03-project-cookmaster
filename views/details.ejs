@@ -13,7 +13,7 @@
         <button data-testid="editar-receita" onclick="window.location.pathname='/recipes/<%= recipe.recipeId %>/edit'">
           Editar Receita
         </button>
-        <button data-testid="excluir-receita" onclick="window.location.pathname='/delete'">
+        <button data-testid="excluir-receita" onclick="window.location.pathname='/recipes/<%= recipe.recipeId %>/delete'">
           Excluir Receita
         </button>
       </div>
@@ -31,5 +31,6 @@
         <p><%= recipe.instructions %></p>
       </div>
     </div>
+    <button type="button" onclick="window.location.pathname='/'">Voltar</button>
   </body>
 </html>

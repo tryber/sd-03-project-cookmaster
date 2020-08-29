@@ -6,9 +6,7 @@
     <title>Cookmaster - New Recipe</title>
   </head>
   <body>
-    <%- include('../navbar', { user }); %> <% if (message) {%>
-    <div class="message"><%= message %></div>
-    <% } %>
+    <%- include('../navbar', { user }); %>
     <h1>Nova Receita</h1>
     <form action="/recipes" method="POST">
       <label for="recipeName">Nome da Receita</label><br />
@@ -39,6 +37,7 @@
       /><br />
       <button type="submit" data-testid="postar-receita">Salvar Receita</button>
     </form>
+    <button type="button" onclick="window.location.pathname='/'">Voltar</button>
   </body>
   <script>
     const addIngredientButton = document.querySelector('#add-ingredient-button');
