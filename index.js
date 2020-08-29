@@ -44,6 +44,8 @@ app.get(
   middlewares.recipeFilter,
   controllers.recipeController.listRecipeForUpdateByID,
 );
+app.get('/recipes/:id/delete', middlewares.auth(), controllers.recipeController.deleteRecipe);
+app.post('/recipes/:id/delete', middlewares.auth(), controllers.userController.validatePassword, controllers.recipeController.deleteRecipe);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));

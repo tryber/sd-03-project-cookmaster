@@ -47,9 +47,7 @@ const logout = (req, res) => {
 
 const registry = async (req, res) => {
   if (req.body && req.validate) {
-    const {
-      email, password, name, lastName,
-    } = req.body;
+    const { email, password, name, lastName } = req.body;
     await userModel.createUser(email, password, name, lastName);
     return res.render('admin/signup', {
       message: req.message,
@@ -63,9 +61,26 @@ const registry = async (req, res) => {
   });
 };
 
+const validatePassword = async (req, res, next) => {
+  const { password } = req.body;
+  const { id } = req.user;
+  try {
+    const userData = await userModel.findById(id);
+    if (userData.password === password) {
+      req.validatePassword = true;
+    } else {
+      req.validatePassword = false;
+    }
+    return next();
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   login,
   loginForm,
   logout,
   registry,
+  validatePassword,
 };

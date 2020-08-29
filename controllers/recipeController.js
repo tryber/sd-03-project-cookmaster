@@ -65,9 +65,33 @@ const updateRecipe = async (req, res) => {
   // Para comparação de id de usuário logado com autor da receita
   const checkRecipe = await recipesModel.findRecipeByID(id);
   try {
-    if (req.body && checkRecipe.userId === user.id) {
+    if (body && checkRecipe.userId === user.id) {
       await recipesModel.updateRecipe(id, name, ingredients, instructions);
       return res.redirect(`/recipes/${id}`);
+    }
+    return res.status(401).send('Acesso Negado');
+  } catch (error) {
+    return error;
+  }
+};
+
+const deleteRecipe = async (req, res) => {
+  const {
+    user, params, body, validatePassword,
+  } = req;
+  const { id } = params;
+
+  try {
+    if (user && !body) {
+      return res.render('recipes/delete', { id });
+    }
+    if (user && body && validatePassword) {
+      await recipesModel.deleteRecipe(id);
+      return res.redirect('/');
+    }
+    if (user && body && !validatePassword) {
+      await recipesModel.deleteRecipe(id);
+      return res.render('recipes/delete', { id, message: 'senha inválida' });
     }
     return res.status(401).send('Acesso Negado');
   } catch (error) {
@@ -82,4 +106,5 @@ module.exports = {
   listRecipesByQuery,
   registryRecipe,
   updateRecipe,
+  deleteRecipe,
 };
