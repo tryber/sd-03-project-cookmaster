@@ -20,9 +20,9 @@
       <fieldset>
         <h3>Confirme a exclusão da receita</h3>
         <label for="password">Senha</label>
-        <input type="password" name="password" id="password">
-        <button type="button" onclick="window.location.pathname='/recipes/<%= recipeId %>'">Cancelar</button>
-        <button type="submit">Confirmar</button>
+        <input type="password" name="password" id="password" data-testid="senha">
+        <button type="button" onclick="window.location.pathname='/recipes/<%= recipeId %>'" data-testid="cancelar">Cancelar</button>
+        <button type="submit" data-testid="confirmar">Confirmar</button>
       </fieldset>
     </form>
   </body>

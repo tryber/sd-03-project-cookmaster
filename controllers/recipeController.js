@@ -90,7 +90,7 @@ const deleteRecipe = async (req, res) => {
       return res.redirect('/');
     }
     if (user && body.password && !validatePassword) {
-      return res.render('recipes/delete', { recipeId: id, message: 'senha inválida' });
+      return res.render('recipes/delete', { recipeId: id, message: 'Senha incorreta.' });
     }
     return res.status(401).send('Acesso Negado');
   } catch (error) {
