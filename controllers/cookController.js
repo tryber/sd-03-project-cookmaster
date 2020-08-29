@@ -27,7 +27,7 @@ const setNewRecipe = async (req, res) => {
     return res.render('admin/newRecipe', { lala: [], name: '' });
   }
   if (remove !== undefined) {
-    lala.splice(remove, 1);
+    await lala.splice(remove, 1);
     return res.render('admin/newRecipe', { lala, name });
   }
   if (remove === undefined && ingredient.length > 0) {
