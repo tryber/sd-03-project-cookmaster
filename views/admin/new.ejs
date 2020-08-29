@@ -9,7 +9,7 @@
     <%- include('../navbar', { user: user }); %> <% if (message) {%>
     <div class="message"><%= message %></div>
     <% } %>
-    <h1>Cadastrar Receita</h1>
+    <h1>Nova Receita</h1>
     <form action="/recipes" method="POST">
       <label for="recipeName">Nome da Receita</label><br />
       <input
@@ -45,7 +45,7 @@
     const ingredientsList = document.querySelector('#ingredientesList');
     const ingredientInput = document.querySelector('#ingredientsInput');
     const ingredients = document.querySelector('#ingredients');
-    const ingredientsArray = [];
+    let ingredientsArray = [];
 
     const createNewIngredient = () => {
       const item = document.createElement('li');

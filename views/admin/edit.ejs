@@ -25,7 +25,7 @@
         <li class="ingredient-item"><%= ingredient %></li>
         <%})%>
       </ul>
-      <input type="text" name="ingredients" id="ingredientsInput" data-testid="ingredientes" />
+      <input type="text" id="ingredientsInput" data-testid="ingredientes" />
       <button
         for="ingredients"
         type="button"
@@ -52,7 +52,7 @@
     const ingredientsList = document.querySelector('#ingredientsList');
     const ingredientInput = document.querySelector('#ingredientsInput');
     const ingredients = document.querySelector('#ingredients');
-    const ingredientsArray = [];
+    let ingredientsArray = [];
 
     const createNewIngredient = () => {
       const item = document.createElement('li');
@@ -94,6 +94,9 @@
         ingredientItems[i].insertAdjacentElement('afterend', deleteButton);
 
         deleteButton.addEventListener('click', () => {
+          ingredientsArray = ingredientsArray.filter((ingredient) => ingredient !== ingredientItems[i].innerText);
+          ingredients.value = ingredientsArray.join(',');
+
           ingredientItems[i].remove();
           deleteButton.remove();
         });
