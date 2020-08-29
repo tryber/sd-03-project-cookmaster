@@ -23,6 +23,8 @@ app.get('/recipes/new', middlewares.auth(), (req, res) => {
 });
 
 app.get('/recipes/search', middlewares.auth(false), controllers.recipeController.searchRecipes);
+app.get('/recipes/:id/edit', middlewares.auth(), controllers.recipeController.recipePermission,
+controllers.recipeController.showRecipeToEdit);
 app.get('/recipes/:id', middlewares.auth(false), controllers.recipeController.showRecipeDetails);
 
 app.get('/login', controllers.userController.loginForm);
@@ -35,5 +37,6 @@ app.get('/signup', (_req, res) => {
 app.post('/login', controllers.userController.login);
 app.post('/signup', middlewares.registerValidationMiddleware, controllers.userController.signup);
 app.post('/recipes', middlewares.auth(), controllers.recipeController.addRecipe);
+app.post('/recipes/:id', middlewares.auth(), controllers.recipeController.updateRecipe);
 
 app.listen(3000, () => console.log('Listening on 3000'));

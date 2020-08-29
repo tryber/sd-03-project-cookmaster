@@ -22,10 +22,10 @@
             </div>
             <div class="col">
               <% if (user) {%>
-                <a href=<%= `/recipes/edit/` + recipe.id %>>
+                <a href="/recipes/<%= recipe.id %>/edit">
                   <button data-testid="editar-receita" class="btn btn-primary">Editar Receita</button>
                 </a>
-                <a href=<%= `/recipes/delete/` + recipe.id %>>
+                <a href="/recipes/<%= recipe.id %>/delete">
                   <button data-testid="excluir-receita" class="btn btn-primary">Excluir Receita</button>
                 </a>
               <% } %>

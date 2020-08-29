@@ -54,9 +54,43 @@ const addRecipe = async (req, res) => {
   return res.status(200).redirect('/');
 };
 
+async function recipePermission(req, res, next) {
+  const recipe = await recipesModel.findRecipeById(req.params.id) || {};
+  if (!recipe) res.status(404).render('notFound');
+  const { userId } = recipe;
+  const { id } = req.user || {};
+  if (userId !== id) res.send('Você não tem permissão para acessar esta página.');
+  res.recipe = recipe;
+
+  next();
+}
+
+function showRecipeToEdit(req, res) {
+  const { name, ingredients, instructions } = res.recipe || {};
+  const { id } = req.params;
+  res.status(200).render('admin/updateRecipe',  {
+    user: req.user,
+    id,
+    name,
+    instructions,
+    ingredients,
+  });
+}
+
+async function updateRecipe(req, res) {
+  const { recipeName, ingredients, instructions } = req.body;
+  const { id } = req.params;
+  await recipesModel.updateRecipe(id, recipeName, ingredients, instructions);
+  // res.status(200).redirect('/me/recipes');
+  res.status(200).redirect('/');
+}
+
 module.exports = {
   showAllRecipes,
   showRecipeDetails,
   searchRecipes,
   addRecipe,
+  recipePermission,
+  showRecipeToEdit,
+  updateRecipe,
 };

@@ -1,13 +1,13 @@
 const userModel = require('../models/userModel');
 
-const findUser = async (userEmail = '') => {
+/* const findUser = async (userEmail = '') => {
   try {
     const user = userEmail && (await userModel.findByEmail(userEmail));
     return user.email;
   } catch (error) {
     return error;
   }
-};
+}; */
 
 const allowedSizes = {
   email: 0,
@@ -34,9 +34,9 @@ const returnedMessages = {
 };
 
 async function validate(user) {
-  const userExist = await findUser(user.email);
+  // const userExist = await findUser(user.email);
+  // if (userExist) return returnedMessages.user;
   let message = null;
-  if (userExist) return returnedMessages.user;
 
   Object.entries(user).some(([key, value]) => {
     if (value.length < allowedSizes[key] || !value.match(regexValidations[key])) {
