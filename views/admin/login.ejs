@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <%- include('../base'); -%>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cookmaster - Login</title>
   </head>
   <body>
     <% if (message) {%>
-    <div class="message">
-      <%= message %>
-    </div>
+    <div class="message"><%= message %></div>
     <% } %>
     <form action="/login" method="POST">
       <label for="emailInput">Email: </label>
@@ -17,11 +16,7 @@
       <label for="passwordInput">Senha: </label>
       <input type="password" name="password" id="passwordInput" /><br />
       <% if (redirect) { %>
-      <input
-        type="hidden"
-        name="redirect"
-        value="<%= decodeURIComponent(redirect) %>"
-      />
+      <input type="hidden" name="redirect" value="<%= decodeURIComponent(redirect) %>" />
       <% } %>
       <button type="submit">Entrar</button>
     </form>

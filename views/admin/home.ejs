@@ -3,13 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cookmaster - Admin</title>
+    <title>Cookmaster - Login</title>
   </head>
-
   <body>
-    <h1>Painel Administrativo Cookmaster</h1>
-    <p>Usuário atual: <%= `${user.name} ${user.lastName}` %></p>
-    <pre><%= JSON.stringify(user, null, 4) %></pre>
-    <button onclick="window.location.pathname='/logout'">Logout</button>
+    <% if (message) {%>
+    <div class="message"><%= message %></div>
+    <% } %>
+    <form action="/login" method="POST">
+      <label for="emailInput">Email: </label>
+      <input type="text" name="email" id="emailInput" data-testid="email" /><br />
+      <label for="passwordInput">Senha: </label>
+      <input type="password" name="password" id="passwordInput" data-testid="senha" /><br />
+      <% if (redirect) { %>
+      <input type="hidden" name="redirect" value="<%= decodeURIComponent(redirect) %>" />
+      <% } %>
+      <button type="submit" data-testid="entrar">Entrar</button>
+    </form>
   </body>
 </html>

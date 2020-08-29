@@ -1,11 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <%- include('base') -%>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cookmaster - Home</title>
   </head>
   <body>
-    <h1>Boas vindas ao Cookmaster!</h1>
+    <header>
+      <h1>Cookmaster!</h1>
+      <%if (!isAuth) {%>
+      <button type="button" data-testid="login" onclick="window.location.pathname='/login'">
+        Login
+      </button>
+      <%} else {%>
+      <button type="button" data-testid="logout" onclick="window.location.pathname='/logout'">
+        Logout
+      </button>
+      <button type="button" data-testid="nova-receita">Nova Receita</button>
+      <%};%>
+    </header>
+    <article class="receitas">
+      <h2>Receitas</h2>
+      <div>
+        <%filteredRecipes.map((recipe) => {%>
+        <div style="border: 1px solid black">
+          <h4><%=recipe.name%></h4>
+          <h4><%=recipe.user%></h4>
+          <a href="#">Ver mais</a>
+        </div>
+        <%})%>
+      </div>
+    </article>
   </body>
 </html>
