@@ -26,8 +26,6 @@
       </div>
     </nav>
     <h2>Receitas</h2>
-    <% console.log(recipe) %>
-    <% console.log(user) %>
     <% if (user && recipe && user.id === recipe.userId) { %>
       <a class="waves-effect waves-light btn" data-testid="editar-receita" href=<%= `${recipe.id}/edit` %>>Editar Receitas</a>
       <a class="waves-effect waves-light btn" data-testid="excluir-receita" href=<%= `${recipe.id}/delete` %>>Excluir Receita</a>
@@ -37,7 +35,6 @@
       <h6>Enviada por <%= recipe.user %></h6>
       <h4>Ingredientes</h4>
       <ul>
-        <% console.log(recipe.ingredients.split(',')) %>
         <% recipe.ingredients.split(',').forEach((ingredient) => { %>
           <li><%= ingredient %></li>
         <% } ) %>
