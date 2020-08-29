@@ -15,8 +15,8 @@ const findByEmail = async (email) => {
   .bind('email', email)
   .execute());
 
-const user = usuarios.fetchAll();
-  return user.map(([id,email2, password, name, lastName]) => (
+  const user = usuarios.fetchAll();
+  return user.map(([id, email2, password, name, lastName]) => (
   { id, email2, password, name, lastName }
 ))[0];
 };
