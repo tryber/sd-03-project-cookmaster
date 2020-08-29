@@ -20,7 +20,7 @@ const searchRecipe = async (req, res) => {
   }
   const result = await recipeModel.searchRecipe(q);
   return res.render('search', { message: null, user, result });
-}
+};
 
 module.exports = {
   showResume,
