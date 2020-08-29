@@ -20,11 +20,11 @@ app.get('/admin', middlewares.auth(), (req, res) => {
 });
 
 app.get('/cadastro', controllers.registerController.registerForms);
+app.post('/cadastro', controllers.registerController.register);
 
 app.get('/login', controllers.userController.loginForm);
 
 app.get('/logout', controllers.userController.logout);
 app.post('/login', controllers.userController.login);
-app.post('/cadastro', controllers.registerController.register);
 
 app.listen(3000, () => console.log('Listening on 3000'));
