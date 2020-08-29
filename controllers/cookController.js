@@ -24,7 +24,7 @@ const newRecipe = (_req, res) => res.render('admin/newRecipe', { lala: [], name:
 const setNewRecipe = rescue(async (req, res) => {
   const { remove, name, ingredient, instructions, save } = req.body;
   if (remove !== undefined) {
-    return lala.splice(remove, 1).then(res.render('admin/newRecipe', { lala, name }))
+    return lala.splice(remove, 1).then(res.render('admin/newRecipe', { lala, name }));
   }
   if (save !== undefined && name.length > 0 && lala.length > 0 && instructions.length > 0) {
     await cookModel.setNewRecipes(req.body, req.user);
