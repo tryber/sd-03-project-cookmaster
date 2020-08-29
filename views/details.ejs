@@ -10,12 +10,16 @@
     <div>
       <% if (user && user.id === recipe.userId) {%>
       <div>
-        <button data-testid="editar-receita" onclick="window.location.pathname='/recipes/<%= recipe.recipeId %>/edit'">
-          Editar Receita
-        </button>
-        <button data-testid="excluir-receita" onclick="window.location.pathname='/recipes/<%= recipe.recipeId %>/delete'">
-          Excluir Receita
-        </button>
+        <a href="/recipes/<%= recipe.recipeId %>/edit">
+          <button data-testid="editar-receita">
+            Editar Receita
+          </button>
+        </a>
+        <a href="/recipes/<%= recipe.recipeId %>/delete">
+          <button data-testid="excluir-receita">
+            Excluir Receita
+          </button>
+        </a>
       </div>
       <%}%>
       <div>
@@ -31,6 +35,8 @@
         <p><%= recipe.instructions %></p>
       </div>
     </div>
-    <button type="button" onclick="window.location.pathname='/'">Voltar</button>
+    <a href="/">
+      <button type="button">Voltar</button>
+    </a>
   </body>
 </html>

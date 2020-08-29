@@ -8,13 +8,21 @@
   <body>
     <%- include('navbar', { user }); %>
     <div>
-      <button data-testid="buscar-receita" onclick="window.location.pathname='/recipes/search'">
-        Buscar Receita
-      </button>
+      <a href="/recipes/search">
+        <button data-testid="buscar-receita">
+          Buscar Receita
+        </button>
+      </a>
       <% if (user) {%>
-      <button data-testid="nova-receita" onclick="window.location.pathname='/recipes/new'">Nova Receita</button>
-      <button data-testid="minhas-receitas" onclick="window.location.pathname='/me/recipes'">Minhas Receitas</button>
-      <button data-testid="minha-conta" onclick="window.location.pathname='/me/edit'">Minha Conta</button>
+        <a href="/recipes/new">
+          <button data-testid="nova-receita">Nova Receita</button>
+        </a>
+        <a href="/me/recipes">
+          <button data-testid="minhas-receitas">Minhas Receitas</button>
+        </a>
+        <a href="/me/edit">
+          <button data-testid="minha-conta">Minha Conta</button>
+        </a>
       <%}%>
     </div>
     <% if (recipes) {%>

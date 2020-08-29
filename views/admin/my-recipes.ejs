@@ -9,9 +9,11 @@
     <%- include('../navbar', { user }); %>
     <div>
       <h2>Minhas Receitas</h2>
-      <button data-testid="nova-receita" onclick="window.location.pathname='/recipes/new'">
-        Nova Receita
-      </button>
+      <a href="/recipes/new">
+        <button data-testid="nova-receita">
+          Nova Receita
+        </button>
+      </a>
     </div>
     <% if (recipes) {%>
     <div>
