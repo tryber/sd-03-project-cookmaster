@@ -19,7 +19,7 @@
         data-testid="nome-receita"
         value=<%= recipe.name %>
       /><br />
-      <input type="hidden" name="ingredients" id="ingredients" data-testid="ingredientes" />
+      <input type="hidden" name="ingredients" id="ingredients" />
       <ul id="ingredientsList">
         <% recipe.ingredients.map(ingredient => { %>
         <li class="ingredient-item"><%= ingredient %></li>
@@ -43,7 +43,7 @@
         data-testid="modo-de-preparo"
         value=<%= recipe.instructions %>
       /><br />
-      <button type="submit" data-testid="postar-receita">Editar Receita</button>
+      <button type="submit" data-testid="postar-receita">Salvar Receita</button>
     </form>
     <% } %>
   </body>
