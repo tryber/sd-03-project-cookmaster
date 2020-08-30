@@ -61,24 +61,19 @@ const informMessage = {
 const registerUser = async (req, res) => {
   const { email, password, confirmPassword, name, lastName } = req.body;
 
-  if (!regexEmail.test(email)) {
-    res.render('register', { message: informMessage.email });
-  }
-
-  if (password.length < 5) {
-    res.render('register', { message: informMessage.password });
-  }
-
-  if (confirmPassword !== password) {
-    res.render('register', { message: informMessage.confirmPassword });
-  }
-
-  if (name.length < 3 && typeof name === 'string') {
-    res.render('register', { message: informMessage.name });
-  }
-
-  if (lastName.length < 3) {
-    res.render('register', { message: informMessage.lastName });
+  switch (true) {
+    case !regexEmail.test(email):
+      return res.render('register', { message: informMessage.email });
+    case password.length < 5:
+      return res.render('register', { message: informMessage.password });
+    case confirmPassword !== password:
+      return res.render('register', { message: informMessage.confirmPassword });
+    case name.length < 3 && typeof name === 'string':
+      return res.render('register', { message: informMessage.name });
+    case lastName.length < 3:
+      return res.render('register', { message: informMessage.lastName });
+    default:
+      break;
   }
 
   await userModel.createUser(email, password, name, lastName);
