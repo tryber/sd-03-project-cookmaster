@@ -49,36 +49,32 @@ const logout = (req, res) => {
 
 const registerForm = (_req, res) => res.render('register', { message: null });
 
-const informMessage = {
-  cadastro: 'Cadastro efetuado com sucesso!',
-  email: 'O email deve ter o formato email@mail.com',
-  password: 'A senha deve ter pelo menos 6 caracteres',
-  confirmPassword: 'As senhas tem que ser iguais',
-  name: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-  lastName: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-};
+// const informMessage = {
+//   cadastro: 'Cadastro efetuado com sucesso!',
+//   email: 'O email deve ter o formato email@mail.com',
+//   password: 'A senha deve ter pelo menos 6 caracteres',
+//   confirmPassword: 'As senhas tem que ser iguais',
+//   name: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+//   lastName: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+// };
 
 const registerUser = async (req, res) => {
   const { email, password, confirmPassword, name, lastName } = req.body;
 
-  if (!regexEmail.test(email)) {
-    await res.render('register', { message: informMessage.email });
+  if (!validEmailRegEx.test(email)) {
+    res.render('register', { message: 'O email deve ter o formato email@mail.com' });
   }
-
   if (password.length < 5) {
-    await res.render('register', { message: informMessage.password });
+    res.render('register', { message: 'A senha deve ter pelo menos 6 caracteres' });
   }
-
-  if (confirmPassword !== password) {
-    await res.render('register', { message: informMessage.confirmPassword });
+  if (password !== confirmPassword) {
+    res.render('register', { message: 'As senhas tem que ser iguais' });
   }
-
-  if (name.length < 3 && typeof name === 'string') {
-    await res.render('register', { message: informMessage.name });
+  if (first_name.length < 3 && typeof first_name == 'string') {
+    res.render('register', { message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' });
   }
-
-  if (lastName.length < 3) {
-    await res.render('register', { message: informMessage.lastName });
+  if (last_name.length < 3) {
+    res.render('register', { message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' });
   }
 
   await userModel.createUser(email, password, name, lastName);
