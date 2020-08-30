@@ -23,7 +23,7 @@ const createUser = ({ email, password, name, lastName }) =>
     .then((db) => db
       .getTable('users')
       .insert(['email', 'password', 'first_name', 'last_name'])
-      .values(email,password, name, lastName)
+      .values(email, password, name, lastName)
       .execute())
     .catch((err) => {
       console.error(err);

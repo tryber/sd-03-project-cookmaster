@@ -25,7 +25,7 @@ const registerForm = async (req, res) => {
       'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
     });
   }
-  await registerModel.createUser(req.body)
+  await registerModel.createUser(req.body);
   res.render('admin/register', { message: 'Cadastro efetuado com sucesso!' });
 };
 
