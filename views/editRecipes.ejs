@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <nav>Tela de Editar Receitas</nav>
+  <div>
+    <form action="/recipes/:id" method="POST">
+      <label for="nameRecipe">Nome da Receita</label>
+      <input id="nameRecipe" type="text" data-testid="nome-receita" value="" />
+      <label for="ingredients">Ingredientes</label>
+      <input id="ingredients" type="text" data-testid="ingredientes" value="" />
+      <button type="submit" data-testid="adicionar-ingrediente">Adicionar Ingrediente</button>
+
+      <label for="modoPreparo">Modo de Preparo</label>
+      <input id="modoPreparo" type="text" data-testid="modo-de-preparo" value="" />
+
+      <button type="submit" data-testid="postar-receita">Salvar Receita</button>
+    </form>
+  </div>
+  <script>
+    
+  </script>
+</body>
+</html>

@@ -17,34 +17,44 @@
           <input required id="nameRecipe" data-testid="nome-receita" type="text" name="nameRecipe"/>
           <label for="ingredients">Ingredientes</label>
           <input required id="ingredients" data-testid="ingredientes" type="text" name="ingredients" />
-          <button id="insertDom" type="submit" data-testid="adicionar-ingrediente">Adicionar Ingrediente</button>
+          <button id="insertDom" type="submit" data-testid="adicionar-ingrediente" onclick="createViewIngredients()">Adicionar Ingrediente</button>
           <label for="instructions">Modo de Preparo</label>
           <input required id="instructions" data-testid="modo-de-preparo" name="instructions" />
           <button data-testid="postar-receita" type="submit">Salva Receita</button>
         </form>
-        <div>
+        <ul id="teste">
+
+        </ul>
+        <!-- <div>
           <% recipes.map((elem) => { %> 
             <ul>
               <li id="ingredientsId"> <% elem.name %></li>
             </ul>
           <button type="submit" id="delete">Excluir ingredientes</button>
             <% }) %> 
-        </div>
+        </div> -->
         <script>
-          let deleteLi = document.getElementById('delete');
-          let li = document.getElementById('ingredientsId');
-          let btn = document.addEventListener('click', function(){
-            if (li.parentNode) {
-              return li.parentNode.removeChild(deleteLi);
-            }
-          });
-          let ingredients = [];
-          let values = document.getElementById('')
-          let insert = document.addEventListener('click', function(){
-            if (insert) {
-              ingredients.push(values)
-            }
-          });
+          function createViewIngredients() {
+            let ul = document.getElementById('teste');
+            const li = document.createElement('li');
+            let value = document.getElementById('ingredientsId').value;
+            ul.innerHTML = li.value;
+          }
+          
+          // let li = document.getElementById('ingredientsId');
+          // let deleteLi = document.getElementById('delete');
+          // let btn = document.addEventListener('click', function(){
+          //   if (li.parentNode) {
+          //     return li.parentNode.removeChild(deleteLi);
+          //   }
+          // });
+          // let ingredients = [];
+          // let values = document.getElementById('')
+          // let insert = document.addEventListener('click', function(){
+          //   if (insert) {
+          //     ingredients.push(values)
+          //   }
+          // });
         </script>
     </div>
   </body>

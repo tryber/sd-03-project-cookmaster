@@ -35,10 +35,25 @@ const createRecipes = async (req, res) => {
   }
 };
 
+const editRecipe = async (req, res) => {
+  const { id } =  req.user;
+  const idRecipe = req.body.id; 
+  const recipes = await recipeModel.editRecipesBank(id);
+  if (id === idRecipe) return res.render('editRecipes', { recipes, message: 'Receita editada!'});
+  return res.redirect('/');
+};
+
+const deleteRecipe = async (req,res) => {
+  const { id } = req.user;
+  res.render('deleteRecipe', { recipes: 'null'});
+};
+
 module.exports = {
   recipes,
   recipesById,
   findRecipes,
   createRecipes,
   createForm,
+  editRecipe,
+  deleteRecipe,
 };

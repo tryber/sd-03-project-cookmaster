@@ -59,9 +59,41 @@ const postRecipes = async (valuesRecipes, valuesUser) => {
     .execute();
 };
 
+
+const editRecipesBank = async (id) => {
+  const db = await connection();
+
+  const results = await db.getTable('recipes')
+    .select(['user_id', 'name', 'ingredients', 'instructions'])
+    .where('user_id  = id')
+    .bind('id', id)
+    // .update(ingredients, instructions)
+    .execute();
+
+    const editSucess = results.fetchAll();
+
+    return editSucess ? editSucess.map(([name,ingredients,instructions]) => ({
+      name, ingredients, instructions
+    })) : null;
+};
+
+
+const deleteRecipeBank = async (id) => {
+  const db = await connection();
+
+  const results = await db.getTable('recipes')
+  .select(['id, name']).execute()
+
+  return results;
+}
+
+
+
 module.exports = {
   getRecipes,
   getRecipesByQuery,
   getRecipesById,
   postRecipes,
+  editRecipesBank,
+  deleteRecipeBank,
 };
