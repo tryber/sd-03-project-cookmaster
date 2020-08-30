@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create User</title>
+</head>
+<body>
+    <h1>cadastro usuario</h1>
+    <% if (message) {%>
+        <div class="message"><%= message %></div>
+        <% } %>
+    <form action="/createUser" method="POST">
+        <label for="emailInput">Email: </label>
+        <input required type="text" name="email" data-testid="email" /><br />
+        <label for="passwordInput">Senha: </label>
+        <input required type="password" name="password" data-testid="senha" /><br />
+        <label for="confirm">Confirmar Senha: </label>
+        <input required
+          type="password"
+          name="confirm"
+          data-testid="confirmar-senha"
+        /><br />
+        <label for="name">Nome: </label>
+        <input required type="text" name="first_name" data-testid="nome" /><br />
+        <label for="lastName">Sobrenome: </label>
+        <input required type="text" name="last_name" data-testid="sobrenome" /><br />
+        <button type="submit" data-testid="cadastrar">Cadastrar</button>
+      </form>
+      <a href="/login">
+        <button data-testid="login">Login</button>
+      </a>
+    </body>
+    
+</body>
+</html>
