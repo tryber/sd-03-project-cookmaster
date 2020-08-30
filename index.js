@@ -17,13 +17,15 @@ app.get('/admin', middlewares.auth(), (req, res) => {
   return res.render('admin/home', { user: req.user });
 });
 
-//Ajuda Lucas Cardoso para Correção das rotas.
-
 app.get('/login', controllers.userController.login);
 app.get('/login', controllers.userController.loginForm);
 app.get('/logout', controllers.userController.logout);
 app.get('/register', middlewares.auth(false), controllers.userController.registerForm);
-app.get('/recipes/search', middlewares.auth(false), controllers.recipesController.listsharchRecipes);
+app.get(
+  '/recipes/search',
+  middlewares.auth(false),
+  controllers.recipesController.listsharchRecipes,
+);
 app.get('/recipes/new', middlewares.auth(), controllers.recipesController.formRecipe);
 
 app.get('/recipes/:id', middlewares.auth(false), controllers.recipesController.listRecipesById);
