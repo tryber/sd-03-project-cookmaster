@@ -19,5 +19,13 @@
     <input data-testid="receita" type="text" name="q">
     <button data-testid="buscar" type="submit">Buscar</button>
   </form>
+  <h2>Receitas</h2>
+    <% searched && searched.forEach(recipe => { %>
+    <div>
+      <p><%= recipe.name %></p>
+      <p><%= recipe.user %></p>
+      <a href=<%= `/recipes/${recipe.id}` %> >Ver mais</a>
+    </div>
+    <% }) %>
 </body>
 </html>

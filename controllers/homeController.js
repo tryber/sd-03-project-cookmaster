@@ -1,5 +1,4 @@
 const homeModel = require('../models/homeModel');
-const userModel = require('../models/userModel');
 
 const listRecipes = async (req, res) => {
   const recipes = await homeModel.getAll();
@@ -15,7 +14,12 @@ const checkById = async (req, res) => {
 };
 
 const searchRecipe = async (req, res) => {
+  const { q } = req.query;
+  
+  const searched = await homeModel.findRecipeByQuery(q);
+  console.log(searched);
 
+  if (searched) res.render('recipes/search', { searched, user: req.user })
   res.render('recipes/search', { user: req.user });
 };
 
