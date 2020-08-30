@@ -58,10 +58,30 @@ const registerForm = (_req, res) => res.render('register', { message: null });
 //   lastName: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
 // };
 
+// if (!regexEmail.test(email)) {
+//   await res.render('register', { message: informMessage.email });
+// }
+
+// if (password.length < 5) {
+//   await res.render('register', { message: informMessage.password });
+// }
+
+// if (confirmPassword !== password) {
+//   await res.render('register', { message: informMessage.confirmPassword });
+// }
+
+// if (name.length < 3 && typeof name === 'string') {
+//   await res.render('register', { message: informMessage.name });
+// }
+
+// if (lastName.length < 3) {
+//   await res.render('register', { message: informMessage.lastName });
+// }
+
 const registerUser = async (req, res) => {
   const { email, password, confirmPassword, name, lastName } = req.body;
 
-  if (!validEmailRegEx.test(email)) {
+  if (!regexEmail.test(email)) {
     res.render('register', { message: 'O email deve ter o formato email@mail.com' });
   }
   if (password.length < 5) {
@@ -71,10 +91,14 @@ const registerUser = async (req, res) => {
     res.render('register', { message: 'As senhas tem que ser iguais' });
   }
   if (first_name.length < 3 && typeof first_name == 'string') {
-    res.render('register', { message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' });
+    res.render('register', {
+      message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+    });
   }
   if (last_name.length < 3) {
-    res.render('register', { message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' });
+    res.render('register', {
+      message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+    });
   }
 
   await userModel.createUser(email, password, name, lastName);
