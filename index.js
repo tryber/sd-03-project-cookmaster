@@ -21,6 +21,8 @@ app.post('/register', controllers.userController.registerUser);
 app.get('/recipes/search', middlewares.auth(false), controllers.recipesController.listsharchRecipes);
 app.get('/recipes/:id', middlewares.auth(false), controllers.recipesController.listRecipesById);
 
+app.get('recipes/new', middlewares.auth(), controllers.recipesController.newRecipes);
+
 app.get('/admin', middlewares.auth(), (req, res) => {
   return res.render('admin/home', { user: req.user });
 });

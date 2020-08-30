@@ -37,4 +37,14 @@ const listsharchRecipes = async (req, res) => {
   }
 };
 
-module.exports = { listRecipes, listRecipesById, listsharchRecipes };
+const newRecipes = async (req, res) => {
+  const { recipeName, ingredients, instructions } = req.body;
+  const { id, name, lastName } = req.user;
+  const userName = `${name} ${lastName}`;
+
+  await recipesModal.createNewRecipes(id, userName, recipeName, ingredients, instructions);
+
+  return res.redirect('/');
+};
+
+module.exports = { listRecipes, listRecipesById, listsharchRecipes, newRecipes };

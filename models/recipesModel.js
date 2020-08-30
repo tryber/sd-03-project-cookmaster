@@ -56,8 +56,20 @@ const findSharchRecipe = async (query) => {
   })) : null;
 };
 
+const createNewRecipes = async (userId, user, name, ingredients, instructions) => {
+  const db = await connection();
+
+  const createRecipe = await db.getTable('recipes')
+    .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
+    .values(userId, user, name, ingredients, instructions)
+    .execute();
+
+  return createRecipe;
+};
+
 module.exports = {
   finfByRecipes,
   findRecipesById,
   findSharchRecipe,
+  createNewRecipes,
 };
