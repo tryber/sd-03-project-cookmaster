@@ -39,11 +39,11 @@ const findById = async (id) => {
 };
 
 
-const createuser = async (email, password, first_name, last_name ) => {
-  db().then((data) =>  data.getTable('users')
+const createuser = async (email, password, firstname, lastname) => {
+  db().then((data) => data.getTable('users')
   .insert(['email', 'password', 'first_name', 'last_name'])
-  .values(email, password, first_name, last_name)
-  .execute())
+  .values(email, password, firstname, lastname)
+  .execute());
 };
 
 module.exports = {

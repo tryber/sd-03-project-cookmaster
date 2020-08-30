@@ -1,7 +1,9 @@
 const { v4: uuid } = require('uuid');
 const { SESSIONS } = require('../middlewares/auth');
-const regexEmail = /^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
 const userModel = require('../models/userModel');
+
+const regexEmail = /^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+
 
 const loginForm = (req, res) => {
   const { token = '' } = req.cookies || {};
@@ -46,36 +48,36 @@ const logout = (req, res) => {
 const createUserForm = (_req, res) => res.render('createuser', { message: null });
 
 const createUser = async (req, res) => {
-  const {email, password, confirm, first_name, last_name } = req.body;
+  const { email, password, confirm, firstname, lastname } = req.body;
 
   if (!regexEmail.test(email))
-  return res.render('createuser', {
+    return res.render('createuser', {
       message: 'O email deve ter o formato email@mail.com',
-    });
+   });
 
   if (password.length < 5)
   return res.render('createuser', {
       message: 'A senha deve ter pelo menos 6 caracteres',
-    });
+  });
 
   if (password !== confirm)
   return res.render('createuser', {
       message: 'As senhas tem que ser iguais',
-    });
+  });
 
-  if (first_name.length < 2 || typeof first_name !== 'string')
+  if (firstname.length < 2 || typeof firstname !== 'string')
   return res.render('createuser', {
       message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-    });
+  });
 
-  if (last_name.length < 2 || typeof last_name !== 'string')
-    return res.render('createuser', {
-      message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-    });
+  if (lastname.length < 2 || typeof lastname !== 'string')
+    res.render('createuser', {
+    message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+  });
 
-  await userModel.createUser(email, password, first_name, last_name);
+  await userModel.createUser(email, password, firstname, lastname);
   res.status(201).render('createuser', { message: 'Cadastro efetuado com sucesso!' });
-}
+};
 
 module.exports = {
   login,
