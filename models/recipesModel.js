@@ -45,7 +45,7 @@ const findRecipeByName = async (input) =>
     });
 
 const createRecipe = ({ userId, user, name, ingredients, instructions }) =>
-   connection()
+    connection()
       .then((db) => db
         .getTable('recipes')
         .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
