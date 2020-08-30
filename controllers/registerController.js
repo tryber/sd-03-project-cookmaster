@@ -31,7 +31,6 @@ const registerForm = (req, res) => {
 const editUserInfo = async (req, res) => {
   // const { password, confirmPassword } = req.body;
   const userData = req.body;
-  console.log(userData);
   if (
     !registerModel.emailIsValid(userData.email) ||
     !registerModel.passwordLengthIsValid(userData.password) ||
@@ -43,7 +42,7 @@ const editUserInfo = async (req, res) => {
     await registerModel.updateUserInfo(userData, req.user.id);
     res.redirect('/');
   } catch (e) {
-      console.error(e);
+    console.error(e);
   }
 };
 

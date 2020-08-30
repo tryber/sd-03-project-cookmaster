@@ -35,21 +35,16 @@ de fato, realize a busca no banco de dados */
 
 const findByEmail = async (inputEmail) => {
   const db = await connection();
-  try {
-    const results = await db
-      .getTable('users')
-      .select(['id', 'email', 'password', 'first_name', 'last_name'])
-      .where('email = :inputEmail')
-      .bind('inputEmail', inputEmail)
-      .execute();
-    const user = results.fetchOne();
-    if (!user) return null;
-    const [id, email, password, name, lastName] = user;
-    return { id, email, password, name, lastName };
-  } catch (e) {
-    console.error(e);
-    process.exit(1);
-  }
+  const results = await db
+    .getTable('users')
+    .select(['id', 'email', 'password', 'first_name', 'last_name'])
+    .where('email = :inputEmail')
+    .bind('inputEmail', inputEmail)
+    .execute();
+  const user = await results.fetchOne();
+  if (!user) return null;
+  const [id, email, password, name, lastName] = user;
+  return { id, email, password, name, lastName };
 };
 
 /**
@@ -77,21 +72,16 @@ const findByEmail = async (inputEmail) => {
 
 const findById = async (inputId) => {
   const db = await connection();
-  try {
-    const results = await db
-      .getTable('users')
-      .select(['id', 'email', 'password', 'first_name', 'last_name'])
-      .where('id = :inputId')
-      .bind('inputId', inputId)
-      .execute();
-    const user = results.fetchOne();
-    if (!user) return null;
-    const [id, email, password, name, lastName] = user;
-    return { id, email, password, name, lastName };
-  } catch (e) {
-    console.error(e);
-    process.exit(1);
-  }
+  const results = await db
+    .getTable('users')
+    .select(['id', 'email', 'password', 'first_name', 'last_name'])
+    .where('id = :inputId')
+    .bind('inputId', inputId)
+    .execute();
+  const user = await results.fetchOne();
+  if (!user) return null;
+  const [id, email, password, name, lastName] = user;
+  return { id, email, password, name, lastName };
 };
 
 module.exports = {
