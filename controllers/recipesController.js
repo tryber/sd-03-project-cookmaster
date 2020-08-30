@@ -46,8 +46,9 @@ const addRecipe = async (req, res) => {
   try {
     await recipesModel
       .createRecipe({ userId: req.user.id, user: userName, name, ingredients, instructions });
-    res.render('admin/registerRecipe',
-      { user: req.user, message: 'Receita criada com sucesso' });
+    // res.render('admin/registerRecipe',
+    //   { user: req.user, message: 'Receita criada com sucesso' });
+    res.redirect('/');
   } catch (e) {
     console.error(e);
   }
@@ -56,8 +57,12 @@ const addRecipe = async (req, res) => {
 const editRecipePage = async (req, res) => {
   const { id } = req.params;
   const recipe = await recipesModel.findRecipeById(id);
-  console.log(recipe);
-  res.render('admin/editRecipe', { user: req.user, recipe, id, message: null })
+  try {
+    res.render('admin/editRecipe', { user: req.user, recipe, id, message: null })
+
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 const updateRecipe = async (req, res) => {
@@ -68,13 +73,13 @@ const updateRecipe = async (req, res) => {
   recipe['id'] = parseInt(recipeId, 10);
 
   if (!recipesModel.verifyUser(userId, id)) {
-    res.render('admin/editRecipe',
-    { user: req.user, recipe, id, message: 'Falha na atualização' })
+    res.redirect('/');
   }
   try {
     await recipesModel.attRecipe(recipe);
-    res.render('admin/editRecipe',
-    { user: req.user, recipe, id, message: 'Atualizado com sucesso' })
+    // res.render('admin/editRecipe',
+    // { user: req.user, recipe, id, message: 'Atualizado com sucesso' })
+    res.redirect('/');
   } catch (e) {
     console.error(e);
   }

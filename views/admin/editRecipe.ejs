@@ -171,13 +171,13 @@
         Excluir Ingrediente
       </button>`;
       list.appendChild(li);
-      ingredients.push(ingredientInput.value);
+      ingredientList.push(ingredientInput.value);
       ingredientInput.value = '';
     };
 
     const deleteIngredient = (ingredient) => {
       document.getElementById(ingredient).remove();
-      ingredients.splice(ingredients.indexOf(ingredient, 1));
+      ingredientList.splice(ingredientList.indexOf(ingredient, 1));
     }
     submitRecipe = () => {
       const ingredientInput = document.getElementById('ingredientInput');
