@@ -4,7 +4,7 @@ const getAll = async () =>
   connection()
     .then((db) => db.getTable('recipes').select(['id', 'user', 'name']).execute())
     .then((results) => results.fetchAll())
-    .then((recipes) => recipes.map(([id, user_id, user, name]) => ({ id, user_id, user, name })));
+    .then((recipes) => recipes.map(([id, userId, user, name]) => ({ id, userId, user, name })));
 
 const findRecipeById = async (ids) =>
   connection()
@@ -18,9 +18,9 @@ const findRecipeById = async (ids) =>
     )
     .then((results) => results.fetchAll())
     .then((recipe) =>
-      recipe.map(([id, user_id, user, name, ingredients, instructions]) => ({
+      recipe.map(([id, userId, user, name, ingredients, instructions]) => ({
         id,
-        user_id,
+        userId,
         user,
         name,
         ingredients,

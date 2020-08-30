@@ -75,8 +75,6 @@ const createUser = async (req, res) => {
   return res.render('signup', { message: errorMessages.sucesso });
 };
 
-
-
 module.exports = {
   login,
   loginForm,

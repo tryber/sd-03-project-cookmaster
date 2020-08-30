@@ -10,16 +10,15 @@ const checkById = async (req, res) => {
   const { id } = req.params;
   const recipe = await homeModel.findRecipeById(id);
 
-  res.render('recipes/recipes', { rec: recipe[0], user: req.user })
+  res.render('recipes/recipes', { rec: recipe[0], user: req.user });
 };
 
 const searchRecipe = async (req, res) => {
   const { q } = req.query;
-  
-  const searched = await homeModel.findRecipeByQuery(q);
-  console.log(searched);
 
-  if (searched) res.render('recipes/search', { searched, user: req.user })
+  const searched = await homeModel.findRecipeByQuery(q);
+
+  if (searched) res.render('recipes/search', { searched, user: req.user });
   res.render('recipes/search', { user: req.user });
 };
 
