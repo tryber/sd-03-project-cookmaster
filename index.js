@@ -15,8 +15,8 @@ app.set('views', './views');
 
 app.get('/', middlewares.auth(false), controllers.recipesController.listRecipes);
 
-app.get('/register', controllers.userController.registerForm);
-app.post('/register', controllers.userController.registerUser);
+app.get('/register', middlewares.auth(false), controllers.userController.registerForm);
+app.post('/register', middlewares.auth(false), controllers.userController.registerUser);
 
 app.get('/recipes/search', middlewares.auth(false), controllers.recipesController.listsharchRecipes);
 app.get('/recipes/:id', middlewares.auth(false), controllers.recipesController.listRecipesById);
