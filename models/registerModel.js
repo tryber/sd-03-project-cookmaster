@@ -18,6 +18,18 @@ const confirmPasswordIsValid = (password, confirmPassword) => (
 
 const confirmNameOrLastname = (input) => (input.length >= 3 ? 1 : 0);
 
+const createUser = ({ email, password, name, lastName }) =>
+  connection()
+    .then((db) => db
+      .getTable('users')
+      .insert(['email', 'password', 'first_name', 'last_name'])
+      .values(email,password, name, lastName)
+      .execute())
+    .catch((err) => {
+      console.error(err);
+      process.exit(1);
+    });
+
 const updateUserInfo = ({ email, password, name, lastName }, id) =>
   connection()
     .then((db) => db
@@ -41,4 +53,5 @@ module.exports = {
   confirmPasswordIsValid,
   confirmNameOrLastname,
   updateUserInfo,
+  createUser,
 };

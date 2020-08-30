@@ -99,7 +99,7 @@
         <div>
           <% if (user) { %>
           <span> <%= `${user.name} ${user.lastName}` %>|</span>
-          <span class="pointer" data-testid="logout">Logout</span>
+          <a href="/logout"><span class="pointer" data-testid="logout">Logout</span></a>
           <% } %>
         </div>
     </header>
