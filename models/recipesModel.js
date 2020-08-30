@@ -106,13 +106,11 @@ const findPasswordById = async (inputId) =>
 
 const verifyPassword = async (passwordInput, userId) => {
   const { password } = await findPasswordById(userId);
-  console.log(password, passwordInput);
-  if (passwordInput === password ) {
+  if (passwordInput === password) {
     return true;
   }
-  console.log(false);
   return false;
-}
+};
 
 const deleteRecipeById = (recipeId) =>
   connection()
