@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Editar Receita</title>
+    <style>
+      body {
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+
+
+      header {
+        display: flex;
+        font-size: larger;
+        font-weight: 700;
+        justify-content: space-between;
+        margin: 0;
+        padding: 10px;
+      }
+
+      h2 {
+        margin: 1%;
+      }
+
+      section {
+        margin-top: 10px;
+      }
+
+      .shadow {
+        box-shadow: 0px 0px 9px 3px rgba(41,41,41,.25);
+      }
+
+      .pointer {
+        cursor: pointer;
+      }
+
+      .default-color {
+        background-color: #f26d6d;
+        color: #1e2040;
+      }
+
+      button {
+        background-color: #2A828C;
+        border: none;
+        border-radius: 5px;
+        color: #f2f2f2;
+        cursor: pointer;
+        font-weight: 700;
+        margin: 5px;
+        padding: 8px;
+      }
+
+      button:hover {
+        background-color: black;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .title {
+        font-size: 2rem;
+      }
+
+      .header-link {
+        color: #f2ddb6;
+        border: 1px solid #f2ddb6;
+        border-radius: 5px;
+        padding: 2px 4px;
+      }
+
+      textarea {
+        min-height: 200px;
+        width: 80%;
+      }
+
+      form {
+        margin: 10px 1px;
+        width: 80%;
+      }
+
+    </style>
+  </head>
+  <body>
+    <header class="shadow default-color">
+      <span>Cookmaster</span>
+      <% if (message) { %>
+        <span><%= message %></span>
+      <% } %>
+        <div>
+          <% if (user) { %>
+          <span> <%= `${user.name} ${user.lastName}` %>|</span>
+          <a href="/logout"><span class="pointer" data-testid="logout">Logout</span></a>
+          <% } %>
+        </div>
+    </header>
+    <section>
+      <span class="title">Editar receita</span>
+      <div class="container">
+        <form action=<%=`/recipes/${id}`%> method="POST" name="addRecipeForm">
+          <label for="nameInput">Nome da Receita </label>
+          <input
+            data-testid="nome-receita"
+            type="text"
+            name="name"
+            id="nameInput"
+            value="<%=`${recipe.name}`%>"
+          /><br/>
+          <span>Ingredientes</span>
+          <ul id="ingredientList">
+            <% recipe.ingredients.split(',').forEach((ingredient) => { %>
+              <li class="ingredient" id=<%=`${ingredient}`%>>
+                <%= ingredient %>
+                <button
+                  class="li-btn"
+                  type="button"
+                  onclick="deleteIngredient('<%= ingredient %>')"
+                >
+                  Excluir Ingrediente
+                </button>
+              </li>
+            <% }) %>
+          </ul><br />
+          <input data-testid="ingredientes" type="list" name="ingredients" id="ingredientInput">
+          <button
+            onClick="addIngredient()"
+            data-testid="adicionar-ingrediente"
+            type="button">Adicionar ingrediente
+          </button><br />
+          <label for="instructions">Modo de preparo</label><br />
+          <textarea
+            data-testid="modo-de-preparo"
+            name="instructions"
+            id="instructions"
+          ><%=`${recipe.instructions}`%></textarea><br />
+
+          <button type="button">Voltar</button>
+          <button data-testid="postar-receita" type="button" onclick="submitRecipe()">
+            Salvar Receita
+          </button>
+        </form>
+      </div>
+    </section>
+  </body>
+  <script>
+    const ingredients = document.getElementsByClassName('ingredient');
+    const ingredientList = [];
+    for (let i = 0; i < ingredients.length; i += 1) {
+      ingredientList.push(ingredients[i].id)
+    }
+    const addIngredient = () => {
+      const li = document.createElement('li');
+      const list = document.getElementById('ingredientList');
+      const ingredientInput = document.getElementById('ingredientInput');
+
+      li.id = ingredientInput.value;
+      li.innerHTML = ingredientInput.value +
+      `<button
+        type="button"
+        onclick="deleteIngredient('${ingredientInput.value}')"
+        >
+        Excluir Ingrediente
+      </button>`;
+      list.appendChild(li);
+      ingredientList.push(ingredientInput.value);
+      ingredientInput.value = '';
+    };
+
+    const deleteIngredient = (ingredient) => {
+      document.getElementById(ingredient).remove();
+      ingredientList.splice(ingredientList.indexOf(ingredient, 1));
+    }
+    submitRecipe = () => {
+      const ingredientInput = document.getElementById('ingredientInput');
+      ingredientInput.value = ingredientList;
+      document.addRecipeForm.submit();
+    }
+  </script>
+</html>

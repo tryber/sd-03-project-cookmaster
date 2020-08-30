@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Excluir receita</title>
+    <style>
+      body {
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+
+      section {
+        border: 1px solid #2A828C;
+        border-radius: 4px;
+        text-align: center;
+        margin: 50px auto;
+        width: 50%;
+      }
+
+      .pointer {
+        cursor: pointer;
+      }
+
+      button {
+        background-color: #2A828C;
+        border: none;
+        border-radius: 5px;
+        color: #f2f2f2;
+        cursor: pointer;
+        font-weight: 700;
+        margin: 5px;
+        padding: 8px;
+      }
+
+      button:hover {
+        background-color: black;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .title {
+        font-size: 2rem;
+      }
+
+      form {
+        margin: 10px 1px;
+        width: 80%;
+      }
+
+    </style>
+  </head>
+  <body>
+    <section>
+      <span class="title">Excluir receita</span>
+      <% if (message) { %>
+        <p> <%= message %></p>
+      <% } %>
+      <div class="container">
+        <form action=<%=`/recipes/${id}/delete`%> method="POST" name="password">
+          <label for="passwordInput">Senha</label>
+          <input
+            data-testid="senha"
+            type="password"
+            name="password"
+            id="passwordInput"
+          /><br/>
+          <button data-testid="cancelar" type="button" onclick="redirect()">Cancelar</button>
+          <button data-testid="confirmar" type="submit">
+            Confirmar
+          </button>
+        </form>
+      </div>
+    </section>
+  </body>
+  <script>
+    const redirect = () => window.location.href = '/';
+  </script>
+</html>

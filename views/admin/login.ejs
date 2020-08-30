@@ -3,27 +3,80 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link href="../../styles.css" rel="stylesheet" /> -->
     <title>Cookmaster - Login</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      section {
+        border-radius: 5px;
+        margin: 100px auto;
+        max-width: 500px;
+        padding: 70px 0;
+        text-align: center;
+        width: 60%;
+      }
+
+      input {
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid #f2f2f2;
+        margin: 8px 0;
+      }
+
+      h2 {
+        margin: 0;
+      }
+
+      .shadow {
+        box-shadow: 0px 0px 9px 3px rgba(41,41,41,.25);
+      }
+
+      .default-color {
+        background-color: #f26d6d;
+        color: #2a828c;
+        font-weight: 700;
+      }
+
+      button {
+        background-color: #2a828c;
+        border: none;
+        border-radius: 3px;
+        color: #f2f2f2;
+        cursor: pointer;
+        font-weight: 700;
+        margin: 5px;
+        padding: 8px;
+      }
+
+    </style>
   </head>
   <body>
-    <% if (message) {%>
-    <div class="message">
-      <%= message %>
-    </div>
-    <% } %>
-    <form action="/login" method="POST">
-      <label for="emailInput">Email: </label>
-      <input type="text" name="email" id="emailInput" /><br />
-      <label for="passwordInput">Senha: </label>
-      <input type="password" name="password" id="passwordInput" /><br />
-      <% if (redirect) { %>
-      <input
-        type="hidden"
-        name="redirect"
-        value="<%= decodeURIComponent(redirect) %>"
-      />
-      <% } %>
-      <button type="submit">Entrar</button>
-    </form>
+    <section class="shadow default-color">
+      <% if (message) {%>
+        <div class="message">
+          <%= message %>
+        </div>
+        <% } %>
+      <h2>Cookmaster - Login</h2>
+      <form action="/login" method="POST">
+        <label for="emailInput">Email: </label>
+        <input data-testid="email" type="text" name="email" id="emailInput" /><br />
+        <label for="passwordInput">Senha: </label>
+        <input data-testid="senha" type="password" name="password" id="passwordInput" /><br />
+        <% if (redirect) { %>
+        <input
+          type="hidden"
+          name="redirect"
+          value="<%= decodeURIComponent(redirect) %>"
+        />
+        <% } %>
+        <button data-testid="entrar" type="submit">Entrar</button>
+        <a href="/cadastro"><button data-testid="cadastrar" type="button">Cadastre-se</button></a>
+      </form>
+    </section>
   </body>
 </html>
