@@ -93,6 +93,27 @@ const mineRecipesPage = async (req, res) => {
   }
 };
 
+
+const deleteRecipeForm = async (req, res) => {
+  const { id } = req.params;
+  res.render('admin/deleteRecipe', { id, message: null });
+}
+const deleteRecipe = async (req, res) => {
+  const userId = req.user.id;
+  const { id } = req.params;
+  const { password } = req.body;
+  const userAuthentication = await recipesModel.verifyPassword(password, userId);
+  if (!userAuthentication) {
+    res.render('admin/deleteRecipe', { id, message: 'Senha Incorreta.' });
+  }
+  await recipesModel.deleteRecipeById(id);
+  try {
+    res.redirect('/');
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 module.exports = {
   homePage,
   detailsPage,
@@ -102,4 +123,6 @@ module.exports = {
   updateRecipe,
   editRecipePage,
   mineRecipesPage,
+  deleteRecipeForm,
+  deleteRecipe,
 };

@@ -77,7 +77,7 @@
           <button data-testid="buscar-receita">Buscar Receitas</button>
           <% if (user) { %>
             <a href=<%=`/recipes/${recipe.id}/edit`%>><button data-testid="editar-receita">Editar receita</button></a>
-            <a href="/delete"><button data-testid="excluir-receita">Excluir receita</button></a>
+            <a href=<%=`/recipes/${recipe.id}/delete`%>><button data-testid="excluir-receita">Excluir receita</button></a>
           <% } %>
         </div>
       </div>

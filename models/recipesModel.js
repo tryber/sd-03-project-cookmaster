@@ -91,6 +91,39 @@ const findAllRecipesByUserId = (userId) =>
     .then((results) => results.fetchAll())
     .then((recipes) => recipes.map(([name, user, id]) => ({ name, user, id })));
 
+const findPasswordById = async (inputId) =>
+  connection()
+    .then((db) => db
+      .getTable('users')
+      .select(['password'])
+      .where('id = :inputId')
+      .bind('inputId', inputId)
+      .execute())
+    .then((result) => result.fetchOne())
+    .then(([password]) => (
+      { password }
+    ));
+
+const verifyPassword = async (passwordInput, userId) => {
+  const { password } = await findPasswordById(userId);
+  console.log(password, passwordInput);
+  if (passwordInput === password ) {
+    return true;
+  }
+  console.log(false);
+  return false;
+}
+
+const deleteRecipeById = (recipeId) =>
+  connection()
+    .then((db) => db
+      .getTable('recipes')
+      .delete()
+      .where('id = :recipeId')
+      .bind('recipeId', recipeId)
+      .execute());
+
+
 module.exports = {
   findAllRecipes,
   findRecipeById,
@@ -100,4 +133,6 @@ module.exports = {
   verifyUser,
   attRecipe,
   findAllRecipesByUserId,
+  deleteRecipeById,
+  verifyPassword,
 };
