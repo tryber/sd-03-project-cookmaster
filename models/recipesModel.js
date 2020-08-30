@@ -44,25 +44,22 @@ const findRecipeByName = async (input) =>
       process.exit(1);
     });
 
-const createRecipe = ({ userId, user, name, ingredients, instructions }) => {
-  console.log(userId, user, name, ingredients, instructions);
-  return connection()
-    .then((db) => db
-      .getTable('recipes')
-      .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
-      .values(parseInt(userId), user, name, ingredients, instructions)
-      .execute())
-    .catch((err) => {
-      console.error(err);
-      process.exit(1);
-    })
-}
+const createRecipe = ({ userId, user, name, ingredients, instructions }) =>
+   connection()
+      .then((db) => db
+        .getTable('recipes')
+        .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
+        .values(userId, user, name, ingredients, instructions)
+        .execute())
+      .catch((err) => {
+        console.error(err);
+        process.exit(1);
+      });
 
 const invalidRecipe = ({ name, ingredients, instructions }) => {
-  console.log(name, ingredients, instructions);
   if (!name || !ingredients || !instructions) return true;
   return false;
-}
+};
 module.exports = {
   findAllRecipes,
   findRecipeById,

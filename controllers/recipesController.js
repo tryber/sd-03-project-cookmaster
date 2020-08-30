@@ -40,7 +40,7 @@ const addRecipe = async (req, res) => {
   const { name, ingredients, instructions } = req.body;
   const userName = `${req.user.name} ${req.user.lastName}`;
   if (recipesModel.invalidRecipe(req.body)) {
-    return res.render('admin/registerRecipe',
+    res.render('admin/registerRecipe',
       { user: req.user, message: 'Digite uma receita válida' });
   }
   try {
@@ -51,7 +51,7 @@ const addRecipe = async (req, res) => {
   } catch (e) {
     console.error(e);
   }
-}
+};
 
 module.exports = {
   homePage,
