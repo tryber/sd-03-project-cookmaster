@@ -56,7 +56,7 @@ const createRecipe = ({ userId, user, name, ingredients, instructions }) =>
       process.exit(1);
     });
 
-const attRecipe = async ({ id, name, ingredients, instructions }) =>
+const attRecipe = async ({ name, ingredients, instructions }, id) =>
   connection()
     .then((db) => db
       .getTable('recipes')

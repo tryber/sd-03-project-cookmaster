@@ -58,8 +58,7 @@ const editRecipePage = async (req, res) => {
   const { id } = req.params;
   const recipe = await recipesModel.findRecipeById(id);
   try {
-    res.render('admin/editRecipe', { user: req.user, recipe, id, message: null })
-
+    res.render('admin/editRecipe', { user: req.user, recipe, id, message: null });
   } catch (e) {
     console.error(e);
   }
@@ -70,25 +69,23 @@ const updateRecipe = async (req, res) => {
   const recipeId = req.params.id;
   const { userId } = await recipesModel.findRecipeById(id);
   const recipe = req.body;
-  recipe['id'] = parseInt(recipeId, 10);
-
+  // recipe['id'] = ;
   if (!recipesModel.verifyUser(userId, id)) {
     res.redirect('/');
   }
   try {
-    await recipesModel.attRecipe(recipe);
+    await recipesModel.attRecipe(recipe, parseInt(recipeId, 10));
     // res.render('admin/editRecipe',
     // { user: req.user, recipe, id, message: 'Atualizado com sucesso' })
     res.redirect('/');
   } catch (e) {
     console.error(e);
   }
-}
+};
 
 const mineRecipesPage = async (req, res) => {
   const { id } = req.user;
   const recipes = await recipesModel.findAllRecipesByUserId(id);
-  console.log(recipes);
   try {
     res.render('admin/recipesByOwner', { recipes, user: req.user });
   } catch (e) {
