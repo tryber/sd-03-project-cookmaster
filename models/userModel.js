@@ -16,35 +16,85 @@ de fato, realize a busca no banco de dados */
  * @param {string} email Email do usuário a ser encontrado
  */
 
-const findByEmail = async (inputEmail) =>
-  connection()
-    .then((db) => db
-      .getTable('users')
-      .select(['id', 'email', 'password', 'first_name', 'last_name'])
-      .where('email = :inputEmail')
-      .bind('inputEmail', inputEmail)
-      .execute())
-    .then((results) => results.fetchOne())
-    .then(([id, email, password, name, lastName]) => (
-    { id, email, password, name, lastName }));
+// const findByEmail = async (inputEmail) =>
+//   connection()
+//     .then((db) => db
+//       .getTable('users')
+//       .select(['id', 'email', 'password', 'first_name', 'last_name'])
+//       .where('email = :inputEmail')
+//       .bind('inputEmail', inputEmail)
+//       .execute())
+//     .then((results) => results.fetchOne())
+//     .then((user) => user ? user : null)
+//     .then(([id, email, password, name, lastName]) => (
+//     { id, email, password, name, lastName }))
+//     .catch((e) => {
+//       console.error(e);
+//       process.exit(1);
+//     });
+
+const findByEmail = async (inputEmail) => {
+  try {
+  const db = await connection();
+  const results = await db
+    .getTable('users')
+    .select(['id', 'email', 'password', 'first_name', 'last_name'])
+    .where('email = :inputEmail')
+    .bind('inputEmail', inputEmail)
+    .execute();
+    const user = results.fetchOne();
+    if (!user) return null;
+    const [id, email, password, name, lastName] = user;
+    return { id, email, password, name, lastName }
+
+  } catch (e) {
+    console.error(e);
+    process.exit(1);
+  }
+}
 
 /**
  * Busca um usuário através do seu ID
  * @param {string} id ID do usuário
  */
 
-const findById = async (inputId) =>
-  connection()
-    .then((db) => db
-      .getTable('users')
-      .select(['id', 'email', 'password', 'first_name', 'last_name'])
-      .where('id = :inputId')
-      .bind('inputId', inputId)
-      .execute())
-    .then((result) => result.fetchOne())
-    .then(([id, email, password, name, lastName]) => (
-      { id, email, password, name, lastName }
-    ));
+// const findById = async (inputId) =>
+//   connection()
+//     .then((db) => db
+//       .getTable('users')
+//       .select(['id', 'email', 'password', 'first_name', 'last_name'])
+//       .where('id = :inputId')
+//       .bind('inputId', inputId)
+//       .execute())
+//     .then((result) => result.fetchOne())
+//     .then((user) => user ? user : null)
+//     .then(([id, email, password, name, lastName]) => (
+//       { id, email, password, name, lastName }
+//     )
+//     .catch((e) => {
+//       console.error(e);
+//       process.exit(1);
+//     }));
+
+    const findById = async (inputId) => {
+      try {
+      const db = await connection();
+      const results = await db
+        .getTable('users')
+        .select(['id', 'email', 'password', 'first_name', 'last_name'])
+        .where('id = :inputId')
+        .bind('inputId', inputId)
+        .execute();
+        const user = results.fetchOne();
+        if (!user) return null;
+        const [id, email, password, name, lastName] = user;
+        return { id, email, password, name, lastName }
+
+      } catch (e) {
+        console.error(e);
+        process.exit(1);
+      }
+    }
 
 module.exports = {
   findByEmail,

@@ -28,7 +28,27 @@ const registerForm = (req, res) => {
   res.render('admin/register', { message: 'Cadastro efetuado com sucesso!' });
 };
 
+const editUserInfo = async (req, res) => {
+  // const { password, confirmPassword } = req.body;
+  const userData = req.body;
+  console.log(userData);
+  if (
+    !registerModel.emailIsValid(userData.email) ||
+    !registerModel.passwordLengthIsValid(userData.password) ||
+    !registerModel.confirmPasswordIsValid(userData.password, userData.confirmPassword) ||
+    !registerModel.confirmNameOrLastname(userData.name) ||
+    !registerModel.confirmNameOrLastname(userData.lastName)
+  ) res.render('admin/editUserForm', { userData, message: 'Informações inválidas' });
+  try {
+    await registerModel.updateUserInfo(userData, req.user.id);
+    res.redirect('/');
+  } catch (e) {
+      console.error(e);
+  }
+}
+
 module.exports = {
   register,
   registerForm,
+  editUserInfo,
 };
