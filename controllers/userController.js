@@ -57,18 +57,18 @@ const createUser = async (req, res) => {
 
   if (password.length < 5)
     return res.render('createuser', {
-    message: 'A senha deve ter pelo menos 6 caracteres',
-  });
+      message: 'A senha deve ter pelo menos 6 caracteres',
+    });
 
   if (password !== confirm)
     return res.render('createuser', {
-    message: 'As senhas tem que ser iguais',
-  });
+      message: 'As senhas tem que ser iguais',
+    });
 
   if (firstname.length < 2 || typeof firstname !== 'string')
     return res.render('createuser', {
-    message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-  });
+      message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+    });
 
   if (lastname.length < 2 || typeof lastname !== 'string')
     res.render('createuser', {
