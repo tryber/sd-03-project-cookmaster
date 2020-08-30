@@ -64,8 +64,6 @@ const findRecipesSearch = async (search) =>
       })),
     );
 
-    
-
 module.exports = {
   listRecipes,
   findRecipById,

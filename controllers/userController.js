@@ -80,9 +80,9 @@ const createUser = async (req, res) => {
 };
 
 const findById = async (id) =>
-  connection()
-    .then((db) =>
-      db
+  db()
+    .then((db2) =>
+      db2
         .getTable('users')
         .select(['id', 'email', 'password', 'first_name', 'last_name'])
         .where('id = :id')
