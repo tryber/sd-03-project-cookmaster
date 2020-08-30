@@ -34,24 +34,23 @@ de fato, realize a busca no banco de dados */
 //     });
 
 const findByEmail = async (inputEmail) => {
-  try {
   const db = await connection();
-  const results = await db
-    .getTable('users')
-    .select(['id', 'email', 'password', 'first_name', 'last_name'])
-    .where('email = :inputEmail')
-    .bind('inputEmail', inputEmail)
-    .execute();
-    const user = results.fetchOne();
-    if (!user) return null;
-    const [id, email, password, name, lastName] = user;
-    return { id, email, password, name, lastName }
-
+  try {
+    const results = await db
+      .getTable('users')
+      .select(['id', 'email', 'password', 'first_name', 'last_name'])
+      .where('email = :inputEmail')
+      .bind('inputEmail', inputEmail)
+      .execute();
+      const user = results.fetchOne();
+      if (!user) return null;
+      const [id, email, password, name, lastName] = user;
+      return { id, email, password, name, lastName };
   } catch (e) {
     console.error(e);
     process.exit(1);
   }
-}
+};
 
 /**
  * Busca um usuário através do seu ID
@@ -76,25 +75,24 @@ const findByEmail = async (inputEmail) => {
 //       process.exit(1);
 //     }));
 
-    const findById = async (inputId) => {
-      try {
-      const db = await connection();
-      const results = await db
-        .getTable('users')
-        .select(['id', 'email', 'password', 'first_name', 'last_name'])
-        .where('id = :inputId')
-        .bind('inputId', inputId)
-        .execute();
-        const user = results.fetchOne();
-        if (!user) return null;
-        const [id, email, password, name, lastName] = user;
-        return { id, email, password, name, lastName }
-
-      } catch (e) {
-        console.error(e);
-        process.exit(1);
-      }
-    }
+const findById = async (inputId) => {
+  const db = await connection();
+  try {
+    const results = await db
+      .getTable('users')
+      .select(['id', 'email', 'password', 'first_name', 'last_name'])
+      .where('id = :inputId')
+      .bind('inputId', inputId)
+      .execute();
+      const user = results.fetchOne();
+      if (!user) return null;
+      const [id, email, password, name, lastName] = user;
+      return { id, email, password, name, lastName };
+  } catch (e) {
+    console.error(e);
+    process.exit(1);
+  }
+};
 
 module.exports = {
   findByEmail,
