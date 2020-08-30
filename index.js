@@ -28,9 +28,12 @@ app.get('/', middlewares.auth(false), controllers.recipesController.homePage);
 app.get('/cadastro', middlewares.auth(false), controllers.registerController.register);
 app.get('/recipes/search', middlewares.auth(false), controllers.recipesController.searchPage);
 app.get('/recipes/new', middlewares.auth(), controllers.recipesController.newRecipePage);
+app.get('/me/recipes', middlewares.auth(), controllers.recipesController.mineRecipesPage);
 app.get('/recipes/:id', middlewares.auth(false), controllers.recipesController.detailsPage);
+app.get('/recipes/:id/edit', middlewares.auth(), controllers.recipesController.editRecipePage);
 app.post('/login', middlewares.auth(false), controllers.userController.login);
 app.post('/cadastro', middlewares.auth(false), controllers.registerController.registerForm);
+app.post('/recipes/:id', middlewares.auth(), controllers.recipesController.updateRecipe);
 app.post('/recipes', middlewares.auth(), controllers.recipesController.addRecipe);
 
 app.listen(3000, () => console.log('Listening on 3000'));

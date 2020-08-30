@@ -94,38 +94,21 @@
         font-size: 2rem;
       }
 
-      .header-link {
-        color: #f2ddb6;
-        border: 1px solid #f2ddb6;
-        border-radius: 5px;
-        padding: 2px 4px;
-      }
-
     </style>
   </head>
   <body>
     <header class="shadow default-color">
       <span>Cookmaster</span>
-      <% if (!user) { %>
-        <a href="/login"><span class="pointer header-link" data-testid="login">Login</span></a>
-      <% } else { %>
         <div>
           <span> <%= `${user.name} ${user.lastName}` %>|</span>
           <span class="pointer" data-testid="logout">Logout</span>
         </div>
-
-      <% } %>
     </header>
     <section>
       <div class="container">
-        <span class="title">Receitas</span>
+        <span class="title">Minhas Receitas</span>
         <div>
-          <a href="/recipes/search"><button data-testid="buscar-receita">Buscar Receitas</button></a>
-          <% if (user) { %>
-            <a href="/me/recipes"><button data-testid="minhas-receitas">Minhas Receitas</button></a>
-            <a href="/recipes/new"><button data-testid="nova-receita">Nova Receita</button></a>
-            <button data-testid="minha-conta">Minha Conta</button>
-          <% } %>
+          <a href="/recipes/new"><button data-testid="nova-receita">Nova receita</button></a>
         </div>
       </div>
       <div class="container">
@@ -135,7 +118,7 @@
               <h2><%= name %></h2>
               <h4><%= user %></h4>
             </div>
-            <a href=<%=`recipes/${id}`%>>Ver mais</a>
+            <a href=<%=`/recipes/${id}`%>>Ver mais</a>
           </div>
         <% }) %>
       </div>

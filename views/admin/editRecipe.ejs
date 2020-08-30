@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cookmaster - Criar Receita</title>
+    <title>Cookmaster - Editar Receita</title>
     <style>
       body {
         font-family: 'Montserrat', sans-serif;
@@ -97,20 +97,38 @@
         <span><%= message %></span>
       <% } %>
         <div>
+          <% if (user) { %>
           <span> <%= `${user.name} ${user.lastName}` %>|</span>
           <span class="pointer" data-testid="logout">Logout</span>
+          <% } %>
         </div>
     </header>
     <section>
-      <span class="title">Nova Receita</span>
+      <span class="title">Editar receita</span>
       <div class="container">
-        <form action="/recipes" method="POST" name="addRecipeForm">
+        <form action=<%=`/recipes/${id}`%> method="POST" name="addRecipeForm">
           <label for="nameInput">Nome da Receita </label>
-          <input data-testid="nome-receita" type="text" name="name" id="nameInput" /><br
-          />
+          <input
+            data-testid="nome-receita"
+            type="text"
+            name="name"
+            id="nameInput"
+            value="<%=`${recipe.name}`%>"
+          /><br/>
           <span>Ingredientes</span>
           <ul id="ingredientList">
-
+            <% recipe.ingredients.split(',').forEach((ingredient) => { %>
+              <li class="ingredient" id=<%=`${ingredient}`%>>
+                <%= ingredient %>
+                <button
+                  class="li-btn"
+                  type="button"
+                  onclick="deleteIngredient('<%= ingredient %>')"
+                >
+                  Excluir Ingrediente
+                </button>
+              </li>
+            <% }) %>
           </ul><br />
           <input data-testid="ingredientes" type="list" name="ingredients" id="ingredientInput">
           <button
@@ -119,7 +137,11 @@
             type="button">Adicionar ingrediente
           </button><br />
           <label for="instructions">Modo de preparo</label><br />
-          <textarea data-testid="modo-de-preparo" name="instructions" id="instructions"></textarea><br />
+          <textarea
+            data-testid="modo-de-preparo"
+            name="instructions"
+            id="instructions"
+          ><%=`${recipe.instructions}`%></textarea><br />
 
           <button type="button">Voltar</button>
           <button data-testid="postar-receita" type="button" onclick="submitRecipe()">
@@ -130,7 +152,11 @@
     </section>
   </body>
   <script>
-    const ingredients = [];
+    const ingredients = document.getElementsByClassName('ingredient');
+    const ingredientList = [];
+    for (let i = 0; i < ingredients.length; i += 1) {
+      ingredientList.push(ingredients[i].id)
+    }
     const addIngredient = () => {
       const li = document.createElement('li');
       const list = document.getElementById('ingredientList');
@@ -155,7 +181,7 @@
     }
     submitRecipe = () => {
       const ingredientInput = document.getElementById('ingredientInput');
-      ingredientInput.value = ingredients;
+      ingredientInput.value = ingredientList;
       document.addRecipeForm.submit();
     }
   </script>
