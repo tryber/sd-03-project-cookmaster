@@ -5,7 +5,7 @@ const listRecipes = async () => (
   db()
   .then((data) => data.getTable('recipes').select(['id', 'name', 'user']).execute()
     .then((results) => results.fetchAll())
-    .then((listData) => listData.map(([id, name, user]) => ({id, name, user }))),
+    .then((listData) => listData.map(([id, name, user]) => ({ id, name, user }))),
   )
 );
 
@@ -17,14 +17,14 @@ const findRecipById = async (id) => {
   .bind('id', id)
   .execute());
   const recipes = receitas.fetchAll();
-  return recipes.map(([id,userid, username, recipename, ingredients, instructions]) => (
-  {id, userid, username, recipename, ingredients, instructions }
+  return recipes.map(([id2, userid, username, recipename, ingredients, instructions]) => (
+  { id2, userid, username, recipename, ingredients, instructions }
 ))[0];
 };
 
 const editRecipe = async (recipeId, name, ingredients, instructions) =>
-  db().then((db) =>
-    db
+  db().then((db2) =>
+    db2
       .getTable('recipes')
       .update()
       .set('name', name)
@@ -35,9 +35,9 @@ const editRecipe = async (recipeId, name, ingredients, instructions) =>
       .execute(),
   );
 
-  const deleteRecipe = async (id) =>
-  db().then((db) =>
-    db
+const deleteRecipe = async (id) =>
+    db().then((db2) =>
+    db2
       .getTable('recipes')
       .delete()
       .where('id = :id')
@@ -45,10 +45,10 @@ const editRecipe = async (recipeId, name, ingredients, instructions) =>
       .execute(),
   );
 
-  const findRecipesSearch = async (search) =>
-  db()
-    .then((db) =>
-      db
+const findRecipesSearch = async (search) =>
+    db()
+    .then((db2) =>
+      db2
         .getTable('recipes')
         .select(['id', 'user', 'name'])
         .where('name like :name')
@@ -64,6 +64,7 @@ const editRecipe = async (recipeId, name, ingredients, instructions) =>
       })),
     );
 
+    
 
 module.exports = {
   listRecipes,
