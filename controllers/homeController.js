@@ -27,7 +27,9 @@ const newRecipe = async (req, res) => {
 };
 
 const saveRecipe = async (req, res) => {
-  console.log(req.body);
+  console.log(req.body, req.user);
+
+
 };
 
 module.exports = {

@@ -41,6 +41,8 @@ const findRecipeByQuery = async (q) =>
     .then((results) => results.fetchAll())
     .then((recipes) => recipes.map(([id, user, name]) => ({ id, user, name })));
 
+// const insertNewRecipe = async ({nome, ingredientes, })
+
 module.exports = {
   getAll,
   findRecipeById,
