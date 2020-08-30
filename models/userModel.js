@@ -42,10 +42,10 @@ const findByEmail = async (inputEmail) => {
       .where('email = :inputEmail')
       .bind('inputEmail', inputEmail)
       .execute();
-      const user = results.fetchOne();
-      if (!user) return null;
-      const [id, email, password, name, lastName] = user;
-      return { id, email, password, name, lastName };
+    const user = results.fetchOne();
+    if (!user) return null;
+    const [id, email, password, name, lastName] = user;
+    return { id, email, password, name, lastName };
   } catch (e) {
     console.error(e);
     process.exit(1);
@@ -84,10 +84,10 @@ const findById = async (inputId) => {
       .where('id = :inputId')
       .bind('inputId', inputId)
       .execute();
-      const user = results.fetchOne();
-      if (!user) return null;
-      const [id, email, password, name, lastName] = user;
-      return { id, email, password, name, lastName };
+    const user = results.fetchOne();
+    if (!user) return null;
+    const [id, email, password, name, lastName] = user;
+    return { id, email, password, name, lastName };
   } catch (e) {
     console.error(e);
     process.exit(1);
