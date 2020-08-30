@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Criar Receita</title>
+    <style>
+      body {
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+
+
+      header {
+        display: flex;
+        font-size: larger;
+        font-weight: 700;
+        justify-content: space-between;
+        margin: 0;
+        padding: 10px;
+      }
+
+      h2 {
+        margin: 1%;
+      }
+
+      section {
+        margin-top: 10px;
+      }
+
+      .shadow {
+        box-shadow: 0px 0px 9px 3px rgba(41,41,41,.25);
+      }
+
+      .pointer {
+        cursor: pointer;
+      }
+
+      .default-color {
+        background-color: #f26d6d;
+        color: #1e2040;
+      }
+
+      button {
+        background-color: #2A828C;
+        border: none;
+        border-radius: 5px;
+        color: #f2f2f2;
+        cursor: pointer;
+        font-weight: 700;
+        margin: 5px;
+        padding: 8px;
+      }
+
+      button:hover {
+        background-color: black;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .title {
+        font-size: 2rem;
+      }
+
+      .header-link {
+        color: #f2ddb6;
+        border: 1px solid #f2ddb6;
+        border-radius: 5px;
+        padding: 2px 4px;
+      }
+
+      textarea {
+        min-height: 200px;
+        width: 80%;
+      }
+
+      form {
+        margin: 10px 1px;
+        width: 80%;
+      }
+
+    </style>
+  </head>
+  <body>
+    <header class="shadow default-color">
+      <span>Cookmaster</span>
+      <% if (message) { %>
+        <span><%= message %></span>
+      <% } %>
+        <div>
+          <span> <%= `${user.name} ${user.lastName}` %>|</span>
+          <span class="pointer" data-testid="logout">Logout</span>
+        </div>
+    </header>
+    <section>
+      <span class="title">Nova Receita</span>
+      <div class="container">
+        <form action="/recipes" method="POST" name="addRecipeForm">
+          <label for="nameInput">Nome da Receita </label>
+          <input data-testid="nome-receita" type="text" name="name" id="nameInput" /><br
+          />
+          <span>Ingredientes</span>
+          <ul id="ingredientList">
+
+          </ul><br />
+          <input data-testid="ingredientes" type="list" name="ingredients" id="ingredientInput">
+          <button
+            onClick="addIngredient()"
+            data-testid="adicionar-ingrediente"
+            type="button">Adicionar ingrediente
+          </button><br />
+          <label for="instructions">Modo de preparo</label><br />
+          <textarea data-testid="modo-de-preparo" name="instructions" id="instructions"></textarea><br />
+
+          <button type="button">Voltar</button>
+          <button data-testid="postar-receita" type="button" onclick="submitRecipe()">
+            Salvar Receita
+          </button>
+        </form>
+      </div>
+    </section>
+  </body>
+  <script>
+    const ingredients = [];
+    const addIngredient = () => {
+      const li = document.createElement('li');
+      const list = document.getElementById('ingredientList');
+      const ingredientInput = document.getElementById('ingredientInput');
+
+      li.id = ingredientInput.value;
+      li.innerHTML = ingredientInput.value +
+      `<button type="button" onclick="deleteIngredient('${ingredientInput.value}')">Excluir Ingrediente</button>`;
+      list.appendChild(li);
+      ingredients.push(ingredientInput.value);
+    };
+
+    const deleteIngredient = (ingredient) => {
+      document.getElementById(ingredient).remove();
+      ingredients.splice(ingredients.indexOf(ingredient, 1));
+    }
+    submitRecipe = () => {
+      const ingredientInput = document.getElementById('ingredientInput');
+      ingredientInput.value = ingredients
+      document.addRecipeForm.submit();
+    }
+  </script>
+</html>

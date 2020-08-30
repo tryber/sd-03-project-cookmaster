@@ -34,8 +34,29 @@ const searchPage = async (req, res) => {
   }
 };
 
+const newRecipePage = async (req, res) => res.render('admin/registerRecipe', { user: req.user, message: null });
+
+const addRecipe = async (req, res) => {
+  const { name, ingredients, instructions } = req.body;
+  const userName = `${req.user.name} ${req.user.lastName}`;
+  if (recipesModel.invalidRecipe(req.body)) {
+    return res.render('admin/registerRecipe',
+      { user: req.user, message: 'Digite uma receita válida' });
+  }
+  try {
+    await recipesModel
+      .createRecipe({ userId: req.user.id, user: userName, name, ingredients, instructions });
+    res.render('admin/registerRecipe',
+      { user: req.user, message: 'Receita criada com sucesso' });
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 module.exports = {
   homePage,
   detailsPage,
   searchPage,
+  newRecipePage,
+  addRecipe,
 };

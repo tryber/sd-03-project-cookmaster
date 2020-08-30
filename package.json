@@ -22,6 +22,7 @@
   "homepage": "https://github.com/betrybe/project-cookmaster#readme",
   "dependencies": {
     "@mysql/xdevapi": "^8.0.20",
+    "axios": "^0.20.0",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.5.0",
     "cookie-parser": "^1.4.5",
@@ -31,6 +32,7 @@
     "express-rescue": "^1.1.26",
     "mysql2": "^2.1.0",
     "mysqlx": "^1.1.7",
+    "qs": "^6.9.4",
     "sequelize": "^6.3.4",
     "uuid": "^8.1.0"
   },
