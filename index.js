@@ -28,6 +28,9 @@ app.post('/signup', controllers.userController.createUser);
 
 app.get('/recipes/search', middlewares.auth(false), controllers.homeController.searchRecipe);
 
+app.get('/recipes/new', middlewares.auth(), controllers.homeController.newRecipe);
+app.post('/recipes', middlewares.auth(), controllers.homeController.saveRecipe);
+
 app.get('/recipes/:id', middlewares.auth(false), controllers.homeController.checkById);
 
 

@@ -22,8 +22,18 @@ const searchRecipe = async (req, res) => {
   res.render('recipes/search', { user: req.user });
 };
 
+const newRecipe = async (req, res) => {
+  res.render('recipes/new', { user: req.user });
+};
+
+const saveRecipe = async (req, res) => {
+  console.log(req.body);
+};
+
 module.exports = {
   listRecipes,
   checkById,
   searchRecipe,
+  newRecipe,
+  saveRecipe,
 };
