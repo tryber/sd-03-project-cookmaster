@@ -8,7 +8,7 @@
   <body>
     <%- include('header', { user }); %>
     <h1>Nova Receita</h1>
-    <form action="/recipes/new" method="POST">
+    <form action="/recipes" method="POST">
       <label for="recipeName">Nome da Receita</label><br />
       <input type="text" name="recipeName" id="recipeName" data-testid="nome-receita" /><br />
       <input type="hidden" name="ingredients" id="ingredients" />
