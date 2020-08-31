@@ -41,10 +41,18 @@ const findRecipeByQuery = async (q) =>
     .then((results) => results.fetchAll())
     .then((recipes) => recipes.map(([id, user, name]) => ({ id, user, name })));
 
-// const insertNewRecipe = async ({nome, ingredientes, })
+const insertNewRecipe = async (idUser, userName, recipeName, ingredients, instructions) =>
+  connection().then((db) =>
+    db
+      .getTable('recipes')
+      .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
+      .values(idUser, userName, recipeName, ingredients, instructions)
+      .execute(),
+  );
 
 module.exports = {
   getAll,
   findRecipeById,
   findRecipeByQuery,
+  insertNewRecipe,
 };

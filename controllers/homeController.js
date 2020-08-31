@@ -27,9 +27,12 @@ const newRecipe = async (req, res) => {
 };
 
 const saveRecipe = async (req, res) => {
-  console.log(req.body, req.user);
-
-
+  const { nome, inputListaIngredientes, modoPreparo } = req.body;
+  const { id,name, lastName } = req.user;
+  const completeUser = name.concat(lastName);
+  
+  await homeModel.insertNewRecipe(id, completeUser, nome, inputListaIngredientes, modoPreparo);
+  res.render('recipes/new', { message: 'Receita Cadastrada!'});
 };
 
 module.exports = {
