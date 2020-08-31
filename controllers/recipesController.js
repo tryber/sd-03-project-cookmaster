@@ -35,13 +35,13 @@ const createRecipes = async (req, res) => {
 const editRecipe = async (req, res) => {
   const { id } = req.user;
   const idRecipe = req.params.id;
-  const recipes = await recipeModel.editRecipesBank(id);
-  if (id === idRecipe) return res.render('editRecipes', { recipes, message: 'Receita editada!' });
+  const recipeEdit = await recipeModel.editRecipesBank(id);
+  if (id === idRecipe) return res.render('editRecipes', { recipeEdit, message: 'Receita editada!' });
   return res.redirect('/');
 };
 
 const deleteRecipe = async (req, res) => {
-  const { id } = req.user;
+  // const { id } = req.user;
   res.render('deleteRecipe', { recipes: 'null' });
 };
 

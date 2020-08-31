@@ -60,7 +60,7 @@ const register = async (req, res) => {
   if (password !== confirPassword) {
     res.render('register', { message: 'As senhas tem que ser iguais' });
   }
-  if (first_name.length < 3 ) {
+  if (first_name.length < 3) {
     res.render('register', { message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' });
   }
   if (last_name.length < 3) {
