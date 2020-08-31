@@ -32,4 +32,9 @@ app.get('/logout', middlewares.auth(true), (req, res) => {
 
 app.post('/login', controllers.userController.login);
 
+// requisição post para cadastrar usuário
+app.post('/register', middlewares.auth(false), (req, res) => {
+  return controllers.userController.register(req, res);
+});
+
 app.listen(3000, () => console.log('Listening on 3000'));

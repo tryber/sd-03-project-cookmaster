@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Login</title>
+  </head>
+  <body>
+    <% if (message) {%>
+    <div class="message">
+      <%= message %>
+    </div>
+    <% } %>
+    <form action="/register" method="POST">
+      <label
+        for="emailInput"
+      >
+        Email:
+      </label>
+      <input
+        type="text"
+        name="email"
+        id="emailInput"
+        data-testid="email"
+      />
+      <br />
+      <label
+        for="passwordInput"
+      >
+        Senha:
+      </label>
+      <input
+        type="password"
+        name="password"
+        id="passwordInput"
+        data-testid="senha"
+      />
+      <br />
+      <label
+        for="confirmPasswordInput"
+      >
+        Confirmar senha:
+      </label>
+      <input
+        type="password"
+        name="passwordConfirm"
+        id="confirmPasswordInput"
+        data-testid="confirmar-senha"
+      />
+      <br />
+      <label
+        for="nameInput"
+      >
+        Nome:
+      </label>
+      <input
+        type="text"
+        name="nome"
+        id="nameInput"
+        data-testid="nome"
+      />
+      <br />
+      <label
+        for="surnameInput"
+      >
+        Sobrenome:
+      </label>
+      <input
+        type="text"
+        name="sobrenome"
+        id="surnameInput"
+        data-testid="sobrenome"
+      />
+      <br />
+      <button
+        type="submit"
+        data-testid="cadastrar"
+      >
+        Cadastrar
+      </button>
+      <!--Redirecionar para pagina de login-->
+      <button
+        type="submit"
+        data-testid="login"
+      >
+        Fazer login
+      </button>
+      <% if (redirect) { %>
+        <input
+          type="hidden"
+          name="redirect"
+          value="<%= decodeURIComponent(redirect) %>"
+        />
+        <% } %>
+    </form>
+  </body>
+</html>

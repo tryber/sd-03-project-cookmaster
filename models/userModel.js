@@ -23,6 +23,7 @@ const findByEmail = async (uEmail) => {
   return 1;
 };
 
+// copiar funcao de cima e mudar para id
 const findById = async (id) => {
   return id;
 };

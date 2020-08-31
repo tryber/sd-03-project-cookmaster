@@ -44,8 +44,14 @@ const logout = (req, res) => {
   res.redirect(redirect || '/');
 };
 
+const register = (req, res) => {
+  console.log('ovo registrar o user');
+  console.log('ovo renderizar o ejs');
+}
+
 module.exports = {
   login,
   loginForm,
   logout,
+  register,
 };
