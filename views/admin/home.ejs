@@ -10,7 +10,7 @@
     <p>Usuário atual: <%= `${user.firstName} ${user.lastName}` %></p>
     <pre><%= JSON.stringify(user, null, 4) %></pre>
     <button
-      onclick="window.location.pathname='/admin/me/recipes'"
+      onclick="window.location.pathname='/me/recipes'"
       data-testid="minhas-receitas"
     >Minhas Receitas</button>
     <button
