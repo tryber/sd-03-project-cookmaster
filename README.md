@@ -272,7 +272,7 @@ Um botão "Nova receita" deve ser exibido **apenas quando houver um usuário log
 
 ### 2 - Crie uma página de cadastro de usuários.
 
-Um pessoa usuária precisa ter preenchido os campos `ID`, `E-mail`, `Senha`, `Nome` e `Sobrenome`. Todos os campos são obrigatórios. O `ID` deve ser gerado automaticamente, não devendo ser preenchido pela pessoa usuária no momento do cadastro.
+Um pessoa usuária precisa ter preenchido os campos `E-mail`, `Senha`, `Nome` e `Sobrenome`. Todos os campos são obrigatórios. O `ID` deve ser gerado automaticamente, não devendo ser preenchido pela pessoa usuária no momento do cadastro.
 
 A validação dos campos deve acontecer no back-end, e uma mensagem deve ser enviada ao front-end através de uma propriedade passada para o EJS, da mesma forma que acontece com a view `users/login`.
 
