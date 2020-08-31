@@ -43,6 +43,23 @@ connect()
         :
       null));
 
+const getMyFoods = async (param, tableVal) =>
+connect()
+  .then((db) =>
+    db
+      .getTable('recipes').select(['id', 'user_id', 'user', 'name', 'ingredients', 'instructions'])
+      .where(`${tableVal} = :user_id`)
+      .bind('user_id', param)
+      .execute(),
+    )
+    .then((results) => results.fetchAll())
+    .then((cook) => cook.map(([id, usrId, user, name, ingredients, instructions] = []) => (
+      usrId
+        ?
+      { id, usrId, user, name, ingredients, instructions }
+        :
+      null)));
+
 const setNewRecipes = async (recipeVal, { id, firstName, lastName }, ing) =>
   connect()
     .then((db) => db.getTable('recipes')
@@ -67,4 +84,5 @@ module.exports = {
   getCookieByName,
   setNewRecipes,
   changeRecipe,
+  getMyFoods,
 };

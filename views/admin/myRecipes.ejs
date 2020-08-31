@@ -10,10 +10,6 @@
     <p>Usuário atual: <%= `${user.firstName} ${user.lastName}` %></p>
     <pre><%= JSON.stringify(user, null, 4) %></pre>
     <button
-      onclick="window.location.pathname='/me/recipes'"
-      data-testid="minhas-receitas"
-    >Minhas Receitas</button>
-    <button
       onclick="window.location.pathname='/recipes/search'"
       data-testid="buscar-receita"
     >Buscar Receita</button>
@@ -21,6 +17,7 @@
     onclick="window.location.pathname='/recipes/new'"
     data-testid="nova-receita">Nova Receita</button>
     <button onclick="window.location.pathname='/logout'" data-testid="logout">Logout</button>
+    <h1>Minhas receitas</h1>
     <% recipes.map(el => {%>
       <h1> <%= el.name %></h1>
       <h3> <%= el.user %></h3>
