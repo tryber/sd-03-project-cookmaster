@@ -12,7 +12,7 @@ const editRecipePage = async (req, res) => {
 
   return res.redirect(`/recipes/${id}`)
 
-}
+};
 
 const editRecipe = async (req, res) => {
   const { id } = req.params;
