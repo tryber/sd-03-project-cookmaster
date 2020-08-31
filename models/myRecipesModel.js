@@ -6,13 +6,13 @@ const getAllMyRecipes = async (userId) => {
     .select(['id', 'user', 'name'])
     .where('user_id = :userId')
     .bind('userId', userId)
-    .execute()
+    .execute();
 
   const recipes = await results.fetchAll();
 
-  const recipesArr = recipes.map(([ id, user, name ]) => ({ id, user, name }));
+  const recipesArr = recipes.map(([id, user, name]) => ({ id, user, name }));
   return recipesArr;
-}
+};
 
 
 module.exports = {

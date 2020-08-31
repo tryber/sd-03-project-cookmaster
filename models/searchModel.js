@@ -1,12 +1,12 @@
 const connect = require('./connect');
 
-const getSearch = async(text) => {
+const getSearch = async (text) => {
   const db = await connect();
   const result = await db.getTable('recipes')
     .select(['id', 'user', 'name'])
     .where('name LIKE :text')
     .bind('text', `%${text}%`)
-    .execute()
+    .execute();
 
   const recipeInfo = result.fetchAll();
 

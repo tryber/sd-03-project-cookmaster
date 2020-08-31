@@ -19,7 +19,7 @@ const deleteRecipePage = (req, res) => {
   const user = req.user;
   const { id } = req.params;
   return res.render('deleteRecipe', { message: null, id, user });
-}
+};
 
 module.exports = {
   deleteRecipe,

@@ -33,13 +33,13 @@ app.post('/recipes/:id', middlewares.auth(false), controllers.editRecipeControll
 
 app.get('/recipes/:id/edit', middlewares.auth(), controllers.editRecipeController.editRecipePage);
 
-app.get('/recipes/:id/delete', middlewares.auth(), controllers.deleteRecipeController.deleteRecipePage)
+app.get('/recipes/:id/delete', middlewares.auth(), controllers.deleteRecipeController.deleteRecipePage);
 app.post('/recipes/:id/delete', middlewares.auth(), controllers.deleteRecipeController.deleteRecipe);
 
 app.get('/me/recipes', middlewares.auth(), controllers.myRecipesController.myRecipesPage);
 
-app.get('/me/edit', middlewares.auth(),controllers.profileController.profilePage);
-app.post('/me', middlewares.auth(),controllers.profileController.profileEdited);
+app.get('/me/edit', middlewares.auth(), controllers.profileController.profilePage);
+app.post('/me', middlewares.auth(), controllers.profileController.profileEdited);
 
 app.get('/login', controllers.userController.loginForm);
 

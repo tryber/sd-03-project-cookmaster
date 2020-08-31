@@ -5,7 +5,7 @@ const myRecipesPage = async (req, res) => {
 
   const recipes = await myRecipesModel.getAllMyRecipes(user.id);
   res.render('myRecipes', { recipes, user })
-}
+};
 
 module.exports = {
   myRecipesPage,

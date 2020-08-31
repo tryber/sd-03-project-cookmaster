@@ -9,7 +9,7 @@ const deleteRecipe = async (recipeId) => {
     .execute();
 
   return true;
-}
+};
 
 const getPasswordForDelete = async (id) => {
   const db = await connect();
@@ -17,11 +17,11 @@ const getPasswordForDelete = async (id) => {
     .select(['password'])
     .where('id = :id')
     .bind('id', id)
-    .execute()
+    .execute();
   const passwordArr = result.fetchAll()[0];
-  const [ password ] = passwordArr;
+  const [password] = passwordArr;
   return { password };
-}
+};
 
 module.exports = {
   deleteRecipe,

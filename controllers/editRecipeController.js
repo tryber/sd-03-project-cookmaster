@@ -4,14 +4,13 @@ const editRecipeModel = require('../models/editRecipeModel');
 const editRecipePage = async (req, res) => {
   const { id } = req.params;
   const user = req.user;
-  const recipeDetails = await editRecipeModel.getRecipeById(id)
+  const recipeDetails = await editRecipeModel.getRecipeById(id);
 
   if (editRecipeModel.canEdit(user.id, recipeDetails.userId)) {
     return res.render('editRecipe', { message: null, recipeDetails, user });
   }
 
-  return res.redirect(`/recipes/${id}`)
-
+  return res.redirect(`/recipes/${id}`);
 };
 
 const editRecipe = async (req, res) => {

@@ -1,8 +1,8 @@
 const searchModel = require('../models/searchModel');
 
 
-userControl = false
-user = { lastName: 'Fagundes', firstName: 'Jafet' };
+// const userControl = false
+// const user = { lastName: 'Fagundes', firstName: 'Jafet' };
 
 const search = async (req, res) => {
   const searchText = req.query.searchText;
@@ -12,9 +12,9 @@ const search = async (req, res) => {
   if (searchText) {
     const recipes = await searchModel.getSearch(searchText);
 
-    return res.render('search', { user, recipes })
+    return res.render('search', { user, recipes });
   }
-  return res.render('search', { user, recipes: false })
+  return res.render('search', { user, recipes: false });
 };
 
 module.exports = {

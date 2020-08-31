@@ -23,10 +23,10 @@ const editProfile = async(id, email, userFirstName, userLastName, password) => {
     .set('last_name', userLastName)
     .where('id = :usersId')
     .bind('usersId', usersId)
-    .execute()
+    .execute();
 
   return true;
-}
+};
 
 const nameIsValid = (name) => {
   const nameRegEx = /^[a-zA-Z]+$/i;

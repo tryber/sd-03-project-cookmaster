@@ -3,7 +3,7 @@ const detailsModel = require('../models/detailsModel');
 const recipe = async (req, res) => {
   const { id } = req.params;
 
-  const recipeDetails = await detailsModel.getDetails(id)
+  const recipeDetails = await detailsModel.getDetails(id);
 
   const user = req.user;
 
