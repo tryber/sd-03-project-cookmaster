@@ -95,7 +95,7 @@ const myRecipes = async (req, res) => {
   const { id } = req.user;
   const user = await userModel.findByValue(id, 'id');
   const recipes = await cookModel.getMyFoods(user.id, 'user_id');
-  recipes.map((el) => el.usrId !== id ? res.redirect('/admin') : null);
+  recipes.map((el) => { return el.usrId !== id ? res.redirect('/admin') : null; });
   return res.render('admin/myRecipes', { user: req.user, recipes });
 };
 
