@@ -32,9 +32,9 @@
     </button>
     <label for="modoPreparo">Modo de preparo:</label>
     <input type="text" name="modoPreparo" id="modoPreparo" data-testid="modo-de-preparo" value="<%= rec.instructions %>" />
-    <!-- <button type="submit" name="salvarReceita" data-testid="postar-receita">
+    <button type="submit" name="salvarReceita" data-testid="postar-receita">
       Salvar Receita
-    </button> -->
+    </button>
     <ul id="listaIngredientes">
   
     </ul>
@@ -63,7 +63,7 @@
     const li = document.getElementById(referencia);
 
     let botaoRemover = document.createElement('button');
-    botaoRemover.setAttribute('data-ref', ingrediente.value);
+    botaoRemover.setAttribute('data-ref', referencia);
     botaoRemover.innerText = 'Excluir Ingrediente';
 
     botaoRemover.addEventListener('click', (event) => {
