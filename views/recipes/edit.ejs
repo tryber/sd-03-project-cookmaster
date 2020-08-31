@@ -16,7 +16,7 @@
     <% } %>
   </div>
   <h2>Editar Receita</h2>
-  <form action="/recipes" method="post">
+  <form action="/recipes/:id" method="post">
     <input type="hidden" id="inputListaIngredientes" name="inputListaIngredientes" value="<%= rec.ingredients%>" />
     <label for="nomeReceita">Nome da Receita</label>
     <input type="text" name="nome" id="nomeReceita" data-testid="nome-receita"     value="<%= rec.name %>" />

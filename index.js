@@ -32,6 +32,7 @@ app.get('/recipes/new', middlewares.auth(), controllers.homeController.newRecipe
 app.post('/recipes', middlewares.auth(), controllers.homeController.saveRecipe);
 
 app.get('/recipes/:id', middlewares.auth(false), controllers.homeController.checkById);
+// app.post('/recipes/:id', middlewares.auth(), controllers.homeController.updateById);
 
 app.get('/recipes/:id/edit', middlewares.auth(), controllers.homeController.editById);
 
