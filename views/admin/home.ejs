@@ -20,6 +20,9 @@
     <button
     onclick="window.location.pathname='/recipes/new'"
     data-testid="nova-receita">Nova Receita</button>
+    <button
+    onclick="window.location.pathname='/recipes/new'"
+    data-testid="minha-conta">Minha Conta</button>
     <button onclick="window.location.pathname='/logout'" data-testid="logout">Logout</button>
     <% recipes.map(el => {%>
       <h1> <%= el.name %></h1>
