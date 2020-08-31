@@ -7,12 +7,11 @@ const recipesList = async (req, res) => {
 };
 
 const recipeByid = async (req, res) => {
-  console.log(req.params);
   const recipeItem = await recipesModel.findRecipById(req.params.id);
   const { ingredients } = recipeItem;
   const arrayIngredients = ingredients.split(',');
   recipeItem.ingredients = arrayIngredients;
-  res.render('recipeDetail', { recipeItem, usuario: req.user })
+  res.render('recipeDetail', { recipeItem, usuario: req.user });
 };
 
 const editRecipeForm = async (req, res) => {
@@ -69,9 +68,7 @@ const newRecipe = async (req, res) => {
   const { recipeName, ingredients, instructions } = req.body;
   const { name, lastName, id2 } = req.user;
   const userFullName = `${name} ${lastName}`;
- console.log(id2)
   await recipesModel.createNewRecipe(id2, userFullName, recipeName, ingredients, instructions);
-
   return res.redirect('/');
 };
 const getUserRecipes = async (req, res) => {
@@ -81,8 +78,6 @@ const getUserRecipes = async (req, res) => {
 
   return res.render('admin/my-recipes', { recipes, user: req.user });
 };
-
-
 
 module.exports = {
   recipesList,

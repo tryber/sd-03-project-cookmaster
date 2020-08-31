@@ -64,7 +64,7 @@ const findRecipesSearch = async (search) =>
       })),
     );
 
-    const createNewRecipe = async (userId, user, name, ingredients, instructions) =>
+const createNewRecipe = async (userId, user, name, ingredients, instructions) =>
     db().then((db2) =>
     db2
       .getTable('recipes')
@@ -73,7 +73,7 @@ const findRecipesSearch = async (search) =>
       .execute(),
   );
 
-  const findRecipesByUserId = async (userId) =>
+const findRecipesByUserId = async (userId) =>
   db()
     .then((db2) =>
       db2
@@ -91,7 +91,7 @@ const findRecipesSearch = async (search) =>
         name,
       })),
     );
-    
+
 module.exports = {
   listRecipes,
   findRecipById,

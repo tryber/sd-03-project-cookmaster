@@ -87,7 +87,7 @@ const editUserForm = async (req, res) => {
 const editUserControl = async (req, res) => {
   const { email, password, name, lastName } = req.body;
   await userModel.editUser(req.user.id2, email, password, name, lastName)
-  .catch((error) => console.log(error));
+  .catch((error) => error);
   res.redirect('http://localhost:3000/');
 };
 
