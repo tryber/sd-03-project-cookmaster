@@ -20,28 +20,40 @@ app.get('/admin', middlewares.auth(), (req, res) => {
   return res.render('admin/home', { user: req.user });
 });
 
-app.get('/login', controllers.userController.loginForm);
-app.get('/logout', controllers.userController.logout);
-app.post('/login', controllers.userController.login);
+app.get('/login', middlewares.auth(false), controllers.userController.loginForm);
+app.get('/logout', middlewares.auth(), controllers.userController.logout);
+app.post('/login', middlewares.auth(false), controllers.userController.login);
 
 // Ref. Linhas acima do endPoint /login
-app.get('/signin', controllers.userController.signinForm);
-app.post('/signin', controllers.userController.signin);
+app.get('/signin', middlewares.auth(false), controllers.userController.signinForm);
+app.post('/signin', middlewares.auth(false), controllers.userController.signin);
 
-app.get('/edit', (req, res) => {
+app.get('/edit', middlewares.auth(), (req, res) => {
   const user = req.user;
   return res.render('edit', { message: null, user });
 });
-app.get('/delete', (req, res) => {
+app.get('/delete', middlewares.auth(), (req, res) => {
   const user = req.user;
   return res.render('delete', { message: null, user });
 });
 
-app.get('/recipes/search', (req, res) => {
+app.post('/recipes', middlewares.auth(), (req, res) => {
+  const user = req.user;
+  console.log(req.body);
+  console.log(user);
+  return res.render('recipeNew', { message: null, user, result: null });
+});
+
+app.get('/recipes/new', middlewares.auth(), (req, res) => {
+  const user = req.user;
+  return res.render('recipeNew', { message: null, user, result: null });
+});
+
+app.get('/recipes/search', middlewares.auth(false), (req, res) => {
   const user = req.user;
   return res.render('search', { message: null, user, result: null });
 });
-app.post('/recipes/search', controllers.recipeController.searchRecipe);
+app.post('/recipes/search', middlewares.auth(false), controllers.recipeController.searchRecipe);
 app.get('/recipes/:id', middlewares.auth(false), controllers.recipeController.showRecipe);
 
 app.listen(3000, () => console.log('Listening on 3000'));

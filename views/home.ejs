@@ -20,7 +20,7 @@
     <div>
       <h1>Receitas<h1>
       <%if (user) {%>
-        <button data-testid="nova-receita">Nova Receita</button>
+        <button data-testid="nova-receita" onclick="window.location.href='/recipes/new';">Nova Receita</button>
       <%}%>
       <button data-testid="buscar-receita" onclick="window.location.href='/recipes/search';">
         Buscar Receita
