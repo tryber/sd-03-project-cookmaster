@@ -20,9 +20,6 @@ const renderRecipeForm = async (req, res) => {
 const addRecipe = async (req, res) => {
   const { name, ingredients, instructions } = req.body;
 
-  const nameMessage = null;
-  const ingredientsMessage = null;
-
   if (nameMessage || ingredientsMessage) {
     res.status(402).render('admin/signUp', {
       user: req.user,
@@ -32,8 +29,6 @@ const addRecipe = async (req, res) => {
       successMessage: null,
     });
   }
-
-  console.log(req.user);
 
   await recipeModel.addRecipe(
     `${req.user.firstName} ${req.user.lastName}`,
