@@ -20,7 +20,7 @@ const addIngredientContr = (req, res) => {
   const user = req.user;
 
   ingredientsArr.push(ingredient);
-  console.log(ingredientsArr)
+
   return res.render('newRecipe', { user, message: null, ingredientsArr })
 
 }

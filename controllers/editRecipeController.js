@@ -20,7 +20,7 @@ const editRecipe = async (req, res) => {
 
   const { editedName, ingredient, howToPrepare } = req.body;
   await editRecipeModel.editRecipe(id, editedName, ingredient, howToPrepare);
-  console.log(req.body)
+
   // const recipeDetails = await editRecipeModel.getRecipeById(id);
 
   return res.render('editRecipe', { message: 'Receita Editada com sucesso!', recipeDetails: req.body, user });

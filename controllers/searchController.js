@@ -11,7 +11,7 @@ const search = async (req, res) => {
 
   if (searchText) {
     const recipes = await searchModel.getSearch(searchText);
-    console.log(recipes)
+
     return res.render('search', { user, recipes })
   }
   return res.render('search', { user, recipes: false })

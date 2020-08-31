@@ -26,13 +26,17 @@ app.get('/recipes/new', middlewares.auth(), controllers.newRecipeController.newR
 app.post('/recipes/new', middlewares.auth(), controllers.newRecipeController.newRecipeInsert);
 // app.post('/addIngredient', controllers.newRecipeController.addIngredientContr);
 
+app.get('/recipes/search', middlewares.auth(false), controllers.searchController.search);
+
 app.get('/recipes/:id', middlewares.auth(false), controllers.detailsController.recipe);
 app.post('/recipes/:id', middlewares.auth(false), controllers.editRecipeController.editRecipe);
 
-app.get('/recipes/:id/edit',  middlewares.auth(), controllers.editRecipeController.editRecipePage);
+app.get('/recipes/:id/edit', middlewares.auth(), controllers.editRecipeController.editRecipePage);
 
-app.get('/recipes/search', middlewares.auth(false), controllers.searchController.search);
+app.get('/recipes/:id/delete', middlewares.auth(), controllers.deleteRecipeController.deleteRecipePage)
+app.post('/recipes/:id/delete', middlewares.auth(), controllers.deleteRecipeController.deleteRecipe);
 
+app.get('/me/recipes', middlewares.auth(), controllers.myRecipesController.myRecipesPage);
 
 app.get('/login', controllers.userController.loginForm);
 

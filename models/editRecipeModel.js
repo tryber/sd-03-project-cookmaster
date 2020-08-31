@@ -9,7 +9,7 @@ const getRecipeById = async(idSearched) => {
     .execute()
 
   const details = await result.fetchAll()[0];
-  console.log(details)
+
   const [id, userId, user, name, ingredientsStr, instructions] = details;
 
   const arrayOfIngredients = ingredientsStr.split(',')

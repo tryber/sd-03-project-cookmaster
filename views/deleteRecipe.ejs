@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Edit Recipe</title>
+  </head>
+  <body>
+    <header>
+      <h3>Editar Receita</h3>
+      <% if (user) { %>
+        <span><%=user.firstName%></span><span> <%=user.lastName%></span>
+        <button data-testid="logout"><a href="/logout">>Logout</a></button>
+      <% } else {%>
+        <button data-testid="login"><a href="/login">>Login</a></button>
+      <% } %>
+    </header>
+    <form action="/recipes/<%=id%>/delete" method="POST">
+      <span>Confirme a exclusão da receita</span>
+      <label for="passwordInput">Senha: </label>
+      <input type="password" name="password" id="passwordInput" data-testid="senha"/><br />
+      <button data-testid="cancelar" type="submit">Cancelar</button>
+      <button data-testid="confirmar" type="submit">Confirmar</button>
+    </form>
+    <% if (message) {%>
+      <div class="message">
+        <%= message %>
+      </div>
+    <% } %>
+  </body>
+</html>
