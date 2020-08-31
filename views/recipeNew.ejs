@@ -60,7 +60,7 @@
     const ingredientValue = document.getElementById('insertIngredients');
     const insertIngredientButton = document.getElementById('addIng');
     const ingredientUnnordenedList = document.createElement('ul');
-    
+
     // Criando um id para a lista não ordenada
     ingredientUnnordenedList.setAttribute("id", "ingredientsList");
     const ingredients = [];
@@ -93,7 +93,7 @@
       deleteIngredientsList(undefined);
       return null;
     };
-    
+
     const createDeleteButton = (value) => {
       const deleteButton = document.createElement('button');
       deleteButton.innerText = 'Excluir Ingrediente';
