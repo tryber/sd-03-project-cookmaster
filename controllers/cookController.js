@@ -2,7 +2,7 @@ const cookModel = require('../models/cookModel');
 
 const listCook = async (_req, res) => {
   const recipes = await cookModel.getAll();
-  return res.render('home', { recipes });
+  return res.render('home', { recipes, user: req.user });
 };
 
 const searchRecipe = async (req, res) => {

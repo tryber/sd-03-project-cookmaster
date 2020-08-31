@@ -8,11 +8,23 @@
   <body>
     <h1>Cookmaster</h1>
     <h2>Receitas</h2>
+    <% if (user) { %>
+      <button
+        onclick="window.location.pathname='/me/recipes'"
+        data-testid="minhas-receitas"
+      >Minhas Receitas</button>
+      <button
+      onclick="window.location.pathname='/recipes/new'"
+      data-testid="nova-receita">Nova Receita</button>
+      <button onclick="window.location.pathname='/logout'" data-testid="logout">Logout</button>
+    <% } %>
     <button
       onclick="window.location.pathname='/recipes/search'"
       data-testid="buscar-receita"
     >Buscar Receita</button>
-    <button onclick="window.location.pathname='/login'" data-testid="login">Login</button>
+    <% if (user===undefined) { %>
+      <button onclick="window.location.pathname='/login'" data-testid="login">Login</button>
+    <% } %>
     <% recipes.map(el => {%>
       <h1> <%= el.name %></h1>
       <h3> <%= el.user %></h3>
