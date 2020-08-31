@@ -37,7 +37,7 @@ const createRecipes = async (req, res) => {
 
 const editRecipe = async (req, res) => {
   const { id } =  req.user;
-  const idRecipe = req.body.id; 
+  const idRecipe = req.params.id; 
   const recipes = await recipeModel.editRecipesBank(id);
   if (id === idRecipe) return res.render('editRecipes', { recipes, message: 'Receita editada!'});
   return res.redirect('/');

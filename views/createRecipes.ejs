@@ -16,45 +16,38 @@
           <label for="nameRecipe">Nome da Receita</label>
           <input required id="nameRecipe" data-testid="nome-receita" type="text" name="nameRecipe"/>
           <label for="ingredients">Ingredientes</label>
+          <ul id="listIngredients"></ul>
           <input required id="ingredients" data-testid="ingredientes" type="text" name="ingredients" />
           <button id="insertDom" type="submit" data-testid="adicionar-ingrediente" onclick="createViewIngredients()">Adicionar Ingrediente</button>
+          
           <label for="instructions">Modo de Preparo</label>
           <input required id="instructions" data-testid="modo-de-preparo" name="instructions" />
+          
           <button data-testid="postar-receita" type="submit">Salva Receita</button>
         </form>
-        <ul id="teste">
-
-        </ul>
-        <!-- <div>
-          <% recipes.map((elem) => { %> 
-            <ul>
-              <li id="ingredientsId"> <% elem.name %></li>
-            </ul>
-          <button type="submit" id="delete">Excluir ingredientes</button>
-            <% }) %> 
-        </div> -->
         <script>
+          let ingredients = [];
+      
           function createViewIngredients() {
-            let ul = document.getElementById('teste');
-            const li = document.createElement('li');
-            let value = document.getElementById('ingredientsId').value;
-            ul.innerHTML = li.value;
+            let li = document.createElement('li');
+            const ul = document.getElementById('listIngredients');
+            let inputIngredients = document.getElementById('ingredients');
+
+            li = inputIngredients.value
+            li.innerHTML = `${inputIngredients.value}  
+            <button
+              type="button"
+              
+            >Excluir Ingredientes
+            </button>`;
+            ul.appendChild(li);
+            ingredients.push(inputIngredients.value);
           }
-          
-          // let li = document.getElementById('ingredientsId');
-          // let deleteLi = document.getElementById('delete');
-          // let btn = document.addEventListener('click', function(){
-          //   if (li.parentNode) {
-          //     return li.parentNode.removeChild(deleteLi);
-          //   }
-          // });
-          // let ingredients = [];
-          // let values = document.getElementById('')
-          // let insert = document.addEventListener('click', function(){
-          //   if (insert) {
-          //     ingredients.push(values)
-          //   }
-          // });
+
+          function deleteIngredients() {
+            document.getElementById('ingredients').remove();
+            return ingredients = [];
+          }
         </script>
     </div>
   </body>

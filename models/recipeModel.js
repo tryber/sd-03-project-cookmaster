@@ -78,14 +78,16 @@ const editRecipesBank = async (id) => {
 };
 
 
-const deleteRecipeBank = async (id) => {
+const deleteRecipeBank = async (idRecipe) => {
   const db = await connection();
 
   const results = await db.getTable('recipes')
-  .select(['id, name']).execute()
-
+  .delete()
+  .where('id = :idRecipe')
+  .bind('idRecipe', idRecipe)
+  .execute()
   return results;
-}
+};
 
 
 
