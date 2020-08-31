@@ -52,6 +52,8 @@ app.post(
   controllers.recipeController.deleteRecipe,
 );
 
+app.post('/me', middlewares.auth(), middlewares.validation);
+app.get('/me/edit', middlewares.auth(), (req, res) => res.render('admin/editProfile', { user: req.user }));
 app.get('/me/recipes', middlewares.auth(), controllers.recipeController.userRecipes);
 
 const PORT = process.env.PORT || 3000;
