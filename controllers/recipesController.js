@@ -1,8 +1,5 @@
 const recipeModel = require('../models/recipeModel');
 
-// const token = uuid();
-// SESSIONS[token] = user.id;
-
 const recipes = async (req, res) => {
   const { user } = req;
   const listRecipes = await recipeModel.getRecipes();
@@ -23,13 +20,13 @@ const findRecipes = async (req, res) => {
   return res.render('searchRecipes', { searchRecipe, user });
 };
 
-const createForm = (req, res) => res.render('createRecipes', { recipes: [], message: null, user: req.user });
+const createForm = (req, res) => res.render('createRecipes', { message: null, user: req.user });
 
 const createRecipes = async (req, res) => {
   const { body, user } = req;
   try {
     const recipes = await recipeModel.postRecipes(body, user);
-    return res.render('createRecipes', { recipes: ['receita'], message: 'Receita cadastrada com sucesso', redirect: null, user });
+    return res.render('createRecipes', { recipes, message: 'Receita cadastrada com sucesso'});
   } catch (err) {
     console.error(err);
   }
