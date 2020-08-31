@@ -55,9 +55,9 @@ const admin = async (req, res) => {
 const recipeToEdit = async (req, res) => {
   const { id } = req.params;
   const recipesDetails = await cookModel.getCookieById(id);
-  if(recipesDetails.userId !== req.user.id) {
+  if (recipesDetails.userId !== req.user.id) {
     return res.redirect(`/recipes/${id}`);
-  };
+  }
   return res.render('recipesEdit', { user: req.user, recipesDetails });
 };
 
@@ -67,24 +67,24 @@ const editRecipe = async (req, res) => {
   const { ingredients, add, remove } = req.body;
   const { id } = req.params;
   let recipesDetails = await cookModel.getCookieById(id);
-  if(add !== undefined && ingredients.length > 0) {
+  if (add !== undefined && ingredients.length > 0) {
     newInggg = [recipesDetails.ingredients, ingredients];
-    await cookModel.changeRecipe(req.body, id, newInggg.join(","));
+    await cookModel.changeRecipe(req.body, id, newInggg.join(','));
     recipesDetails = await cookModel.getCookieById(id);
     newInggg = [];
     return res.render('recipesEdit', { user: req.user, recipesDetails });
-  };
+  }
   if (remove !== undefined) {
     newInggg.push(recipesDetails.ingredients);
     const s = newInggg[0].split(',');
     s.splice(Number(remove), 1);
-    await cookModel.changeRecipe(req.body, id, s.join(","));
+    await cookModel.changeRecipe(req.body, id, s.join(','));
     recipesDetails = await cookModel.getCookieById(id);
     newInggg = [];
     return res.render('recipesEdit', { user: req.user, recipesDetails });
-  };
+  }
   return res.render('recipes', { user: req.user, recipesDetails, id });
-}
+};
 
 module.exports = {
   listCook,
