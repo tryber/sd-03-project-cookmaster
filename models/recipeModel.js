@@ -59,7 +59,7 @@ const updateRecipe = async (id, name, ingredients, instructions) => {
     .set('instructions', instructions)
     .where('id = :id')
     .bind('id', id)
-    .execute()
+    .execute();
 };
 
 module.exports = {
