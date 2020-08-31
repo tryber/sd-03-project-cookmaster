@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Recipes</title>
+  </head>
+  <body>
+    <h1>Cookmaster</h1>
+    <h2>Editar Receita</h2>
+    <button
+      onclick="window.location.pathname='/recipes/shearch'"
+      data-testid="buscar-receita"
+    >Buscar Receita</button>
+    <% if (user===undefined) { %>
+      <button onclick="window.location.pathname='/login'" data-testid="login">Login</button>
+    <% } %>
+    <% if (user) { %>
+      <h1><%= user.firstName %></h1>
+      <button onclick="window.location.pathname='/logout'" data-testid="logout">Logout</button>
+      <button onclick="window.location.pathname='/delete'" data-testid="excluir-receita">
+        Excluir Receita
+      </button>
+    <% } %>
+    <form action="/recipes/<%= recipesDetails.id %>" method="POST">
+      <label for="recipeNameInput">Nome da Receita: </label>
+      <input type="text" name="name" value="<%=`${recipesDetails.name}`||''%>" id="recipeNameInput" data-testid="nome-receita" /><br />
+      <label for="ingredientInput" >Ingredientes: </label>
+      <% if(recipesDetails.ingredients.length>0) {%>
+        <% recipesDetails.ingredients.split(',').map((el, index)=>{ %>
+          <p name="ingredientValue" value="<%=`${el}`%>"><%= el %></p>
+          <button name="remove" value="<%=`${index}`%>" type="submit">Excluir Ingrediente</button>
+        <%})%>
+      <%}%>
+      <input type="text" name="ingredients" id="ingredientInput" data-testid="ingredientes" /><br />
+      <button type="submit" name="add" data-testid="adicionar-ingrediente">Adicionar Ingrediente</button><br />
+      <label for="instructionsInput" >Modo de Preparo: </label>
+      <textarea
+        type="text"
+        cols="40"
+        rows="5"
+        name="instructions"
+        id="instructionsInput"
+        data-testid="modo-de-preparo"
+      ><%= recipesDetails.instructions%>
+      </textarea><br />
+      <a href="/admin">Voltar</a>
+      <button type="submit" name="save" data-testid="postar-receita">Salvar Receita</button>
+    </form>
+  </body>
+</html>

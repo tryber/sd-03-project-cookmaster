@@ -13,16 +13,16 @@ const getCookieById = async (id) =>
   connect()
     .then((db) =>
       db
-        .getTable('recipes').select(['user_id', 'user', 'name', 'ingredients', 'instructions'])
+        .getTable('recipes').select(['id', 'user_id', 'user', 'name', 'ingredients', 'instructions'])
         .where('id = :id')
         .bind('id', id)
         .execute(),
       )
       .then((results) => results.fetchAll()[0])
-      .then(([userId, user, name, ingredients, instructions] = []) => (
+      .then(([id, userId, user, name, ingredients, instructions] = []) => (
         userId
           ?
-        { userId, user, name, ingredients, instructions }
+        { id, userId, user, name, ingredients, instructions }
           :
         null));
 
@@ -43,11 +43,22 @@ connect()
         :
       null));
 
-const setNewRecipes = async (recipeVal, { id, firstName, lastName }) =>
+const setNewRecipes = async (recipeVal, { id, firstName, lastName }, ing) =>
   connect()
     .then((db) => db.getTable('recipes')
     .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
-    .values(id, `${firstName} ${lastName}`, recipeVal.name, recipeVal.ingredient, recipeVal.instructions)
+    .values(id, `${firstName} ${lastName}`, recipeVal.name, ing, recipeVal.instructions)
+    .execute());
+
+const changeRecipe = async ({ name, instructions }, id, ingredients) =>
+  connect()
+    .then((db) => db.getTable('recipes')
+    .update()
+    .set('name', name)
+    .set('ingredients', ingredients)
+    .set('instructions', instructions)
+    .where('id = :id')
+    .bind('id', id)
     .execute());
 
 module.exports = {
@@ -55,4 +66,5 @@ module.exports = {
   getCookieById,
   getCookieByName,
   setNewRecipes,
+  changeRecipe,
 };

@@ -7,6 +7,13 @@
   </head>
   <body>
     <H1>Nova Receita</H1>
+    <% if (user===undefined) { %>
+      <button onclick="window.location.pathname='/login'" data-testid="login">Login</button>
+    <% } %>
+    <% if (user) { %>
+      <h1><%= user.firstName %></h1>
+      <button onclick="window.location.pathname='/logout'" data-testid="logout">Logout</button>
+    <% } %>
     <form action="/recipes" method="POST">
       <label for="recipeNameInput">Nome da Receita: </label>
       <input type="text" name="name" value="<%=`${name}`||''%>" id="recipeNameInput" data-testid="nome-receita" /><br />

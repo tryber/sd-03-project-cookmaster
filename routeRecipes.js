@@ -9,6 +9,8 @@ const router = express.Router();
 router.post('/', middlewares.auth(), controllers.cookController.setNewRecipe);
 router.get('/new', middlewares.auth(), controllers.cookController.newRecipe);
 router.get('/search', middlewares.auth(false), controllers.cookController.searchRecipe);
+router.get('/:id/edit', middlewares.auth(), controllers.cookController.recipeToEdit);
+router.post('/:id', middlewares.auth(), controllers.cookController.editRecipe);
 router.get('/:id', middlewares.auth(false), controllers.cookController.cooks);
 
 module.exports = router;
