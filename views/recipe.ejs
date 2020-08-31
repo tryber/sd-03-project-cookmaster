@@ -8,45 +8,42 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
 
-    <title>Cookmaster - Home</title>
+    <title>Cookmaster - Detalhe da receita</title>
   </head>
   <body>
 
     <%- include('header', {user})%>
-
     <main>
       <div class="container" style="height:1500px;">
           <div class="row pt-5">
-              <div class="col text-center">
-                <h1>Boas vindas ao Cookmaster <%= user && user.name %> !</h1>
-              </div>
-          </div>
-          <div class="row pt-5">
             <div class="col">
-              <h1>Receitas</h1>
+              <h1><%= recipe.name %></h1>
+              <h6>Enviada por: <%= recipe.user %> </h6>
             </div>
             <div class="col">
-              <a href="/recipes/search"><button data-testid="buscar-receita" class="btn btn-warning">Buscar Receita</button></a>
               <% if (user) {%>
-                <a href="/recipes/new"><button data-testid="nova-receita" class="btn btn-primary">Nova Receita</button></a>
-                <a href="/me/recipes"><button data-testid="minhas-receitas" class="btn btn-primary">Minhas Receitas</button></a>
+                <a href="/recipes/<%= recipe.id %>/edit">
+                  <button data-testid="editar-receita" class="btn btn-primary">Editar Receita</button>
+                </a>
+                <a href="/recipes/<%= recipe.id %>/delete">
+                  <button data-testid="excluir-receita" class="btn btn-primary">Excluir Receita</button>
+                </a>
               <% } %>
             </div>
         </div>
         <div class="row">
-          <% recipes && recipes.map(recipe => { %>
-            <div class="col-md-4">
-              <div class="card mb-4 box-shadow">
-                <div class="card-body">
-                  <p class="card-text">Receita: <%= recipe.name %> </p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <p>Usuário: <%= recipe.user %> </p>
-                    <a href=<%= `/recipes/` + recipe.id %>>Ver mais</a>
-                  </div>
-                </div>
-              </div>
+            <div class="col-md-12">
+                <h3>Ingredientes</h3>
             </div>
-          <% }) %>
+            <div class="col-md-12">
+                <p><%= recipe.ingredients %></p>
+            </div>
+            <div class="col-md-12">
+                <h3>Modo de preparo</h3>
+            </div>
+            <div class="col-md-12">
+                <p><%= recipe.instructions %></p>
+            </div>
         </div>
       </div>
     </main>

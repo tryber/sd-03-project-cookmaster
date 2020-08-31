@@ -16,21 +16,19 @@
 
     <main>
       <div class="container" style="height:1500px;">
-          <div class="row pt-5">
-              <div class="col text-center">
-                <h1>Boas vindas ao Cookmaster <%= user && user.name %> !</h1>
-              </div>
-          </div>
+        <div class="row pt-5">
+          <h1>Buscar Receitas</h1>
+        </div>
           <div class="row pt-5">
             <div class="col">
-              <h1>Receitas</h1>
-            </div>
-            <div class="col">
-              <a href="/recipes/search"><button data-testid="buscar-receita" class="btn btn-warning">Buscar Receita</button></a>
-              <% if (user) {%>
-                <a href="/recipes/new"><button data-testid="nova-receita" class="btn btn-primary">Nova Receita</button></a>
-                <a href="/me/recipes"><button data-testid="minhas-receitas" class="btn btn-primary">Minhas Receitas</button></a>
-              <% } %>
+                <form action="/recipes/search" method="GET" class="form">
+                    <div class="form-group">
+                        <input data-testid="receita" type="text" class="form-control" name="q">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" data-testid="buscar" class="btn btn-warning">Buscar</button>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="row">

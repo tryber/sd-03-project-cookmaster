@@ -34,7 +34,7 @@ const login = async (req, res, next) => {
   SESSIONS[token] = user.id;
 
   res.cookie('token', token, { httpOnly: true, sameSite: true });
-  res.redirect(redirect || '/admin');
+  res.redirect(redirect || '/');
 };
 
 const logout = (req, res) => {
@@ -43,8 +43,38 @@ const logout = (req, res) => {
   res.render('admin/logout');
 };
 
+const signup = async (req, res) => {
+  try {
+    res.clearCookie('token');
+    const { email, password, name, lastName } = req.body;
+    await userModel.insertUser(email, password, name, lastName);
+    return res.status(201).render('admin/signup', {
+      message: 'Cadastro efetuado com sucesso!',
+      redirect: null,
+    });
+  } catch (error) {
+    return error;
+  }
+};
+
+async function confirmPassword(req, res, next) {
+  try {
+    const { password } = req.body;
+    const { id } = req.user;
+    const { password: correctPassword } = await userModel.findById(id);
+    if (correctPassword !== password) {
+      return res.render('admin/deleteForm', { message: 'Senha Incorreta.' });
+    }
+    return next();
+  } catch (error) {
+    return error;
+  }
+}
+
 module.exports = {
   login,
   loginForm,
   logout,
+  signup,
+  confirmPassword,
 };
