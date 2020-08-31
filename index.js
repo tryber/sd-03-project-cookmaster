@@ -15,7 +15,7 @@ app.set('view engine', 'ejs');
 app.set('views', './views');
 app.use('/recipes', routeRecipes);
 
-app.get('/', controllers.cookController.listCook);
+app.get('/', middlewares.auth(false), controllers.cookController.listCook);
 
 app.get('/me/recipes', middlewares.auth(), controllers.userController.myRecipes);
 app.get('/admin', middlewares.auth(), controllers.cookController.admin);
