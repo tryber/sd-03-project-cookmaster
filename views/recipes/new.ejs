@@ -30,7 +30,13 @@
       <div class="row">
         <div class="input-field col s12">
           <label for="namelInput">Nome da receita: </label>
-          <input class="validate" type="text" name="name" id="namelInput" data-testid="nome-receita" />
+          <input
+            class="validate"
+            type="text"
+            name="name"
+            id="namelInput"
+            data-testid="nome-receita"
+          />
           <% if (nameMessage) {%>
           <div class="message">
             <span class="helper-text" data-error="wrong" data-success="right"
@@ -61,7 +67,12 @@
         </div>
         <div class="input-field col s12">
           <label for="ingredientInput">Modo de preparo: </label>
-          <textarea data-testid="modo-de-preparo" name="instructions" id="instructions" data-testid="modo-de-preparo"></textarea>
+          <textarea
+            data-testid="modo-de-preparo"
+            name="instructions"
+            id="instructions"
+            data-testid="modo-de-preparo"
+          ></textarea>
           <% if (instructionsMessage) {%>
           <div class="message">
             <span class="helper-text" data-error="wrong" data-success="right"
@@ -77,6 +88,16 @@
             <a class="validate waves-effect blue-text" href="/">Voltar</a>
           </div>
           <div class="col s4 center">
+            <% if (!user) { %>
+            <button
+              class="validate waves-effect waves-light btn"
+              type="button"
+              data-testid="postar-receita"
+              disabled
+            >
+              Salvar receita
+            </button>
+            <% } else { %>
             <button
               class="validate waves-effect waves-light btn"
               type="button"
@@ -85,7 +106,7 @@
             >
               Salvar receita
             </button>
-            <% if (successMessage) {%>
+            <% } %> <% if (successMessage) {%>
             <div class="message">
               <span class="helper-text" data-error="wrong" data-success="right"
                 ><%= successMessage %></span
@@ -98,7 +119,7 @@
     </form>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
-      const ingredients = [];
+      let ingredients = [];
 
       const addIngredient = () => {
         const li = document.createElement('li');
@@ -116,14 +137,14 @@
         li.children[1].onclick = () => li.remove();
 
         list.appendChild(li);
-        ingredients.push(ingredientInput.value);
+        ingredients = `${ingredients},${ingredientInput.value}`
         ingredientInput.value = '';
       };
       const submitRecipe = () => {
         const ingredientInput = document.getElementById('ingredientInput');
-        ingredientInput.value = ingredients.join();
+        ingredientInput.value = ingredients;
         document.recipeForm.submit();
-      }
+      };
     </script>
   </body>
 </html>

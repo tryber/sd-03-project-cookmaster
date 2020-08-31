@@ -17,6 +17,20 @@ const renderRecipeForm = async (req, res) => {
   });
 };
 
+const renderEditRecipeForm = async (req, res) => {
+  const { id } = req.params;
+  const recipe = await recipeModel.getRecipeById(id);
+
+  res.status(201).render('recipes/edit', {
+    user: req.user,
+    nameMessage: null,
+    ingredientsMessage: null,
+    instructionsMessage: null,
+    successMessage: null,
+    recipe,
+  });
+};
+
 const addRecipe = async (req, res) => {
   const { name, ingredients, instructions } = req.body;
 
@@ -35,6 +49,21 @@ const addRecipe = async (req, res) => {
     instructionsMessage: null,
     successMessage: 'Receita adicionada com sucesso!',
   });
+};
+
+const updateRecipe = async (req, res) => {
+  const { name, ingredients, instructions } = req.body;
+  try {
+    await recipeModel.updateRecipe(
+      req.user.id,
+      name,
+      ingredients,
+      instructions,
+    );
+    res.redirect('/');
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 const recipeDetails = async (req, res) => {
@@ -69,4 +98,6 @@ module.exports = {
   renderSearch,
   addRecipe,
   renderRecipeForm,
+  renderEditRecipeForm,
+  updateRecipe,
 };
