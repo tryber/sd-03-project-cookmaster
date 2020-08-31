@@ -2,9 +2,9 @@ const mysqlx = require('@mysql/xdevapi');
 
 const connection = () => (
   mysqlx.getSession({
-    user: 'clayton',
-    password: 'cl172615',
-    host: '172.17.0.2',
+    user: 'root',
+    password: '',
+    host: 'localhost',
     port: 33060,
     schema: 'cookmaster',
   })
@@ -13,7 +13,7 @@ const connection = () => (
   ))
   .catch((err) => {
     console.error(err);
-    process.exit(1);
+    // process.exit(1);
   })
 );
 
