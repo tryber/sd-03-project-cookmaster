@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Detalhes da Receita</title>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookmaster - Detalhes da receita</title>
+  </head>
 
-</head>
-
-<body>
-  <div>
-    <div class="Data_details">
-      <% if(user.id === recipe.idUser){ %>
-      <button data-testid="editar-receita" type="button" onclick="window.location.href='<%= `/recipes/${recipeId}/edit` %>'">
-        Editar Receita
-      </button>
-      <button data-testid="excluir-receita" type="button" onclick="window.location.href='<%= `/recipes/${recipeId}/delete` %>'">
-        Excluir Receita
-      </button>
-      <% } %>
-      <% if(recipe){ %>
-      <h2><%= recipe.title%></h2>
-      <p><%= recipe.userName%></p>
-      <h3>Ingredientes</h3>
-      <a><%= recipe.ingredients%></a>
-      <h3>Modo de Preparo</h3>
-      <p><%= recipe.detailsRecipe %></p>
-      <% } %>
-      <button onclick="window.location.pathname='/'">Voltar</button>
-      <button data-testid="minhas-receitas" type="button" onclick="window.location.pathname = '/me/recipes'">
-        Minhas Receitas
-      </button>
+  <body>
+    <%- include('../header', {user})%>
+    <% if(user) { %>
+    <div>
+      <button type="button" data-testid="editar-receita" onclick="window.location.pathname='/recipes/<%= recipeDetails.id %>/edit'">Editar
+        receita</button>
+      <button type="button" data-testid="excluir-receita" onclick="window.location.pathname='/recipes/<%= recipeDetails.id %>/delete'">Excluir
+        receita</button>
     </div>
-  </div>
-</body>
+    <% } %>
+    <% if(recipeDetails) { %>
+    <div>
+      <h1><%=  recipeDetails.name %></h1>
+      <p>Enviada por: <%= recipeDetails.user  %></p>
+    </div>
+    <div>
+      <h2>Ingredientes</h2>
+      <ul>
+        <% recipeDetails && recipeDetails.ingredients.forEach(ingredient => { %>
+        <li><%= ingredient %></li>
+        <% }) %>
+      </ul>
+    </div>
+    <div>
+      <h2>Modo de Preparo</h2>
+      <p><%= recipeDetails.instructions %></p>
+    </div>
+    <% } %>
+
+  </body>
 
 </html>

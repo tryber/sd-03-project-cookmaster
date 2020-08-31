@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/betrybe/project-cookmaster#readme",
   "dependencies": {
-    "@mysql/xdevapi": "^8.0.21",
+    "@mysql/xdevapi": "^8.0.20",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.5.0",
     "cookie-parser": "^1.4.5",
@@ -34,8 +34,14 @@
     "uuid": "^8.1.0"
   },
   "devDependencies": {
-    "cypress": "^5.0.0",
+    "cypress": "^3.8.3",
     "cypress-multi-reporters": "^1.2.3",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react-hooks": "^4.0.0",
     "faker": "^4.1.0",
     "mocha": "^7.0.1",
     "mochawesome": "^4.1.0",

@@ -1,51 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cookmaster - Home</title>
-</head>
-<body>
-  <div>
-    <div class="Home_recipes">
-      <h2>Cookmaster</h2>
-      <h1>Receitas</h1>
-      <div>
-        <% if(user) { %>
-        <button data-testid="minhas-receitas" type="button" onclick="window.location.pathname = '/me/recipes'">
-          Minhas Receitas
-        </button>
-        <button data-testid="nova-receita" type="button" onclick="window.location.pathname = '/recipes/new'">
-          Nova Receita
-        </button>
-        <button data-testid="minha-conta" type="button" onclick="window.location.pathname = '/me/edit'">
-          Minha Conta
-        </button>
-        <button data-testid="logout" type="button" onclick="window.location.pathname = '/logout'">
-          Logout
-        </button>
-        <% } %>
-        <% if (!user) { %>
-        <button data-testid="login" type="button" onclick="window.location.pathname = '/login'">
-          Login
-        </button>
-        <% } %>
-        <button data-testid="buscar-receita" type="button" onclick="window.location.pathname = '/recipes/search'">
-          Buscar Receita
-        </button>
-      </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Home</title>
+  </head>
+
+  <body>
+    <%- include('header', {user})%>
+    <% if(user) { %>
+    <div>
+      <button type="button" data-testid="nova-receita" onclick="window.location.pathname='/recipes/new'">Nova Receita</button>
+      <button type="button" data-testid="minhas-receitas" onclick="window.location.pathname='/me/recipes'">Minhas Receitas</button>
+      <button type="button" data-testid="minha-conta" onclick="window.location.pathname='/me/edit'">Minha Conta</button>
     </div>
-    <div class="Recipes_div">
-      <% allRecipes.forEach((recipe) => {%>
-      <div class="Recipe_selection">
-        <p><%=`${recipe.recipe}`%></p>
-        <p><%=`${recipe.userName}`%></p>
-        <a href="<%=`/recipes/${recipe.id}`%>">Ver mais</a>
+    <% } %>
+    <div>
+      <button type="button" data-testid="buscar-receita" onclick="window.location.pathname='/recipes/search'">Buscar Receita</button>
+      <h1>Receitas</h1>
+      <% recipes && recipes.forEach(recipe => { %>
+        <div>
+        <p>Receita: <%= recipe.name %> </p>
+        <p>Usuário: <%= recipe.user %> </p>
+        <a href="/recipes/<%= recipe.id %>" %>>Ver mais</a>
       </div>
       <% }) %>
     </div>
-  </div>
-</body>
+  </body>
 
 </html>

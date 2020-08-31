@@ -1,89 +1,112 @@
-const { connection } = require('./connections');
+const connection = require('./connection');
 
-const findBy = async (data, local) => {
-  const userData = await connection()
-    .then((db) => db
-      .getSchema('cookmaster')
+/* Quando você implementar a conexão com o banco, não deve mais precisar desse objeto */
+// const TEMP_USER = {
+//   id: 'd2a667c4-432d-4dd5-8ab1-b51e88ddb5fe',
+//   email: 'taylor.doe@company.com',
+//   password: 'password',
+//   name: 'Taylor',
+//   lastName: 'Doe',
+// };
+
+/* Substitua o código das funções abaixo para que ela,
+de fato, realize a busca no banco de dados */
+
+/**
+ * Busca um usuário através do seu email e, se encontrado, retorna-o.
+ * @param {string} email Email do usuário a ser encontrado
+ */
+const findByEmail = async (userEmail) => {
+  try {
+    const db = await connection();
+    const searchQuery = await db
       .getTable('users')
-      .select(['id', 'first_name', 'last_name', 'password', 'email'])
-      .where(`${local} = :${local}`)
-      .bind(`${local}`, data)
-      .execute())
-    .then((results) => results.fetchAll())
-    .then((user) => user[0]);
-
-  if (!userData) return null;
-
-  const [id, name, lastName, password, email] = userData;
-  return { id, email, password, name, lastName };
-};
-
-const insertUser = async (data) =>
-  connection().then((db) => {
-    db
-      .getSchema('cookmaster')
-      .getTable('users')
-      .insert(['first_name', 'last_name', 'password', 'email'])
-      .values([data.name, data.lastName, data.typePass, data.email])
+      .select(['id', 'email', 'password', 'first_name', 'last_name'])
+      .where('email = :email')
+      .bind('email', userEmail)
       .execute();
-  });
-
-const validateEmail = ({ email }) => {
-  const emailReg = /[A-Z0-9]{1,}@[A-Z0-9]{2,}\.[A-Z0-9]{2,}/i.test(email);
-  if (!emailReg) return 'O email deve ter o formato email@mail.com';
-  return true;
+    const results = await searchQuery.fetchAll();
+    return results
+      ? results.reduce(
+        (acc, [id, email, password, name, lastName]) => ({
+          ...acc,
+          id,
+          email,
+          password,
+          name,
+          lastName,
+        }),
+        {},
+      )
+      : null;
+  } catch (error) {
+    return error;
+  }
 };
 
-const validateName = ({ name }) => {
-  const nameReg = /^[a-zA-Z]*$/.test(name);
-  if (name.length < 3 || !nameReg) return 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras';
-  return true;
+/**
+ * Busca um usuário através do seu ID
+ * @param {string} id ID do usuário
+ */
+const findById = async (userId) => {
+  try {
+    const db = await connection();
+    const searchQuery = await db
+      .getTable('users')
+      .select(['id', 'email', 'password', 'first_name', 'last_name'])
+      .where('id = :id')
+      .bind('id', userId)
+      .execute();
+    const results = await searchQuery.fetchAll();
+    return results
+      ? results.reduce(
+        (acc, [id, email, password, name, lastName]) => ({
+          ...acc,
+          id,
+          email,
+          password,
+          name,
+          lastName,
+        }),
+        {},
+      )
+      : null;
+  } catch (error) {
+    return error;
+  }
 };
 
-const validateLastName = ({ lastName }) => {
-  const lastNameReg = /^[a-zA-Z]*$/.test(lastName);
-  if (lastName.length < 3 || !lastNameReg) return 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras';
-  return true;
+const createUser = async (email, password, name, lastName) => {
+  try {
+    const db = await connection();
+    const updateQuery = await db
+      .getTable('users')
+      .insert(['email', 'password', 'first_name', 'last_name'])
+      .values(email, password, name, lastName)
+      .execute();
+    return updateQuery;
+  } catch (error) {
+    return error;
+  }
 };
 
-const validatePassword = ({ typePass }) => {
-  if (typePass.length < 6) return 'A senha deve ter pelo menos 6 caracteres';
-  return true;
-};
-
-const validateConfPassword = ({ confirmPass, typePass }) => {
-  if (confirmPass === !typePass) return 'As senhas tem que ser iguais';
-  return true;
-};
-
-
-const createUser = async (data) => {
-  await insertUser(data);
-  return { message: 'Cadastro efetuado com sucesso!' };
-};
-
-const updateUserQuery = `UPDATE users
-SET email = ?, first_name = ?, last_name = ?
-WHERE id = ?`;
-
-const updateUser = async ({ email, name, lastName, id }) =>
-  connection()
-    .then((session) =>
-      session.sql(updateUserQuery)
-        .bind(email)
-        .bind(name)
-        .bind(lastName)
-        .bind(id)
-        .execute());
-
+const editUser = async (id, email, password, name, lastName) =>
+  connection().then((db) =>
+    db
+      .getTable('users')
+      .update()
+      .set('email', email)
+      .set('password', password)
+      .set('first_name', name)
+      .set('last_name', lastName)
+      .where('id = :id')
+      .bind('id', id)
+      .execute(),
+  );
 
 module.exports = {
+  findByEmail,
+  findById,
   createUser,
-  updateUser,
-  findBy,
-  validateEmail,
-  validateName,
-  validateLastName,
-  validatePassword,
-  validateConfPassword,
+  editUser,
 };

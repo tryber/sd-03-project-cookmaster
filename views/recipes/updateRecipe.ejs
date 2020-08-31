@@ -4,18 +4,19 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cookmaster - Nova receita</title>
+    <title>Cookmaster - Edita receita</title>
   </head>
 
   <body>
     <%- include('../header', {user})%>
-    <h1>Nova Receita</h1>
-    <form action="/recipes" method="POST">
+    <h1>Editar Receita</h1>
+    <form action="/recipes/<%= recipeDetails.id%>" method="POST">
       <label for="nameInput">Nome da Receita</label>
-      <input type="text" name="name" id="nameInput" data-testid="nome-receita" required>
+      <input type="text" name="name" id="nameInput" data-testid="nome-receita" value="<%= recipeDetails.name %>"
+        required>
       <fieldset>
         <legend>Ingredientes</legend>
-        <input type="hidden" name="ingredients" id="ingredients" />
+        <input type="hidden" name="ingredients" id="ingredients" value="<%= recipeDetails.ingredients %>" />
         <ul id="ingredients_list"></ul>
         <input type="text" name="ingredient" id="ingredient" data-testid="ingredientes">
         <button type="button" id="adicionar-ingrediente" data-testid="adicionar-ingrediente">Adicionar
@@ -23,18 +24,19 @@
       </fieldset>
       <label for="instructionsInput">Modo de preparo: </label>
       <textarea name="instructions" id="instructionsInput" cols="50" rows="30" data-testid="modo-de-preparo"
-        required></textarea>
+        required><%= recipeDetails.instructions %></textarea>
       <button type="button" onclick="window.location.pathname='/'">Voltar</button>
       <button type="submit" data-testid="postar-receita">Salvar Receita</button>
     </form>
 
   </body>
   <script>
-    let ingredients = [];
     let ingredientList = document.getElementById('ingredients_list');
     let ingredientValue = document.getElementById('ingredient');
     let ingredientsInput = document.getElementById('ingredients');
     let ingredientButton = document.getElementById('adicionar-ingrediente');
+    let instructions = document.getElementById('instructionsInput');
+    let ingredients = [];
 
     const deleteBtn = () => {
       const btn = document.createElement('button');
@@ -46,7 +48,7 @@
         const parentNodeInnerText = parentElement.innerText.slice(0, -19);
         ingredients = ingredients.filter((ingredient) => ingredient !== parentNodeInnerText);
         ingredientsInput.value = ingredients.join(',');
-
+        console.log(ingredients, instructions.value)
         return grandparentElement.removeChild(parentElement);
       })
 
@@ -54,19 +56,40 @@
 
     }
 
-    const createIngredient = () => {
+    const createIngredient = (value) => {
       let ingredient = document.createElement('li');
-      ingredient.innerHTML = ingredientValue.value;
-      ingredients.push(ingredientValue.value);
+      ingredient.innerHTML = value;
+      ingredients.push(value);
       ingredientsInput.value = ingredients.join(',');
+
       ingredient.appendChild(deleteBtn());
       ingredientList.appendChild(ingredient);
+      console.log(ingredients, instructions.value)
+      return value = '';
+    }
 
-      return ingredientValue.value = '';
+    const createIngredientOnLoad = (value) => {
+      let ingredient = document.createElement('li');
+      ingredient.innerHTML = value;
+
+      ingredient.appendChild(deleteBtn());
+      return ingredientList.appendChild(ingredient);
+
+    }
+
+    
+    const createIngredientItem = (array = []) => {
+      const item = array.map((item) => createIngredientOnLoad(item));
+      return item;
     }
 
     window.onload = () => {
-      ingredientButton.addEventListener('click', createIngredient);
+      ingredients = ingredientsInput.value.split(',');
+
+      createIngredientItem(ingredients);
+
+      ingredientButton.addEventListener('click', () => createIngredient(ingredientValue.value));
+
     }
   </script>
 

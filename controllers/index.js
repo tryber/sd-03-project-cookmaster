@@ -1,11 +1,7 @@
 const userController = require('./userController');
-const recipesController = require('./recipesController');
-const userAuth = require('./userAuth');
-const userInfoController = require('./userInfoController');
+const recipeController = require('./recipeController');
 
 module.exports = {
   userController,
-  recipesController,
-  userAuth,
-  userInfoController,
+  recipeController,
 };

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cookmaster - Login</title>
   </head>
+
   <body>
     <% if (message) {%>
     <div class="message">
@@ -13,29 +15,15 @@
     <% } %>
     <form action="/login" method="POST">
       <label for="emailInput">Email: </label>
-      <input data-testid="email" type="text" name="email" id="emailInput" /><br />
+      <input type="text" name="email" id="emailInput" data-testid="email" /><br />
       <label for="passwordInput">Senha: </label>
-      <input data-testid="senha" type="password" name="password" id="passwordInput" /><br />
+      <input type="password" name="password" id="passwordInput" data-testid="senha"/><br />
       <% if (redirect) { %>
-      <input
-        type="hidden"
-        name="redirect"
-        value="<%= decodeURIComponent(redirect) %>"
-      />
+      <input type="hidden" name="redirect" value="<%= decodeURIComponent(redirect) %>" />
       <% } %>
-      <button data-testid="entrar" type="submit">Login</button>
-      <button data-testid="cadastrar" type="button" onclick="window.location.pathname = '/register'">
-        Cadastrar-se
-      </button>
-      <button data-testid="minha-conta" type="button" onclick="window.location.pathname = '/me/edit'">
-        Minha Conta
-      </button>
+      <button type="submit" data-testid="entrar">Login</button>
+      <a href="/signup" data-testid="cadastrar">Cadastre-se</a>
     </form>
-    <p>O email deve ter o formato email@mail.com</p>
-    <p>O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras</p>
-    <p>O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras</p>
-    <p>A senha deve ter pelo menos 6 caracteres</p>
-    <p>As senhas tem que ser iguais</p>
-    <p>Cadastro efetuado com sucesso!</p>
   </body>
+
 </html>
