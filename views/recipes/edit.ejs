@@ -32,9 +32,9 @@
     </button>
     <label for="modoPreparo">Modo de preparo:</label>
     <input type="text" name="modoPreparo" id="modoPreparo" data-testid="modo-de-preparo" value="<%= rec.instructions %>" />
-    <button type="submit" name="salvarReceita" data-testid="postar-receita">
+    <!-- <button type="submit" name="salvarReceita" data-testid="postar-receita">
       Salvar Receita
-    </button>
+    </button> -->
     <ul id="listaIngredientes">
   
     </ul>
@@ -47,6 +47,7 @@
   let botaoAdicionarIngrediente = document.getElementById('adicionarIngrediente');
   let inputEscondido = document.getElementById('inputListaIngredientes');
 
+  
   function saveIngredientsList() {
     let listaIngredientes = document.querySelectorAll('.ingr');
     let listaParaBanco = [];
@@ -78,6 +79,20 @@
     // Código criado com referência no link: https://cursos.alura.com.br/forum/topico-removendo-com-o-clique-em-um-botao-remover-62746
   }
 
+  function adicionarIngredientesALista(arrIng) {
+    arrIng.forEach((ingr) => {
+      let item = document.createElement('li');
+      let listIng = document.getElementById('listaIngredientes');
+
+      item.innerHTML = ingr;
+      item.setAttribute('id', ingr);
+      item.setAttribute('class', 'ingr');
+
+      listIng.appendChild(item);
+      appendButton(ingr);
+    })
+  }
+
   botaoAdicionarIngrediente.addEventListener('click', () => {
     let itemLista = document.createElement('li');
     let listaIngredientes = document.getElementById('listaIngredientes');
@@ -89,5 +104,11 @@
     listaIngredientes.appendChild(itemLista);
     appendButton(ingrediente.value);
   });
+
+  window.onload = () => {
+    ingredientes = inputEscondido.value.split(',');
+    
+    adicionarIngredientesALista(ingredientes);
+  };
 </script>
 </html>
