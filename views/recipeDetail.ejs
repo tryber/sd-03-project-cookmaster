@@ -9,12 +9,12 @@
     <div>
       <% if (usuario && usuario.id === recipeItem.userId) {%>
         <div>
-          <a href="/recipes/<%= recipeItem.id %>/edit">
+          <a href="/recipes/<%= recipeItem.id2 %>/edit">
             <button data-testid="editar-receita">
               Editar Receita
             </button>
           </a>
-          <a href="/recipes/<%= recipeItem.id %>/delete">
+          <a href="/recipes/<%= recipeItem.id2 %>/delete">
             <button data-testid="excluir-receita">
               Excluir Receita
             </button>

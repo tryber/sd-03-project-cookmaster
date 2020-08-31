@@ -64,10 +64,40 @@ const findRecipesSearch = async (search) =>
       })),
     );
 
+    const createNewRecipe = async (userId, user, name, ingredients, instructions) =>
+    db().then((db2) =>
+    db2
+      .getTable('recipes')
+      .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
+      .values(userId, user, name, ingredients, instructions)
+      .execute(),
+  );
+
+  const findRecipesByUserId = async (userId) =>
+  db()
+    .then((db2) =>
+      db2
+        .getTable('recipes')
+        .select(['id', 'user', 'name'])
+        .where('user_id = :user_id')
+        .bind('user_id', userId)
+        .execute(),
+    )
+    .then((results) => results.fetchAll())
+    .then((recipes) =>
+      recipes.map(([recipeId, user, name]) => ({
+        id: recipeId,
+        user,
+        name,
+      })),
+    );
+    
 module.exports = {
   listRecipes,
   findRecipById,
   editRecipe,
   deleteRecipe,
   findRecipesSearch,
+  createNewRecipe,
+  findRecipesByUserId,
 };

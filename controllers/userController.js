@@ -79,6 +79,17 @@ const createUser = async (req, res) => {
   res.status(201).render('createuser', { message: 'Cadastro efetuado com sucesso!' });
 };
 
+const editUserForm = async (req, res) => {
+  const userInfos = await userModel.findById(req.user.id2);
+  return res.render('admin/userEdit', { userInfos, message: null, user: req.user });
+};
+
+const editUserControl = async (req, res) => {
+  const { email, password, name, lastName } = req.body;
+  await userModel.editUser(req.user.id2, email, password, name, lastName)
+  .catch((error) => console.log(error));
+  res.redirect('http://localhost:3000/');
+};
 
 module.exports = {
   login,
@@ -86,4 +97,6 @@ module.exports = {
   logout,
   createUserForm,
   createUser,
+  editUserForm,
+  editUser: editUserControl,
 };

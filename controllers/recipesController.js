@@ -7,11 +7,12 @@ const recipesList = async (req, res) => {
 };
 
 const recipeByid = async (req, res) => {
-  const recipeItem = await recipesModel.findRecipById(req.params.id);
+  console.log(req.params);
+  const recipeItem = await recipesModel.findRecipById(req.params.id2);
   const { ingredients } = recipeItem;
   const arrayIngredients = ingredients.split(',');
   recipeItem.ingredients = arrayIngredients;
-  res.render('recipeDetail', { recipeItem, usuario: req.user });
+  res.render('recipeDetail', { recipeItem, usuario: req.user })
 };
 
 const editRecipeForm = async (req, res) => {
@@ -38,19 +39,17 @@ const editRecipe = async (req, res) => {
 const deleteRecipeForm = async (req, res) => {
   const { id } = req.user;
   const { userId } = await recipesModel.findRecipById(req.params.id);
-
   if (userId !== id) res.redirect('/');
-
   return res.render('recipeRemove', { message: null, user: req.user, id: req.params.id });
 };
 
 const deleteRecipe = async (req, res) => {
-  const { id } = req.user;
-  const { password: senha } = req.body;
-  const { password } = await userModel.findById(id);
+  const { id2 } = req.user;
+  const { senha } = req.body;
+  const { password } = await userModel.findById(id2);
 
   if (password !== senha) {
-    res.render('admin/delete', { message: 'Senha Incorreta.', user: req.user, id: req.params.id });
+    return res.render('recipeRemove', { message: 'Senha Incorreta.', user: req.user, id: req.params.id });
   }
   await recipesModel.deleteRecipe(req.params.id);
   return res.redirect('/');
@@ -64,6 +63,26 @@ const searchRecipe = async (req, res) => {
   return res.render('recipeSearch', { recipesFiltered, user: req.user });
 };
 
+const newRecipeForm = async (req, res) => res.render('recipeNew', { user: req.user });
+
+const newRecipe = async (req, res) => {
+  const { recipeName, ingredients, instructions } = req.body;
+  const { name, lastName, id2 } = req.user;
+  const userFullName = `${name} ${lastName}`;
+ console.log(id2)
+  await recipesModel.createNewRecipe(id2, userFullName, recipeName, ingredients, instructions);
+
+  return res.redirect('/');
+};
+const getUserRecipes = async (req, res) => {
+  const { id2 } = req.user;
+
+  const recipes = await recipesModel.findRecipesByUserId(id2);
+
+  return res.render('admin/my-recipes', { recipes, user: req.user });
+};
+
+
 
 module.exports = {
   recipesList,
@@ -73,4 +92,7 @@ module.exports = {
   deleteRecipeForm,
   deleteRecipe,
   searchRecipe,
+  newRecipeForm,
+  newRecipe,
+  getUserRecipes,
 };

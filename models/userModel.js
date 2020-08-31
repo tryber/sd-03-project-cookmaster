@@ -46,8 +46,24 @@ const createuser = async (email, password, firstname, lastname) => {
   .execute());
 };
 
+const editUser = async (id, email, password, name, lastName) =>
+  db().then((db2) =>
+    db2
+      .getTable('users')
+      .update()
+      .set('email', email)
+      .set('password', password)
+      .set('first_name', name)
+      .set('last_name', lastName)
+      .where('id = :id')
+      .bind('id', id)
+      .execute()
+      .catch((error) => console.log(error))
+  );
+
 module.exports = {
   findByEmail,
   findById,
   createUser: createuser,
+  editUser,
 };
