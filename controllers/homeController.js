@@ -35,10 +35,21 @@ const saveRecipe = async (req, res) => {
   res.render('recipes/new', { message: 'Receita Cadastrada!', user: req.user });
 };
 
+const editById = async (req, res) => {
+  const { id } = req.params;
+  const recipe = await homeModel.findRecipeById(id);
+  console.log(recipe);
+
+  // if (req.user.id !== recipe[0].userId) res.redirect('recipes/recipes', { rec: recipe[0], user: req.user })
+
+  res.render('recipes/edit', { rec: recipe[0], user: req.user });
+};
+
 module.exports = {
   listRecipes,
   checkById,
   searchRecipe,
   newRecipe,
   saveRecipe,
+  editById,
 };

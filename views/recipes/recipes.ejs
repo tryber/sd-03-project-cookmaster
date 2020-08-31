@@ -9,7 +9,7 @@
     <div>
       <h1>Cookmaster</h1>
       <% if ( user ) { %>
-      <button data-testid="editar-receita">Editar Receita</button>
+      <a href=<%= `/recipes/${rec.id}/edit` %> data-testid="editar-receita">Editar Receita</a>
       <button data-testid="excluir-receita">Excluir Receita</button>
       <p>
         <%= user.name %> |
