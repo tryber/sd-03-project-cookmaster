@@ -8,7 +8,7 @@ const recipesList = async (req, res) => {
 
 const recipeByid = async (req, res) => {
   console.log(req.params);
-  const recipeItem = await recipesModel.findRecipById(req.params.id2);
+  const recipeItem = await recipesModel.findRecipById(req.params.id);
   const { ingredients } = recipeItem;
   const arrayIngredients = ingredients.split(',');
   recipeItem.ingredients = arrayIngredients;

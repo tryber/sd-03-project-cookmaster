@@ -7,6 +7,7 @@
 </head>
 <body>
     <div>
+      <% if (recipeItem) {%>
       <% if (usuario && usuario.id === recipeItem.userId) {%>
         <div>
           <a href="/recipes/<%= recipeItem.id2 %>/edit">
@@ -32,6 +33,7 @@
         <h3>Modo de Preparo</h3>
         <p><%= recipeItem.instructions %></p>
       </div>
+    <% } %>
     </div>
     <a href="/">
       <button type="button">Voltar</button>
