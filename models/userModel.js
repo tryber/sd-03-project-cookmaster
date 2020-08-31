@@ -58,7 +58,7 @@ const editUser = async (id, email, password, name, lastName) =>
       .where('id = :id')
       .bind('id', id)
       .execute()
-      .catch((error) => error)
+      .catch((error) => error),
   );
 
 module.exports = {
