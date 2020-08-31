@@ -79,10 +79,31 @@ const validatePassword = async (req, _res, next) => {
   }
 };
 
+const updateUser = async (req, res) => {
+  const { user, body } = req;
+  const { id } = user;
+  const {
+    email, password, name, lastName,
+  } = body;
+
+  // Para comparação de id de usuário logado com autor da receita
+  const checkUser = await userModel.findById(id);
+  try {
+    if (body && checkUser.id === id) {
+      await userModel.updateUser(id, email, password, name, lastName);
+      return res.redirect('/');
+    }
+    return res.status(401).send('Acesso Negado');
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   login,
   loginForm,
   logout,
   registry,
   validatePassword,
+  updateUser,
 };

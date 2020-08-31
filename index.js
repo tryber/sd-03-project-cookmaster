@@ -52,7 +52,7 @@ app.post(
   controllers.recipeController.deleteRecipe,
 );
 
-app.post('/me', middlewares.auth(), middlewares.validation);
+app.post('/me', middlewares.auth(), middlewares.validation, controllers.userController.updateUser);
 app.get('/me/edit', middlewares.auth(), (req, res) => res.render('admin/editProfile', { user: req.user }));
 app.get('/me/recipes', middlewares.auth(), controllers.recipeController.userRecipes);
 

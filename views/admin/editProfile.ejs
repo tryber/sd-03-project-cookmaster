@@ -15,13 +15,13 @@
     <% } %>
     <form action="/me" method="post">
       <label for="emailInput">Email: </label>
-      <input type="text" name="email" id="emailInput" data-testid="email" value= "<%= user.name %>">
+      <input type="text" name="email" id="emailInput" data-testid="email" value= "<%= user.email %>">
       <label for="passwordInput">Senha: </label>
       <input type="password" name="password" id="passwordInput" data-testid="senha" value= "<%= user.password %>">
       <label for="confirmPassword">Confirmar Senha: </label>
       <input type="password" name="confirmPassword" id="confirmPassword" data-testid="confirmar-senha">
-      <label for="userName" value= "<%= user.name %>">Nome: </label>
-      <input type="text" name="name" id="userName" data-testid="nome">
+      <label for="userName">Nome: </label>
+      <input type="text" name="name" id="userName" data-testid="nome" value= "<%= user.name %>">
       <label for="userLastName">Sobrenome: </label>
       <input type="text" name="lastName" id="userLastName" data-testid="sobrenome" value= "<%= user.lastName %>">
       <button type="button" onclick="window.location.pathname='/'">Cancelar</button>
