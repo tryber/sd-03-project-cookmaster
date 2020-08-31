@@ -90,8 +90,28 @@ const createUser = async (email, password, name, lastName) => {
   }
 };
 
+const updateUser = async (id, email, password, name, lastName) => {
+  try {
+    const db = await connection();
+    const updateQuery = await db
+      .getTable('users')
+      .update()
+      .set('email', email)
+      .set('password', password)
+      .set('name', name)
+      .set('lastName', lastName)
+      .where('id = :id')
+      .bind('id', id)
+      .execute();
+    return updateQuery;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   findByEmail,
   findById,
   createUser,
+  updateUser,
 };
