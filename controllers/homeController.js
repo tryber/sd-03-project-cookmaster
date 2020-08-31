@@ -23,7 +23,7 @@ const searchRecipe = async (req, res) => {
 };
 
 const newRecipe = async (req, res) => {
-  res.render('recipes/new', { user: req.user });
+  res.render('recipes/new', { user: req.user, message: null });
 };
 
 const saveRecipe = async (req, res) => {
@@ -32,7 +32,7 @@ const saveRecipe = async (req, res) => {
   const completeUser = name.concat(lastName);
   
   await homeModel.insertNewRecipe(id, completeUser, nome, inputListaIngredientes, modoPreparo);
-  res.render('recipes/new', { message: 'Receita Cadastrada!'});
+  res.render('recipes/new', { message: 'Receita Cadastrada!', user: req.user });
 };
 
 module.exports = {
