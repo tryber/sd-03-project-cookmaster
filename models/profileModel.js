@@ -1,5 +1,5 @@
 const connect = require('./connect');
-const { nameIsValid } = require('../services/validateName')
+const { nameIsValid } = require('../services/validateName');
 
 const getUserById = async (userId) => {
   const db = await connect();

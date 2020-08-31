@@ -1,5 +1,5 @@
 const connect = require('./connect');
-const { nameIsValid } = require('../services/validateName')
+const { nameIsValid } = require('../services/validateName');
 
 const addUser = (email, password, name, lastName) =>
   connect().then((db) =>
