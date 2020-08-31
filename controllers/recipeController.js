@@ -6,6 +6,52 @@ const listRecipes = async (req, res) => {
   res.status(200).render('home', { recipes, message: null, user: req.user });
 };
 
+
+const renderRecipeForm = async (req, res) => {
+  res.status(201).render('recipes/new', {
+    user: req.user,
+    nameMessage: null,
+    ingredientsMessage: null,
+    instructionsMessage: null,
+    successMessage: null,
+  });
+};
+
+const addRecipe = async (req, res) => {
+  const { name, ingredients, instructions } = req.body;
+
+  const nameMessage = null;
+  const ingredientsMessage = null;
+
+  if (nameMessage || ingredientsMessage) {
+    res.status(402).render('admin/signUp', {
+      user: req.user,
+      nameMessage: null,
+      ingredientsMessage: null,
+      instructionsMessage: null,
+      successMessage: null,
+    });
+  }
+
+  console.log(req.user);
+
+  await recipeModel.addRecipe(
+    `${req.user.firstName} ${req.user.lastName}`,
+    req.user.id,
+    name,
+    ingredients,
+    instructions,
+  );
+
+  res.status(201).render('recipes/new', {
+    user: req.user,
+    nameMessage: null,
+    ingredientsMessage: null,
+    instructionsMessage: null,
+    successMessage: 'Receita adicionada com sucesso!',
+  });
+};
+
 const recipeDetails = async (req, res) => {
   const { id } = req.params;
 
@@ -23,7 +69,7 @@ const renderSearch = async (req, res) => {
     res.status(200).render('recipes/search', { recipes: null, user: req.user });
   }
 
-  const recipes = await recipeModel.findRecipeByName(q);
+  const recipes = await recipeModel.getRecipeByName(q);
 
   try {
     res.status(200).render('recipes/search', { recipes, user: req.user, query: q });
@@ -36,4 +82,6 @@ module.exports = {
   listRecipes,
   recipeDetails,
   renderSearch,
+  addRecipe,
+  renderRecipeForm,
 };

@@ -25,7 +25,7 @@ const getRecipeById = async (id) => {
   return name ? { id, userId, user, name, ingredients, instructions } : null;
 };
 
-const findRecipeByName = async (input) => {
+const getRecipeByName = async (input) => {
   const db = await connect();
 
   const results = await db
@@ -40,8 +40,18 @@ const findRecipeByName = async (input) => {
   return recipes.map(([id, user, name]) => ({ id, user, name }));
 };
 
+const addRecipe = async (user, userId, name, ingredients, instructions) => {
+  const db = await connect();
+  return db
+    .getTable('recipes')
+    .insert(['user', 'user_id', 'name', 'ingredients', 'instructions'])
+    .values(user, userId, name, ingredients, instructions)
+    .execute();
+};
+
 module.exports = {
   getAllRecipes,
   getRecipeById,
-  findRecipeByName,
+  getRecipeByName,
+  addRecipe,
 };
