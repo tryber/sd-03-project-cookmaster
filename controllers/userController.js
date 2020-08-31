@@ -45,9 +45,9 @@ const logout = (req, res) => {
 };
 
 const register = (req, res) => {
-  console.log('ovo registrar o user');
-  console.log('ovo renderizar o ejs');
-}
+  console.log('ovo registrar o user', req);
+  console.log('ovo renderizar o ejs', res);
+};
 
 module.exports = {
   login,
