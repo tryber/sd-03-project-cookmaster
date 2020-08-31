@@ -53,7 +53,7 @@ app.post(
 );
 
 app.post('/me', middlewares.auth(), middlewares.validation, controllers.userController.updateUser);
-app.get('/me/edit', middlewares.auth(), (req, res) => res.render('admin/editProfile', { user: req.user }));
+app.get('/me/edit', middlewares.auth(), controllers.userController.updateUserPage);
 app.get('/me/recipes', middlewares.auth(), controllers.recipeController.userRecipes);
 
 const PORT = process.env.PORT || 3000;

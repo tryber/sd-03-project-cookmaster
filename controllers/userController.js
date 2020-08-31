@@ -47,9 +47,7 @@ const logout = (req, res) => {
 
 const registry = async (req, res) => {
   if (req.body && req.validate) {
-    const {
-      email, password, name, lastName,
-    } = req.body;
+    const { email, password, name, lastName } = req.body;
     await userModel.createUser(email, password, name, lastName);
     return res.render('admin/signup', {
       message: req.message,
@@ -79,24 +77,38 @@ const validatePassword = async (req, _res, next) => {
   }
 };
 
-const updateUser = async (req, res) => {
-  const { user, body } = req;
+const updateUserPage = async (req, res) => {
+  const { user } = req;
   const { id } = user;
-  const {
-    email, password, name, lastName,
-  } = body;
 
   // Para comparação de id de usuário logado com autor da receita
   const checkUser = await userModel.findById(id);
   try {
-    if (body && checkUser.id === id) {
-      await userModel.updateUser(id, email, password, name, lastName);
-      return res.redirect('/');
+    if (user && checkUser.id === id) {
+      return res.render('admin/editProfile', {
+        message: null,
+        user: checkUser,
+      });
     }
     return res.status(401).send('Acesso Negado');
   } catch (error) {
     return error;
   }
+};
+
+const updateUser = async (req, res) => {
+  const { id } = req.user;
+  const checkUser = await userModel.findById(id);
+  if (req.body && req.validate) {
+    const { email, password, name, lastName } = req.body;
+    await userModel.updateUser(id, email, password, name, lastName);
+    return res.redirect('/admin');
+  }
+
+  return res.render('admin/editProfile', {
+    message: req.message || null,
+    user: checkUser,
+  });
 };
 
 module.exports = {
@@ -105,5 +117,6 @@ module.exports = {
   logout,
   registry,
   validatePassword,
+  updateUserPage,
   updateUser,
 };
