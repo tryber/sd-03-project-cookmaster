@@ -6,6 +6,14 @@
     <title>Cookmaster - Home</title>
   </head>
   <body>
-    <h1>Boas vindas ao Cookmaster!</h1>
+    <% if (recipes) {%>
+      <% recipes.forEach(recipe => { %>
+        <div>
+          <h3><%= recipe.name %></h3>
+          <p><%= recipe.user %></p>
+          <a>Ver mais</a>
+        </div>
+      <%})%>
+    <% } %>
   </body>
 </html>
