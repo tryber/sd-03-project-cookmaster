@@ -25,24 +25,24 @@ const createForm = (req, res) => res.render('createRecipes', { message: null, us
 const createRecipes = async (req, res) => {
   const { body, user } = req;
   try {
-    const recipes = await recipeModel.postRecipes(body, user);
-    return res.render('createRecipes', { recipes, message: 'Receita cadastrada com sucesso'});
+    const recipe = await recipeModel.postRecipes(body, user);
+    res.render('createRecipes', { recipe, message: 'Receita cadastrada com sucesso' });
   } catch (err) {
     console.error(err);
   }
 };
 
 const editRecipe = async (req, res) => {
-  const { id } =  req.user;
-  const idRecipe = req.params.id; 
+  const { id } = req.user;
+  const idRecipe = req.params.id;
   const recipes = await recipeModel.editRecipesBank(id);
-  if (id === idRecipe) return res.render('editRecipes', { recipes, message: 'Receita editada!'});
+  if (id === idRecipe) return res.render('editRecipes', { recipes, message: 'Receita editada!' });
   return res.redirect('/');
 };
 
-const deleteRecipe = async (req,res) => {
+const deleteRecipe = async (req, res) => {
   const { id } = req.user;
-  res.render('deleteRecipe', { recipes: 'null'});
+  res.render('deleteRecipe', { recipes: 'null' });
 };
 
 module.exports = {

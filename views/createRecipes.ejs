@@ -3,7 +3,7 @@
   <head>
   </head>
   <body>
-    <!-- <%- include('navbar', {user}); %> -->
+    <%- include('navbar', {user}); %>
     <h1>Nova Receita</h1>
     <div>
       <% if (message) {%>
@@ -12,17 +12,15 @@
       <div>
         <p>brasil acima de tudo</p>
         <form action="/recipes/new" method="POST">
-          <!-- <p name="<% user.name %> "><% user.name %> </p> -->
+          <p name="<% user.name %> "><% user.name %></p>
           <label for="nameRecipe">Nome da Receita</label>
           <input required id="nameRecipe" data-testid="nome-receita" type="text" name="nameRecipe"/>
           <label for="ingredients">Ingredientes</label>
           <ul id="listIngredients"></ul>
           <input required id="ingredients" data-testid="ingredientes" type="text" name="ingredients" />
           <button id="insertDom" type="submit" data-testid="adicionar-ingrediente" onclick="createViewIngredients()">Adicionar Ingrediente</button>
-          
           <label for="instructions">Modo de Preparo</label>
           <input required id="instructions" data-testid="modo-de-preparo" name="instructions" />
-          
           <button data-testid="postar-receita" type="submit">Salva Receita</button>
         </form>
         <script>
@@ -37,7 +35,7 @@
             li.id = 'ingredientsID'
             const ul = document.getElementById('listIngredients');
             let inputIngredients = document.getElementById('ingredients');
-            li.innerHTML = `${inputIngredients.value}  
+            li.innerHTML = `${inputIngredients.value}
             <button
               type="submit"
               onclick="deleteIngredients()"

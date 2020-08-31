@@ -49,9 +49,9 @@ const getRecipesByQuery = async (query) => {
 const postRecipes = async (valuesRecipes, valuesUser) => {
   const db = await connection();
   const { nameRecipe, ingredients, instructions } = valuesRecipes;
-  let { id, name, lastName } = valuesUser;
+  const { id, name, lastName } = valuesUser;
   const userId = id;
-  const fullName = name + '' + lastName;
+  const fullName = `${name} ${lastName}`;
 
   await db.getTable('recipes')
     .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
@@ -69,12 +69,11 @@ const editRecipesBank = async (id) => {
     .bind('id', id)
     // .update(ingredients, instructions)
     .execute();
+  const editSucess = results.fetchAll();
 
-    const editSucess = results.fetchAll();
-
-    return editSucess ? editSucess.map(([name,ingredients,instructions]) => ({
-      name, ingredients, instructions
-    })) : null;
+  return editSucess ? editSucess.map(([name, ingredients, instructions]) => ({
+    name, ingredients, instructions,
+  })) : null;
 };
 
 
@@ -82,14 +81,12 @@ const deleteRecipeBank = async (idRecipe) => {
   const db = await connection();
 
   const results = await db.getTable('recipes')
-  .delete()
-  .where('id = :idRecipe')
-  .bind('idRecipe', idRecipe)
-  .execute()
+    .delete()
+    .where('id = :idRecipe')
+    .bind('idRecipe', idRecipe)
+    .execute();
   return results;
 };
-
-
 
 module.exports = {
   getRecipes,
