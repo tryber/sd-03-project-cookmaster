@@ -18,7 +18,7 @@ const getRecipeById = async (idSearched) => {
 };
 
 const editRecipe = async (id, recipeName, ingred, instruc) => {
-  const recipeId = parseInt(id);
+  const recipeId = parseInt(id, 10);
   const db = await connect();
   await db.getTable('recipes')
     .update()
@@ -32,7 +32,7 @@ const editRecipe = async (id, recipeName, ingred, instruc) => {
   return true;
 };
 
-const canEdit = (userId, recipeUserId) => (userId === recipeUserId ? true : false);
+const canEdit = (userId, recipeUserId) => (userId === recipeUserId);
 
 module.exports = {
   getRecipeById,

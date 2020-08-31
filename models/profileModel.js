@@ -6,14 +6,14 @@ const getUserById = async (userId) => {
     .select(['id', 'email', 'password', 'first_name', 'last_name'])
     .where('id = :userId')
     .bind('userId', userId)
-    .execute()
+    .execute();
 
   const [id, email, password, firstName, lastName] = await result.fetchAll()[0];
   return { id, email, password, firstName, lastName };
 };
 
-const editProfile = async(id, email, userFirstName, userLastName, password) => {
-  const usersId = parseInt(id);
+const editProfile = async (id, email, userFirstName, userLastName, password) => {
+  const usersId = parseInt(id, 10);
   const db = await connect();
   await db.getTable('users')
     .update()
