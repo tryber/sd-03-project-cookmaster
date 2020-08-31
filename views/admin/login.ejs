@@ -12,10 +12,11 @@
     </div>
     <% } %>
     <form action="/login" method="POST">
-      <label for="emailInput">Email: </label>
-      <input type="text" name="email" id="emailInput" /><br />
+      <% include('../header') %>
+      <label for="emailInput" >Email: </label>
+      <input type="text" name="email" id="email" data-testid="email" /><br />
       <label for="passwordInput">Senha: </label>
-      <input type="password" name="password" id="passwordInput" /><br />
+      <input type="password" name="password" id="passwordInput"  data-testid="senha"/><br />
       <% if (redirect) { %>
       <input
         type="hidden"
@@ -23,7 +24,8 @@
         value="<%= decodeURIComponent(redirect) %>"
       />
       <% } %>
-      <button type="submit">Entrar</button>
+      <button type="submit" data-testid="entrar"/>Entrar</button>
     </form>
+    <button data-testid="cadastrar" onclick="window.location.pathname='/createuser'">Cadastre-se</button>
   </body>
 </html>

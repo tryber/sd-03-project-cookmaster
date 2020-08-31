@@ -3,9 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cookmaster - Home</title>
+    <title>Cookmaster</title>
   </head>
   <body>
-    <h1>Boas vindas ao Cookmaster!</h1>
+    <% if ( usuario) { %>
+      <button data-testid="logout" onclick="window.location.pathname='/logout'">Logout</button>
+      <a href="/me/recipes">
+        <button data-testid="minhas-receitas" >Minhas Receitas</button>
+      </a>
+      <% } else { %>
+      <button data-testid="login" onclick="window.location.pathname='/login'">Login</button>
+      <% } %>
+    <button id="buscar-receita" data-testid="buscar-receita" onclick="window.location.pathname='/recipes/search'" >Buscar Receita</button>
+     <% if ( usuario ) { %>
+      <button data-testid="nova-receita" onclick="window.location.pathname='recipes/new'">Nova Receita</button>
+      <button data-testid="minha-conta" onclick="window.location.pathname='/me/edit'">Minha Conta</button>
+      <% } %>
+    <h2>Cookmaster</h2>
+    <h1>Receitas</h1>
+    <div id="recipe-card">
+      <% listData && listData.forEach(recipe => { %>
+        <div>
+          <p><%= recipe.name %></p>
+          <p><%= recipe.user %></p>
+          <a href="/recipeDetail/<%= recipe.id %>">Ver mais</a>
+          <%})%>
+        </div>
+      </div>
   </body>
 </html>

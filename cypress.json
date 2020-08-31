@@ -8,6 +8,7 @@
   "viewportWidth": 1366,
   "viewportHeight": 768,
   "defaultCommandTimeout": 10000,
+  "chromeWebSecurity":false,
     "env": {
       "login": "bruno.batista@gmail.com",
       "password": "12345678"

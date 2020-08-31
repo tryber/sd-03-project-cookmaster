@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+</head>
+<body>
+    <div>
+        <form action="/recipes/search" method="GET">
+          <input data-testid="receita" name="filter" type="text" />
+          <button data-testid="buscar" type="submit">Buscar</button>
+        </form>
+      </div>
+      <% if (recipesFiltered) {%>
+      <div>
+        <% recipesFiltered.map(recipe => { %>
+        <div>
+          <p>Receita: <%= recipe.name %></p>
+          <p>Autor: <%= recipe.user %></p>
+          <a href="/recipeDetail/<%=recipe.id %>">Ver mais</a>
+        </div>
+        <%})%>
+      </div>
+      <% } %>
+</body>
+</html>

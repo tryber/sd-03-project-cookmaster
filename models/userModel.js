@@ -1,12 +1,5 @@
+const db = require('./DbConnection');
 /* Quando você implementar a conexão com o banco, não deve mais precisar desse objeto */
-const TEMP_USER = {
-  id: 'd2a667c4-432d-4dd5-8ab1-b51e88ddb5fe',
-  email: 'taylor.doe@company.com',
-  password: 'password',
-  name: 'Taylor',
-  lastName: 'Doe',
-};
-
 /* Substitua o código das funções abaixo para que ela,
 de fato, realize a busca no banco de dados */
 
@@ -15,7 +8,17 @@ de fato, realize a busca no banco de dados */
  * @param {string} email Email do usuário a ser encontrado
  */
 const findByEmail = async (email) => {
-  return TEMP_USER;
+  const usuarios = await db()
+  .then((data) => data.getTable('users')
+  .select()
+  .where('email = :email')
+  .bind('email', email)
+  .execute());
+
+  const user = usuarios.fetchAll();
+  return user.map(([id, email2, password, name, lastName]) => (
+  { id, email2, password, name, lastName }
+))[0];
 };
 
 /**
@@ -23,10 +26,44 @@ const findByEmail = async (email) => {
  * @param {string} id ID do usuário
  */
 const findById = async (id) => {
-  return TEMP_USER;
+  const usuarios = await db()
+  .then((data) => data.getTable('users')
+  .select()
+  .where('id = :id')
+  .bind('id', id)
+  .execute());
+  const user = usuarios.fetchAll();
+  return user.map(([id2, email, password, name, lastName]) => (
+  { id2, email, password, name, lastName }
+))[0];
 };
+
+
+const createuser = async (email, password, firstname, lastname) => {
+  db().then((data) => data.getTable('users')
+  .insert(['email', 'password', 'first_name', 'last_name'])
+  .values(email, password, firstname, lastname)
+  .execute());
+};
+
+const editUser = async (id, email, password, name, lastName) =>
+  db().then((db2) =>
+    db2
+      .getTable('users')
+      .update()
+      .set('email', email)
+      .set('password', password)
+      .set('first_name', name)
+      .set('last_name', lastName)
+      .where('id = :id')
+      .bind('id', id)
+      .execute()
+      .catch((error) => error),
+  );
 
 module.exports = {
   findByEmail,
   findById,
+  createUser: createuser,
+  editUser,
 };
