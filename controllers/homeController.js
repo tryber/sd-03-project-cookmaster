@@ -41,17 +41,19 @@ const editById = async (req, res) => {
   console.log(recipe);
 
   if (req.user.id !== recipe[0].userId)
-    res.redirect(`recipes/${id}`);
+    res.redirect('/');
 
   res.render('recipes/edit', { rec: recipe[0], user: req.user });
 };
 
-// const updateById = async (req, res) => {
-//   const { id } = req.params;
-//   const recipe = await homeModel.findRecipeById(id);
+const updateById = async (req, res) => {
+  const { id } = req.params;
+  const { name, ingredients, instructions } = req.body;
+  console.log(name, ingredients, instructions)
+  await homeModel.updateRecipe(id, name, ingredients, instructions);
 
-//   res.render('recipes/:id', { rec: recipe[0], user: req.user})
-// };
+  res.render(`recipes/${id}`)
+};
 
 module.exports = {
   listRecipes,
@@ -60,5 +62,5 @@ module.exports = {
   newRecipe,
   saveRecipe,
   editById,
-  // updateById,
+  updateById,
 };
