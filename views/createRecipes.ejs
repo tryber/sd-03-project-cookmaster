@@ -3,7 +3,6 @@
   <head>
   </head>
   <body>
-    <%- include('navbar', {user}); %>
     <h1>Nova Receita</h1>
     <div>
       <% if (message) {%>
@@ -12,7 +11,6 @@
       <div>
         <p>brasil acima de tudo</p>
         <form action="/recipes/new" method="POST">
-          <p name="<% user.name %> "><% user.name %></p>
           <label for="nameRecipe">Nome da Receita</label>
           <input required id="nameRecipe" data-testid="nome-receita" type="text" name="nameRecipe"/>
           <label for="ingredients">Ingredientes</label>
