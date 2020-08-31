@@ -6,13 +6,13 @@ const getAllRecipes = async () =>
       db
         .getTable('recipes')
         .select(['id', 'user', 'name'])
-        .execute()
+        .execute(),
     )
     .then((results) => results.fetchAll())
     .then((recipes) => recipes.map(([id, user, name]) => ({
       id,
       user,
-      name
+      name,
     })));
 
 module.exports = {
