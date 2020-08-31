@@ -12,13 +12,13 @@
   </head>
   <body>
 
-    <%- include('header', {user})%>
+    <%- include('../header', {user})%>
 
     <main>
       <div class="container" style="height:1500px;">
           <div class="row pt-5">
               <div class="col text-center">
-                <h1>Boas vindas ao Cookmaster <%= user && user.name %> !</h1>
+                <h1>Minhas receitas</h1>
               </div>
           </div>
           <div class="row pt-5">
@@ -26,10 +26,8 @@
               <h1>Receitas</h1>
             </div>
             <div class="col">
-              <a href="/recipes/search"><button data-testid="buscar-receita" class="btn btn-warning">Buscar Receita</button></a>
               <% if (user) {%>
                 <a href="/recipes/new"><button data-testid="nova-receita" class="btn btn-primary">Nova Receita</button></a>
-                <a href="/me/recipes"><button data-testid="minhas-receitas" class="btn btn-primary">Minhas Receitas</button></a>
               <% } %>
             </div>
         </div>

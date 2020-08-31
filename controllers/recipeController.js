@@ -9,6 +9,16 @@ const showAllRecipes = async (req, res) => {
   }
 };
 
+const showRecipesByUserId = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const recipes = await recipesModel.findRecipesByUserId(id);
+    return res.render('admin/userRecipes', { recipes, user: req.user });
+  } catch (error) {
+    return error;
+  }
+};
+
 const showRecipeDetails = async (req, res) => {
   try {
     const { id } = req.params;
@@ -113,4 +123,5 @@ module.exports = {
   updateRecipe,
   deleteForm,
   deleteRecipe,
+  showRecipesByUserId,
 };

@@ -22,6 +22,7 @@ app.get('/recipes/new', middlewares.auth(), (req, res) => {
   return res.render('admin/newRecipe', { user: req.user });
 });
 
+app.get('/me/recipes', middlewares.auth(), controllers.recipeController.showRecipesByUserId);
 app.get('/recipes/search', middlewares.auth(false), controllers.recipeController.searchRecipes);
 app.get('/recipes/:id/edit', middlewares.auth(), controllers.recipeController.recipePermission,
 controllers.recipeController.showRecipeToEdit);
