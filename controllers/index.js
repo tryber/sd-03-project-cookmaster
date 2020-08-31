@@ -4,6 +4,7 @@ const registerController = require('./registerController');
 const detailsController = require('./detailsController');
 const searchController = require('./searchController');
 const newRecipeController = require('./newRecipeController');
+const editRecipeController = require('./editRecipeController');
 
 module.exports = {
   userController,
@@ -12,4 +13,5 @@ module.exports = {
   detailsController,
   searchController,
   newRecipeController,
+  editRecipeController,
 };

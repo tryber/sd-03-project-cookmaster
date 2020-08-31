@@ -1,0 +1,8 @@
+     <% if (recipeDetails.ingredients) { %>
+        <ul>
+          <% ingredients.forEach(ingred => { %>
+              <li><%=ingred%></h4>
+              <button action="/removeIngredient", type="button">Excluir Ingrediente</button>
+          <% }) %>
+        </ul>
+      <% } %>

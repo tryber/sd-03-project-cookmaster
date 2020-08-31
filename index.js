@@ -24,10 +24,15 @@ app.post('/cadastro', controllers.registerController.register);
 
 app.get('/recipes/new', middlewares.auth(), controllers.newRecipeController.newRecipePage);
 app.post('/recipes/new', middlewares.auth(), controllers.newRecipeController.newRecipeInsert);
+// app.post('/addIngredient', controllers.newRecipeController.addIngredientContr);
+
+app.get('/recipes/:id', middlewares.auth(false), controllers.detailsController.recipe);
+app.post('/recipes/:id', middlewares.auth(false), controllers.editRecipeController.editRecipe);
+
+app.get('/recipes/:id/edit',  middlewares.auth(), controllers.editRecipeController.editRecipePage);
 
 app.get('/recipes/search', middlewares.auth(false), controllers.searchController.search);
 
-app.get('/recipes/:id', middlewares.auth(false), controllers.detailsController.recipe);
 
 app.get('/login', controllers.userController.loginForm);
 

@@ -18,7 +18,7 @@
     <h1><%=recipeDetails.name%></h1>
     <h4>Enviado por: <%=recipeDetails.user%></h4>
     <% if (userControl) { %>
-      <button data-testid="editar-receita"><a href="/editar-receita">Editar Receita</a></button>
+      <button data-testid="editar-receita"><a href="/recipes/<%=recipeDetails.id%>/edit">Editar Receita</a></button>
       <button data-testid="excluir-receita"><a href="/excluir-receita">Excluir Receita</a></button>
     <% } %>
     <section>
