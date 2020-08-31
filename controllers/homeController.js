@@ -48,9 +48,9 @@ const editById = async (req, res) => {
 
 const updateById = async (req, res) => {
   const { id } = req.params;
-  const { name, ingredients, instructions } = req.body;
-  console.log(name, ingredients, instructions)
-  await homeModel.updateRecipe(id, name, ingredients, instructions);
+  const { nome, inputListaIngredientes, modoPreparo } = req.body;
+  console.log(req.body);
+  await homeModel.updateRecipe(id, nome, inputListaIngredientes, modoPreparo);
 
   res.render(`recipes/${id}`)
 };
