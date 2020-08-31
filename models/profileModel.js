@@ -1,4 +1,5 @@
 const connect = require('./connect');
+const { nameIsValid } = require('../services/validateName')
 
 const getUserById = async (userId) => {
   const db = await connect();
@@ -28,11 +29,11 @@ const editProfile = async (id, email, userFirstName, userLastName, password) => 
   return true;
 };
 
-const nameIsValid = (name) => {
-  const nameRegEx = /^[a-zA-Z]+$/i;
-  if (!nameRegEx.test(name) || name.length < 3) return true;
-  return false;
-};
+// const nameIsValid = (name) => {
+//   const nameRegEx = /^[a-zA-Z]+$/i;
+//   if (!nameRegEx.test(name) || name.length < 3) return true;
+//   return false;
+// };
 
 const changesAreValid = (email, password, confirmPassword, name, lastName) => {
   const emailRegEx = /^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/;

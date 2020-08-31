@@ -1,4 +1,5 @@
 const connect = require('./connect');
+const { nameIsValid } = require('../services/validateName')
 
 const addUser = (email, password, name, lastName) =>
   connect().then((db) =>
@@ -10,11 +11,11 @@ const addUser = (email, password, name, lastName) =>
   );
 
 
-const nameIsValid = (name) => {
-  const nameRegEx = /^[a-zA-Z]+$/i;
-  if (!nameRegEx.test(name) || name.length < 3) return true;
-  return false;
-};
+// const nameIsValid = (name) => {
+//   const nameRegEx = /^[a-zA-Z]+$/i;
+//   if (!nameRegEx.test(name) || name.length < 3) return true;
+//   return false;
+// };
 
 const newUserIsValid = (email, password, confirmPassword, name, lastName) => {
   const emailRegEx = /^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/;
