@@ -46,7 +46,6 @@
   let botaoAdicionarIngrediente = document.getElementById('adicionarIngrediente');
   let inputEscondido = document.getElementById('inputListaIngredientes');
 
-  
   function saveIngredientsList() {
     let listaIngredientes = document.querySelectorAll('.ingr');
     let listaParaBanco = [];
@@ -106,7 +105,7 @@
 
   window.onload = () => {
     ingredientes = inputEscondido.value.split(',');
-    
+
     adicionarIngredientesALista(ingredientes);
   };
 </script>

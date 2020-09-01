@@ -38,10 +38,10 @@ const saveRecipe = async (req, res) => {
 const editById = async (req, res) => {
   const { id } = req.params;
   const recipe = await homeModel.findRecipeById(id);
-  console.log(recipe);
 
-  if (req.user.id !== recipe[0].userId)
+  if (req.user.id !== recipe[0].userId) {
     res.redirect('/');
+  };
 
   res.render('recipes/edit', { rec: recipe[0], user: req.user });
 };
@@ -52,7 +52,7 @@ const updateById = async (req, res) => {
   console.log(req.body);
   await homeModel.updateRecipe(id, nome, inputListaIngredientes, modoPreparo);
 
-  res.render(`recipes/${id}`)
+  res.render(`recipes/${id}`);
 };
 
 module.exports = {
