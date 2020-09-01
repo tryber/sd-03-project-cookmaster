@@ -61,9 +61,8 @@ const renderReturn = (message, res, value) => {
     });
 };
 
-const renderReturnEdit = (message, res, value, id) => {
+const renderReturnEdit = (message, res, value, user) => {
   if (value)
-    const user = await userModel.findByValue(id, 'id');
     return res.render('admin/myAccount', {
       message,
       user
@@ -73,21 +72,21 @@ const renderReturnEdit = (message, res, value, id) => {
 const signup = async (req, res, next) => {
   const { email, password, confirmPassword, name, lastName } = req.body;
   const valuesObject = Object.values(req.body).map((el) => !el).includes(true);
-  renderReturn('Preencha todos os dados', res, valuesObject);
+  renderReturn('Preencha todos os dados', res, valuesObject, req.user);
 
-  renderReturn('O email deve ter o formato email@mail.com', res, !emailRegex.test(email));
+  renderReturn('O email deve ter o formato email@mail.com', res, !emailRegex.test(email), req.user);
 
-  renderReturn('A senha deve ter pelo menos 6 caracteres', res, password.length < 6);
+  renderReturn('A senha deve ter pelo menos 6 caracteres', res, password.length < 6, req.user);
 
-  renderReturn('As senhas tem que ser iguais', res, password !== confirmPassword);
+  renderReturn('As senhas tem que ser iguais', res, password !== confirmPassword, req.user);
 
   renderReturn('O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-    res, name.length < 3 || validString(name));
+    res, name.length < 3 || validString(name), req.user);
 
   renderReturn('O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-    res, lastName.length < 3 || validString(lastName));
+    res, lastName.length < 3 || validString(lastName), req.user);
 
-  renderReturn('As senhas tem que ser iguais', res, password !== confirmPassword);
+  renderReturn('As senhas tem que ser iguais', res, password !== confirmPassword, req.user);
 
   await userModel.setUser(req.body);
   const user = await userModel.findByValue(email, 'email');
@@ -109,7 +108,7 @@ const myRecipes = async (req, res) => {
   return res.render('admin/myRecipes', { user: req.user, recipes });
 };
 
-const myAccount = async (req, res) => res.render('admin/myAccount', { user: req.user });
+const myAccount = async (req, res) => res.render('admin/myAccount', { user: req.user, message: null });
 
 const editAccount = async (req, res, next) => {
   const { id } = req.user;
@@ -133,7 +132,7 @@ const editAccount = async (req, res, next) => {
 
   await userModel.changeUser(req.body, id);
   const recipes = await cookModel.getAll();
-  let user = await userModel.findByValue(id, 'id');
+  const user = await userModel.findByValue(id, 'id');
   return res.render('admin/home', { user, recipes });
 };
 
