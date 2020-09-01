@@ -97,7 +97,8 @@ const deleteRecipeUser = async (req, res) => {
       user: req.user,
     });
   } catch (error) {
-    console.error('error');
+    // console.error('error');
+    return error;
   }
   return true;
 };
