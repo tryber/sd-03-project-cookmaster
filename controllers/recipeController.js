@@ -61,8 +61,10 @@ const addRecipe = async (req, res) => {
 
 const updateRecipe = async (req, res) => {
   const { name, ingredients, instructions } = req.body;
+  const { id } = req.params;
+  console.log(req.params)
   try {
-    await recipeModel.updateRecipe(req.user.id, name, ingredients, instructions);
+    await recipeModel.updateRecipe(id, name, ingredients, instructions);
     res.redirect('/');
   } catch (e) {
     console.error(e);
@@ -109,6 +111,12 @@ const renderSearch = async (req, res) => {
   }
 };
 
+const renderMyRecipes = async (req, res) => {
+  const recipes = await recipeModel.getRecipeByUserId(req.user.id);
+
+  res.status(200).render('me/recipes', { recipes, message: null, user: req.user });
+}
+
 module.exports = {
   listRecipes,
   recipeDetails,
@@ -119,4 +127,5 @@ module.exports = {
   updateRecipe,
   renderDeleteRecipeForm,
   deleteRecipe,
+  renderMyRecipes,
 };

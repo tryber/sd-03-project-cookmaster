@@ -25,8 +25,8 @@
         </ul>
       </div>
     </nav>
-    <% console.log(recipe) %> <% if (recipe.userId === user.id) { %>
-    <form action=<%=`/recipes/${user.id}`%> method="POST" name="recipeForm" class="col s12 m6 offset-m3">
+    <% if (recipe.userId === user.id) { %>
+    <form action=<%=`/recipes/${recipe.id}`%> method="POST" name="recipeForm" class="col s12 m6 offset-m3">
       <h3>Editar Receita</h3>
       <div class="row">
         <div class="input-field col s12">
@@ -47,9 +47,11 @@
           </div>
           <% } %>
         </div>
-        <ul id="ingredientList">
+        <div>
+          <ul id="ingredientList">
 
-        </ul>
+          </ul>
+        </div>
         <div class="input-field col s12">
           <label for="ingredientInput">Adicionar ingrediente: </label>
           <input type="text" name="ingredients" id="ingredientInput" data-testid="ingredientes" />
@@ -122,7 +124,6 @@
       const ingredients = new Set();
       const list = document.getElementById('ingredientList');
       '<%= recipe.ingredients %>'.split(',').forEach((ingredient) => {
-        console.log(ingredient);
         const li = document.createElement('li');
         li.innerHTML = `<span>${ingredient}</span>
           <button
@@ -133,10 +134,10 @@
           </button>`;
         li.children[1].onclick = () => {
           li.remove();
-          ingredients.delete(ingredientInput.value);
+          ingredients.delete(li.children[0].textContent);
         };
         list.appendChild(li);
-        ingredients.add(ingredient)
+        ingredients.add(ingredient);
       });
 
       const addIngredient = () => {
@@ -153,7 +154,7 @@
 
         li.children[1].onclick = () => {
           li.remove();
-          ingredients.delete(ingredientInput.value);
+          ingredients.delete(li.children[0].textContent);
         };
 
         list.appendChild(li);

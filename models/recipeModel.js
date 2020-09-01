@@ -26,6 +26,21 @@ const getRecipeById = async (id) => {
   return name ? { id, userId, user, name, ingredients, instructions } : null;
 };
 
+const getRecipeByUserId = async (userId) => {
+  const db = await connect();
+
+  const results = await db
+    .getTable('recipes')
+    .select(['id', 'user', 'name'])
+    .where('user_id = :userId')
+    .bind('userId', userId)
+    .execute();
+
+  const recipes = await results.fetchAll();
+
+  return recipes.map(([id, user, name]) => ({ id, user, name }));
+};
+
 const getRecipeByName = async (input) => {
   const db = await connect();
 
@@ -90,4 +105,5 @@ module.exports = {
   updateRecipe,
   deleteRecipeById,
   authUser,
+  getRecipeByUserId,
 };

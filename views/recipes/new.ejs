@@ -136,7 +136,7 @@
 
         li.children[1].onclick = () => {
           li.remove();
-          ingredients.delete(ingredientInput.value);
+          ingredients.delete(li.children[0].textContent);
         };
 
         list.appendChild(li);
