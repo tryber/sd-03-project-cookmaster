@@ -22,7 +22,7 @@ const registerForm = (req, res) =>
   });
 
 const validateEmail = (email, res) => {
-  if (!email || !email.match(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/))
+  if (!email || !email.match(/^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/))
     return res.render('admin/register', {
       message: 'O email deve ter o formato email@mail.com',
       redirect: null,
@@ -71,7 +71,7 @@ const register = rescue(async (req, res) => {
 
   res.render('admin/register', {
     message: 'Cadastro efetuado com sucesso!',
-    redirect: null
+    redirect: null,
   });
 });
 
