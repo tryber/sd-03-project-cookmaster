@@ -1,4 +1,5 @@
 const homeModel = require('../models/homeModel');
+const userModel = require('../models/userModel');
 
 const listRecipes = async (req, res) => {
   const recipes = await homeModel.getAll();
@@ -54,6 +55,24 @@ const updateById = async (req, res) => {
   res.render(`recipes/${id}`);
 };
 
+const consultDelete = async (req, res) => {
+  const { id } = req.params;
+  res.render('recipes/delete', { message: null, recId: id });
+};
+
+const confirmDelete = async (req, res) => {
+  const { id } = req.params;
+  const { senha } = req.body;
+  const { password } = await userModel.findById(req.user.id);
+
+  if (senha !== password) {
+    return res.render('recipes/delete', { message: 'Senha incorreta.', recId: id });
+  }
+
+  await homeModel.deleteRecipe(id);
+  res.redirect('/');
+};
+
 module.exports = {
   listRecipes,
   checkById,
@@ -62,4 +81,6 @@ module.exports = {
   saveRecipe,
   editById,
   updateById,
+  consultDelete,
+  confirmDelete,
 };
