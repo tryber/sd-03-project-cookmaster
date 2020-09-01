@@ -7,6 +7,18 @@ const setUser = async (userValues) =>
       .values(userValues.email, userValues.password, userValues.name, userValues.lastName)
       .execute());
 
+const changeUser = async ({ email, password, name, lastName }, id) =>
+connect()
+  .then((db) => db.getTable('users')
+  .update()
+  .set('email', email)
+  .set('password', password)
+  .set('first_name', name)
+  .set('last_name', lastName)
+  .where('id = :id')
+  .bind('id', id)
+  .execute());
+
 const findByValue = async (value, param) =>
   connect()
     .then((db) =>
@@ -27,4 +39,5 @@ const findByValue = async (value, param) =>
 module.exports = {
   findByValue,
   setUser,
+  changeUser,
 };

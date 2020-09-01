@@ -18,6 +18,8 @@ app.use('/recipes', routeRecipes);
 app.get('/', middlewares.auth(false), controllers.cookController.listCook);
 
 app.get('/me/recipes', middlewares.auth(), controllers.userController.myRecipes);
+app.get('/me/edit', middlewares.auth(), controllers.userController.myAccount);
+app.post('/me', middlewares.auth(), controllers.userController.editAccount);
 app.get('/admin', middlewares.auth(), controllers.cookController.admin);
 
 app.get('/login', controllers.userController.loginForm);
