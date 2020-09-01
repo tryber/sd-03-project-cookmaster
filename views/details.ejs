@@ -10,9 +10,9 @@
       <h4>Cookmaster</h4>
       <% if (user) { %>
         <span><%=user.firstName%></span><span> <%=user.lastName%></span>
-        <button data-testid="logout"><a href="/logout">>Logout</a></button>
+        <a href="/logout"><button data-testid="logout">Logout</button></a>
       <% } else {%>
-        <button data-testid="login"><a href="/login">>Login</a></button>
+        <a href="/login"><button data-testid="login">Login</button></a>
       <% } %>
     </header>
     <h1><%=recipeDetails.name%></h1>
