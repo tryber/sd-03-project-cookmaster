@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <h1>Nova Receita</h1>
+    <div>
+      <% if (message) {%>
+        <div class="message"><%= message %></div>
+        <% } %>
+      <div>
+        <p>brasil acima de tudo</p>
+        <form action="/recipes/new" method="POST">
+          <label for="nameRecipe">Nome da Receita</label>
+          <input required id="nameRecipe" data-testid="nome-receita" type="text" name="nameRecipe"/>
+          <label for="ingredients">Ingredientes</label>
+          <ul id="listIngredients"></ul>
+          <input required id="ingredients" data-testid="ingredientes" type="text" name="ingredients" />
+          <button id="insertDom" type="submit" data-testid="adicionar-ingrediente" onclick="createViewIngredients()">Adicionar Ingrediente</button>
+          <label for="instructions">Modo de Preparo</label>
+          <input required id="instructions" data-testid="modo-de-preparo" name="instructions" />
+          <button data-testid="postar-receita" type="submit">Salva Receita</button>
+          <a href="/recipes/1">Vizualizar Receitas</a>
+        </form>
+        <script>
+          let ingredients = [];
+
+          function deleteIngredients() {
+            const list = document.getElementById('ingredientsID').remove();
+          }
+
+          function createViewIngredients() {
+            let li = document.createElement('li');
+            li.id = 'ingredientsID'
+            const ul = document.getElementById('listIngredients');
+            let inputIngredients = document.getElementById('ingredients');
+            li.innerHTML = `${inputIngredients.value}
+            <button
+              type="submit"
+              onclick="deleteIngredients()"
+            >Excluir Ingredientes
+            </button>`;
+            ul.appendChild(li);
+            ingredients.push(inputIngredients.value);
+          }
+        </script>
+    </div>
+  </body>
+</html>

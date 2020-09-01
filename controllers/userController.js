@@ -2,6 +2,8 @@ const { v4: uuid } = require('uuid');
 const { SESSIONS } = require('../middlewares/auth');
 
 const userModel = require('../models/userModel');
+// regex doado pelo Diego rafael t3
+const validEmailRegEx = /^[A-Z0-9_'%=+!`#~$*?^{}&|-]+([.][A-Z0-9_'%=+!`#~$*?^{}&|-]+)*@[A-Z0-9-]+(\.[A-Z0-9-]+)+$/i;
 
 const loginForm = (req, res) => {
   const { token = '' } = req.cookies || {};
@@ -16,7 +18,6 @@ const loginForm = (req, res) => {
 
 const login = async (req, res, next) => {
   const { email, password, redirect } = req.body;
-
   if (!email || !password)
     return res.render('admin/login', {
       message: 'Preencha o email e a senha',
@@ -24,6 +25,7 @@ const login = async (req, res, next) => {
     });
 
   const user = await userModel.findByEmail(email);
+
   if (!user || user.password !== password)
     return res.render('admin/login', {
       message: 'Email ou senha incorretos',
@@ -34,7 +36,7 @@ const login = async (req, res, next) => {
   SESSIONS[token] = user.id;
 
   res.cookie('token', token, { httpOnly: true, sameSite: true });
-  res.redirect(redirect || '/admin');
+  res.redirect(redirect || '/');
 };
 
 const logout = (req, res) => {
@@ -43,8 +45,35 @@ const logout = (req, res) => {
   res.render('admin/logout');
 };
 
+const registerForm = (_req, res) => {
+  res.render('register', { message: null });
+};
+
+const register = async (req, res) => {
+  const { password, email, last_name, confirPassword, first_name } = req.body;
+  if (!validEmailRegEx.test(email)) {
+    res.render('register', { message: 'O email deve ter o formato email@mail.com' });
+  }
+  if (password.length < 5) {
+    res.render('register', { message: 'A senha deve ter pelo menos 6 caracteres' });
+  }
+  if (password !== confirPassword) {
+    res.render('register', { message: 'As senhas tem que ser iguais' });
+  }
+  if (first_name.length < 3) {
+    res.render('register', { message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' });
+  }
+  if (last_name.length < 3) {
+    res.render('register', { message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' });
+  }
+  await userModel.registerInBank(req.body);
+  return res.render('register', { message: 'Cadastro efetuado com sucesso!' });
+};
+
 module.exports = {
   login,
   loginForm,
   logout,
+  register,
+  registerForm,
 };
