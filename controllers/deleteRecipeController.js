@@ -12,7 +12,7 @@ const deleteRecipe = async (req, res) => {
     return res.redirect('/');
   }
 
-  return res.render('deleteRecipe', { message: 'Senha incorreta.', id, user });
+  return res.render('deleteRecipe', { message: 'Senha Incorreta.', id, user });
 };
 
 const deleteRecipePage = (req, res) => {

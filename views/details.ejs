@@ -20,8 +20,8 @@
     <h4>Enviado por: <%=recipeDetails.user%></h4>
 
     <% if (userControl) { %>
-      <a href="/recipes/<%=recipeDetails.id%>/edit">
-        <button data-testid="editar-receita">Editar Receita</button>
+      <a data-testid="editar-receita" href="/recipes/<%=recipeDetails.id%>/edit">
+        <button>Editar Receita</button>
       </a>
 
       <a data-testid="excluir-receita" href="/recipes/<%=recipeDetails.id%>/delete">
