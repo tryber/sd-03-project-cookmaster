@@ -19,7 +19,7 @@
     <h4>Enviado por: <%=recipeDetails.user%></h4>
     <% if (userControl) { %>
       <button data-testid="editar-receita"><a href="/recipes/<%=recipeDetails.id%>/edit">Editar Receita</a></button>
-      <button data-testid="excluir-receita"><a href="/recipes/<%=recipeDetails.id%>/delete">Excluir Receita</a></button>
+      <button><a data-testid="excluir-receita" href="/recipes/<%=recipeDetails.id%>/delete">Excluir Receita</a></button>
     <% } %>
     <section>
       <% recipeDetails.ingredients.forEach(ingred => { %>
