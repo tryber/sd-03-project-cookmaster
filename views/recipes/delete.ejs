@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Cookmaster - Login</title>
+  </head>
+  <body>
+    <div class="row">
+      <h3>Confirme a exclusão da receita</h3>
+      <form action=<%=`/recipes/${user.id}/delete`%> method="POST" class="col s12 m6 offset-m3">
+        <div class="row">
+          <div class="input-field col s12">
+            <label for="passwordInput">Senha: </label>
+            <input type="password" name="password" id="passwordInput" data-testid="senha" />
+          </div>
+        </div>
+        <div class="input-field s12 m6 offset-m3">
+          <div class="row">
+            <div class="col s4 left">
+              <a class="validate waves-effect waves-light btn" href="/" data-testid="cancelar">Cancelar</a>
+            </div>
+            <div class="col s4 right">
+              <button class="validate waves-effect waves-light btn" type="submit" data-testid="confirmar">Confirmar</button>
+              <% if (message) {%>
+                <div class="message">
+                  <span class="helper-text" data-error="wrong" data-success="right"><%= message %></span>
+                </div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </body>
+</html>

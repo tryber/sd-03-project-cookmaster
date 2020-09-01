@@ -48,14 +48,7 @@
           <% } %>
         </div>
         <ul id="ingredientList">
-          <% recipe.ingredients.split(',').forEach((ingredient) => { %>
-          <li>
-            <span><%= `${ingredient}` %></span>
-            <button class="validate waves-effect waves-light btn" type="button">
-              Excluir Ingrediente
-            </button>
-          </li>
-          <% }) %>
+
         </ul>
         <div class="input-field col s12">
           <label for="ingredientInput">Adicionar ingrediente: </label>
@@ -126,11 +119,28 @@
     <% } %>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
-      let ingredients = '<%= recipe.ingredients %>';
+      const ingredients = new Set();
+      const list = document.getElementById('ingredientList');
+      '<%= recipe.ingredients %>'.split(',').forEach((ingredient) => {
+        console.log(ingredient);
+        const li = document.createElement('li');
+        li.innerHTML = `<span>${ingredient}</span>
+          <button
+            class="validate waves-effect waves-light btn"
+            type="button"
+          >
+            Excluir Ingrediente
+          </button>`;
+        li.children[1].onclick = () => {
+          li.remove();
+          ingredients.delete(ingredientInput.value);
+        };
+        list.appendChild(li);
+        ingredients.add(ingredient)
+      });
 
       const addIngredient = () => {
         const li = document.createElement('li');
-        const list = document.getElementById('ingredientList');
         const ingredientInput = document.getElementById('ingredientInput');
 
         li.innerHTML = `<span>${ingredientInput.value}</span>
@@ -141,15 +151,18 @@
             Excluir Ingrediente
           </button>`;
 
-        li.children[1].onclick = () => li.remove();
+        li.children[1].onclick = () => {
+          li.remove();
+          ingredients.delete(ingredientInput.value);
+        };
 
         list.appendChild(li);
-        ingredients = `${ingredients},${ingredientInput.value}`
+        ingredients.add(ingredientInput.value);
         ingredientInput.value = '';
       };
       const submitRecipe = () => {
         const ingredientInput = document.getElementById('ingredientInput');
-        ingredientInput.value = ingredients;
+        ingredientInput.value = [...ingredients].join();
         document.recipeForm.submit();
       };
     </script>

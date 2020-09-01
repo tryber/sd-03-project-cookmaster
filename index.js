@@ -26,6 +26,8 @@ app.get('/recipes/new', middlewares.auth(false), controllers.recipeController.re
 app.get('/recipes/search', middlewares.auth(false), controllers.recipeController.renderSearch);
 app.get('/recipes/:id', middlewares.auth(false), controllers.recipeController.recipeDetails);
 app.post('/recipes/:id', middlewares.auth(false), controllers.recipeController.updateRecipe);
+app.get('/recipes/:id/delete', middlewares.auth(false), controllers.recipeController.renderDeleteRecipeForm);
+app.post('/recipes/:id/delete', middlewares.auth(false), controllers.recipeController.deleteRecipe);
 app.get('/recipes/:id/edit', middlewares.auth(false), controllers.recipeController.renderEditRecipeForm);
 
 app.get('/login', controllers.userController.loginForm);

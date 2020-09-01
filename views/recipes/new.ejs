@@ -119,7 +119,7 @@
     </form>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
-      let ingredients = [];
+      const ingredients = new Set();
 
       const addIngredient = () => {
         const li = document.createElement('li');
@@ -134,15 +134,18 @@
             Excluir Ingrediente
           </button>`;
 
-        li.children[1].onclick = () => li.remove();
+        li.children[1].onclick = () => {
+          li.remove();
+          ingredients.delete(ingredientInput.value);
+        };
 
         list.appendChild(li);
-        ingredients = `${ingredients},${ingredientInput.value}`
+        ingredients.add(ingredientInput.value);
         ingredientInput.value = '';
       };
       const submitRecipe = () => {
         const ingredientInput = document.getElementById('ingredientInput');
-        ingredientInput.value = ingredients;
+        ingredientInput.value = [...ingredients].join();
         document.recipeForm.submit();
       };
     </script>
