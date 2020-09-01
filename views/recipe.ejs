@@ -7,37 +7,52 @@
   </head>
   <header>Cookmaster
     <nav>
+      <%if (!user) {%>
+        <a href="/login" data-testid="login">Login</a>
+      <%}%>
+      <%if (user) {%>
+        <a href="/logout" data-testid="logout">Logout</a>
+      <%}%>
     </nav>
   </header>
   <body>
     <div>
-      <div>
-        <h1><%= recipe[3] %></h1>
-      </div>
-      <div>
-        <h2>Enviada por <%= recipe[2] %></h2>
-      </div>
-      <%if (user && user.id === recipe[0]) {%>
-        <button data-testid="editar-receita" onclick="window.location.href='/recipes/<%=id%>/edit';">
-          Editar Receita
-        </button>
-        <button data-testid="excluir-receita" onclick="window.location.href='/recipes/<%=id%>/delete';">
-          Excluir Receita
-        </button>
-      <%}%>
-      <% if (recipe) {%>
+      <%if (!recipe) {%>
+        <div>
+          Nenhuma receita foi encontrada! :(
+        </div>
+      <%} else {%>
         <div>
           <div>
-            <h2>Ingredientes</h2>
-            <p><%= recipe[4] %></p>
-            <h2>Modo de Preparo</h2>
-            <p><%= recipe[5] %></p>
+            <h1><%= recipe[3] %></h1>
+          </div>
+          <div>
+            <h2>Enviada por <%= recipe[2] %></h2>
+          </div>
+          <%if (user && user.id === recipe[0]) {%>
+            <button data-testid="editar-receita" onclick="window.location.href='/recipes/<%=id%>/edit';">
+              Editar Receita
+            </button>
+            <button data-testid="excluir-receita" onclick="window.location.href='/recipes/<%=id%>/delete';">
+              Excluir Receita
+            </button>
+          <%}%>
+          <% if (recipe) {%>
+            <div>
+              <div>
+                <h2>Ingredientes</h2>
+                <p><%= recipe[4] %></p>
+                <h2>Modo de Preparo</h2>
+                <p><%= recipe[5] %></p>
+              </div>
+            </div>
+            <% } %>
+          <div>
+            <button onclick="window.location.href='/';">Voltar</button>
+            <a>Requisito 6</a>
           </div>
         </div>
-        <% } %>
-      <div>
-        <button onclick="window.location.href='/';">Voltar</button>
-      </div>
+      <%}%>
     </div>
   </body>
 </html>

@@ -5,6 +5,12 @@ const showResume = async (req, res) => {
   return res.render('home', { listResume, message: null, user: req.user });
 };
 
+const showResumeMine = async (req, res) => {
+  const { id } = req.user;
+  const listResume = await recipeModel.resumeAllRecipesMine(id);
+  return res.render('recipesMine', { listResume, message: null, user: req.user });
+};
+
 const showRecipe = async (req, res) => {
   const user = req.user;
   const { id } = req.params;
@@ -60,4 +66,5 @@ module.exports = {
   insertRecipe,
   ableToUpdateRecipe,
   updateRecipe,
+  showResumeMine,
 };

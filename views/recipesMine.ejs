@@ -18,16 +18,13 @@
   </header>
   <body>
     <div>
-      <h1>Receitas<h1>
+      <h1>Minhas Receitas<h1>
       <%if (user) {%>
         <button data-testid="nova-receita" onclick="window.location.href='/recipes/new';">Nova Receita</button>
       <%}%>
       <button data-testid="buscar-receita" onclick="window.location.href='/recipes/search';">
         Buscar Receita
       </button>
-      <%if (user) {%>
-        <button data-testid="minhas-receitas" type="button" onclick="window.location.href='/me/recipes';">Minhas Receitas</button>
-      <%}%>
     </div>
     <% if (listResume) {%>
       <div>

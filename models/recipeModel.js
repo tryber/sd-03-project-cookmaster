@@ -7,6 +7,18 @@ const resumeAllRecipes = () =>
   .then((recipes) => recipes.map(([name, user, id]) => ({ name, user, id })))
 ;
 
+const resumeAllRecipesMine = (id) =>
+  connect()
+  .then((db) => db.getTable('recipes')
+    .select(['name', 'user', 'user_id'])
+    .where('user_id = :id')
+    .bind('id', id)
+    .execute()
+  )
+  .then((results) => results.fetchAll())
+  .then((recipes) => recipes.map(([name, user, id]) => ({ name, user, id })))
+;
+
 const getAllRecipes = () =>
   connect()
   .then((db) => db.getTable('recipes').select(['id', 'user', 'name', 'ingredients', 'instructions']).execute())
@@ -71,6 +83,7 @@ const insertRecipe = (userId, user, name, ingredients, instructions) =>
 
 module.exports = {
   resumeAllRecipes,
+  resumeAllRecipesMine,
   getAllRecipes,
   getRecipe,
   searchRecipe,
