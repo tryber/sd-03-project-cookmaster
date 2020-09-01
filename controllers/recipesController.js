@@ -29,7 +29,7 @@ const createRecipes = async (req, res) => {
   const { body, user } = req;
   try {
     const recipe = await recipeModel.postRecipes(body, user);
-    res.render('createRecipes', { recipe, message: 'Receita cadastrada com sucesso', id: 1 });
+    return res.render('createRecipes', { recipe, message: 'Receita cadastrada com sucesso', id: 1 });
   } catch (err) {
     console.error(err);
   }
@@ -67,10 +67,21 @@ const deleteRecipe = async (req, res) => {
       return res.redirect('/');
     }
   } catch (err) {
-    console.error(err);
+    return console.error(err);
   }
-  return true;
 };
+
+const yourRecipes = async (req, res) => {
+  const { user } = req;
+  const { id } = user;
+
+  try {
+    const allRecipes = await recipeModel.findAllRecipesById(id);
+    return res.render('yourRecipes', { allRecipes, user });
+  } catch(e) {
+    return console.error(e);
+  }
+}
 
 module.exports = {
   recipes,
@@ -81,4 +92,5 @@ module.exports = {
   editRecipe,
   deleteRecipe,
   deleteRecipeForm,
+  yourRecipes,
 };

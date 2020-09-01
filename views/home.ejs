@@ -9,6 +9,7 @@
     <h1>Receitas</h1>
     <% if (user) { %>
     <button onclick="window.location.pathname='/recipes/new'" data-testid="nova-receita">
+      <button type="button" data-testid="minhas-receitas" onclick="window.location.pathname='/me/recipes'">Minhas Receitas</button>
       Nova Receita
     </button>
     <% } %>

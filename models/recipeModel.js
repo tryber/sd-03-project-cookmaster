@@ -74,10 +74,6 @@ const editRecipesBank = async (id) => {
     .bind('id', id)
     .execute();
 
-  // const editSucess = results.fetchAll();
-  // return editSucess ? editSucess.map(([name, ingredients, instructions]) => ({
-  //   name, ingredients, instructions,
-  // })) : null;
   return results;
 };
 
@@ -105,6 +101,21 @@ const getPasswordToDelete = async (id) => {
   return passwordBank;
 };
 
+const findAllRecipesById = async (idUser) => {
+  const db = await connection();
+  const results = await db.getTable('recipes')
+    .select()
+    .where('user_id = :user_id')
+    .bind('user_id', idUser)
+    .execute();
+
+  const findAllRecipes = results.fetchAll();
+  console.log('find', findAllRecipes)
+  return findAllRecipes ? findAllRecipes.map(([id, userId, user, name, ingredients, instructions]) => ({
+    id, instructions, ingredients, userId, name, user,
+  })) : null;
+};
+
 module.exports = {
   getRecipes,
   getRecipesByQuery,
@@ -113,4 +124,5 @@ module.exports = {
   editRecipesBank,
   deleteRecipeBank,
   getPasswordToDelete,
+  findAllRecipesById,
 };
