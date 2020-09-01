@@ -19,7 +19,7 @@ const listRecipesById = async (req, res) => {
     const { user } = req;
     const recipe = await recipesModal.findRecipesById(req.params.id);
 
-    return res.render('details', { recipe, user });
+    return res.render('details', { recipe: recipe[0], user });
   } catch (error) {
     return error;
   }
@@ -52,15 +52,14 @@ const newRecipes = async (req, res) => {
 };
 
 const formEditRecipe = async (req, res) => {
-  const { user } = req;
   const { id } = req.user;
-  const recipe = await recipesModal.findRecipesById(id);
+  const recipe = await recipesModal.findRecipesById(req.params.id);
 
-  const { userId, recipeId } = await recipe;
+  const { userId, recipeId } = await recipe[0];
 
   if (userId !== id) return res.redirect(`/recipes/${recipeId}`);
 
-  return res.render('editRecipe', { recipe, user });
+  return res.render('editRecipe', { recipe: recipe[0], user: req.user });
 };
 
 const editRecipe = async (req, res) => {
@@ -73,10 +72,10 @@ const editRecipe = async (req, res) => {
 
 //conferência do cód com PR da Carolis.
 const getUserRecipe = async (req, res) => {
-  const { id, user } = req.user;
-  const recipes = await recipesModal.findRecipesById(id);
+  const { id } = req.user;
+  const recipe = await recipesModal.findRecipesById(id);
 
-  return res.render('recipeUser', { recipes, user });
+  return res.render('recipeUser', { recipe: recipe[0], user: req.user });
 };
 
 module.exports = {
