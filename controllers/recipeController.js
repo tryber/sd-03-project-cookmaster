@@ -49,14 +49,6 @@ const addRecipe = async (req, res) => {
   );
 
   res.redirect('/');
-
-  // res.status(201).render('recipes/new', {
-  //   user: req.user,
-  //   nameMessage: null,
-  //   ingredientsMessage: null,
-  //   instructionsMessage: null,
-  //   successMessage: 'Receita adicionada com sucesso!',
-  // });
 };
 
 const updateRecipe = async (req, res) => {
