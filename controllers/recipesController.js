@@ -71,7 +71,7 @@ const editRecipe = async (req, res) => {
 };
 
 const getUserRecipe = async (req, res) => {
-  //conferência do cód com PR da Carolis.
+  //  conferência do cód com PR da Carolis.
   const { id } = req.user;
   const recipe = await recipesModal.findRecipesById(id);
 
