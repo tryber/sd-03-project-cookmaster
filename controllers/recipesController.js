@@ -100,7 +100,6 @@ const deleteRecipeUser = async (req, res) => {
     // console.error('error');
     return error;
   }
-  return true;
 };
 
 module.exports = {
