@@ -20,7 +20,7 @@ const getAllUsers = async () => {
 
 const findByEmail = async (email) => {
   const users = await getAllUsers();
-  
+
   const searchedUser = users.filter((user) => user.email = email);
 
   return searchedUser;
@@ -28,8 +28,8 @@ const findByEmail = async (email) => {
 
 const findById = async (id) => {
   const users = await getAllUsers();
-  
-  const searchedUser = users.filter((user) => String(user.id) = String(id));
+
+  const searchedUser = users.filter((user) => parseInt(user.id) = parseInt(id));
 
   return searchedUser;
 };

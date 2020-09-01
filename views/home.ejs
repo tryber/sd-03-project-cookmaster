@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,19 +8,22 @@
 </head>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
   body {
     background-color: whitesmoke;
     font-family: 'Roboto Slab', serif;
     margin: 0;
   }
+
   .main-content {
     align-items: center;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
   }
+
   .recipes-div {
-    background-color: rgb(255 , 180 , 162);
+    background-color: rgb(255, 180, 162);
     height: 150px;
     margin: 20px 40px;
     padding: 20px;
@@ -32,7 +36,7 @@
   <h1>Receitas</h1>
   <button data-testid='buscar-receita'>Buscar Receitas</button>
   <% if (user) {%>
-    <button data-testid='nova-receita'>Nova Receita</button>
+  <button data-testid='nova-receita'>Nova Receita</button>
   <% } %>
   <div class='main-content'>
     <% if (recipes) {%>
