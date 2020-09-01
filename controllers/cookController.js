@@ -94,7 +94,7 @@ const recipeToDelete = async (req, res) => {
   if (recipesDetails.userId !== req.user.id) {
     return res.redirect(`/recipes/${id}`);
   }
-  return res.render('recipesDelete', { user: req.user, recipesDetails, err: false });
+  return res.render('recipesDelete', { user: req.user, recipesDetails, message: null });
 };
 
 const deleteRecipe = async (req, res) => {
@@ -103,7 +103,7 @@ const deleteRecipe = async (req, res) => {
   const recipesDetails = await cookModel.getCookieById(id);
   const user = await userModel.findByValue(req.user.id, 'id');
   if (password !== user.password) {
-    return res.render('recipesDelete', { user: req.user, recipesDetails, id, err: true });
+    return res.render('recipesDelete', { user: req.user, recipesDetails, id, message: 'Senha incorreta.' });
   }
   await cookModel.deleteCookie(id);
   const recipes = await cookModel.getAll();

@@ -6,8 +6,8 @@
     <title>Cookmaster - Recipes</title>
   </head>
   <body>
-    <% if(err) {%>
-      <h1>Senha incorreta.</h1>
+    <% if(message) {%>
+      <h1><%=message%></h1>
     <%}%>
     <form action="/recipes/<%= recipesDetails.id %>/delete" method="POST">
       <h2>Confirme a exclusão da receita</h2>
