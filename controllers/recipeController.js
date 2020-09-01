@@ -24,10 +24,10 @@ const searchRecipe = async (req, res) => {
 
 const insertRecipe = async (req, res) => {
   const user = req.user;
-  const {id, name, lastName } = req.user;
+  const { id, name, lastName } = req.user;
   const { recipeNew, secretList, howToDo } = req.body;
   const fullName = `${name} ${lastName}`;
-  const result = await recipeModel.insertRecipe( id, fullName, recipeNew, secretList, howToDo );
+  const result = await recipeModel.insertRecipe(id, fullName, recipeNew, secretList, howToDo);
   return res.render('recipeNew', { message: null, user, result });
 };
 
@@ -40,8 +40,8 @@ const updateRecipe = async (req, res) => {
   if (!user || user.id !== recipe[1]) {
     return res.redirect(`/recipes/${id}`);
   }
-  console.log('Receita: ', recipe);
-  console.log('Usuário: ', user);
+  // console.log('Receita: ', recipe);
+  // console.log('Usuário: ', user);
   return res.render('deleteRecipe', { message: 'Receita alterada com sucesso!', user, recipe });
 };
 

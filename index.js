@@ -1,5 +1,5 @@
 require('dotenv/config');
-const recipeModel = require('./models/recipeModel'); // provisoriamente aqui para testes
+// const recipeModel = require('./models/recipeModel'); // provisoriamente aqui para testes
 
 const express = require('express');
 const bodyParser = require('body-parser');
