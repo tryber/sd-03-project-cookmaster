@@ -7,13 +7,13 @@ const resumeAllRecipes = () =>
   .then((recipes) => recipes.map(([name, user, id]) => ({ name, user, id })))
 ;
 
-const resumeAllRecipesMine = (id) =>
+const resumeAllRecipesMine = (userId) =>
   connect()
   .then((db) => db.getTable('recipes')
     .select(['name', 'user', 'user_id'])
     .where('user_id = :id')
-    .bind('id', id)
-    .execute()
+    .bind('id', userId)
+    .execute(),
   )
   .then((results) => results.fetchAll())
   .then((recipes) => recipes.map(([name, user, id]) => ({ name, user, id })))
