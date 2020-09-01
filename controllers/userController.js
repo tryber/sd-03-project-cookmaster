@@ -44,14 +44,22 @@ const logout = (req, res) => {
   res.redirect(redirect || '/');
 };
 
-const register = (req, res) => {
-  console.log('ovo registrar o user', req);
-  console.log('ovo renderizar o ejs', res);
+const registerForm = (req, res) => {
+  return res.render('admin/register', {
+    message: null,
+    redirect: null,
+  });
+};
+
+const register = (req, res) => {  
+  const validation = userModel.validateUser(req.body);
+  console.log(validation);
 };
 
 module.exports = {
   login,
   loginForm,
   logout,
+  registerForm,
   register,
 };

@@ -30,9 +30,12 @@ app.get('/logout', middlewares.auth(true), (req, res) => {
   return controllers.userController.logout(req, res);
 });
 
+app.get('/register', (req, res) => {
+  return controllers.userController.registerForm(req, res);
+});
+
 app.post('/login', controllers.userController.login);
 
-// requisição post para cadastrar usuário
 app.post('/register', middlewares.auth(false), (req, res) => {
   return controllers.userController.register(req, res);
 });
