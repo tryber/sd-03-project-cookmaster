@@ -27,14 +27,14 @@ const findByEmail = async (email) => {
 };
 
 const findById = async (id) => {
-  connect()
+  connection()
     .then((db) =>
       db
         .getTable('users')
         .select(['id', 'email', 'password', 'first_name', 'last_name'])
         .where('id = :id')
         .bind('id', id)
-        .execute()
+        .execute(),
     )
     .then((results) => results.fetchAll()[0])
     .then(([name, age] = []) => (name ? { name, age } : null))
