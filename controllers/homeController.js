@@ -33,7 +33,7 @@ const saveRecipe = async (req, res) => {
   const completeUser = name.concat(lastName);
 
   await homeModel.insertNewRecipe(id, completeUser, nome, inputListaIngredientes, modoPreparo);
-  res.render('recipes/new', { message: 'Receita Cadastrada!', user: req.user });
+  res.redirect('/');
 };
 
 const editById = async (req, res) => {
@@ -57,7 +57,7 @@ const updateById = async (req, res) => {
 
 const consultDelete = async (req, res) => {
   const { id } = req.params;
-  res.render('recipes/delete', { message: null, recId: id });
+  return res.render('recipes/delete', { message: null, recId: id });
 };
 
 const confirmDelete = async (req, res) => {
@@ -66,7 +66,7 @@ const confirmDelete = async (req, res) => {
   const { password } = await userModel.findById(req.user.id);
 
   if (senha !== password) {
-    return res.render('recipes/delete', { message: 'Senha incorreta.', recId: id });
+    return res.render('recipes/delete', { message: 'Senha Incorreta.', recId: id });
   }
 
   await homeModel.deleteRecipe(id);
