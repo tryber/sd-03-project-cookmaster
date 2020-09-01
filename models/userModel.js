@@ -1,13 +1,13 @@
 const connect = require('./connection');
 
 const validateUser = (user) => {
-  const { email, password, passwordConfirm, name, surname } = user
+  const { email, password, passwordConfirm, name, surname } = user;
   if (!email || !password || !passwordConfirm || !name || !surname) {
     return { error: true, message: 'Dados incompletos' };
-  };
+  }
   if (password !== passwordConfirm) {
     return { error: true, message: 'senhas não conferem' };
-  };
+  }
   return { error: false, message: 'Usuário válido', user };
 };
 
@@ -30,7 +30,7 @@ const findByEmail = async (uEmail) => {
   } catch (err) {
     console.error(err);
     process.exit(1);
-  };
+  }
   return 1;
 };
 
@@ -53,20 +53,25 @@ const findById = async (uId) => {
   } catch (err) {
     console.error(err);
     process.exit(1);
-  };
+  }
   return 1;
 };
 
 const createUser = async (user) => {
   try {
-    console.log(user);
+    await connect()
+      .then((db) => db
+      .getTable('users')
+      .insert()
+      )
   } catch (err) {
     console.error(err);
     process.exit(1);
-  };
+  }
 };
 
 module.exports = {
+  createUser,
   findByEmail,
   findById,
   validateUser,

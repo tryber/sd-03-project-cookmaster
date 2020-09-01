@@ -44,14 +44,12 @@ const logout = (req, res) => {
   res.redirect(redirect || '/');
 };
 
-const registerForm = (_req, res) => {
-  return res.render('admin/register', {
-    message: null,
-    redirect: null,
-  });
-};
+const registerForm = (_req, res) => res.render('admin/register', {
+  message: null,
+  redirect: null,
+});
 
-const register = (req, res) => {  
+const register = (req, res) => {
   const validation = userModel.validateUser(req.body);
   if (validation.error) return res.render('admin/register', {
     message: validation.message,
