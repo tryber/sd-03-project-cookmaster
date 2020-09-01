@@ -8,7 +8,7 @@ const renderRecipes = rescue(async (req, res) => {
 
 const renderRecipeDetail = rescue(async (req, res) => {
   const { id } = req.params;
-  
+
   const recipe = await recipesModel.recipeById(id);
   res.render('recipeDetail', { recipe, user: req.user });
 });

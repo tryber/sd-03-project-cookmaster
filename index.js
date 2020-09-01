@@ -2,7 +2,6 @@ require('dotenv/config');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const recipesController = require('./controllers/recipesController');
 
 const middlewares = require('./middlewares');
 const controllers = require('./controllers');
