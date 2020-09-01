@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const rescue = require('express-rescue');
 
 const middlewares = require('./middlewares');
 const controllers = require('./controllers');
@@ -11,7 +12,6 @@ app.use(cookieParser());
 
 app.use((req, _res, next) => {
   console.log(`${req.method} ${req.path}`);
-  // console.log(`${res} ${res}`);
   next();
 });
 
@@ -26,10 +26,15 @@ app.get('/admin', middlewares.auth(), (req, res) => {
   });
 });
 
-app.get('/register', (_req, res) => {
-  return res.render('register');
-});
+app.get(
+  '/register',
+  rescue((_req, res) => {
+    return res.render('register', { message: null });
+  }),
+);
 
+app.get('/recipes/:id', middlewares.auth(false), rescue(controllers.recipeController.getRecipe));
+app.post('/register', rescue(controllers.userController.registerUser));
 app.get('/login', controllers.userController.loginForm);
 app.get('/logout', controllers.userController.logout);
 app.post('/login', controllers.userController.login);

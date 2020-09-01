@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Login</title>
+  </head>
+  <body>
+    <div>
+      <h1><%= recipe.name %></h1>
+      <h3><%= recipe.user%></h3>
+    </div>
+    <div>
+      <h3>Ingredientes</h3>
+      <% recipe && recipe.ingredients.split(',').map(ingredient => { %>
+      <li><%= ingredient %></li>
+      <% })%>
+    </div>
+    <div>
+      <h2>Modo de Preparo</h2>
+      <p><%= recipe.instructions%></p>
+      <p><%= console.log(recipe.ingredients.split(',')) %></p>
+    </div>
+  </body>
+</html>
