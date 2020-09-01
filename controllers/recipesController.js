@@ -96,8 +96,8 @@ const deleteRecipeUser = async (req, res) => {
       message: 'Sena Incorreta',
       user: req.user,
     });
-  } catch (erro) {
-    console.error(erro);
+  } catch {
+    console.error('error');
   }
   return true;
 };
