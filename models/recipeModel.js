@@ -110,10 +110,11 @@ const findAllRecipesById = async (idUser) => {
     .execute();
 
   const findAllRecipes = results.fetchAll();
-  console.log('find', findAllRecipes)
-  return findAllRecipes ? findAllRecipes.map(([id, userId, user, name, ingredients, instructions]) => ({
-    id, instructions, ingredients, userId, name, user,
-  })) : null;
+
+  return findAllRecipes ? findAllRecipes.map(
+    ([id, userId, user, name, ingredients, instructions]) => ({
+      id, instructions, ingredients, userId, name, user,
+    })) : null;
 };
 
 module.exports = {

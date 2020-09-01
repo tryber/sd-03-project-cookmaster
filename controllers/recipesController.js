@@ -67,8 +67,9 @@ const deleteRecipe = async (req, res) => {
       return res.redirect('/');
     }
   } catch (err) {
-    return console.error(err);
+    console.error(err);
   }
+  return true;
 };
 
 const yourRecipes = async (req, res) => {
@@ -78,10 +79,11 @@ const yourRecipes = async (req, res) => {
   try {
     const allRecipes = await recipeModel.findAllRecipesById(id);
     return res.render('yourRecipes', { allRecipes, user });
-  } catch(e) {
-    return console.error(e);
+  } catch (e) {
+    console.error(e);
   }
-}
+  return true;
+};
 
 module.exports = {
   recipes,
