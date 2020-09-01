@@ -29,7 +29,7 @@ const findByEmail = async (email) => {
 const findById = async (id) => {
   const users = await getAllUsers();
 
-  const searchedUser = users.filter((user) => parseInt(user.id) = parseInt(id));
+  const searchedUser = users.filter((user) => parseInt(user.id) === parseInt(id));
 
   return searchedUser;
 };
