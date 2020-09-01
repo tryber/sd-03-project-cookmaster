@@ -3,7 +3,7 @@ const connect = require('./connect');
 async function getAllRecipes() {
   try {
     const db = await connect();
-    const searchDb = await db.getTable('recipes').select(['user', 'name']).execute();
+    const searchDb = await db.getTable('recipes').select(['user', 'name', 'id']).execute();
     const results = await searchDb.fetchAll();
     return results ? results.map(([user, name, id]) => ({ user, name, id })) : [];
   } catch (err) {
