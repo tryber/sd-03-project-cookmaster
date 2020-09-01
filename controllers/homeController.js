@@ -71,6 +71,7 @@ const confirmDelete = async (req, res) => {
 
   await homeModel.deleteRecipe(id);
   res.redirect('/');
+  return null;
 };
 
 module.exports = {
