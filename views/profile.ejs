@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Editar Usuário</title>
+  </head>
+  <header>
+    <h3>Editar Usuário</h3>
+  </header>
+  <body>
+    <% if (message) {%>
+      <% message.forEach(message => { %>
+        <span><%=message%></span><br />
+        <% }) %>
+      <% } %>
+    <form action="/me" method="POST">
+      Cookmaster - Editar usuário <br />
+      <label for="emailInput">Email</label>
+      <input type="text" name="email" id="emailInput" data-testid="email" value="<%=userData.email%>"/><br />
+
+      <label for="passwordInput">Senha</label>
+      <input type="password" name="password" id="passwordInput" data-testid="senha" value="<%=userData.password%>"/><br />
+
+      <label for="confirmPasswordInput">Confirmar Senha</label>
+      <input type="password" name="confirmPassword" id="confirmPasswordInput" data-testid="confirmar-senha"/><br />
+
+      <label for="nameInput">Nome</label>
+      <input type="text" name="name" id="nameInput" data-testid="nome" value="<%=userData.firstName%>"/><br />
+
+      <label for="lastNameInput">Sobrenome</label>
+      <input type="text" name="lastName" id="lastNameInput" data-testid="sobrenome" value="<%=userData.lastName%>"/><br />
+
+      <button type="submit" data-testid="salvar">Salvar</button>
+      <button type="button">Cancelar</button>
+    </form>
+  </body>
+</html>
