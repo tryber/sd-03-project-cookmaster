@@ -39,5 +39,7 @@ app.post('/recipes/:id', middlewares.auth(), controllers.homeController.updateBy
 app.get('/recipes/:id/delete', middlewares.auth(), controllers.homeController.consultDelete);
 app.post('/recipes/:id/delete', middlewares.auth(), controllers.homeController.confirmDelete);
 
+app.get('/me/recipes', middlewares.auth(), controllers.homeController.myRecipes);
+
 
 app.listen(3000, () => console.log('Listening on 3000'));

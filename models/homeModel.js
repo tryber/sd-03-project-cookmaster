@@ -6,6 +6,19 @@ const getAll = async () =>
     .then((results) => results.fetchAll())
     .then((recipes) => recipes.map(([id, userId, user, name]) => ({ id, userId, user, name })));
 
+const getUserRecipes = async (userId) =>
+  connection()
+    .then((db) =>
+      db
+        .getTable('recipes')
+        .select(['id', 'user_id', 'user', 'name'])
+        .where('user_id = :userId')
+        .bind('userId', userId)
+        .execute(),
+    )
+    .then((results) => results.fetchAll())
+    .then((recipes) => recipes.map(([id, userId, user, name]) => ({ id, userId, user, name })));
+
 const findRecipeById = async (ids) =>
   connection()
     .then((db) =>
@@ -65,11 +78,7 @@ const updateRecipe = async (recipeId, recipeName, ingredients, instructions) =>
 
 const deleteRecipe = async (recipeId) =>
   connection().then((db) =>
-    db.getTable('recipes')
-      .delete()
-      .where('id = :id')
-      .bind('id', recipeId)
-      .execute(),
+    db.getTable('recipes').delete().where('id = :id').bind('id', recipeId).execute(),
   );
 
 module.exports = {
@@ -79,4 +88,5 @@ module.exports = {
   insertNewRecipe,
   updateRecipe,
   deleteRecipe,
+  getUserRecipes,
 };

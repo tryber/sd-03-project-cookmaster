@@ -74,6 +74,14 @@ const confirmDelete = async (req, res) => {
   return null;
 };
 
+const myRecipes = async (req, res) => {
+  const { id } = req.user;
+
+  const rec = await homeModel.getUserRecipes(id);
+
+  res.render('me/recipes', { recipes: rec });
+};
+
 module.exports = {
   listRecipes,
   checkById,
@@ -84,4 +92,5 @@ module.exports = {
   updateById,
   consultDelete,
   confirmDelete,
+  myRecipes,
 };
