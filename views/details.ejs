@@ -24,6 +24,7 @@
         <div>
           <button data-testid="buscar-receita" onclick="window.location.pathname='/recipes/search'">Buscar Receitas</button>
           <% if (user) { %>
+            <button data-testid="editar-receita" onclick="window.location.pathname='/edit'">Edit</button>
             <a href=<%=`/recipes/${recipe.id}/edit`%>><button data-testid="editar-receita">Editar receita</button></a>
             <a href=<%=`/recipes/${recipe.id}/delete`%>><button data-testid="excluir-receita">Excluir receita</button></a>
           <% } %>
