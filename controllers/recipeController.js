@@ -72,7 +72,7 @@ const updateRecipe = async (req, res) => {
 const deleteRecipe = async (req, res) => {
   const { id } = req.params;
   const { password } = req.body;
-  const auth = await recipeModel.authUser(id, req.user.id, password)
+  const auth = await recipeModel.authUser(id, req.user.id, password);
   if (auth) {
     await recipeModel.deleteRecipeById(id);
     res.status(202).redirect('/');
