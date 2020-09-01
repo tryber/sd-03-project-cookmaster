@@ -19,9 +19,6 @@
       <h1><%= user.firstName %></h1>
       <button onclick="window.location.pathname='/logout'" data-testid="logout">Logout</button>
     <% } %>
-    <button onclick="window.location.pathname='/delete'" data-testid="excluir-receita">
-      Excluir Receita
-    </button>
     <form action="/recipes/<%= recipesDetails.id %>" method="POST">
       <label for="recipeNameInput">Nome da Receita: </label>
       <input type="text" name="name" value="<%=`${recipesDetails.name}`||''%>" id="recipeNameInput" data-testid="nome-receita" /><br />
