@@ -59,23 +59,25 @@ const postRecipes = async (valuesRecipes, valuesUser) => {
     .execute();
 };
 
-
-const editRecipesBank = async (id) => {
+const editRecipesBank = async (id, datas) => {
   const db = await connection();
-
+  const { name, ingredients, instructions } = {name: 'william', ingredients: 'sabor', instructions:'ze'};
   const results = await db.getTable('recipes')
-    .select(['user_id', 'name', 'ingredients', 'instructions'])
-    .where('user_id  = id')
+
+    .update()
+    .set('name', name)
+    .set('ingredients', ingredients)
+    .set('instructions', instructions)
+    .where('id = :id')
     .bind('id', id)
-    // .update(ingredients, instructions)
     .execute();
-  const editSucess = results.fetchAll();
 
-  return editSucess ? editSucess.map(([name, ingredients, instructions]) => ({
-    name, ingredients, instructions,
-  })) : null;
+  // const editSucess = results.fetchAll();
+  // return editSucess ? editSucess.map(([name, ingredients, instructions]) => ({
+  //   name, ingredients, instructions,
+  // })) : null;
+  return results;
 };
-
 
 const deleteRecipeBank = async (idRecipe) => {
   const db = await connection();
@@ -88,6 +90,19 @@ const deleteRecipeBank = async (idRecipe) => {
   return results;
 };
 
+const getPasswordToDelete = async (id) => {
+  const db = await connection();
+
+  const results = await db.getTable('users')
+    .select('password')
+    .where('id = :id')
+    .bind('id', id)
+    .execute();
+
+  const passwordBank = results.fetchOne();
+  return passwordBank;
+};
+
 module.exports = {
   getRecipes,
   getRecipesByQuery,
@@ -95,4 +110,5 @@ module.exports = {
   postRecipes,
   editRecipesBank,
   deleteRecipeBank,
+  getPasswordToDelete,
 };

@@ -25,15 +25,15 @@ app.get('/admin/cadastro', middlewares.auth(false), controllers.userController.r
 app.post('/admin/cadastro', middlewares.auth(false), controllers.userController.register);
 app.get('/recipes/search', middlewares.auth(false), controllers.recipeController.findRecipes);
 
+app.post('/recipes/:id/delete', middlewares.auth(), controllers.recipeController.deleteRecipe);
 app.get('/recipes/new', middlewares.auth(), controllers.recipeController.createForm);
 app.post('/recipes/new', middlewares.auth(), controllers.recipeController.createRecipes);
 
-app.get('/recipes/:id/edit', middlewares.auth(), controllers.recipeController.editRecipe);
-app.get('/recipes/:id/delete', middlewares.auth(), controllers.recipeController.deleteRecipe);
-app.post('/recipes/:id/delete', middlewares.auth(), controllers.recipeController.deleteRecipe);
-
 app.get('/recipes/:id', middlewares.auth(false), controllers.recipeController.recipesById);
 app.post('/recipes/:id', middlewares.auth(), recipeController.editRecipe);
+
+app.get('/recipes/:id/edit', middlewares.auth(), controllers.recipeController.editRecipe);
+app.get('/recipes/:id/delete', middlewares.auth(), controllers.recipeController.deleteRecipeForm);
 
 app.get('/admin', middlewares.auth(), (req, res) => {
   return res.render('admin/home', { user: req.user });

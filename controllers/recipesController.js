@@ -33,16 +33,46 @@ const createRecipes = async (req, res) => {
 };
 
 const editRecipe = async (req, res) => {
-  const { id } = req.user;
   const idRecipe = req.params.id;
-  const recipeEdit = await recipeModel.editRecipesBank(id);
-  if (id === idRecipe) return res.render('editRecipes', { recipeEdit, message: 'Receita editada!' });
-  return res.redirect('/');
+  const { user } = req;
+
+  const recipe = await recipeModel.getRecipesById(idRecipe, user);
+  const recipeEdit = await recipeModel.editRecipesBank(idRecipe);
+
+  if (idRecipe) return res.redirect('/');
+
+  return res.render('editRecipes', { recipeEdit, message: 'Receita editada!' });
+};
+
+const deleteRecipeForm = async (req, res) => {
+  const idUser = req.user.id;
+  const recipesId = await recipesById();
+  res.render('deleteRecipe', { idUser, message: null, recipesId: idUser });
 };
 
 const deleteRecipe = async (req, res) => {
-  // const { id } = req.user;
-  res.render('deleteRecipe', { recipes: 'null' });
+  const idUser = req.user.id;
+  const userId = req.params.id;
+  const passwordInput = req.body.password;
+  // const [id] = await recipeModel.getRecipesById();
+  // const recipeId = id.id;
+  // console.log('idrecipe',recipeId)
+  const recipesId = await recipeModel.getRecipesById();
+  console.log('aqui', recipesId);
+
+  const [passwordBank] = await recipeModel.getPasswordToDelete(idUser);
+  console.log('bank', passwordBank === passwordInput);
+
+  try {
+    if (passwordInput !== passwordBank) return res.render('deleteRecipe', { idUser, message: 'Senha Incorreta', recipesId: userId });
+    if (passwordInput === passwordBank) {
+      await recipeModel.deleteRecipeBank(recipesId.id);
+      return res.redirect('/');
+    }
+  }
+  catch (err) {
+    console.error(err);
+  }
 };
 
 module.exports = {
@@ -53,4 +83,5 @@ module.exports = {
   createForm,
   editRecipe,
   deleteRecipe,
+  deleteRecipeForm,
 };
