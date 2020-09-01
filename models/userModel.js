@@ -9,19 +9,19 @@ const getAllUsers = async () => {
         .execute(),
     )
     .then((results) => results.fetchAll())
-    .then((recipes) => recipes.map(([id, email, password, first_name, last_name]) => ({
-      id,
+    .then((recipes) => recipes.map(([userId, email, password, firstName, lastName]) => ({
+      userId,
       email,
       password,
-      name: first_name,
-      lastName: last_name,
+      name: firstName,
+      lastName,
     })));
 };
 
 const findByEmail = async (email) => {
   const users = await getAllUsers();
 
-  const searchedUser = users.filter((user) => user.email = email);
+  const searchedUser = users.filter((user) => user.email === email);
 
   return searchedUser;
 };
@@ -29,7 +29,7 @@ const findByEmail = async (email) => {
 const findById = async (id) => {
   const users = await getAllUsers();
 
-  const searchedUser = users.filter((user) => parseInt(user.id) === parseInt(id));
+  const searchedUser = users.filter((user) => parseInt(user.id, 10) === parseInt(id, 10));
 
   return searchedUser;
 };
