@@ -16,7 +16,7 @@
     </header>
     <h1>Receitas</h1>
     <% if (user) { %>
-      <button data-testid="nova-receita"><a href="/recipes/new">Nova Receita</a></button>
+      <a href="/recipes/new"><button data-testid="nova-receita">Nova Receita</button></a>
     <% } %>
     <section>
       <% if (recipes) { %>

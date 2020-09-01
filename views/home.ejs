@@ -9,19 +9,19 @@
     <header>
       <h4>Cookmaster</h4>
       <% if (user) { %>
-        <button data-testid="logout"><a href="/logout">>Logout</a></button>
+        <a href="/logout"><button data-testid="logout">Logout</button></a>
         <a href="/me/recipes">
           <button data-testid="minhas-receitas">Minhas Receitas</button>
         </a>
       <% } else {%>
-        <button data-testid="login"><a href="/login">>Login</a></button>
+        <a href="/login"><button data-testid="login">Login</button></a>
       <% } %>
     </header>
     <h1>Receitas</h1>
     <% if (user) { %>
-      <button data-testid="nova-receita"><a href="/recipes/new">Nova Receita</a></button>
+      <a href="/recipes/new"><button data-testid="nova-receita">Nova Receita</button></a>
     <% } %>
-    <button data-testid="buscar-receita"><a href="/recipes/search">Buscar Receita</a></button>
+    <a href="/recipes/search"><button data-testid="buscar-receita">Buscar Receita</button></a>
     <section>
       <% if (recipes) { %>
         <% recipes.forEach(recipe => { %>
