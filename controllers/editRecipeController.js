@@ -14,7 +14,7 @@ const editRecipePage = async (req, res) => {
 
 const editRecipe = async (req, res) => {
   const { id } = req.params;
-  const user = req.user;
+  // const user = req.user;
 
   const { editedName, ingredient, howToPrepare } = req.body;
   await editRecipeModel.editRecipe(id, editedName, ingredient, howToPrepare);
