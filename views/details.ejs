@@ -6,6 +6,17 @@
     <title>Cookmaster - Details</title>
   </head>
   <body>
+    <header>
+      <h4>Cookmaster</h4>
+      <% if (user) { %>
+        <span><%=user.firstName%></span><span> <%=user.lastName%></span>
+        <a href="/logout"><button data-testid="logout">Logout</button></a>
+      <% } else {%>
+        <a href="/login"><button data-testid="login">Login</button></a>
+      <% } %>
+    </header>
+    <h1><%=recipeDetails.name%></h1>
+    <h4>Enviado por: <%=recipeDetails.user%></h4>
     <% if (userControl) { %>
       <a href="/recipes/<%=recipeDetails.id%>/edit">
         <button data-testid="editar-receita">Editar Receita</button>
