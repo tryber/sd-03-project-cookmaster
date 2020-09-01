@@ -78,7 +78,51 @@ const newUser = async (req, res) => {
   });
 };
 
+const renderEditUserForm = async (req, res) => {
+  const user = await userModel.findById(req.user.id);
+
+  res.render('me/edit', {
+    user,
+    emailMessage: null,
+    passMessage: null,
+    confirmPassMessage: null,
+    firstNameMessage: null,
+    lastNameMessage: null,
+    successMessage: null,
+  });
+};
+
+const editUser = async (req, res) => {
+  const { email, password, confirmPassword, firstName, lastName } = req.body;
+
+  const emailMessage = handleEmailMessage(email);
+  const passMessage = handlePasswordMessage(password);
+  const confirmPassMessage = handleConfimPasswordMessage(password, confirmPassword);
+  const firstNameMessage = handleFirstNameMessage(firstName);
+  const lastNameMessage = handleLastNameMessage(lastName);
+
+  const user = await userModel.findById(req.user.id);
+
+  if (emailMessage || passMessage || confirmPassMessage || firstNameMessage || lastNameMessage) {
+    res.status(402).render('me/edit', {
+      user,
+      emailMessage,
+      passMessage,
+      confirmPassMessage,
+      firstNameMessage,
+      lastNameMessage,
+      successMessage: null,
+    });
+  }
+
+  await userModel.updateUser(email, password, firstName, lastName, req.user.id);
+
+  res.redirect('/');
+};
+
 module.exports = {
   renderSignUp,
   newUser,
+  editUser,
+  renderEditUserForm,
 };

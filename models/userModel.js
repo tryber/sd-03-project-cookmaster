@@ -39,11 +39,25 @@ const addUser = async (email, password, firstName, lastName) => {
     .execute();
 };
 
+const updateUser = async (email, password, firstName, lastName, id) => {
+  const db = await connect();
+  return db
+    .getTable('users')
+    .update()
+    .set('email', email)
+    .set('password', password)
+    .set('first_name', firstName)
+    .set('last_name', lastName)
+    .where('id = :id')
+    .bind('id', id)
+    .execute();
+};
+
 const emailIsValid = (email = '') => email.match(/\S+@\w+\.\w{2,6}(\.\w{2})?/i);
 
 const passwordIsValid = (password = '') => password.length > 5;
 
-const confirmedPassword = (password = '', confirmPassword = '') => (password === confirmPassword);
+const confirmedPassword = (password = '', confirmPassword = '') => password === confirmPassword;
 
 const nameIsValid = (name = '') => name.match(/^\w{3,}/i);
 
@@ -55,4 +69,5 @@ module.exports = {
   passwordIsValid,
   confirmedPassword,
   nameIsValid,
+  updateUser,
 };
