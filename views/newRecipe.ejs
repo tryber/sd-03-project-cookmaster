@@ -25,7 +25,6 @@
 
       <ul id="ingredientList">
 
-
       </ul>
 
       <label for="howToPrepare">Modo de Preparo</label>
@@ -48,7 +47,6 @@
 
     const deleteIngredient = (event) => {
       ingredArr = ingredArr.filter((ingredient) => ingredient !== event.target.parentElement.id);
-      console.log(ingredArr)
       ingredientListUL.removeChild(event.target.parentElement);
     }
 
@@ -61,9 +59,7 @@
       newLi.innerHTML = ingredient.value +
         `<button type="button" onclick="deleteIngredient(event)" data-testid="excluir-ingrediente">Excluir Ingrediente</button>`;
 
-
       ingredArr.push(ingredient.value);
-      console.log(ingredArr)
     };
     addIngredientButton.addEventListener('click', addIngredient)
 
