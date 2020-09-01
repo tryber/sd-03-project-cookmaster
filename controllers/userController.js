@@ -2,7 +2,7 @@ const { v4: uuid } = require('uuid');
 const { SESSIONS } = require('../middlewares/auth');
 
 const userModel = require('../models/userModel');
-const rescue =require('express-rescue');
+const rescue = require('express-rescue');
 
 const loginForm = (req, res) => {
   const { token = '' } = req.cookies || {};
@@ -22,15 +22,15 @@ const registerForm = (req, res) => {
   })
 }
 
-const register = rescue (async (req, res) => {
-  const { email, password, passwordV, name, lastName } = req.body;
-
+const validateEmail = (email) => {
   if (!email || !email.match(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/))
     return res.render('admin/register', {
       message: 'O email deve ter o formato email@mail.com',
       redirect: null
     });
+};
 
+const validatePassword = (password, passwordV) => {
   if (!password || password.length < 6)
     return res.render('admin/register', {
       message: 'A senha deve ter pelo menos 6 caracteres',
@@ -42,27 +42,38 @@ const register = rescue (async (req, res) => {
       message: 'As senhas tem que ser iguais',
       redirect: null
     });
+};
 
-
-  if (!name || !name.match(/^[a-zA-Z]{3,}$/)){
-    console.log(name);
+const validateName = (name) => {
+  if (!name || !name.match(/^[a-zA-Z]{3,}$/))
     return res.render('admin/register', {
       message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
       redirect: null
     });
-}
-    if (!lastName || !lastName.match(/^[a-zA-Z]{3,}$/))
+};
+
+const validateLastName = (lastName) => {
+  if (!lastName || !lastName.match(/^[a-zA-Z]{3,}$/))
     return res.render('admin/register', {
       message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
       redirect: null
     });
-  
-    await userModel.createUser({email, password, passwordV, name, lastName});
+};
 
-    res.render('admin/register', {
-      message: 'Cadastro efetuado com sucesso!',
-      redirect: null
-    });
+const register = rescue(async (req, res) => {
+  const { email, password, passwordV, name, lastName } = req.body;
+
+  validateEmail(email);
+  validatePassword(password, passwordV);
+  validateName(name);
+  validateLastName(lastName);
+  
+  await userModel.createUser({ email, password, passwordV, name, lastName });
+
+  res.render('admin/register', {
+    message: 'Cadastro efetuado com sucesso!',
+    redirect: null
+  });
 
 });
 
