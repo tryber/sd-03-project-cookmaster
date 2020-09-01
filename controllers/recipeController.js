@@ -9,7 +9,7 @@ const showRecipe = async (req, res) => {
   const user = req.user;
   const { id } = req.params;
   const recipe = await recipeModel.getRecipe(id);
-  return res.render('recipe', { recipe, message: null, user });
+  return res.render('recipe', { recipe, message: null, user, id });
 };
 
 const searchRecipe = async (req, res) => {
@@ -31,18 +31,26 @@ const insertRecipe = async (req, res) => {
   return res.render('recipeNew', { message: null, user, result });
 };
 
-const updateRecipe = async (req, res) => {
+const ableToUpdateRecipe = async (req, res) => {
   const { params } = req;
   const { id } = params;
   const user = req.user;
-  // const {id, name, lastName } = req.user;
+  // validação
   const recipe = await recipeModel.getRecipe(id);
   if (!user || user.id !== recipe[1]) {
     return res.redirect(`/recipes/${id}`);
   }
-  // console.log('Receita: ', recipe);
-  // console.log('Usuário: ', user);
-  return res.render('deleteRecipe', { message: 'Receita alterada com sucesso!', user, recipe });
+  return res.render('updateRecipe', { message: null, recipe, user, id });
+};
+
+const updateRecipe = async (req, res) => {
+  const user = req.user;
+  const { recipeNew, secretList, howToDo, pageId } = req.body;
+  const result = await recipeModel.updateRecipe(pageId, recipeNew, secretList, howToDo);
+  if (result) {
+    return res.redirect(`/recipes/${pageId}`);
+  }
+  return res.status(401).send({messge: 'Receita não pode ser alterada', user});
 };
 
 module.exports = {
@@ -50,5 +58,6 @@ module.exports = {
   showRecipe,
   searchRecipe,
   insertRecipe,
+  ableToUpdateRecipe,
   updateRecipe,
 };

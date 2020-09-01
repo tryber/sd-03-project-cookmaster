@@ -49,15 +49,17 @@ const searchRecipe = (query) =>
     })),
 );
 
-const updateRecipe = (id, name, ingredients, instructions) => {
+const updateRecipe = (id, name, ingredients, instructions) =>
   connect()
   .then((db) => db.getTable('recipes')
   .update()
-  .set(['name', 'ingredients', 'instructions'], [name, ingredients, instructions])
+  .set('name', name)
+  .set('ingredients', ingredients)
+  .set('instructions', instructions)
   .where('id = :id')
   .bind('id', id)
-  .execute());
-};
+  .execute())
+  .then( () => ({name, ingredients, instructions}));
 
 const insertRecipe = (userId, user, name, ingredients, instructions) =>
   connect()

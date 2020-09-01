@@ -11,9 +11,12 @@
   </header>
   <body>
     <div>
-      <h1>Nova Receita</h1>
+      <h1>Editar Receita</h1>
       <div>
-        <form method='post' action="/recipes">
+        <%const nome = recipe[3]%>
+        <%const recipeIngredients = recipe[4]%>
+        <%const instructions = recipe[5]%>
+        <form method='post' action="/recipes/<%=id%>">
           <div>
             <label for="recipeNew">Nome da Receita</label><br />
             <input data-testid="nome-receita" type="text" name="recipeNew" id="recipeNew" />
@@ -24,7 +27,8 @@
           <div id="ingredientsContainer">
           </div>
           <div>
-            <input data-testid="secretList" type="input" name="secretList" id="secretList" />
+            <input data-testid="secretList" type="hidden" name="secretList" id="secretList"></input>
+            <input data-testid="pageId" type="hidden" name="pageId" id="pageId" value=<%=id%>></input>   
           </div>
           <div>
             <input data-testid="ingredientes" type="text" name="ingredients" id="insertIngredients"/>
@@ -35,7 +39,8 @@
             <input data-testid="modo-de-preparo" type="textArea" name="howToDo" id="howToDo" />
           </div>
           <div>
-            <button data-testid="postar-receita" type="submit">Salvar Receita</button>
+            <button data-testid="voltar" type="button" onclick="window.location.href='/recipes/<%=id%>';">Voltar</button>
+            <button data-testid="postar-receita" type="submit">Salvar Receita</button>  
           </div>
       </div>
       <div>
@@ -49,21 +54,28 @@
   </body>
   <script>
     // Gerando a lista de ingredientes
+    const recipeName = document.getElementById('recipeNew');
+    const instructionsInput = document.getElementById('howToDo');
     const ingredientsContainer = document.getElementById('ingredientsContainer');
     const secretListInput = document.getElementById('secretList');
     const ingredientValue = document.getElementById('insertIngredients');
     const insertIngredientButton = document.getElementById('addIng');
     const ingredientUnnordenedList = document.createElement('ul');
 
+    // variáveis ejs. Ref. https://stackoverflow.com/questions/28603658/can-a-js-script-get-a-variable-written-in-a-ejs-context-page-within-the-same-fil
+    const nome = '<%=nome%>';
+    const recipeIngredients = '<%=recipeIngredients%>'.split(',');
+    const instructions = '<%=instructions%>';
+
     // Criando um id para a lista não ordenada
     ingredientUnnordenedList.setAttribute("id", "ingredientsList");
-    const ingredients = [];
+    const ingredients = [...recipeIngredients];
 
     const secretListFiller = () => {
       let filler;
       ingredients.map((e) => {
         if (filler) {
-          filler = `${filler}, ${e}`;
+          filler = `${filler},${e}`;
         } else {
             filler = `${e}`;
         }
@@ -132,6 +144,14 @@
 
     window.onload = () => {
       // Execute as funções aqui
+      // Setando as entradas
+      recipeName.value = nome;
+      instructionsInput.value = instructions;
+      // Não sei porque só funcionou usando map
+      // createIngredient(ingredients);
+      ingredients.map((e) => createIngredient([e]));
+      ingredientValue.value='';
+      secretListFiller();
     }
   </script>
 </html>

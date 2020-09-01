@@ -18,10 +18,10 @@
         <h2>Enviada por <%= recipe[2] %></h2>
       </div>
       <%if (user && user.id === recipe[0]) {%>
-        <button data-testid="editar-receita" onclick="window.location.href='/edit';">
+        <button data-testid="editar-receita" onclick="window.location.href='/recipes/<%=id%>/edit';">
           Editar Receita
         </button>
-        <button data-testid="excluir-receita" onclick="window.location.href='/delete';">
+        <button data-testid="excluir-receita" onclick="window.location.href='/recipes/<%=id%>/delete';">
           Excluir Receita
         </button>
       <%}%>
