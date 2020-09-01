@@ -60,10 +60,9 @@ const registerValidationMiddleware = async (req, _res, next) => {
 
     if (req.message === validationMessages.default) {
       req.validate = true;
-    } else {
-      req.validate = false;
+      return next();
     }
-
+    req.validate = false;
     return next();
   } catch (error) {
     return error;
