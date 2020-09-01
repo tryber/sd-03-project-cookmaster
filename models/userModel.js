@@ -45,14 +45,9 @@ const findById = async (uId) => {
   }
   return 1;
 };
-
-const validateUser = (user) => {
-  const { email, password, passwordConfirm, name, surname } = user;
-  if (!email || !password || !passwordConfirm || !name || !surname) {
+/**
+ * if (!email || !password || !passwordConfirm || !name || !surname) {
     return { error: true, message: 'Dados incompletos' };
-  }
-  if (!email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))\n\@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$i/)) {
-    return { error: true, message: 'O email deve ter o formato email@mail.com' };
   }
   if (!password >= 6) {
     return { error: true, message: 'A senha deve ter pelo menos 6 caracteres' };
@@ -73,6 +68,17 @@ const validateUser = (user) => {
     };
   }
   return { error: false, message: 'Usuário válido', user, redirect: null };
+ */
+const validateUser = (user) => {
+  const res = { error: false, message: '' };
+  switch (user) {
+    case !user.email || user.email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$i/):
+      res.error = true;
+      res.message = 'O email deve ter o formato email@mail.com';
+      brake;
+    case :
+  }
+  
 };
 
 const createUser = async (user) => {
