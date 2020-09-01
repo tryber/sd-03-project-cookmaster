@@ -1,18 +1,5 @@
 const connect = require('./connection');
 
-const validateUser = async (user) => {
-  const { email, password, passwordConfirm, name, surname } = user;
-  if (!email || !password || !passwordConfirm || !name || !surname) {
-    return { error: true, message: 'Dados incompletos' };
-  }
-  if (password !== passwordConfirm) return { error: true, message: 'senhas não conferem' };
-
-  const userEmail = await findByEmail(email);
-  if (userEmail) return { error: true, message: 'Usuário já existe' };
-
-  return { error: false, message: 'Usuário válido', user };
-};
-
 const findByEmail = async (uEmail) => {
   try {
     const user = await connect()
@@ -23,10 +10,7 @@ const findByEmail = async (uEmail) => {
       .bind('email', uEmail)
       .execute(),
     )
-    .then((results) => {
-      const user = results.fetchAll()[0];
-      if (user) return user;
-    })
+    .then((results) => results.fetchAll()[0])
     .then(([id, email, password, firstName, lastName]) => ({
       id, email, password, name: `${firstName} ${lastName}`,
     }));
@@ -60,6 +44,16 @@ const findById = async (uId) => {
     process.exit(1);
   }
   return 1;
+};
+
+const validateUser = (user) => {
+  const { email, password, passwordConfirm, name, surname } = user;
+  if (!email || !password || !passwordConfirm || !name || !surname) {
+    return { error: true, message: 'Dados incompletos' };
+  }
+  if (password !== passwordConfirm) return { error: true, message: 'senhas não conferem' };
+
+  return { error: false, message: 'Usuário válido', user, redirect: null };
 };
 
 const createUser = async (user) => {

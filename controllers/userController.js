@@ -39,7 +39,6 @@ const login = async (req, res, next) => {
 
 const logout = (req, res) => {
   const { redirect } = req.body;
-  console.log(redirect);
   res.clearCookie('token');
   if (!req.cookies || !req.cookies.token) return res.redirect('/login');
   res.redirect(redirect || '/');
@@ -51,17 +50,13 @@ const registerForm = (_req, res) => res.render('admin/register', {
 });
 
 const register = async (req, res) => {
-  const validation = await userModel.validateUser(req.body);
+  const validation = userModel.validateUser(req.body);
   if (validation.error) return res.render('admin/register', {
     message: validation.message,
     redirect: null,
   });
-  const resgisRes = await userModel.createUser(validation.user);
-  // const token = uuid();
-  // SESSIONS[token] = user.id;
-
-  // res.cookie('token', token, { httpOnly: true, sameSite: true });
-  res.redirect('/');
+  const regisRes = await userModel.createUser(validation.user);
+  res.render('admin/login', regisRes);
 };
 
 module.exports = {
