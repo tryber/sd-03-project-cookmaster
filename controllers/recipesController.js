@@ -79,6 +79,7 @@ const getUserRecipe = async (req, res) => {
 };
 
 const deleteRecipeForm = async (req, res) => {
+
   return res.render('deleteRecipe', { id: req.params.id, message: null, user: req.user });
 };
 
@@ -98,6 +99,7 @@ const deleteRecipeUser = async (req, res) => {
       user: req.user,
     });
   } catch (error) {
+
     console.error(error);
   }
   return true;
