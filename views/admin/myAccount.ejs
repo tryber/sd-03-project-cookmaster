@@ -6,6 +6,11 @@
     <title>Cookmaster - Signup</title>
   </head>
   <body>
+    <% if (message) {%>
+    <div class="message">
+      <%= message %>
+    </div>
+    <% } %>
     <h1>Editar Usuário</h1>
     <form action="/me" method="POST">
       <label for="emailInput">Email: </label>
