@@ -52,7 +52,7 @@ const updateById = async (req, res) => {
   const { nome, inputListaIngredientes, modoPreparo } = req.body;
   await homeModel.updateRecipe(id, nome, inputListaIngredientes, modoPreparo);
 
-  res.render(`recipes/${id}`);
+  res.redirect('/');
 };
 
 const consultDelete = async (req, res) => {
