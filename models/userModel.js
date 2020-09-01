@@ -27,11 +27,24 @@ const findByEmail = async (email) => {
 };
 
 const findById = async (id) => {
-  const users = await getAllUsers();
-
-  const searchedUser = users.filter((user) => parseInt(user.id, 10) === parseInt(id, 10));
-
-  return searchedUser;
+  connect()
+    .then((db) =>
+      db
+        .getTable('users')
+        .select(['id', 'email', 'password', 'first_name', 'last_name'])
+        .where('id = :id')
+        .bind('id', id)
+        .execute()
+    )
+    .then((results) => results.fetchAll()[0])
+    .then(([name, age] = []) => (name ? { name, age } : null))
+    .then(([userId, email, password, firstName, lastName] = []) => (email ? {
+      userId,
+      email,
+      password,
+      name: firstName,
+      lastName,
+    } : null));
 };
 
 module.exports = {
