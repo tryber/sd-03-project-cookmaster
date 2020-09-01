@@ -10,7 +10,9 @@
       <h4>Cookmaster</h4>
       <% if (user) { %>
         <button data-testid="logout"><a href="/logout">>Logout</a></button>
-        <button><a data-testid="minhas-receitas" href="/me/recipes">Minhas Receitas</a></button>
+        <a href="/me/recipes">
+          <button data-testid="minhas-receitas">Minhas Receitas</button>
+        </a>
       <% } else {%>
         <button data-testid="login"><a href="/login">>Login</a></button>
       <% } %>
