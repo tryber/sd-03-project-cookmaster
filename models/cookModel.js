@@ -68,15 +68,16 @@ const setNewRecipes = async (recipeVal, { id, firstName, lastName }, ing) =>
     .execute());
 
 const changeRecipe = async ({ name, instructions }, id, ingredients) =>
-  connect()
-    .then((db) => db.getTable('recipes')
-    .update()
-    .set('name', name)
-    .set('ingredients', ingredients)
-    .set('instructions', instructions)
-    .where('id = :id')
-    .bind('id', id)
-    .execute());
+connect()
+  .then((db) => db.getTable('recipes')
+  .update()
+  .set('name', name)
+  .set('ingredients', ingredients)
+  .set('instructions', instructions)
+  .where('id = :id')
+  .bind('id', id)
+  .execute());
+
 
 const deleteCookie = async (id) =>
   connect()

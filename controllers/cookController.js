@@ -73,6 +73,7 @@ const editRecipe = async (req, res) => {
     newInggg = [recipesDetails.ingredients, ingredients];
     await cookModel.changeRecipe(req.body, id, newInggg.join(','));
     recipesDetails = await cookModel.getCookieById(id);
+    console.log(recipesDetails)
     newInggg = [];
     return res.render('recipesEdit', { user: req.user, recipesDetails });
   }
@@ -85,6 +86,8 @@ const editRecipe = async (req, res) => {
     newInggg = [];
     return res.render('recipesEdit', { user: req.user, recipesDetails });
   }
+  await cookModel.changeRecipe(req.body, id, newInggg.join(','));
+  recipesDetails = await cookModel.getCookieById(id);
   return res.render('recipes', { user: req.user, recipesDetails, id });
 };
 
