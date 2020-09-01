@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+  <style>
+    .navbar {
+      align-items: center;
+      background-color: rgb(181 , 131  , 141);
+      color: white;
+      display: flex;
+      justify-content: space-evenly;
+    }
+  </style>
+  <nav class='navbar'>
+    <h1>Cookmaster</h1>
+    <div>
+      <% if (user) {%>
+      <p><%= user.name %></p>
+      <a data-testid='logout'>Logout</a>
+      <% } else { %>
+      <p data-testid='login'>Login</p>
+      <% } %>
+    </div>
+  </nav>
+</body>
+
+</html>
