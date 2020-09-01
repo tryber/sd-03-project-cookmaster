@@ -41,7 +41,7 @@ const editById = async (req, res) => {
 
   if (req.user.id !== recipe[0].userId) {
     res.redirect('/');
-  };
+  }
 
   res.render('recipes/edit', { rec: recipe[0], user: req.user });
 };
@@ -49,7 +49,6 @@ const editById = async (req, res) => {
 const updateById = async (req, res) => {
   const { id } = req.params;
   const { nome, inputListaIngredientes, modoPreparo } = req.body;
-  console.log(req.body);
   await homeModel.updateRecipe(id, nome, inputListaIngredientes, modoPreparo);
 
   res.render(`recipes/${id}`);
