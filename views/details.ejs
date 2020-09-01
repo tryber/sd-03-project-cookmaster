@@ -15,17 +15,20 @@
         <a href="/login"><button data-testid="login">Login</button></a>
       <% } %>
     </header>
+
     <h1><%=recipeDetails.name%></h1>
     <h4>Enviado por: <%=recipeDetails.user%></h4>
+
     <% if (userControl) { %>
       <a href="/recipes/<%=recipeDetails.id%>/edit">
         <button data-testid="editar-receita">Editar Receita</button>
       </a>
 
-      <a href="/recipes/<%=recipeDetails.id%>/delete">
-        <button data-testid="excluir-receita">Excluir Receita</button>
+      <a data-testid="excluir-receita" href="/recipes/<%=recipeDetails.id%>/delete">
+        <button>Excluir Receita</button>
       </a>
     <% } %>
+
     <section>
       <% recipeDetails.ingredients.forEach(ingred => { %>
         <ul>

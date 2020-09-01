@@ -7,9 +7,7 @@ const recipe = async (req, res) => {
 
   const user = req.user;
 
-  let userControl = false;
-
-  if (req.user && recipeDetails.userId === req.user.id) userControl = true;
+  const userControl = req.user && recipeDetails.userId === req.user.id;
 
   res.render('details', { recipeDetails, userControl, user });
 };
