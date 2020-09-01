@@ -56,7 +56,7 @@ const formEditRecipe = async (req, res) => {
   const { id } = req.user;
   const recipe = await recipesModal.findRecipesById(req.params.id);
 
-  const { userId, recipeId } = await recipe[0];
+  const { userId } = await recipe[0];
 
   if (userId !== id) return res.redirect('/');
 
