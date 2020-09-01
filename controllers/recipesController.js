@@ -93,7 +93,7 @@ const deleteRecipeUser = async (req, res) => {
     }
     return res.render('deleteRecipe', {
       id: req.params.id,
-      message: 'Sena Incorreta',
+      message: 'Senha Incorreta',
       user: req.user,
     });
   } catch {
