@@ -101,14 +101,11 @@ const modifyUser = async (req, res) => {
   } = req.body;
   try {
     const checkUser = await userModel.findById(id);
-    if (req.validate && checkUser.id === id) {
+    if (checkUser.id === id) {
       userModel.updateUser(id, email, password, name, lastName);
       return res.redirect('/');
     }
-    return res.render('admin/editProfile', {
-      message: req.message || null,
-      user: checkUser,
-    });
+    return res.redirect('/');
   } catch (error) {
     return error;
   }

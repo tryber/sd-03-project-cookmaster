@@ -54,7 +54,7 @@ app.post(
 
 app.get('/me/edit', middlewares.auth(), controllers.userController.updateUserPage);
 app.get('/me/recipes', middlewares.auth(), controllers.recipeController.userRecipes);
-app.post('/me', middlewares.auth(), middlewares.validation, controllers.userController.modifyUser);
+app.post('/me', middlewares.auth(), controllers.userController.modifyUser);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
