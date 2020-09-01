@@ -18,7 +18,7 @@ const getPasswordForDelete = async (id) => {
     .where('id = :id')
     .bind('id', id)
     .execute();
-  const passwordArr = result.fetchAll()[0];
+  const passwordArr = await result.fetchOne();
   const [password] = passwordArr;
   return { password };
 };

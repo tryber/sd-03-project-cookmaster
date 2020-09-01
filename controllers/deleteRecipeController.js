@@ -5,7 +5,7 @@ const deleteRecipe = async (req, res) => {
   const user = req.user;
 
   const dbPassword = await deleteModel.getPasswordForDelete(id);
-
+  console.log(dbPassword);
   if (req.body.password === dbPassword.password) {
     await deleteModel.deleteRecipe(id);
     // return res.render('deleteRecipe', { message: 'Receita deletada com sucesso', id, user })
