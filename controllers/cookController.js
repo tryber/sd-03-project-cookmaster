@@ -100,7 +100,7 @@ const deleteRecipe = async (req, res) => {
   const { password } = req.body;
   const { id } = req.params;
   const recipesDetails = await cookModel.getCookieById(id);
-  const user = await userModel.findByValue(id, 'id');
+  const user = await userModel.findByValue(req.user.id, 'id');
   if (password !== user.password) {
     return res.render('recipesDelete', { user: req.user, recipesDetails, id, err: true });
   }
