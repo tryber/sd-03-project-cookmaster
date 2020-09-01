@@ -70,7 +70,7 @@ const registerUser = async (req, res) => {
       return res.render('register', { message: informMessage.confirmPassword });
     case name.length < 3 && typeof name === 'string':
       return res.render('register', { message: informMessage.name });
-    case lastName.length < 3:
+    case lastName.length < 3 && typeof name === 'string':
       return res.render('register', { message: informMessage.lastName });
     default:
       break;

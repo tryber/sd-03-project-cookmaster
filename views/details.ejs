@@ -1,21 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Details</title>
   </head>
   <body>
-    <%- include('header', {user:user}); %>
-    <h1>Receitas</h1>
-    <div>
-      <% if (user) { %>
-        <button data-testid="editar-receita" onclick="window.location.pathname='/edit'">Editar Receita</button>
-        <button data-testid="excluir-receita" onclick="window.location.pathname='/delete'">Excluir Receita</button>
+    <header class="shadow">
+      <span>Cookmaster</span>
+      <% if (!user) { %>
+        <a href="/login"><span class="pointer" data-testid="login">Login</span></a>
+      <% } else { %>
+        <div>
+          <span> <%= `${user.name} ${user.lastName}` %>|</span>
+          <a href="/logout"><span class="pointer" data-testid="logout">Logout</span></a>
+        </div>
       <% } %>
+    </header>
+    <section>
+      <span>Eviada por: <%= recipe.user %></span>
+      <div class="container">
+        <span>Receita: <%= recipe.name %></span>
+        <div>
+          <button data-testid="buscar-receita">Buscar Receitas</button>
+          <% if (user) { %>
+            <a href=<%=`/recipes/${recipe.id}/edit`%>><button data-testid="editar-receita">Editar receita</button></a>
+            <a href=<%=`/recipes/${recipe.id}/delete`%>><button data-testid="excluir-receita">Excluir receita</button></a>
+          <% } %>
+        </div>
+      </div>
       <div>
-        <% idRecipe.map((recipe) => { %>
-          <h2>título da receita: <%= recipe.name %></h2>
-          <h3>ingredientes: <%= recipe.ingredients %></h3>
-          <p>forma de preparo: <%= recipe.instructions %></p>
-          <% }) %>
-    </div>
+        <h2>Ingredientes</h2>
+        <% recipe.ingredients.split(',').forEach((ingredient) => { %>
+          </br><span><%= ingredient %></span>
+        <% }) %>
+        <h2>Modo de Preparo</h2>
+        <p> <%= recipe.instructions %></p>
+      </div>
+    </section>
   </body>
 </html>

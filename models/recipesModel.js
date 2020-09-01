@@ -18,11 +18,13 @@ const finfByRecipes = async () => {
   }
 };
 
-const findRecipesById = async () => {
+const findRecipesById = async (id) => {
   const db = await connection();
   const recipe = await db
     .getTable('recipes')
     .select(['id', 'user_id', 'user', 'name', 'ingredients', 'instructions'])
+    .where('id = :id')
+    .bind('id', id)
     .execute();
 
   const responseRecipe = await recipe.fetchAll();
@@ -67,9 +69,24 @@ const createNewRecipes = async (userId, user, name, ingredients, instructions) =
   return createRecipe;
 };
 
+const editRecipe = async (recipeId, name, ingredients, instructions) => {
+  const db = await connection();
+
+  const updateRecipe = await db.getTable('recipes')
+    .update()
+    .set('name', name)
+    .set('ingredients', ingredients)
+    .set('instructions', instructions)
+    .where('id = :id')
+    .bind('id', recipeId)
+    .execute();
+  return updateRecipe;
+}
+
 module.exports = {
   finfByRecipes,
   findRecipesById,
   findSharchRecipe,
   createNewRecipes,
+  editRecipe,
 };
