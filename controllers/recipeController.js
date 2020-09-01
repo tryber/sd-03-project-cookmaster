@@ -48,13 +48,15 @@ const addRecipe = async (req, res) => {
     instructions,
   );
 
-  res.status(201).render('recipes/new', {
-    user: req.user,
-    nameMessage: null,
-    ingredientsMessage: null,
-    instructionsMessage: null,
-    successMessage: 'Receita adicionada com sucesso!',
-  });
+  res.redirect('/');
+
+  // res.status(201).render('recipes/new', {
+  //   user: req.user,
+  //   nameMessage: null,
+  //   ingredientsMessage: null,
+  //   instructionsMessage: null,
+  //   successMessage: 'Receita adicionada com sucesso!',
+  // });
 };
 
 const updateRecipe = async (req, res) => {
@@ -70,13 +72,14 @@ const updateRecipe = async (req, res) => {
 const deleteRecipe = async (req, res) => {
   const { id } = req.params;
   const { password } = req.body;
-  if (recipeModel.authUser(id, req.user.id, password)) {
+  const auth = await recipeModel.authUser(id, req.user.id, password)
+  if (auth) {
     await recipeModel.deleteRecipeById(id);
     res.status(202).redirect('/');
   }
   res.status(401).render('recipes/delete', {
     user: req.user,
-    message: 'Senha incorreta.',
+    message: 'Senha Incorreta.',
   });
 };
 
