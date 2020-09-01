@@ -85,9 +85,11 @@ const editRecipe = async (req, res) => {
     newInggg = [];
     return res.render('recipesEdit', { user: req.user, recipesDetails });
   }
+  newInggg = [recipesDetails.ingredients, ingredients];
+  const recipes = await cookModel.getAll();
   await cookModel.changeRecipe(req.body, id, newInggg.join(','));
-  recipesDetails = await cookModel.getCookieById(id);
-  return res.render('recipes', { user: req.user, recipesDetails, id });
+  newInggg = [];
+  return res.render('admin/home', { user: req.user, recipes, id });
 };
 
 const recipeToDelete = async (req, res) => {
