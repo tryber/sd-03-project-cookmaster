@@ -78,10 +78,20 @@ const updateRecipe = async (recipeId, recipeName, ingredients, instructions) =>
 
 const deleteRecipe = async (recipeId) =>
   connection().then((db) =>
-    db.getTable('recipes')
-      .delete()
-      .where('id = :id')
-      .bind('id', recipeId)
+    db.getTable('recipes').delete().where('id = :id').bind('id', recipeId).execute(),
+  );
+
+const updateUser = async (userId, email, senha, nome, sobrenome) =>
+  connection().then((db) =>
+    db
+      .getTable('users')
+      .update()
+      .set('email', email)
+      .set('password', senha)
+      .set('first_name', nome)
+      .set('last_name', sobrenome)
+      .where('id = :userId')
+      .bind('userId', userId)
       .execute(),
   );
 
@@ -93,4 +103,5 @@ module.exports = {
   updateRecipe,
   deleteRecipe,
   getUserRecipes,
+  updateUser,
 };

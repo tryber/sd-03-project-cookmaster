@@ -11,6 +11,7 @@
       <% if ( user ) { %>
       <button data-testid="logout" onclick="window.location.pathname='/logout'">Logout</button>
       <button data-testid="minhas-receitas" onclick="window.location.pathname='/me/recipes'">Minhas Receitas</button>
+      <button data-testid="minha-conta" onclick="window.location.pathname='/me/edit'">Minha Conta</button>
       <p> <%= user.name %> </p>
       <% } else { %>
       <button data-testid="login" onclick="window.location.pathname='/login'">Login</button>
