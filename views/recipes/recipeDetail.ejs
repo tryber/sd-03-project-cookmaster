@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <title>Cookmaster - Home</title>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Cookmaster</a>
+        <ul id="nav-mobile" class="right">
+          <li>
+            <% if (!user) { %>
+              <a href="/login" data-testid="login">Login</a>
+            <% } else { %>
+              <a href="/logout" data-testid="logout">Logout</a>
+            <% } %>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <h2>Receitas</h2>
+    <% if (user && recipe && user.id === recipe.userId) { %>
+      <a class="waves-effect waves-light btn" data-testid="editar-receita" href=<%= `${recipe.id}/edit` %>>Editar Receitas</a>
+      <a class="waves-effect waves-light btn" data-testid="excluir-receita" href=<%= `${recipe.id}/delete` %>>Excluir Receita</a>
+    <% } %>
+    <div>
+      <h4><%= recipe.name %></h4>
+      <h6>Enviada por <%= recipe.user %></h6>
+      <h4>Ingredientes</h4>
+      <ul>
+        <% recipe.ingredients.split(',').forEach((ingredient) => { %>
+          <li><%= ingredient %></li>
+        <% } ) %>
+      </ul>
+      <h4>Modo de preparo</h4>
+      <p><%= recipe.instructions %></p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </body>
+</html>

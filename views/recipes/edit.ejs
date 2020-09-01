@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <title>Cookmaster - Home</title>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Cookmaster</a>
+        <ul id="nav-mobile" class="right">
+          <li>
+            <% if (!user) { %>
+            <a href="/login" data-testid="login">Login</a>
+            <% } else { %>
+            <a href="/logout" data-testid="logout">Logout</a>
+            <% } %>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <% if (recipe.userId === user.id) { %>
+    <form action=<%=`/recipes/${recipe.id}`%> method="POST" name="recipeForm" class="col s12 m6 offset-m3">
+      <h3>Editar Receita</h3>
+      <div class="row">
+        <div class="input-field col s12">
+          <label for="namelInput">Nome da receita: </label>
+          <input
+            class="validate"
+            type="text"
+            name="name"
+            id="namelInput"
+            data-testid="nome-receita"
+            value="<%= recipe.name %>"
+          />
+          <% if (nameMessage) {%>
+          <div class="message">
+            <span class="helper-text" data-error="wrong" data-success="right"
+              ><%= nameMessage %></span
+            >
+          </div>
+          <% } %>
+        </div>
+        <div>
+          <ul id="ingredientList">
+
+          </ul>
+        </div>
+        <div class="input-field col s12">
+          <label for="ingredientInput">Adicionar ingrediente: </label>
+          <input type="text" name="ingredients" id="ingredientInput" data-testid="ingredientes" />
+          <% if (ingredientsMessage) {%>
+          <div class="message">
+            <span class="helper-text" data-error="wrong" data-success="right"
+              ><%= ingredientsMessage %></span
+            >
+          </div>
+          <% } %>
+          <button
+            class="validate waves-effect waves-light btn"
+            type="button"
+            data-testid="adicionar-ingrediente"
+            onclick="addIngredient()"
+          >
+            Adicionar ingredients
+          </button>
+        </div>
+        <div class="input-field col s12">
+          <label for="ingredientInput">Modo de preparo: </label>
+          <textarea
+            data-testid="modo-de-preparo"
+            name="instructions"
+            id="instructions"
+            data-testid="modo-de-preparo"
+          >
+              <%= `${recipe.instructions}` %>'
+            </textarea
+          >
+          <% if (instructionsMessage) {%>
+          <div class="message">
+            <span class="helper-text" data-error="wrong" data-success="right"
+              ><%= instructionsMessage %></span
+            >
+          </div>
+          <% } %>
+        </div>
+      </div>
+      <div class="input-field s12 m6 offset-m3">
+        <div class="row">
+          <div class="col s4">
+            <a class="validate waves-effect blue-text" href="/">Voltar</a>
+          </div>
+          <div class="col s4 center">
+            <button
+              class="validate waves-effect waves-light btn"
+              type="button"
+              data-testid="postar-receita"
+              onclick="submitRecipe()"
+            >
+              Salvar receita
+            </button>
+            <% if (successMessage) {%>
+            <div class="message">
+              <span class="helper-text" data-error="wrong" data-success="right"
+                ><%= successMessage %></span
+              >
+            </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </form>
+    <% } else { %>
+    <span>Você não possui autorização para editar essa receita.</span>
+    <% } %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      const ingredients = new Set();
+      const list = document.getElementById('ingredientList');
+      '<%= recipe.ingredients %>'.split(',').forEach((ingredient) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span>${ingredient}</span>
+          <button
+            class="validate waves-effect waves-light btn"
+            type="button"
+          >
+            Excluir Ingrediente
+          </button>`;
+        li.children[1].onclick = () => {
+          li.remove();
+          ingredients.delete(li.children[0].textContent);
+        };
+        list.appendChild(li);
+        ingredients.add(ingredient);
+      });
+
+      const addIngredient = () => {
+        const li = document.createElement('li');
+        const ingredientInput = document.getElementById('ingredientInput');
+
+        li.innerHTML = `<span>${ingredientInput.value}</span>
+          <button
+            class="validate waves-effect waves-light btn"
+            type="button"
+          >
+            Excluir Ingrediente
+          </button>`;
+
+        li.children[1].onclick = () => {
+          li.remove();
+          ingredients.delete(li.children[0].textContent);
+        };
+
+        list.appendChild(li);
+        ingredients.add(ingredientInput.value);
+        ingredientInput.value = '';
+      };
+      const submitRecipe = () => {
+        const ingredientInput = document.getElementById('ingredientInput');
+        ingredientInput.value = [...ingredients].join();
+        document.recipeForm.submit();
+      };
+    </script>
+  </body>
+</html>

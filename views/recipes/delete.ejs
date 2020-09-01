@@ -8,31 +8,21 @@
   </head>
   <body>
     <div class="row">
-      <form action="/login" method="POST" class="col s12 m6 offset-m3">
+      <h3>Confirme a exclusão da receita</h3>
+      <form action=<%=`/recipes/${user.id}/delete`%> method="POST" class="col s12 m6 offset-m3">
         <div class="row">
-          <div class="input-field col s12">
-            <label for="emailInput">Email: </label>
-            <input type="text" name="email" id="emailInput" data-testid="email" />
-          </div>
           <div class="input-field col s12">
             <label for="passwordInput">Senha: </label>
             <input type="password" name="password" id="passwordInput" data-testid="senha" />
           </div>
         </div>
-        <% if (redirect) { %>
-        <input
-          type="hidden"
-          name="redirect"
-          value="<%= decodeURIComponent(redirect) %>"
-        />
-        <% } %>
         <div class="input-field s12 m6 offset-m3">
           <div class="row">
-            <div class="col s4">
-              <a class="validate waves-effect blue-text" href="/signup" data-testid="cadastrar">Cadastre-se</a>
+            <div class="col s4 left">
+              <a class="validate waves-effect waves-light btn" href="/" data-testid="cancelar">Cancelar</a>
             </div>
-            <div class="col s4 center">
-              <button class="validate waves-effect waves-light btn" type="submit" data-testid="entrar">Entrar</button>
+            <div class="col s4 right">
+              <button class="validate waves-effect waves-light btn" type="submit" data-testid="confirmar">Confirmar</button>
               <% if (message) {%>
                 <div class="message">
                   <span class="helper-text" data-error="wrong" data-success="right"><%= message %></span>

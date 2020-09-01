@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <title>Cookmaster - Login</title>
+  </head>
+  <body>
+    <div class="row">
+      <form action="/signUp" method="POST" class="col s12 m6 offset-m3">
+        <h3>Cookmaster - Cadastro</h3>
+        <div class="row">
+          <div class="input-field col s12">
+            <label for="emailInput">Email: </label>
+            <input class="validate" type="text" name="email" id="emailInput" data-testid="email" />
+            <% if (emailMessage) {%>
+            <div class="message">
+              <span class="helper-text" data-error="wrong" data-success="right"
+                ><%= emailMessage %></span
+              >
+            </div>
+            <% } %>
+          </div>
+          <div class="input-field col s12">
+            <label for="passwordInput">Senha: </label>
+            <input type="password" name="password" id="passwordInput" data-testid="senha" />
+            <% if (passMessage) {%>
+            <div class="message">
+              <span class="helper-text" data-error="wrong" data-success="right"
+                ><%= passMessage %></span
+              >
+            </div>
+            <% } %>
+          </div>
+          <div class="input-field col s12">
+            <label for="confirmPasswordInput">Confirmar senha: </label>
+            <input
+              type="password"
+              name="confirmPassword"
+              id="confirmPasswordInput"
+              data-testid="confirmar-senha"
+            />
+            <% if (confirmPassMessage) {%>
+            <div class="message">
+              <span class="helper-text" data-error="wrong" data-success="right"
+                ><%= confirmPassMessage %></span
+              >
+            </div>
+            <% } %>
+          </div>
+          <div class="input-field col s12">
+            <label for="firstNameInput">Nome: </label>
+            <input type="text" name="firstName" id="firstNameInput" data-testid="nome" />
+            <% if (firstNameMessage) {%>
+            <div class="message">
+              <span class="helper-text" data-error="wrong" data-success="right"
+                ><%= firstNameMessage %></span
+              >
+            </div>
+            <% } %>
+          </div>
+          <div class="input-field col s12">
+            <label for="lastNameInput">Sobrenome: </label>
+            <input type="text" name="lastName" id="lastNameInput" data-testid="sobrenome" />
+            <% if (lastNameMessage) {%>
+            <div class="message">
+              <span class="helper-text" data-error="wrong" data-success="right"
+                ><%= lastNameMessage %></span
+              >
+            </div>
+            <% } %>
+          </div>
+        </div>
+        <div class="input-field s12 m6 offset-m3">
+          <div class="row">
+            <div class="col s4">
+              <a class="validate waves-effect blue-text" href="/login" data-testid="login"
+                >Fazer login</a
+              >
+            </div>
+            <div class="col s4 center">
+              <button
+                class="validate waves-effect waves-light btn"
+                type="submit"
+                data-testid="cadastrar"
+              >
+                Cadastre-se
+              </button>
+              <% if (successMessage) {%>
+                <div class="message">
+                  <span class="helper-text" data-error="wrong" data-success="right"><%= successMessage %></span>
+                </div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </body>
+</html>

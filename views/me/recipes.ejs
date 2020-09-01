@@ -25,12 +25,9 @@
         </ul>
       </div>
     </nav>
-    <h2>Receitas</h2>
-    <a class="waves-effect waves-light btn" data-testid="buscar-receita" href="/recipes/search">Buscar Receitas</a>
+    <h2>Minhas Receitas</h2>
     <% if (user) { %>
       <a class="waves-effect waves-light btn" data-testid="nova-receita" href="/recipes/new">Nova Receita</a>
-      <a class="waves-effect waves-light btn" data-testid="minhas-receitas" href="/me/recipes">Minhas Receitas</a>
-      <a class="waves-effect waves-light btn" data-testid="minha-conta" href="/me/edit">Minha Conta</a>
     <% } %>
     <% if (message) { %>
       <h1><%= message %></h1>
