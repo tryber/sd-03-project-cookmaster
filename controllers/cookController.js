@@ -34,7 +34,8 @@ const setNewRecipe = async (req, res) => {
   if (save !== undefined && name.length > 0 && lala.length > 0 && instructions.length > 0) {
     const ing = lala.join(',');
     await cookModel.setNewRecipes(req.body, req.user, ing);
-    return res.render('admin/newRecipe', { lala: [], name: '', user: req.user });
+    const recipes = await cookModel.getAll();
+    return res.render('admin/home', { user: req.user, recipes });
   }
   if (remove === undefined && ingredient.length > 0) {
     lala.push(ingredient);

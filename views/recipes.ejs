@@ -18,16 +18,12 @@
     <% if (user) { %>
       <h1><%= user.firstName %></h1>
       <button onclick="window.location.pathname='/logout'" data-testid="logout">Logout</button>
-       <a href=<%=`/recipes/${id}/edit`%>>
-        <button data-testid="editar-receita">
-          Editar Receita
-        </button>
-      </a>
-      <a href=<%=`/recipes/${id}/delete`%>>
-        <button data-testid="excluir-receita">
-          Excluir Receita
-        </button>
-      </a>
+      <button onclick="window.location.pathname='/recipes/<%= id %>/edit'" data-testid="editar-receita">
+        Editar Receita
+      </button>
+      <button onclick="window.location.pathname='/recipes/<%= id %>/delete'" data-testid="excluir-receita">
+        Excluir Receita
+      </button>
     <% } %>
     <h1><%= recipesDetails.name %></h1>
     <h3><%= recipesDetails.user %></h3>
