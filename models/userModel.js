@@ -1,23 +1,5 @@
 const connection = require('./connection');
 
-const getAllUsers = async () =>
-  connection()
-    .then((db) =>
-      db
-        .getTable('users')
-        .select(['id', 'email', 'password', 'first_name', 'last_name'])
-        .execute(),
-    )
-    .then((results) => results.fetchAll())
-    .then((recipes) => recipes.map(([id, email, password, firstName, lastName]) => ({
-      id,
-      email,
-      password,
-      name: firstName,
-      lastName,
-    })));
-
-
 const findByEmail = async (email) =>
   connection()
     .then((db) =>
@@ -56,8 +38,17 @@ const findById = async (id) =>
       lastName,
     }));
 
+const createUser = async({ email, password, name, lastName }) =>
+  connection().then((db) =>
+    db
+      .getTable('users')
+      .insert(['email', 'password', 'first_name', 'last_name'])
+      .values(email, password, name, lastName)
+      .execute()
+  );
+
 module.exports = {
-  getAllUsers,
   findByEmail,
   findById,
+  createUser,
 };

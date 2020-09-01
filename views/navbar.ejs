@@ -16,7 +16,7 @@
     <div>
       <% if (user) {%>
       <p><%= user.name %></p>
-      <a data-testid='logout'>Logout</a>
+      <a data-testid='logout' href='/logout'>Logout</a>
       <% } else { %>
       <a data-testid='login' href='/login'>Login</a>
       <% } %>
