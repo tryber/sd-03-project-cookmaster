@@ -133,7 +133,7 @@ const editAccount = async (req, res, next) => {
 
   await userModel.changeUser(req.body, id);
   const recipes = await cookModel.getAll();
-  const user = await userModel.findByValue(id, 'id');
+  let user = await userModel.findByValue(id, 'id');
   return res.render('admin/home', { user, recipes });
 };
 
