@@ -31,6 +31,8 @@ app.get(
   middlewares.auth(false),
   controllers.recipesController.listsharchRecipes,
 );
+
+app.post('/recipes/:id/delete', middlewares.auth(), controllers.recipesController.deleteRecipeUser);
 app.get('/recipes/new', middlewares.auth(), controllers.recipesController.formRecipe);
 
 app.post('/recipes/new', middlewares.auth(), controllers.recipesController.newRecipes);
@@ -38,7 +40,8 @@ app.post('/recipes/new', middlewares.auth(), controllers.recipesController.newRe
 app.get('/recipes/:id', middlewares.auth(false), controllers.recipesController.listRecipesById);
 app.post('/recipes/:id', middlewares.auth(), controllers.recipesController.editRecipe);
 app.get('/recipes/:id/edit', middlewares.auth(), controllers.recipesController.formEditRecipe);
+app.get('/recipes/:id/delete', middlewares.auth(), controllers.recipesController.deleteRecipeForm);
 
-app.get('/user/recipes', middlewares.auth(), controllers.recipesController.getUserRecipe);
+app.get('/me/recipes', middlewares.auth(), controllers.recipesController.getUserRecipe);
 
 app.listen(3000, () => console.log('Listening on 3000'));

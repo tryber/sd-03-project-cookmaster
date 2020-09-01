@@ -83,10 +83,57 @@ const editRecipe = async (recipeId, name, ingredients, instructions) => {
   return updateRecipe;
 };
 
+const deleteRecipe = async (idRecipe) => {
+  const db = await connection();
+
+  const deleteRecipes = await db.getTable('recipes')
+    .delete()
+    .where('id = :idRecipe')
+    .bind('id', idRecipe)
+    .execute();
+  return deleteRecipes;
+};
+
+const getPasswordToDelete = async (id) => {
+  const db = await connection();
+  const results = await db.getTable('users')
+    .select('password')
+    .where('id = :id')
+    .bind('id', id)
+    .execute();
+  const passwordBank = results.fetchOne();
+  return passwordBank;
+};
+
+const findAllRecipesById = async (idRecipe) => {
+  const db = await connection();
+  const recipe = await db
+    .getTable('recipes')
+    .select()
+    .where('id = :id')
+    .bind('id', idRecipe)
+    .execute();
+
+  const responseRecipe = await recipe.fetchAll();
+  return responseRecipe
+    ? responseRecipe.map(([id, userId, user, name, ingredients, instructions]) => ({
+      id,
+      userId,
+      user,
+      name,
+      ingredients,
+      instructions,
+    }))
+    : null;
+};
+
 module.exports = {
   finfByRecipes,
   findRecipesById,
   findSharchRecipe,
   createNewRecipes,
   editRecipe,
+  deleteRecipe,
+  getPasswordToDelete,
+  findAllRecipesById,
 };

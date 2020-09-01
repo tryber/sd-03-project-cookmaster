@@ -6,23 +6,18 @@
     <title>Cookmaster - Minhas Receitas</title>
   </head>
   <body>
-    <%- include('header', { user }); %>
-    <div>
-      <h2>Minhas Receitas</h2>
-      <a href="/recipes/new">
-        <button data-testid="nova-receita">Nova Receita</button>
-      </a>
-    </div>
-    <% if (recipes) {%>
-    <div>
-      <% recipes.map(recipe => { %>
-      <div>
-        <p>Receita: <%= recipe.name %></p>
-        <p>Autor: <%= recipe.user %></p>
-        <a href="/recipes/<%= recipe.id %>">Ver mais</a>
-      </div>
-      <%})%>
-    </div>
-    <% } %>
+    <h1>Minhas Receitas</h1>
+    <button
+      type="button"
+      data-testid="minhas-receitas"
+      onclick="window.location.pathname='/recipes/new'"
+    >
+      Minhas Receitas
+    </button>
+    <% recipes.map((recipe) => { %>
+    <h2>Nome da receita: <%= recipe.name %></h2>
+    <h3>Autor: <%= recipe.user %></h3>
+    <a href="/recipes/<%= recipe.id %>" %>>Ver mais</a>
+    <% }) %>
   </body>
 </html>

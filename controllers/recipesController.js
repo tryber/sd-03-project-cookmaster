@@ -52,6 +52,7 @@ const newRecipes = async (req, res) => {
 };
 
 const formEditRecipe = async (req, res) => {
+  //  conferência do cód com PR da Carolis.
   const { id } = req.user;
   const recipe = await recipesModal.findRecipesById(req.params.id);
 
@@ -71,11 +72,35 @@ const editRecipe = async (req, res) => {
 };
 
 const getUserRecipe = async (req, res) => {
-  //  conferência do cód com PR da Carolis.
   const { id } = req.user;
-  const recipe = await recipesModal.findRecipesById(id);
+  const recipes = await recipesModal.findAllRecipesById(id);
 
-  return res.render('recipeUser', { recipe: recipe[0], user: req.user });
+  return res.render('recipeUser', { recipes, user: req.user });
+};
+
+const deleteRecipeForm = async (req, res) => {
+  return res.render('deleteRecipe', { id: req.params.id, message: null, user: req.user });
+};
+
+const deleteRecipeUser = async (req, res) => {
+  const { id } = req.user;
+  const passwordUser = req.body.password;
+  const [passwordBank] = await recipesModal.getPasswordToDelete(id);
+
+  try {
+    if (passwordUser === passwordBank) {
+      await recipesModal.deleteRecipe(req.params.id);
+      return res.redirect('/');
+    }
+    return res.render('deleteRecipe', {
+      id: req.params.id,
+      message: 'Sena Incorreta',
+      user: req.user,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+  return true;
 };
 
 module.exports = {
@@ -87,4 +112,6 @@ module.exports = {
   formEditRecipe,
   editRecipe,
   getUserRecipe,
+  deleteRecipeForm,
+  deleteRecipeUser,
 };
