@@ -96,9 +96,10 @@ const deleteRecipeUser = async (req, res) => {
       message: 'Sena Incorreta',
       user: req.user,
     });
-  } catch (error) {
-    return error;
+  } catch (erro) {
+    console.error(erro);
   }
+  return true;
 };
 
 module.exports = {
