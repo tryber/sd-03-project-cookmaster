@@ -18,13 +18,13 @@ const finfByRecipes = async () => {
   }
 };
 
-const findRecipesById = async (id) => {
+const findRecipesById = async (idRecipe) => {
   const db = await connection();
   const recipe = await db
     .getTable('recipes')
     .select(['id', 'user_id', 'user', 'name', 'ingredients', 'instructions'])
     .where('id = :id')
-    .bind('id', id)
+    .bind('id', idRecipe)
     .execute();
 
   const responseRecipe = await recipe.fetchAll();
@@ -81,7 +81,7 @@ const editRecipe = async (recipeId, name, ingredients, instructions) => {
     .bind('id', recipeId)
     .execute();
   return updateRecipe;
-}
+};
 
 module.exports = {
   finfByRecipes,
