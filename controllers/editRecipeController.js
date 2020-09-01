@@ -21,7 +21,7 @@ const editRecipe = async (req, res) => {
 
   // const recipeDetails = await editRecipeModel.getRecipeById(id);
 
-  return res.render('editRecipe', { message: 'Receita Editada com sucesso!', recipeDetails: req.body, user });
+  return res.redirect('/');
 };
 
 module.exports = {

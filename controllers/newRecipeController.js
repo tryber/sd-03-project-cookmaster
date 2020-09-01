@@ -14,7 +14,7 @@ const newRecipeInsert = async (req, res) => {
   const { id, firstName, lastName } = user;
   const userFullName = `${firstName} ${lastName}`;
   await newRecipeModel.addNewRecipe(id, userFullName, newRecipeName, ingredient, howToPrepare);
-  return res.render('newRecipe', { user, message: 'Nova Receita adicionada!', ingredientsArr });
+  return res.redirect('/');
 };
 
 const addIngredientContr = (req, res) => {
