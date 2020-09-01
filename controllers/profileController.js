@@ -18,7 +18,7 @@ const profileEdited = async (req, res) => {
 
   messageArr.push('Cadastro atualizado com sucesso!');
 
-  return res.render('profile', { message: messageArr, userData });
+  return res.redirect('/');
 };
 
 module.exports = {
