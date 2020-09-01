@@ -4,7 +4,7 @@ const deleteRecipe = async (req, res) => {
   const { id } = req.params;
   const user = req.user;
 
-  const dbPassword = await deleteModel.getPasswordForDelete(id);
+  const dbPassword = await deleteModel.getPasswordForDelete(req.user.id);
 
   if (req.body.password === dbPassword.password) {
     await deleteModel.deleteRecipe(id);

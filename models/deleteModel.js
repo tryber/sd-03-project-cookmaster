@@ -12,14 +12,18 @@ const deleteRecipe = async (recipeId) => {
 };
 
 const getPasswordForDelete = async (id) => {
+  console.log(id);
   const db = await connect();
   const result = await db.getTable('users')
     .select(['password'])
     .where('id = :id')
     .bind('id', id)
     .execute();
-  const passwordArr = await result.fetchOne();
+
+  const passwordArr = await result.fetchAll()[0];
+
   const [password] = passwordArr;
+
   return { password };
 };
 
