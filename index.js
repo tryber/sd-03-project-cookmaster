@@ -26,8 +26,8 @@ app.post('/signup', controllers.userController.signup);
 app.get('/signup', controllers.userController.signupForm);
 app.get('/logout', controllers.userController.logout);
 
-app.use((err, _req, res, _next) => {
-  console.error(err.stack);
+app.use((err, _req, res, next) => {
+  next(err);
   res.status(500).send('Something broke!');
 });
 
