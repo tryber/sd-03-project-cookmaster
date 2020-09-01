@@ -5,13 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cookmaster - Login</title>
   </head>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
+  
+    body {
+      background-color: whitesmoke;
+      font-family: 'Roboto Slab', serif;
+      margin: 0;
+    }
+    .form-div {
+      background-color: rgb(255, 180, 162);
+      display: flex;
+      flex-direction: column;
+      height: 150px;
+      margin: 20% 40% 0 40%;
+      padding: 20px;
+      width: 300px;
+    }
+    a {
+      margin-left: 49%;
+    }
+  </style>
+
   <body>
     <% if (message) {%>
     <div class="message">
       <%= message %>
     </div>
     <% } %>
-    <form action="/login" method="POST">
+    <form action="/login" method="POST" class='form-div'>
       <label for="emailInput">Email: </label>
       <input type="text" name="email" id="emailInput" data-testid='email' /><br />
       <label for="passwordInput">Senha: </label>
