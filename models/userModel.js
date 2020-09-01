@@ -51,8 +51,27 @@ const validateUser = (user) => {
   if (!email || !password || !passwordConfirm || !name || !surname) {
     return { error: true, message: 'Dados incompletos' };
   }
-  if (password !== passwordConfirm) return { error: true, message: 'senhas não conferem' };
-
+  if (!email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))\n\@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$i/)) {
+    return { error: true, message: 'O email deve ter o formato email@mail.com' };
+  }
+  if (!password >= 6) {
+    return { error: true, message: 'A senha deve ter pelo menos 6 caracteres' };
+  }
+  if (password !== passwordConfirm) {
+    return { error: true, message: 'As senhas tem que ser iguais' };
+  }
+  if (!name >= 3 && name.match(/\d/)) {
+    return {
+      error: true,
+      message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+    };
+  }
+  if (!surname >= 3 && surname.match(/\d/)) {
+    return {
+      error: true,
+      message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+    };
+  }
   return { error: false, message: 'Usuário válido', user, redirect: null };
 };
 
@@ -68,7 +87,7 @@ const createUser = async (user) => {
 
     return {
       error: false,
-      message: 'Usuário criado com sucesso',
+      message: 'Cadastro efetuado com sucesso!',
       redirect: '',
     };
   } catch (err) {
