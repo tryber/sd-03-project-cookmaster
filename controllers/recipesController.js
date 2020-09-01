@@ -6,6 +6,14 @@ const renderRecipes = rescue(async (req, res) => {
   res.render('home', { recipes, user: req.user });
 });
 
+const renderRecipeDetail = rescue(async (req, res) => {
+  const { id } = req.params;
+  
+  const recipe = await recipesModel.recipeById(id);
+  res.render('recipeDetail', { recipe, user: req.user });
+});
+
 module.exports = {
   renderRecipes,
+  renderRecipeDetail,
 };
