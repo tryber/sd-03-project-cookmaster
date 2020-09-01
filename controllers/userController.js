@@ -100,9 +100,7 @@ const myRecipes = async (req, res) => {
   return res.render('admin/myRecipes', { user: req.user, recipes });
 };
 
-const myAccount = async(req, res) => {
-  return res.render('admin/myAccount', { user: req.user });
-};
+const myAccount = async (req, res) => res.render('admin/myAccount', { user: req.user });
 
 const editAccount = async (req, res, next) => {
   const { id } = req.user;
