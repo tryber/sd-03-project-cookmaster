@@ -78,10 +78,8 @@ const getUserRecipe = async (req, res) => {
   return res.render('recipeUser', { recipes, user: req.user });
 };
 
-const deleteRecipeForm = async (req, res) => {
-
-  return res.render('deleteRecipe', { id: req.params.id, message: null, user: req.user });
-};
+const deleteRecipeForm = async (req, res) =>
+  res.render('deleteRecipe', { id: req.params.id, message: null, user: req.user });
 
 const deleteRecipeUser = async (req, res) => {
   const { id } = req.user;
@@ -99,10 +97,8 @@ const deleteRecipeUser = async (req, res) => {
       user: req.user,
     });
   } catch (error) {
-
-    console.error(error);
+    return error;
   }
-  return true;
 };
 
 module.exports = {
