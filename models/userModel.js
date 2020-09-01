@@ -6,9 +6,9 @@ const validateUser = (user) => {
     return { error: true, message: 'Dados incompletos' };
   };
   if (password !== passwordConfirm) {
-    return { error: true, message: 'senhas não conferem' }
+    return { error: true, message: 'senhas não conferem' };
   };
-  return { error: false, message: 'Usuário válido' }
+  return { error: false, message: 'Usuário válido', user };
 };
 
 const findByEmail = async (uEmail) => {
@@ -30,7 +30,7 @@ const findByEmail = async (uEmail) => {
   } catch (err) {
     console.error(err);
     process.exit(1);
-  }
+  };
   return 1;
 };
 
@@ -53,11 +53,18 @@ const findById = async (uId) => {
   } catch (err) {
     console.error(err);
     process.exit(1);
-  }
+  };
   return 1;
 };
 
-// const createUser = async () => {};
+const createUser = async (user) => {
+  try {
+    console.log(user);
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  };
+};
 
 module.exports = {
   findByEmail,

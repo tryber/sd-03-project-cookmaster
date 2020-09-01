@@ -44,7 +44,7 @@ const logout = (req, res) => {
   res.redirect(redirect || '/');
 };
 
-const registerForm = (req, res) => {
+const registerForm = (_req, res) => {
   return res.render('admin/register', {
     message: null,
     redirect: null,
@@ -53,7 +53,10 @@ const registerForm = (req, res) => {
 
 const register = (req, res) => {  
   const validation = userModel.validateUser(req.body);
-  console.log(validation);
+  if (validation.error) return res.render('admin/register', {
+    message: validation.message,
+    redirect: null,
+  });
 };
 
 module.exports = {
