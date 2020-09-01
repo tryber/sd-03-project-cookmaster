@@ -1,6 +1,6 @@
 const connection = require('./connection');
 
-const getAllUsers = async () => {
+const getAllUsers = async () =>
   connection()
     .then((db) =>
       db
@@ -9,24 +9,35 @@ const getAllUsers = async () => {
         .execute(),
     )
     .then((results) => results.fetchAll())
-    .then((recipes) => recipes.map(([userId, email, password, firstName, lastName]) => ({
-      userId,
+    .then((recipes) => recipes.map(([id, email, password, firstName, lastName]) => ({
+      userId: id,
       email,
       password,
       name: firstName,
       lastName,
     })));
-};
 
-const findByEmail = async (email) => {
-  const users = await getAllUsers();
 
-  const searchedUser = users.filter((user) => user.email === email);
+const findByEmail = async (email) =>
+  connection()
+    .then((db) =>
+      db
+        .getTable('users')
+        .select(['id', 'email', 'password', 'first_name', 'last_name'])
+        .where('email = :email')
+        .bind('email', email)
+        .execute(),
+    )
+    .then((results) => results.fetchAll()[0])
+    .then(([id, email, password, firstName, lastName]) => ({
+      userId: id,
+      email,
+      password,
+      name: firstName,
+      lastName,
+    }));
 
-  return searchedUser;
-};
-
-const findById = async (id) => {
+const findById = async (id) =>
   connection()
     .then((db) =>
       db
@@ -37,17 +48,16 @@ const findById = async (id) => {
         .execute(),
     )
     .then((results) => results.fetchAll()[0])
-    .then(([name, age] = []) => (name ? { name, age } : null))
-    .then(([userId, email, password, firstName, lastName] = []) => (email ? {
-      userId,
+    .then(([id, email, password, firstName, lastName]) => ({
+      userId: id,
       email,
       password,
       name: firstName,
       lastName,
-    } : null));
-};
+    }));
 
 module.exports = {
+  getAllUsers,
   findByEmail,
   findById,
 };
