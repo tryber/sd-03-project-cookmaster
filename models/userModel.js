@@ -10,7 +10,7 @@ const getAllUsers = async () =>
     )
     .then((results) => results.fetchAll())
     .then((recipes) => recipes.map(([id, email, password, firstName, lastName]) => ({
-      userId: id,
+      id,
       email,
       password,
       name: firstName,
@@ -30,7 +30,7 @@ const findByEmail = async (email) =>
     )
     .then((results) => results.fetchAll()[0])
     .then(([id, email, password, firstName, lastName]) => ({
-      userId: id,
+      id,
       email,
       password,
       name: firstName,
@@ -49,7 +49,7 @@ const findById = async (id) =>
     )
     .then((results) => results.fetchAll()[0])
     .then(([id, email, password, firstName, lastName]) => ({
-      userId: id,
+      id,
       email,
       password,
       name: firstName,
