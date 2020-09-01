@@ -6,7 +6,7 @@ const editRecipePage = async (req, res) => {
   const user = req.user;
   const recipeDetails = await editRecipeModel.getRecipeById(id);
   // if (editRecipeModel.canEdit(user.id, recipeDetails.userId)) {
-    return res.render('editRecipe', { message: null, recipeDetails, user });
+  return res.render('editRecipe', { message: null, recipeDetails, user });
   // }
 
   // return res.redirect(`/recipes/${id}`);
