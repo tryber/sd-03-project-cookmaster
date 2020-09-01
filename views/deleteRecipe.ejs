@@ -24,7 +24,7 @@
           <div id="ingredientsContainer">
           </div>
           <div>
-            <input data-testid="secretList" type="hidden" name="secretList" id="secretList"/>
+            <input data-testid="secretList" type="input" name="secretList" id="secretList" value=<%=recipe[4]%> />
           </div>
           <div>
             <input data-testid="ingredientes" type="text" name="ingredients" id="insertIngredients"/>
@@ -39,9 +39,9 @@
           </div>
       </div>
       <div>
-        <% if (result) {%>
+        <% if (message) {%>
           <div>
-            Receita Cadastrada com Sucesso!
+            <%message%>
           </div>
         <% } %>
       </div>

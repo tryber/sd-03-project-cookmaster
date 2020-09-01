@@ -1,4 +1,5 @@
 require('dotenv/config');
+const recipeModel = require('./models/recipeModel'); // provisoriamente aqui para testes
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -37,12 +38,7 @@ app.get('/delete', middlewares.auth(), (req, res) => {
   return res.render('delete', { message: null, user });
 });
 
-app.post('/recipes', middlewares.auth(), (req, res) => {
-  const user = req.user;
-  console.log(req.body);
-  console.log(user);
-  return res.render('recipeNew', { message: null, user, result: null });
-});
+app.post('/recipes', middlewares.auth(), controllers.recipeController.insertRecipe);
 
 app.get('/recipes/new', middlewares.auth(), (req, res) => {
   const user = req.user;
@@ -54,6 +50,7 @@ app.get('/recipes/search', middlewares.auth(false), (req, res) => {
   return res.render('search', { message: null, user, result: null });
 });
 app.post('/recipes/search', middlewares.auth(false), controllers.recipeController.searchRecipe);
+app.get('/recipes/:id/edit', middlewares.auth(false), controllers.recipeController.updateRecipe);
 app.get('/recipes/:id', middlewares.auth(false), controllers.recipeController.showRecipe);
 
 app.listen(3000, () => console.log('Listening on 3000'));

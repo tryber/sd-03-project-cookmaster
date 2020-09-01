@@ -49,9 +49,29 @@ const searchRecipe = (query) =>
     })),
 );
 
+const updateRecipe = ( id, name, ingredients, instructions ) => {
+  connect()
+  .then((db) => db.getTable('recipes')
+  .update()
+  .set(['name', 'ingredients', 'instructions'],[name, ingredients, instructions])
+  .where('id = :id')
+  .bind('id', id)
+  .execute())
+};
+
+const insertRecipe = (userId, user, name, ingredients, instructions) =>
+  connect()
+  .then((db) => db.getTable('recipes')
+  .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
+  .values([userId, user, name, ingredients, instructions])
+  .execute())
+  .then(() =>  ({ userId, user, name, ingredients, instructions }));
+
 module.exports = {
   resumeAllRecipes,
   getAllRecipes,
   getRecipe,
   searchRecipe,
+  updateRecipe,
+  insertRecipe,
 };
