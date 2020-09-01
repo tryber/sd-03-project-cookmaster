@@ -59,7 +59,7 @@ const updateRecipe = (id, name, ingredients, instructions) =>
   .where('id = :id')
   .bind('id', id)
   .execute())
-  .then( () => ({name, ingredients, instructions}));
+  .then(() => ({ name, ingredients, instructions }));
 
 const insertRecipe = (userId, user, name, ingredients, instructions) =>
   connect()

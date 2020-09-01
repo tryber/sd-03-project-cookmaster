@@ -50,7 +50,7 @@ const updateRecipe = async (req, res) => {
   if (result) {
     return res.redirect(`/recipes/${pageId}`);
   }
-  return res.status(401).send({messge: 'Receita não pode ser alterada', user});
+  return res.status(401).send({ messge: 'Receita não pode ser alterada', user });
 };
 
 module.exports = {
