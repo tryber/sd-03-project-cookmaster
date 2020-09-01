@@ -33,6 +33,7 @@ const createRecipes = async (req, res) => {
   } catch (err) {
     console.error(err);
   }
+  return true;
 };
 
 const editRecipe = async (req, res) => {
