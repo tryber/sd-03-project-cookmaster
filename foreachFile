@@ -6,3 +6,13 @@
           <% }) %>
         </ul>
       <% } %>
+
+
+   <% if (ingredientsArr) { %>
+        <ul id="ingredientList">
+          <% ingredientsArr.forEach(ingred => { %>
+              <li><%=ingred%></h4>
+              <button action="/removeIngredient", type="button">Excluir Ingrediente</button>
+          <% }) %>
+        </ul>
+      <% } %>

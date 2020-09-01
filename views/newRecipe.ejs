@@ -15,27 +15,23 @@
         <button data-testid="login"><a href="/login">>Login</a></button>
       <% } %>
     </header>
-    <form action="/recipes/new" method="POST">
+    <form id="newRecipeForm" action="/recipes/new" method="POST">
       <label for="newRecipeName">Nome da Receita</label>
       <input type="text" name="newRecipeName" id="newRecipeName" data-testid="nome-receita"/><br />
 
       <label for="ingredient">Ingrediente</label>
       <input type="text" name="ingredient" id="ingredient" data-testid="ingredientes"/><br />
-      <button action="/addIngredient" type="button" data-testid="adicionar-ingrediente">Adicionar Ingrediente</button><br />
+      <button id="addIngredient" type="button" data-testid="adicionar-ingrediente">Adicionar Ingrediente</button><br />
 
-      <% if (ingredientsArr) { %>
-        <ul>
-          <% ingredientsArr.forEach(ingred => { %>
-              <li><%=ingred%></h4>
-              <button action="/removeIngredient", type="button">Excluir Ingrediente</button>
-          <% }) %>
-        </ul>
-      <% } %>
+      <ul id="ingredientList">
+
+
+      </ul>
 
       <label for="howToPrepare">Modo de Preparo</label>
       <input type="textarea" name="howToPrepare" id="howToPrepare" data-testid="modo-de-preparo"/><br />
 
-      <button type="submit" data-testid="postar-receita">Salvar Receita</button>
+      <button type="button" data-testid="postar-receita" onclick="submitRecipe()" >Salvar Receita</button>
     </form>
     <% if (message) {%>
       <div class="message">
@@ -43,4 +39,39 @@
       </div>
     <% } %>
   </body>
+  <script>
+    const addIngredientButton = document.getElementById('addIngredient');
+    const ingredientListUL = document.getElementById('ingredientList');
+    const ingredient = document.getElementById('ingredient');
+
+    let ingredArr = [];
+
+    const deleteIngredient = (event) => {
+      ingredArr = ingredArr.filter((ingredient) => ingredient !== event.target.parentElement.id);
+      console.log(ingredArr)
+      ingredientListUL.removeChild(event.target.parentElement);
+    }
+
+    const addIngredient = () => {
+      const newLi = document.createElement('li');
+      ingredientListUL.appendChild(newLi);
+
+      newLi.id = ingredient.value;
+
+      newLi.innerHTML = ingredient.value +
+        `<button type="button" onclick="deleteIngredient(event)" data-testid="excluir-ingrediente">Excluir Ingrediente</button>`;
+
+
+      ingredArr.push(ingredient.value);
+      console.log(ingredArr)
+    };
+    addIngredientButton.addEventListener('click', addIngredient)
+
+
+    const submitRecipe = () => {
+      ingredient.value = ingredArr;
+      document.getElementById('newRecipeForm').submit();
+    };
+
+  </script>
 </html>
