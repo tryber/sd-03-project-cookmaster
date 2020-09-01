@@ -34,7 +34,6 @@ app.get(
 
 app.post('/recipes/:id/delete', middlewares.auth(), controllers.recipesController.deleteRecipeUser);
 app.get('/recipes/new', middlewares.auth(), controllers.recipesController.formRecipe);
-
 app.post('/recipes/new', middlewares.auth(), controllers.recipesController.newRecipes);
 
 app.get('/recipes/:id', middlewares.auth(false), controllers.recipesController.listRecipesById);

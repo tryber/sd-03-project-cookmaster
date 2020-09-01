@@ -68,7 +68,7 @@ const editRecipe = async (req, res) => {
 
   await recipesModel.editRecipe(req.params.id, recipeName, ingredients, instructions);
 
-  return res.redirect('/user/recipes');
+  return res.redirect('/me/recipes');
 };
 
 const getUserRecipe = async (req, res) => {
