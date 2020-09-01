@@ -16,18 +16,18 @@ const getRecipes = async () => {
   })) : null;
 };
 
-const getRecipesById = async (userId) => {
+const getRecipesById = async (recipeId) => {
   const db = await connection();
   const results = await db.getTable('recipes')
     .select(['id', 'user_id', 'user', 'name', 'ingredients', 'instructions'])
     .where('id = :id')
-    .bind('id', userId)
+    .bind('id', recipeId)
     .execute();
 
   const findRecipes = results.fetchAll();
 
-  return findRecipes ? findRecipes.map(([id, userId, user, name,  ingredients, instructions]) => ({
-    id, instructions, ingredients, userId, name, user
+  return findRecipes ? findRecipes.map(([id, userId, user, name, ingredients, instructions]) => ({
+    id, instructions, ingredients, userId, name, user,
   })) : null;
 };
 
@@ -61,9 +61,9 @@ const postRecipes = async (valuesRecipes, valuesUser) => {
     .execute();
 };
 
-const editRecipesBank = async (id, datas) => {
+const editRecipesBank = async (id) => {
   const db = await connection();
-  const { name, ingredients, instructions } = {name: 'william', ingredients: 'sabor', instructions:'ze'};
+  const { name, ingredients, instructions } = { name: 'william', ingredients: 'sabor', instructions: 'ze' };
   const results = await db.getTable('recipes')
 
     .update()
