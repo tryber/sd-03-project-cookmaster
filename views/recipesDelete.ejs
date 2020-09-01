@@ -6,10 +6,10 @@
     <title>Cookmaster - Recipes</title>
   </head>
   <body>
-    <% if(message) {%>
-      <h1><%=message%></h1>
-    <%}%>
-    <form action="/recipes/<%= recipesDetails.id %>/delete" method="POST">
+  <form action="/recipes/<%= recipesDetails.id %>/delete" method="POST">
+      <% if(message) {%>
+        <span><%=message%></span>
+      <%}%>
       <h2>Confirme a exclusão da receita</h2>
       <label for="passwordInput">Senha: </label>
       <input type="password" name="password" id="passwordInput" data-testid="senha" /><br />
