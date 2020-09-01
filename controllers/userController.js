@@ -65,29 +65,28 @@ const renderReturnEdit = (message, res, value, user) => {
   if (value)
     return res.render('admin/myAccount', {
       message,
-      user
+      user,
     });
 };
 
 const signup = async (req, res, next) => {
   const { email, password, confirmPassword, name, lastName } = req.body;
   const valuesObject = Object.values(req.body).map((el) => !el).includes(true);
-  renderReturn('Preencha todos os dados', res, valuesObject, req.user);
+  renderReturnEdit('Preencha todos os dados', res, valuesObject);
 
-  renderReturn('O email deve ter o formato email@mail.com', res, !emailRegex.test(email), req.user);
+  renderReturnEdit('O email deve ter o formato email@mail.com', res, !emailRegex.test(email));
 
-  renderReturn('A senha deve ter pelo menos 6 caracteres', res, password.length < 6, req.user);
+  renderReturnEdit('A senha deve ter pelo menos 6 caracteres', res, password.length < 6);
 
-  renderReturn('As senhas tem que ser iguais', res, password !== confirmPassword, req.user);
+  renderReturnEdit('As senhas tem que ser iguais', res, password !== confirmPassword);
 
-  renderReturn('O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-    res, name.length < 3 || validString(name), req.user);
+  renderReturnEdit('O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+  res, name.length < 3 || validString(name));
 
-  renderReturn('O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-    res, lastName.length < 3 || validString(lastName), req.user);
+  renderReturnEdit('O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+  res, lastName.length < 3 || validString(lastName));
 
-  renderReturn('As senhas tem que ser iguais', res, password !== confirmPassword, req.user);
-
+  renderReturnEdit('As senhas tem que ser iguais', res, password !== confirmPassword);
   await userModel.setUser(req.body);
   const user = await userModel.findByValue(email, 'email');
   return renderReturn('Cadastro efetuado com sucesso!', res, user);
@@ -114,21 +113,21 @@ const editAccount = async (req, res, next) => {
   const { id } = req.user;
   const { email, password, confirmPassword, name, lastName } = req.body;
   const valuesObject = Object.values(req.body).map((el) => !el).includes(true);
-  renderReturnEdit('Preencha todos os dados', res, valuesObject);
+  renderReturn('Preencha todos os dados', res, valuesObject, req.user);
 
-  renderReturnEdit('O email deve ter o formato email@mail.com', res, !emailRegex.test(email));
+  renderReturn('O email deve ter o formato email@mail.com', res, !emailRegex.test(email), req.user);
 
-  renderReturnEdit('A senha deve ter pelo menos 6 caracteres', res, password.length < 6);
+  renderReturn('A senha deve ter pelo menos 6 caracteres', res, password.length < 6, req.user);
 
-  renderReturnEdit('As senhas tem que ser iguais', res, password !== confirmPassword);
+  renderReturn('As senhas tem que ser iguais', res, password !== confirmPassword, req.user);
 
-  renderReturnEdit('O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-  res, name.length < 3 || validString(name));
+  renderReturn('O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+    res, name.length < 3 || validString(name), req.user);
 
-  renderReturnEdit('O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-  res, lastName.length < 3 || validString(lastName));
+  renderReturn('O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+    res, lastName.length < 3 || validString(lastName), req.user);
 
-  renderReturnEdit('As senhas tem que ser iguais', res, password !== confirmPassword);
+  renderReturn('As senhas tem que ser iguais', res, password !== confirmPassword, req.user);
 
   await userModel.changeUser(req.body, id);
   const recipes = await cookModel.getAll();
