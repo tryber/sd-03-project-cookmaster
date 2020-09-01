@@ -15,66 +15,64 @@ const loginForm = (req, res) => {
   });
 };
 
-const registerForm = (req, res) => {
-  return res.render('admin/register', {
+const registerForm = (req, res) =>
+  res.render('admin/register', {
     message: null,
     redirect: req.query.redirect,
-  })
-}
+  });
 
-const validateEmail = (email) => {
+const validateEmail = (email, res) => {
   if (!email || !email.match(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/))
     return res.render('admin/register', {
       message: 'O email deve ter o formato email@mail.com',
-      redirect: null
+      redirect: null,
     });
 };
 
-const validatePassword = (password, passwordV) => {
+const validatePassword = (password, passwordV, res) => {
   if (!password || password.length < 6)
     return res.render('admin/register', {
       message: 'A senha deve ter pelo menos 6 caracteres',
-      redirect: null
+      redirect: null,
     });
 
   if (!passwordV || String(password) !== String(passwordV))
     return res.render('admin/register', {
       message: 'As senhas tem que ser iguais',
-      redirect: null
+      redirect: null,
     });
 };
 
-const validateName = (name) => {
+const validateName = (name, res) => {
   if (!name || !name.match(/^[a-zA-Z]{3,}$/))
     return res.render('admin/register', {
       message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-      redirect: null
+      redirect: null,
     });
 };
 
-const validateLastName = (lastName) => {
+const validateLastName = (lastName, res) => {
   if (!lastName || !lastName.match(/^[a-zA-Z]{3,}$/))
     return res.render('admin/register', {
       message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-      redirect: null
+      redirect: null,
     });
 };
 
 const register = rescue(async (req, res) => {
   const { email, password, passwordV, name, lastName } = req.body;
 
-  validateEmail(email);
-  validatePassword(password, passwordV);
-  validateName(name);
-  validateLastName(lastName);
-  
+  validateEmail(email, res);
+  validatePassword(password, passwordV, res);
+  validateName(name, res);
+  validateLastName(lastName, res);
+
   await userModel.createUser({ email, password, passwordV, name, lastName });
 
   res.render('admin/register', {
     message: 'Cadastro efetuado com sucesso!',
     redirect: null
   });
-
 });
 
 const login = async (req, res, next) => {
