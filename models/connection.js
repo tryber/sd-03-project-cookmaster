@@ -4,7 +4,8 @@ require('dotenv/config');
 const mysqlx = require('@mysql/xdevapi');
 
 // Sequencia no projeto: sd-03-project-cookmaster/models/connection.js
-// esse arquivo você irá criar e configurar quando programar a conexão com banco, e essencial estar na porta 33060.
+// esse arquivo você irá criar e configurar quando programar a conexão com banco,
+// e essencial estar na porta 33060.
 
 const config = {
   user: process.env.MYSQL_USER,

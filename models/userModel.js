@@ -72,33 +72,32 @@ const findById = async (id) =>
       lastName,
     }));
 
-  const registerUser = async (email, password, name, lastName) =>
-    connection().then((db) =>
-      db
-        .getTable('users')
-        .insert(['email', 'password', 'first_name', 'last_name'])
-        .values(email, password, name, lastName)
-        .execute(),
-    );
-  
-  const editUser = async (id, email, password, name, lastName) =>
-    connection().then((db) =>
-      db
-        .getTable('users')
-        .update()
-        .set('email', email)
-        .set('password', password)
-        .set('first_name', name)
-        .set('last_name', lastName)
-        .where('id = :id')
-        .bind('id', id)
-        .execute(),
-    );
-  
-  module.exports = {
-    findById,
-    findByEmail,
-    registerUser,
-    editUser,
-  };
-  
+const registerUser = async (email, password, name, lastName) =>
+  connection().then((db) =>
+    db
+      .getTable('users')
+      .insert(['email', 'password', 'first_name', 'last_name'])
+      .values(email, password, name, lastName)
+      .execute(),
+  );
+
+const editUser = async (id, email, password, name, lastName) =>
+  connection().then((db) =>
+    db
+      .getTable('users')
+      .update()
+      .set('email', email)
+      .set('password', password)
+      .set('first_name', name)
+      .set('last_name', lastName)
+      .where('id = :id')
+      .bind('id', id)
+      .execute(),
+  );
+
+module.exports = {
+  findById,
+  findByEmail,
+  registerUser,
+  editUser,
+};
