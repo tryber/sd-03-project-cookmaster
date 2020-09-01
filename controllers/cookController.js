@@ -73,7 +73,6 @@ const editRecipe = async (req, res) => {
     newInggg = [recipesDetails.ingredients, ingredients];
     await cookModel.changeRecipe(req.body, id, newInggg.join(','));
     recipesDetails = await cookModel.getCookieById(id);
-    console.log(recipesDetails)
     newInggg = [];
     return res.render('recipesEdit', { user: req.user, recipesDetails });
   }
