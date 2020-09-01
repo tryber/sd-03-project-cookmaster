@@ -78,6 +78,14 @@ const changeRecipe = async ({ name, instructions }, id, ingredients) =>
     .bind('id', id)
     .execute());
 
+const deleteCookie = async (id) =>
+  connect()
+    .then((db) => db.getTable('recipes')
+    .delete()
+    .where('id = :id')
+    .bind('id', id)
+    .execute());
+
 module.exports = {
   getAll,
   getCookieById,
@@ -85,4 +93,5 @@ module.exports = {
   setNewRecipes,
   changeRecipe,
   getMyFoods,
+  deleteCookie,
 };

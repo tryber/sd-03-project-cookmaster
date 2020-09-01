@@ -1,4 +1,5 @@
 const cookModel = require('../models/cookModel');
+const userModel = require('../models/userModel');
 
 const listCook = async (req, res) => {
   const recipes = await cookModel.getAll();
@@ -86,6 +87,27 @@ const editRecipe = async (req, res) => {
   return res.render('recipes', { user: req.user, recipesDetails, id });
 };
 
+const recipeToDelete = async (req, res) => {
+  const { id } = req.params;
+  const recipesDetails = await cookModel.getCookieById(id);
+  if (recipesDetails.userId !== req.user.id) {
+    return res.redirect(`/recipes/${id}`);
+  }
+  return res.render('recipesDelete', { user: req.user, recipesDetails, err: false });
+};
+
+const deleteRecipe = async (req, res) => {
+  const { password } = req.body;
+  const { id } = req.params;
+  const recipesDetails = await cookModel.getCookieById(id);
+  const user = await userModel.findByValue(id, 'id');
+  if(password !== user.password)
+  return res.render('recipesDelete', { user: req.user, recipesDetails, id, err: true });
+  await cookModel.deleteCookie(id);
+  const recipes = await cookModel.getAll();
+  return res.render('admin/home', { user: req.user, recipes, id });
+};
+
 module.exports = {
   listCook,
   newRecipe,
@@ -95,4 +117,6 @@ module.exports = {
   searchRecipe,
   recipeToEdit,
   editRecipe,
+  recipeToDelete,
+  deleteRecipe,
 };
