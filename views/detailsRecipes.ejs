@@ -9,7 +9,9 @@
       <% if (user) { %>
         <button data-testid="editar-receita" onclick="window.location.pathname='/edit'">Edit</button>
         <button type="button" onclick="window.location.pathname='/recipes/<%= recipesId.id %>/edit'">Editar Receita</button>
-        <button type="button" data-testid="excluir-receita" onclick="window.location.pathname='/recipes/<%= recipesId.id %>/delete'">Excluir Receita</button>
+        <a href="/recipes/<%= id.id %>/delete">
+          <button type="button" data-testid="excluir-receita" >Excluir Receita</button>
+        </a>
       <% } %>
       <div>
         <% recipesId.map((elem) => { %>
@@ -20,3 +22,6 @@
     </div>
   </body>
 </html>
+
+
+<!-- onclick="window.location.pathname='/recipes/<%= recipesId.id %>/delete'" -->

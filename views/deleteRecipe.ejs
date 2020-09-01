@@ -8,7 +8,7 @@
     <% if (message) {%>
     <div class="message"><%= message %></div>
     <% } %>
-    <form action="/recipes/<%= recipeId.id %>/delete" method="POST" name="password">
+    <form action="/recipes/<%= id %>/delete" method="POST" name="password">
       <h3>Confirme a exclusão da receita</h3>
       <label for="password">Senha</label>
       <input type="password" id="password" data-testid="senha" name="password" />
