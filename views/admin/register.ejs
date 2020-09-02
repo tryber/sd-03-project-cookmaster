@@ -43,13 +43,6 @@
       <input type="text" name="name" id="nameInput" data-testid='nome' /><br />
       <label for="lastNameInput">Sobrenome: </label>
       <input type="text" name="lastName" id="lastNameInput" data-testid='sobrenome' /><br />
-      <% if (redirect) { %>
-      <input
-        type="hidden"
-        name="redirect"
-        value="<%= decodeURIComponent(redirect) %>"
-      />
-      <% } %>
       <button type="submit" data-testid='cadastrar'>Cadastrar</button>
     </form>
     <a data-testid='login' href='/login'>Fazer Login</a>

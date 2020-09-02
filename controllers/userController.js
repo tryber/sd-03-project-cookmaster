@@ -27,39 +27,31 @@ const register = rescue(async (req, res) => {
   if (!email || !email.match(/^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/))
     res.render('admin/register', {
       message: 'O email deve ter o formato email@mail.com',
-      redirect: null,
     });
 
   if (!password || password.length < 6)
     res.render('admin/register', {
       message: 'A senha deve ter pelo menos 6 caracteres',
-      redirect: null,
     });
 
   if (!passwordV || String(password) !== String(passwordV))
     res.render('admin/register', {
       message: 'As senhas tem que ser iguais',
-      redirect: null,
     });
 
   if (!name || !name.match(/^[a-zA-Z]{3,}$/))
     res.render('admin/register', {
       message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-      redirect: null,
     });
 
   if (!lastName || !lastName.match(/^[a-zA-Z]{3,}$/))
     res.render('admin/register', {
       message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-      redirect: null,
     });
 
   await userModel.createUser({ email, password, passwordV, name, lastName });
 
-  res.render('admin/register', {
-    message: 'Cadastro efetuado com sucesso!',
-    redirect: null,
-  });
+  res.render('admin/register', { message: 'Cadastro efetuado com sucesso!' });
 });
 
 const login = async (req, res, next) => {
