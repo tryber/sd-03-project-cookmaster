@@ -15,12 +15,12 @@ const findByEmail = async (uEmail) => {
     if (user) {
       const userData = ([id, email, password, firstName, lastName]) => ({
         id, email, password, name: `${firstName} ${lastName}`,
-      })
+      });
       return userData(user);
     }
     return {};
   } catch (err) {
-    return(err);
+    return (err);
   }
 };
 
@@ -69,11 +69,11 @@ const validateUser = async (user) => {
     case email === await getUser(email):
       return { ...res, message: 'Usuário já cadastrado' };
     case !validadeEmail(email):
-      return { ...res, message: 'O email deve ter o formato email@mail.com'};
+      return { ...res, message: 'O email deve ter o formato email@mail.com' };
     case !password || !password >= 6:
-      return { ...res, message: 'A senha deve ter pelo menos 6 caracteres'};
+      return { ...res, message: 'A senha deve ter pelo menos 6 caracteres' };
     case !passwordConfirm || !passwordConfirm === password:
-      return { ...res, message: 'As senhas tem que ser iguais'};
+      return { ...res, message: 'As senhas tem que ser iguais' };
     case !validadeName(name):
       return {
         ...res,
