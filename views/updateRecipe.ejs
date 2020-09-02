@@ -136,10 +136,12 @@
     }
 
     insertIngredientButton.addEventListener('click', () => {
-      ingredients.push(ingredientValue.value);
-      createIngredient(ingredients);
-      ingredientValue.value='';
-      secretListFiller();
+      if (ingredientValue.value && typeof ingredientValue.value !== 'null') {
+        ingredients.push(ingredientValue.value);
+        createIngredient(ingredients);
+        ingredientValue.value='';
+        secretListFiller();
+      }
     });
 
     window.onload = () => {

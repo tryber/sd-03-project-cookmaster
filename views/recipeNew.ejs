@@ -46,6 +46,9 @@
           </div>
         <% } %>
       </div>
+      <%if (lastId) {%>
+        <div><a href="/recipes/<%=lastId%>">Ver Receita</a></div>
+      <%}%>
     </div>
   </body>
   <script>
@@ -125,10 +128,12 @@
     }
 
     insertIngredientButton.addEventListener('click', () => {
-      ingredients.push(ingredientValue.value);
-      createIngredient(ingredients);
-      ingredientValue.value='';
-      secretListFiller();
+      if (ingredientValue.value && typeof ingredientValue.value !== 'null') {
+        ingredients.push(ingredientValue.value);
+        createIngredient(ingredients);
+        ingredientValue.value='';
+        secretListFiller();
+      }
     });
 
     window.onload = () => {

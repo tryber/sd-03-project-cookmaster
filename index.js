@@ -29,27 +29,20 @@ app.post('/login', middlewares.auth(false), controllers.userController.login);
 app.get('/signin', middlewares.auth(false), controllers.userController.signinForm);
 app.post('/signin', middlewares.auth(false), controllers.userController.signin);
 
-app.get('/edit', middlewares.auth(), (req, res) => {
-  const user = req.user;
-  return res.render('edit', { message: null, user });
-});
-app.get('/delete', middlewares.auth(), (req, res) => {
-  const user = req.user;
-  return res.render('delete', { message: null, user });
-});
-
 app.get('/recipes/search', middlewares.auth(false), (req, res) => {
   const user = req.user;
   return res.render('search', { message: null, user, result: null });
 });
 app.get('/recipes/new', middlewares.auth(), (req, res) => {
   const user = req.user;
-  return res.render('recipeNew', { message: null, user, result: null });
+  return res.render('recipeNew', { message: null, user, result: null, lastId: null });
 });
 app.get('/recipes/:id/edit', middlewares.auth(false), controllers.recipeController.ableToUpdateRecipe);
+app.get('/recipes/:id/delete',middlewares.auth(), controllers.recipeController.ableToDeleteRecipe);
 app.get('/recipes/:id', middlewares.auth(false), controllers.recipeController.showRecipe);
 app.post('/recipes/search', middlewares.auth(false), controllers.recipeController.searchRecipe);
 app.post('/recipes/:id', middlewares.auth(), controllers.recipeController.updateRecipe);
+app.post('/recipes/:id/delete',middlewares.auth(), controllers.recipeController.deleteRecipe);
 app.post('/recipes', middlewares.auth(), controllers.recipeController.insertRecipe);
 app.get('/me/recipes', middlewares.auth(), controllers.recipeController.showResumeMine);
 

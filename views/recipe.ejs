@@ -29,7 +29,7 @@
           <div>
             <h2>Enviada por <%= recipe[2] %></h2>
           </div>
-          <%if (user && user.id === recipe[0]) {%>
+          <%if (user && user.id === recipe[1]) {%>
             <button data-testid="editar-receita" onclick="window.location.href='/recipes/<%=id%>/edit';">
               Editar Receita
             </button>

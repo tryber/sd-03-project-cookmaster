@@ -78,8 +78,17 @@ const insertRecipe = (userId, user, name, ingredients, instructions) =>
   .then((db) => db.getTable('recipes')
   .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
   .values([userId, user, name, ingredients, instructions])
-  .execute())
-  .then(() => ({ userId, user, name, ingredients, instructions }));
+  .execute());
+  // .then(() => ({ userId, user, name, ingredients, instructions }));
+
+  const recipeDelete = (recipeId) =>
+    connect()
+    .then((db) => db.getTable('recipes')
+    .delete()
+    .where('id = :recipeId')
+    .bind('recipeId', recipeId)
+    .execute())
+    .then(() => 'Receita excluida com sucesso');
 
 module.exports = {
   resumeAllRecipes,
@@ -89,4 +98,5 @@ module.exports = {
   searchRecipe,
   updateRecipe,
   insertRecipe,
+  recipeDelete,
 };
