@@ -42,7 +42,7 @@ app.get('/recipes/:id/delete', middlewares.auth(), controllers.recipeController.
 app.get('/recipes/:id', middlewares.auth(false), controllers.recipeController.showRecipe);
 app.post('/recipes/search', middlewares.auth(false), controllers.recipeController.searchRecipe);
 app.post('/recipes/:id', middlewares.auth(), controllers.recipeController.updateRecipe);
-app.post('/recipes/:id/delete',middlewares.auth(), controllers.recipeController.deleteRecipe);
+app.post('/recipes/:id/delete', middlewares.auth(), controllers.recipeController.deleteRecipe);
 app.post('/recipes', middlewares.auth(), controllers.recipeController.insertRecipe);
 app.get('/me/recipes', middlewares.auth(), controllers.recipeController.showResumeMine);
 
