@@ -1,5 +1,4 @@
 const queryModel = require('../models/queryModel');
-const { query } = require('express');
 
 const getRecipes = async (req, res) => {
   const recipes = await queryModel.getAllRecipes();
@@ -13,15 +12,18 @@ const getRecipes = async (req, res) => {
     }];
     return acc;
   }, []);
-  console.log(filteredRecipes)
   return res.render('home', {
     filteredRecipes, isAuth: req.user, message: null,
   });
 };
 
 const getRecipe = async (req, res) => {
+  const user = req.user;
   const recipe = await queryModel.getRecipeById(req.params.id);
-  console.log(recipe);
+  recipe.ingredients = recipe.ingredients.split(',');
+  if (user) {
+    return res.render('recipe', { recipe, isAuth: true, user });
+  }
   return res.render('recipe', { recipe, isAuth: false });
 };
 

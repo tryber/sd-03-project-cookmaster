@@ -45,7 +45,6 @@ const findById = async (uId) => {
   } catch (err) {
     return err;
   }
-  return 1;
 };
 
 // e essas funções daki n iam sair sem ajuda do hebert

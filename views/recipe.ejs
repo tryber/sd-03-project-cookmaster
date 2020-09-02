@@ -17,6 +17,7 @@
           Login
         </button>
       <%} else {%>
+        <p><%=user.name%></p>
         <button
           type="button"
           data-testid="logout"
@@ -24,18 +25,34 @@
         >
           Logout
         </button>
-        <button
-          type="button"
-          data-testid="nova-receita"
-        >
-          Nova Receita
-        </button>
+        <%if (user.id === recipe.userId) {%>
+          <button
+            type="button"
+            data-testid="editar-receita"
+            onclick=<%=`location.pathname=recipes/${recipe.id}/edit`%>
+          >
+            Editar Receita
+          </button>
+          <button
+            type="button"
+            data-testid="excluir-receita"
+          >
+            Excluir Receita
+          </button>
+        <%};%>
       <%};%>
     </header>
     <article class="receitas">
-      <div>
-        <!--aki vai a receita-->
-      </div>
+      <h2><%=recipe.name%></h2>
+      <h3><%=recipe.user%></h3>
+      <h2>Ingredientes</h2>
+      <ul>
+        <%recipe.ingredients.map((ingredient) => {%>
+          <li><%=ingredient%></li>
+        <%})%>
+      </ul>
+      <h2>Modo de preparo</h2>
+      <p><%=recipe.instructions%></p>
     </article>
   </body>
 </html>
