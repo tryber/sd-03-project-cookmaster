@@ -21,14 +21,15 @@ const recipeById = async (id) =>
     .then((db) =>
       db
         .getTable('recipes')
-        .select(['id', 'user', 'name', 'ingredients', 'instructions'])
+        .select(['id', 'user_id', 'user', 'name', 'ingredients', 'instructions'])
         .where('id = :id')
         .bind('id', id)
         .execute(),
     )
     .then((results) => results.fetchAll()[0])
-    .then(([recipeId, user, name, ingredients, instructions]) => ({
+    .then(([recipeId, userId, user, name, ingredients, instructions]) => ({
       id: recipeId,
+      userId,
       user,
       name,
       ingredients,

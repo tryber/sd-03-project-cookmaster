@@ -29,9 +29,9 @@
       <h2>Modo de Preparo</h2>
       <p><%= recipe.instructions %></p>
     </div>
-    <% if (user) {%>
-      <button data-testid='editar-receita'>Editar Receita</button>
-      <button data-testid='excluir-receita'>Excluir Receita</button>
+    <% if (display) {%>
+      <button data-testid='editar-receita'><a href='/recipes/<%= recipe.id %>/edit'>Editar Receita</a></button>
+      <button data-testid='excluir-receita'><a href='/recipes/<%= recipe.id %>/delete'>Excluir Receita</a></button>
     <% } %>
   </div>
 </body>

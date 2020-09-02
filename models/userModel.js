@@ -11,13 +11,13 @@ const findByEmail = async (email) =>
         .execute(),
     )
     .then((results) => results.fetchAll()[0])
-    .then(([id, userEmail, password, firstName, lastName]) => ({
+    .then(([id, userEmail, password, firstName, lastName] = []) => (userEmail ? {
       id,
       email: userEmail,
       password,
       name: firstName,
       lastName,
-    }));
+    } : null));
 
 const findById = async (id) =>
   connection()
@@ -30,13 +30,13 @@ const findById = async (id) =>
         .execute(),
     )
     .then((results) => results.fetchAll()[0])
-    .then(([userId, email, password, firstName, lastName]) => ({
+    .then(([userId, email, password, firstName, lastName] = []) => (userId ? {
       id: userId,
       email,
       password,
       name: firstName,
       lastName,
-    }));
+    } : null));
 
 const createUser = async ({ email, password, name, lastName }) =>
   connection().then((db) =>
