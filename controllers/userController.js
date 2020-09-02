@@ -15,20 +15,17 @@ const loginForm = (req, res) => {
   });
 };
 
-const registerForm = (req, res) =>
-  res.render('admin/register', {
-    message: null,
-    redirect: req.query.redirect,
-  });
+const registerForm = (_req, res) =>
+  res.render('admin/register', { message: null });
 
-const register = rescue(async (req, res) => {
-  const { email, password, passwordV, name, lastName } = req.body;
-
+const validateEmail = (email, res) => {
   if (!email || !email.match(/^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/))
     res.render('admin/register', {
       message: 'O email deve ter o formato email@mail.com',
     });
+};
 
+const validatePassword = (password, passwordV, res) => {
   if (!password || password.length < 6)
     res.render('admin/register', {
       message: 'A senha deve ter pelo menos 6 caracteres',
@@ -38,16 +35,29 @@ const register = rescue(async (req, res) => {
     res.render('admin/register', {
       message: 'As senhas tem que ser iguais',
     });
+};
 
+const validateName = (name, res) => {
   if (!name || !name.match(/^[a-zA-Z]{3,}$/))
-    res.render('admin/register', {
-      message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-    });
+  res.render('admin/register', {
+    message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+  });
+};
 
+const validateLastName = (lastName, res) => {
   if (!lastName || !lastName.match(/^[a-zA-Z]{3,}$/))
-    res.render('admin/register', {
-      message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-    });
+  res.render('admin/register', {
+    message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+  });
+};
+
+const register = rescue(async (req, res) => {
+  const { email, password, passwordV, name, lastName } = req.body;
+
+  validateEmail(email, res);
+  validatePassword(password, passwordV, res);
+  validateName(name, res);
+  validateLastName(lastName, res);
 
   await userModel.createUser({ email, password, passwordV, name, lastName });
 
