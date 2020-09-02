@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Home</title>
+  </head>
+  <header>Cookmaster
+    <nav>
+    </nav>
+  </header>
+  <body>
+    <div>
+      <h1>Buscar Receitas</h1>
+      <div>
+        <form method='post' action="/recipes/search">
+        <input data-testid="receita" type="text" name="q" />
+        <button data-testid="buscar" type="submit">Buscar</button>
+      </div>
+      <div>
+        <% if (result) {%>
+          <div>
+            <% result.map(recipe => { %>
+            <div>
+              <p>Receita: <%= recipe.name %></p>
+              <p>Autor: <%= recipe.user %></p>
+              <a href="/recipes/<%= recipe.id %>">Ver mais</a>
+            </div>
+            <%})%>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>

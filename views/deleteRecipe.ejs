@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Home</title>
+  </head>
+  <header>Cookmaster
+    <nav>
+    </nav>
+  </header>
+  <body>
+    <div>
+      <h1>Excluir <%=recipe[3]%></h1>
+      <% if (message) {%>
+        <div>
+          <%=message%>
+        </div>
+      <% } %>
+      <div>
+        <%if (showForm) {%>
+          <form method='post' action="/recipes/<%=id%>/delete">
+            <div>Senha</div>
+            <input data-testid="senha" type="password" name="senha" id="senha"></input>
+            <div>
+              <button data-testid="cancelar" type="button" id="cancelar" onclick="window.location.href='/';">Cancelar</button>
+              <button data-testid="confirmar" type="submit" id="confirmar">Confirmar</button>
+            </div>
+          </form>
+        <%}%>
+      </div>
+    </div>
+  </body>
+</html>
