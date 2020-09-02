@@ -1,10 +1,10 @@
-const recipesModal = require('../models/recipesModel');
 const recipesModel = require('../models/recipesModel');
+// const recipesModel = require('../models/recipesModel');
 
 const listRecipes = async (req, res) => {
   try {
     const { user } = req;
-    const recipes = await recipesModal.finfByRecipes(req.params.id);
+    const recipes = await recipesModel.finfByRecipes(req.params.id);
 
     if (!user) return res.render('home', { recipes, user: null });
 
@@ -17,7 +17,7 @@ const listRecipes = async (req, res) => {
 const listRecipesById = async (req, res) => {
   try {
     const { user } = req;
-    const recipe = await recipesModal.findRecipesById(req.params.id);
+    const recipe = await recipesModel.findRecipesById(req.params.id);
 
     return res.render('details', { recipe: recipe[0], user });
   } catch (error) {
@@ -31,7 +31,7 @@ const listsharchRecipes = async (req, res) => {
     const { user } = req;
 
     if (!query) return res.render('shearchRecipes', { shearchRecipes: [], user });
-    const shearchRecipes = await recipesModal.findSharchRecipe(query);
+    const shearchRecipes = await recipesModel.findSharchRecipe(query);
     return res.render('shearchRecipes', { shearchRecipes, user });
   } catch (error) {
     return error;
@@ -41,20 +41,23 @@ const listsharchRecipes = async (req, res) => {
 const formRecipe = async (req, res) => res.render('newRecipeForm', { user: req.user });
 
 const newRecipes = async (req, res) => {
-  const { user } = req.user;
-  const { recipeName, ingredients, instructions } = req.body;
-  const { id, name, lastName } = user;
-  const userName = `${name} ${lastName}`;
-
-  await recipesModal.createNewRecipes(id, userName, recipeName, ingredients, instructions);
-
-  return res.redirect('/', { user });
+  try {
+    const { user } = req.user;
+    const { recipeName, ingredients, instructions } = req.body;
+    const { id, name, lastName } = user;
+    const userName = `${name} ${lastName}`;
+    
+    await recipesModel.createNewRecipes(id, userName, recipeName, ingredients, instructions);
+    return res.redirect('/', { user });
+  } catch (error) {
+    return error;
+  }
 };
 
 const formEditRecipe = async (req, res) => {
   //  conferência do cód com PR da Carolis.
   const { id } = req.user;
-  const recipe = await recipesModal.findRecipesById(req.params.id);
+  const recipe = await recipesModel.findRecipesById(req.params.id);
 
   const { userId } = await recipe[0];
 
@@ -73,7 +76,7 @@ const editRecipe = async (req, res) => {
 
 const getUserRecipe = async (req, res) => {
   const { id } = req.user;
-  const recipes = await recipesModal.findAllRecipesById(id);
+  const recipes = await recipesModel.findAllRecipesById(id);
 
   return res.render('recipeUser', { recipes, user: req.user });
 };
@@ -84,11 +87,11 @@ const deleteRecipeForm = async (req, res) =>
 const deleteRecipeUser = async (req, res) => {
   const { id } = req.user;
   const passwordUser = req.body.password;
-  const [passwordBank] = await recipesModal.getPasswordToDelete(id);
+  const [passwordBank] = await recipesModel.getPasswordToDelete(id);
 
   try {
     if (passwordUser === passwordBank) {
-      await recipesModal.deleteRecipe(req.params.id);
+      await recipesModel.deleteRecipe(req.params.id);
       return res.redirect('/');
     }
     return res.render('deleteRecipe', {
