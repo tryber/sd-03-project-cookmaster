@@ -47,34 +47,28 @@ const findById = async (uId) => {
 };
 
 const validateUser = (user) => {
-  const res = { error: false, message: '', user, redirect: null };
+  const res = { error: true, message: '', redirect: null, user };
   switch (user) {
     case !user.email || user.email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$i/):
-      res.error = true;
       res.message = 'O email deve ter o formato email@mail.com';
-      break;
+      return res;
     case !user.password || !user.password >= 6:
-      res.error = true;
       res.message = 'A senha deve ter pelo menos 6 caracteres';
-      break;
+      return res;
     case !user.passwordConfirm || !user.passwordConfirm === user.password:
-      res.error = true;
       res.message = 'As senhas tem que ser iguais';
-      break;
+      return res;
     case !user.name || !user.name >= 3 || user.name.match(/\d/):
-      res.error = true;
       res.message = 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras';
-      break;
+      return res;
     case !user.surname || !user.surname >= 3 || user.surname.match(/\d/):
-      res.error = true;
       res.message = 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras';
-      break;
+      return res;
     default:
-      res.error = true;
+      res.error = false;
       res.message = 'Cadastro efetuado com sucesso!';
-      break;
+      return res;
   }
-  return res;
 };
 
 const createUser = async (user) => {
