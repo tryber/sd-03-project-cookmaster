@@ -12,9 +12,9 @@ const findByName = async (input) => {
     const results = await searchDb.fetchAll();
     return results
       ? results.map(([user, name]) => ({
-          user,
-          name,
-        }))
+        user,
+        name,
+      })) 
       : [];
   } catch (err) {
     console.error(err);
