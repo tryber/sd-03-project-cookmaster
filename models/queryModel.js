@@ -14,7 +14,7 @@ const getRecipeById = async (uId) => {
         .getTable('recipes')
         .select()
         .where('id = :id')
-        .bind('id',uId)
+        .bind('id', uId)
         .execute(),
       )
       .then((results) => results.fetchAll()[0]);

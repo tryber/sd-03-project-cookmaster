@@ -29,13 +29,14 @@
           <button
             type="button"
             data-testid="editar-receita"
-            onclick=<%=`window.location.pathname=recipes/${recipe.id}/edit`%>
+            onclick="window.location.pathname='<%=`recipes/${recipe.id}/edit`%>'"
           >
             Editar Receita
           </button>
           <button
             type="button"
             data-testid="excluir-receita"
+            onclick="window.location.pathname='<%=`recipes/${recipe.id}/delete`%>'"
           >
             Excluir Receita
           </button>
