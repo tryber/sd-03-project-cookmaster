@@ -20,7 +20,22 @@ const recipeDetail = async (req, res) => {
   });
 };
 
+const recipeSearch = async (req, res) => {
+  const { query } = req.query;
+
+  if (!query) return res.render('search', { recipeBySearch: null, token: req.user, query });
+
+  const recipeBySearch = await recipeModel.getRecipeBySearch(query);
+
+  return res.render('search', {
+    recipeBySearch,
+    query,
+    token: req.user,
+  });
+};
+
 module.exports = {
   recipeList,
   recipeDetail,
+  recipeSearch,
 };

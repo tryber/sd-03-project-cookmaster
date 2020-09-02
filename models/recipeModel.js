@@ -34,7 +34,26 @@ const getRecipeById = async (id) => (
     }))
 );
 
+const getRecipeBySearch = async (query) => (
+  connection()
+    .then((schema) => schema
+      .getTable('recipes')
+      .select(['user_id', 'user', 'name', 'ingredients', 'instructions'])
+      .where('name like :name')
+      .bind('name', `%${query}%`)
+      .execute())
+    .then((results) => results.fetchAll())
+    .then(([userId, user, name, ingredients, instructions]) => ({
+      userId,
+      user,
+      name,
+      ingredients,
+      instructions,
+    }))
+);
+
 module.exports = {
   getRecipeList,
   getRecipeById,
+  getRecipeBySearch,
 };
