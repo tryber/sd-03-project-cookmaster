@@ -1,12 +1,13 @@
 // Erro no avaliador, link https://github.com/tryber/sd-03-project-cookmaster/pull/8
 // .github/workflows/main.yml / Evaluator Job (pull_request) Cancelled after 360m — Evaluator Job
 // Atualização de branch, falha no avaliador
+// Tentei várias ações, falha no avaliador persiste
 require('dotenv/config');
 const express = require('express');
 const bodyParser = require('body-parser');
 // Reading the cookie that contains the authentication token.
 const cookieParser = require('cookie-parser');
-// Starting 4
+// Starting 5
 const middlewares = require('./middlewares');
 const controllers = require('./controllers');
 
