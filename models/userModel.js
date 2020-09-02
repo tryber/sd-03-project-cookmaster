@@ -52,26 +52,27 @@ const validateUser = (user) => {
     case !user.email || user.email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$i/):
       res.error = true;
       res.message = 'O email deve ter o formato email@mail.com';
-      brake;
+      break;
     case !user.password || !user.password >= 6:
       res.error = true;
       res.message = 'A senha deve ter pelo menos 6 caracteres';
-      brake;
+      break;
     case !user.passwordConfirm || !user.passwordConfirm === user.password:
       res.error = true;
       res.message = 'As senhas tem que ser iguais';
-      brake;
+      break;
     case !user.name || !user.name >= 3 || user.name.match(/\d/):
       res.error = true;
       res.message = 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras';
-      brake;
+      break;
     case !user.surname || !user.surname >= 3 || user.surname.match(/\d/):
       res.error = true;
       res.message = 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras';
-      brake;
+      break;
     default:
+      res.error = true;
       res.message = 'Cadastro efetuado com sucesso!';
-      brake;
+      break;
   }
   return res;
 };
