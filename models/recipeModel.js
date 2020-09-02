@@ -24,11 +24,11 @@ async function getRecipeById(id) {
     const results = await searchDb.fetchAll();
     return results
       ? results.map(([user, name, ingredients, instructions]) => ({
-        user,
-        name,
-        ingredients,
-        instructions,
-      }))
+          user,
+          name,
+          ingredients,
+          instructions,
+        }))
       : [];
   } catch (err) {
     console.error(err);
@@ -36,4 +36,18 @@ async function getRecipeById(id) {
   }
 }
 
-module.exports = { getAllRecipes, getRecipeById };
+async function insertRecipe(name, ingredients, instructions) {
+  try {
+    const db = await connect();
+    return db
+      .getTable('recipes')
+      .insert(['name', 'ingredients', 'instructions'])
+      .values(name, ingredients, instructions)
+      .execute();
+  } catch (err) {
+    console.error(err);
+    return process.exit(1);
+  }
+}
+
+module.exports = { getAllRecipes, getRecipeById, insertRecipe };

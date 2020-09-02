@@ -11,8 +11,7 @@
       <h3>Cookmaster</h3>
       <% if(user) { %>
       <a data-testid="logout" href="/logout">Logout</a>
-      <% } %>
-      <%if(!user) {%>
+      <% } %> <%if(!user) {%>
       <a data-testid="login" href="/login">Login</a>
       <% } %>
     </div>
@@ -24,15 +23,17 @@
     </div>
     <div>
       <% recipes && recipes.forEach(recipe => { %>
-        <div>
-          <h4><%= recipe.name %></h4>
-          <p><%= recipe.user %></p>
-          <a href="/recipes/<%= recipe.id %>">Ver mais</a>
-        </div>
+      <div>
+        <h4><%= recipe.name %></h4>
+        <p><%= recipe.user %></p>
+        <a href="/recipes/<%= recipe.id %>">Ver mais</a>
+      </div>
       <% })%>
     </div>
     <%if(user) {%>
-    <button data-testid="nova-receita">Nova Receita</button>
+    <a href="/recipes/new">
+      <button data-testid="nova-receita">Nova Receita</button>
+    </a>
     <% } %>
   </body>
 </html>

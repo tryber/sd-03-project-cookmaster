@@ -32,13 +32,19 @@ app.get(
     return res.render('register', { message: null });
   }),
 );
+app.get('/logout', rescue(controllers.userController.logout));
+app.post('/login', rescue(controllers.userController.login));
 
+app.get(
+  '/recipes/new',
+  middlewares.auth(),
+  rescue((_req, res) => res.render('recipes/new', { message: null })),
+);
+app.post('/recipes/new', rescue(controllers.recipeController.postRecipe));
 app.get('/recipes/search', rescue(controllers.searchController.searchRecipe));
 
 app.get('/recipes/:id', middlewares.auth(false), rescue(controllers.recipeController.getRecipe));
 app.post('/register', rescue(controllers.userController.registerUser));
-app.get('/login', controllers.userController.loginForm);
-app.get('/logout', controllers.userController.logout);
-app.post('/login', controllers.userController.login);
+app.get('/login', rescue(controllers.userController.loginForm));
 
 app.listen(3000, () => console.log('Listening on 3000'));
