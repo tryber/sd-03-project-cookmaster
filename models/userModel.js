@@ -66,7 +66,7 @@ const res = { error: true, message: '' };
 const validateUser = async (user) => {
   const { email, password, passwordConfirm, name, surname } = user;
   switch (true) {
-    case email === await getUser(email):
+    case email === await getUser(email) && password && passwordConfirm && name && surname:
       return { ...res, message: 'Usuário já cadastrado' };
     case !validadeEmail(email):
       return { ...res, message: 'O email deve ter o formato email@mail.com' };
