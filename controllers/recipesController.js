@@ -10,11 +10,13 @@ const renderRecipeDetail = rescue(async (req, res) => {
   const { id } = req.params;
   const recipe = await recipesModel.recipeById(id);
 
-  if (recipe.userId === req.user.id) {
-    return res.render('recipeDetail', { recipe, user: req.user, display: true });
+  const user = req.user;
+
+  if (user && recipe.userId === user.id) {
+    return res.render('recipeDetail', { recipe, user, display: true });
   }
 
-  return res.render('recipeDetail', { recipe, user: req.user, display: false });
+  return res.render('recipeDetail', { recipe, user, display: false });
 });
 
 const renderRecipeEdit = rescue(async (req, res) => {
