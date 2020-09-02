@@ -1,3 +1,5 @@
+// Erro no avaliador, link https://github.com/tryber/sd-03-project-cookmaster/pull/8
+// .github/workflows/main.yml / Evaluator Job (pull_request) Cancelled after 360m — Evaluator Job
 require('dotenv/config');
 const express = require('express');
 const bodyParser = require('body-parser');
