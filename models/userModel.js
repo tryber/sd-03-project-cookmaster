@@ -48,7 +48,7 @@ const findById = async (uId) => {
 };
 
 // e essas funções daki n iam sair sem ajuda do hebert
-const validadeName = (name = '') => name && !/\d/.test(name) && name >= 3;
+const validadeName = (name = '') => name && !/\d/.test(name) && name.length >= 3;
 
 // regex obtido em: https://stackoverflow.com/questions/742451/what-is-the-simplest-regular-expression-to-validate-emails-to-not-accept-them-bl
 const validadeEmail = (email = '') => email && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
@@ -70,9 +70,9 @@ const validateUser = async (user) => {
       return { ...res, message: 'Usuário já cadastrado' };
     case !validadeEmail(email):
       return { ...res, message: 'O email deve ter o formato email@mail.com' };
-    case !password || !password >= 6:
+    case password.length < 6:
       return { ...res, message: 'A senha deve ter pelo menos 6 caracteres' };
-    case !passwordConfirm || !passwordConfirm === password:
+    case passwordConfirm !== password:
       return { ...res, message: 'As senhas tem que ser iguais' };
     case !validadeName(name):
       return {
@@ -85,12 +85,12 @@ const validateUser = async (user) => {
         message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
       };
     default:
-      return { error: false, message: 'Cadastro efetuado com sucesso!', user };
+      return { error: false, message: 'Cadastro efetuado com sucesso!', redirect: null, user };
   }
 };
 
-const createUser = async (user) => {
-  const { email, password, name, surname } = user;
+const createUser = async (userData) => {
+  const { email, password, name, surname } = userData.user;
   try {
     await connect()
       .then((db) => db
@@ -99,11 +99,7 @@ const createUser = async (user) => {
       .values(email, password, name, surname)
       .execute());
 
-    return {
-      error: false,
-      message: 'Cadastro efetuado com sucesso!',
-      redirect: '',
-    };
+    return userData;
   } catch (err) {
     console.error(err);
     process.exit(1);

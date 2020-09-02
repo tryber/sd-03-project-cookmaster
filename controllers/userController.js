@@ -55,8 +55,8 @@ const register = async (req, res) => {
     message: validation.message,
     redirect: null,
   });
-  const regisRes = await userModel.createUser(validation.user);
-  res.render('admin/login', { ...regisRes, redirect: null });
+  const regisRes = await userModel.createUser(validation);
+  res.render('admin/login', regisRes);
 };
 
 module.exports = {
