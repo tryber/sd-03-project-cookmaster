@@ -45,37 +45,30 @@ const findById = async (uId) => {
   }
   return 1;
 };
-/**
- * if (!passwordConfirm || !name || !surname) {
-    return { error: true, message: 'Dados incompletos' };
-  }
-  if (password !== passwordConfirm) {
-    return { error: true, message: 'As senhas tem que ser iguais' };
-  }
-  if (!name >= 3 && name.match(/\d/)) {
-    return {
-      error: true,
-      message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-    };
-  }
-  if (!surname >= 3 && surname.match(/\d/)) {
-    return {
-      error: true,
-      message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-    };
-  }
-  return { error: false, message: 'Usuário válido', user, redirect: null };
- */
+
 const validateUser = (user) => {
-  const res = { error: false, message: '', user };
+  const res = { error: false, message: '', user, redirect: null };
   switch (user) {
     case !user.email || user.email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$i/):
       res.error = true;
       res.message = 'O email deve ter o formato email@mail.com';
       brake;
-    case !password || !password >= 6:
+    case !user.password || !user.password >= 6:
       res.error = true;
       res.message = 'A senha deve ter pelo menos 6 caracteres';
+      brake;
+    case !user.passwordConfirm || !user.passwordConfirm === user.password:
+      res.error = true;
+      res.message = 'As senhas tem que ser iguais';
+      brake;
+    case !user.name || !user.name >= 3 || user.name.match(/\d/):
+      res.error = true;
+      res.message = 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras';
+      brake;
+    case !user.surname || !user.surname >= 3 || user.surname.match(/\d/):
+      res.error = true;
+      res.message = 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras';
+      brake;
     default:
       res.message = 'Cadastro efetuado com sucesso!';
       brake;
