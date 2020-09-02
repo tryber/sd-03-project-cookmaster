@@ -7,7 +7,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 // Reading the cookie that contains the authentication token.
 const cookieParser = require('cookie-parser');
-// Starting 5
+// Starting 6
 const middlewares = require('./middlewares');
 const controllers = require('./controllers');
 
