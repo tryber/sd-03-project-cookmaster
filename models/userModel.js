@@ -1,5 +1,6 @@
 const connect = require('./connection');
 
+// refatoração para retornar user not found sem quebrar tudo com ajuda do hebert
 const findByEmail = async (uEmail) => {
   try {
     const user = await connect()
@@ -10,17 +11,17 @@ const findByEmail = async (uEmail) => {
       .bind('email', uEmail)
       .execute(),
     )
-    .then((results) => results.fetchAll()[0])
-    .then(([id, email, password, firstName, lastName]) => ({
-      id, email, password, name: `${firstName} ${lastName}`,
-    }));
-
-    return user;
+    .then((results) => results.fetchAll()[0]);
+    if (user) {
+      const userData = ([id, email, password, firstName, lastName]) => ({
+        id, email, password, name: `${firstName} ${lastName}`,
+      })
+      return userData(user);
+    }
+    return {};
   } catch (err) {
-    console.error(err);
-    process.exit(1);
+    return(err);
   }
-  return 1;
 };
 
 const findById = async (uId) => {
@@ -46,28 +47,45 @@ const findById = async (uId) => {
   return 1;
 };
 
-const validateUser = (user) => {
-  const res = { error: true, message: '', redirect: null, user };
-  switch (user) {
-    case !user.email || user.email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$i/):
-      res.message = 'O email deve ter o formato email@mail.com';
-      return res;
-    case !user.password || !user.password >= 6:
-      res.message = 'A senha deve ter pelo menos 6 caracteres';
-      return res;
-    case !user.passwordConfirm || !user.passwordConfirm === user.password:
-      res.message = 'As senhas tem que ser iguais';
-      return res;
-    case !user.name || !user.name >= 3 || user.name.match(/\d/):
-      res.message = 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras';
-      return res;
-    case !user.surname || !user.surname >= 3 || user.surname.match(/\d/):
-      res.message = 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras';
-      return res;
+// e essas funções daki n iam sair sem ajuda do hebert
+const validadeName = (name = '') => name && !/\d/.test(name) && name >= 3;
+
+// regex obtido em: http://www.regular-expressions.info/email.html
+const validadeEmail = (email = '') => email && /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$i/.test(email);
+
+const getUser = async (uEmail = '') => {
+  try {
+    const user = uEmail && (await findByEmail(uEmail));
+    return user.email;
+  } catch (err) {
+    return err;
+  }
+};
+
+const res = { error: true, message: '' };
+const validateUser = async (user) => {
+  const { email, password, passwordConfirm, name, surname } = user;
+  switch (true) {
+    case email === await getUser(email):
+      return { ...res, message: 'Usuário já cadastrado' };
+    case !validadeEmail(email):
+      return { ...res, message: 'O email deve ter o formato email@mail.com'};
+    case !password || !password >= 6:
+      return { ...res, message: 'A senha deve ter pelo menos 6 caracteres'};
+    case !passwordConfirm || !passwordConfirm === password:
+      return { ...res, message: 'As senhas tem que ser iguais'};
+    case !validadeName(name):
+      return {
+        ...res,
+        message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+      };
+    case !validadeName(surname):
+      return {
+        ...res,
+        message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+      };
     default:
-      res.error = false;
-      res.message = 'Cadastro efetuado com sucesso!';
-      return res;
+      return { error: false, message: 'Cadastro efetuado com sucesso!' };
   }
 };
 
