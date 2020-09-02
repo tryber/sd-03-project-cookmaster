@@ -1,3 +1,4 @@
+require('dotenv/config');
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins
 //

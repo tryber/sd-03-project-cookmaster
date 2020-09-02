@@ -5,7 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cookmaster - Home</title>
   </head>
+
   <body>
-    <h1>Boas vindas ao Cookmaster!</h1>
+    <%- include('header', {user})%> <% if(user) { %>
+    <div>
+      <button
+        type="button"
+        data-testid="nova-receita"
+        onclick="window.location.pathname='/recipes/new'"
+      >
+        Nova Receita
+      </button>
+      <button
+        type="button"
+        data-testid="minhas-receitas"
+        onclick="window.location.pathname='/me/recipes'"
+      >
+        Minhas Receitas
+      </button>
+    </div>
+    <% } %>
+    <div>
+      <button
+        type="button"
+        data-testid="buscar-receita"
+        onclick="window.location.pathname='/recipes/search'"
+      >
+        Buscar Receita
+      </button>
+      <h1>Receitas</h1>
+      <div>
+        <% recipes && recipes.map(recipe => { %>
+        <h3>Receita: <%= recipe.name %></h3>
+        <p>Usuário: <%= recipe.user %></p>
+        <a href="/recipes/<%= recipe.id %>" %>>Ver mais</a>
+      </div>
+      <% }) %>
+    </div>
   </body>
 </html>
+<!-- Auxílio do Hebert para a solução do requisito um! -->

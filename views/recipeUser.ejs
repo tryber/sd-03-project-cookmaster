@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Minhas Receitas</title>
+  </head>
+  <body>
+    <h1>Minhas Receitas</h1>
+    <button
+      type="button"
+      data-testid="minhas-receitas"
+      onclick="window.location.pathname='/recipes/new'"
+    >
+      Minhas Receitas
+    </button>
+    <% recipes.map((recipe) => { %>
+    <h2>Nome da receita: <%= recipe.name %></h2>
+    <h3>Autor: <%= recipe.user %></h3>
+    <a href="/recipes/<%= recipe.id %>" %>>Ver mais</a>
+    <% }) %>
+  </body>
+</html>
