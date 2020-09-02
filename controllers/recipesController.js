@@ -46,7 +46,7 @@ const newRecipes = async (req, res) => {
     const { recipeName, ingredients, instructions } = req.body;
     const { id, name, lastName } = user;
     const userName = `${name} ${lastName}`;
-    
+
     await recipesModel.createNewRecipes(id, userName, recipeName, ingredients, instructions);
     return res.redirect('/', { user });
   } catch (error) {
