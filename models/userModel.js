@@ -46,11 +46,8 @@ const findById = async (uId) => {
   return 1;
 };
 /**
- * if (!email || !password || !passwordConfirm || !name || !surname) {
+ * if (!passwordConfirm || !name || !surname) {
     return { error: true, message: 'Dados incompletos' };
-  }
-  if (!password >= 6) {
-    return { error: true, message: 'A senha deve ter pelo menos 6 caracteres' };
   }
   if (password !== passwordConfirm) {
     return { error: true, message: 'As senhas tem que ser iguais' };
@@ -70,15 +67,20 @@ const findById = async (uId) => {
   return { error: false, message: 'Usuário válido', user, redirect: null };
  */
 const validateUser = (user) => {
-  const res = { error: false, message: '' };
+  const res = { error: false, message: '', user };
   switch (user) {
     case !user.email || user.email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$i/):
       res.error = true;
       res.message = 'O email deve ter o formato email@mail.com';
       brake;
-    case :
+    case !password || !password >= 6:
+      res.error = true;
+      res.message = 'A senha deve ter pelo menos 6 caracteres';
+    default:
+      res.message = 'Cadastro efetuado com sucesso!';
+      brake;
   }
-  
+  return res;
 };
 
 const createUser = async (user) => {
