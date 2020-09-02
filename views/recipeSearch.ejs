@@ -4,13 +4,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cookmaster - Home</title>
+  <title>Cookmaster - Busca</title>
 </head>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
   body {
-    background-color: whitesmoke;
+    background-color: white smoke;
     font-family: 'Roboto Slab', serif;
     margin: 0;
   }
@@ -33,11 +33,11 @@
 
 <body>
   <%- include('navbar', { user }); %>
-  <h1>Receitas</h1>
-  <button data-testid='buscar-receita'><a href='/recipes/search'>Buscar Receitas</a></button>
-  <% if (user) {%>
-  <button data-testid='nova-receita'>Nova Receita</button>
-  <% } %>
+  <h1>Buscar Receitas</h1>
+  <form action="/recipes/search" method="GET">
+    <input type="text" name="q" data-testid='receita' /><br />
+    <button type="submit" data-testid='buscar'>Buscar</button>
+  </form>
   <div class='main-content'>
     <% if (recipes) {%>
     <% recipes.forEach(recipe => { %>

@@ -27,6 +27,14 @@ const renderRecipeDelete = rescue(async (req, res) => {
   res.render('recipeDelete', { user: req.user });
 });
 
+const searchRecipe = rescue(async (req, res) => {
+  const search = req.query.q;
+
+  const recipes = await recipesModel.recipeByName(search);
+  console.log(recipes);
+  res.render('recipeSearch', { recipes, user: req.user });
+});
+
 const renderRecipeNew = rescue(async (req, res) => {
   res.render('recipeNew', { user: req.user });
 });
@@ -37,4 +45,5 @@ module.exports = {
   renderRecipeEdit,
   renderRecipeDelete,
   renderRecipeNew,
+  searchRecipe,
 };
