@@ -1,13 +1,13 @@
 const connect = require('./connect');
 
-const findByName = async (name) => {
+const findByName = async (input) => {
   try {
     const db = await connect();
     const searchDb = await db
       .getTable('recipes')
       .select(['user', 'name'])
       .where('name LIKE :name')
-      .bind('name', `%${name}%`)
+      .bind('name', `%${input}%`)
       .execute();
     const results = await searchDb.fetchAll();
     return results

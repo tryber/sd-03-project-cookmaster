@@ -24,11 +24,11 @@ async function getRecipeById(id) {
     const results = await searchDb.fetchAll();
     return results
       ? results.map(([user, name, ingredients, instructions]) => ({
-          user,
-          name,
-          ingredients,
-          instructions,
-        }))
+        user,
+        name,
+        ingredients,
+        instructions,
+      }))
       : [];
   } catch (err) {
     console.error(err);
