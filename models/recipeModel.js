@@ -17,6 +17,24 @@ const getRecipeList = async () => (
     })))
 );
 
+const getRecipeById = async (id) => (
+  connection()
+    .then((schema) => schema
+      .getTable('recipes')
+      .select(['user_id', 'name', 'ingredients', 'instructions'])
+      .where('id = :id')
+      .bind('id', id)
+      .execute())
+    .then((results) => results.fetchAll()[0])
+    .then(([userId, name, ingredients, instructions]) => ({
+      userId,
+      name,
+      ingredients,
+      instructions,
+    }))
+);
+
 module.exports = {
   getRecipeList,
+  getRecipeById,
 };
