@@ -20,7 +20,7 @@ const findByEmail = async (uEmail) => {
     }
     return {};
   } catch (err) {
-    return (err);
+    return err;
   }
 };
 
@@ -34,15 +34,16 @@ const findById = async (uId) => {
       .bind('id', uId)
       .execute(),
     )
-    .then((results) => results.fetchAll()[0])
-    .then(([id, email, password, firstName, lastName]) => ({
-      id, email, password, name: `${firstName} ${lastName}`,
-    }));
-
-    return user;
+    .then((results) => results.fetchAll()[0]);
+    if (user) {
+      const userData = ([id, email, password, firstName, lastName]) => ({
+        id, email, password, name: `${firstName} ${lastName}`,
+      });
+      return userData(user);
+    }
+    return {};
   } catch (err) {
-    console.error(err);
-    process.exit(1);
+    return err;
   }
   return 1;
 };

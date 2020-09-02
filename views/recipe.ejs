@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cookmaster - Home</title>
+    <title>Cookmaster - <%=recipe.name%></title>
   </head>
   <body>
     <header>
@@ -33,15 +33,8 @@
       <%};%>
     </header>
     <article class="receitas">
-      <h2>Receitas</h2>
       <div>
-        <%filteredRecipes.map((recipe) => {%>
-          <div style="border: 1px solid black;">
-            <h4><%=recipe.name%></h4>
-            <h4><%=recipe.user%></h4>
-            <a href="<%=`/recipe/${recipe.id}`%>">Ver mais</a>
-          </div>
-        <%})%>
+        <!--aki vai a receita-->
       </div>
     </article>
   </body>
