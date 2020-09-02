@@ -8,6 +8,4 @@ const validateEmail = (email) => {
   return false;
 };
 
-console.log(validateEmail('Sherwood.Schiller@hotmail.com'));
-
 module.exports = { validateEmail };
