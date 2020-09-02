@@ -44,7 +44,7 @@ const recipeByName = async (recipe) =>
         .select(['id', 'user', 'name', 'ingredients', 'instructions'])
         .where('name like :recipe')
         .bind('recipe', `%${recipe}%`)
-        .execute(), 
+        .execute(),
     )
     .then((results) => results.fetchAll())
     .then((recipes) => recipes.map(([id, user, name, ingredients, instructions]) => ({
