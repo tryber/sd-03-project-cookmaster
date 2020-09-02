@@ -1,5 +1,4 @@
 const recipesModel = require('../models/recipesModel');
-const userModel = require('../models/userModel');
 const rescue = require('express-rescue');
 
 const renderRecipes = rescue(async (req, res) => {
@@ -11,18 +10,19 @@ const renderRecipeDetail = rescue(async (req, res) => {
   const { id } = req.params;
   const recipe = await recipesModel.recipeById(id);
 
-  if (recipe.userId === req.user.id)
+  if (recipe.userId === req.user.id) {
     return res.render('recipeDetail', { recipe, user: req.user, display: true });
-  
-  res.render('recipeDetail', { recipe, user: req.user, display: false });
+  }
+
+  return res.render('recipeDetail', { recipe, user: req.user, display: false });
 });
 
 const renderRecipeEdit = rescue(async (req, res) => {
-  res.render('recipeEdit', { user: req.user});
+  res.render('recipeEdit', { user: req.user });
 });
 
 const renderRecipeDelete = rescue(async (req, res) => {
-  res.render('recipeDelete', { user: req.user});
+  res.render('recipeDelete', { user: req.user });
 });
 
 const renderRecipeNew = rescue(async (req, res) => {
