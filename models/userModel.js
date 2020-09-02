@@ -51,7 +51,10 @@ const findById = async (uId) => {
 const validadeName = (name = '') => name && !/\d/.test(name) && name >= 3;
 
 // regex obtido em: http://www.regular-expressions.info/email.html
-const validadeEmail = (email = '') => email && /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$i/.test(email);
+const validadeEmail = (email = '') => email
+  && /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+    email,
+    );
 
 const getUser = async (uEmail = '') => {
   try {
@@ -69,6 +72,7 @@ const validateUser = async (user) => {
     case email === await getUser(email) && password && passwordConfirm && name && surname:
       return { ...res, message: 'Usuário já cadastrado' };
     case !validadeEmail(email):
+      console.log(validadeEmail(email) + '---' + email)
       return { ...res, message: 'O email deve ter o formato email@mail.com' };
     case !password || !password >= 6:
       return { ...res, message: 'A senha deve ter pelo menos 6 caracteres' };
@@ -85,7 +89,7 @@ const validateUser = async (user) => {
         message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
       };
     default:
-      return { error: false, message: 'Cadastro efetuado com sucesso!' };
+      return { error: false, message: 'Cadastro efetuado com sucesso!', user };
   }
 };
 

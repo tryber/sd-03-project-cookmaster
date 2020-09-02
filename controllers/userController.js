@@ -50,12 +50,13 @@ const registerForm = (_req, res) => res.render('admin/register', {
 });
 
 const register = async (req, res) => {
-  const validation = userModel.validateUser(req.body);
+  const validation = await userModel.validateUser(req.body);
   if (validation.error) return res.render('admin/register', {
     message: validation.message,
     redirect: null,
   });
-  // console.log(validation);
+  const regisRes = await userModel.createUser(validation.user);
+  res.render('admin/login', { ...regisRes, redirect: null });
 };
 
 module.exports = {
