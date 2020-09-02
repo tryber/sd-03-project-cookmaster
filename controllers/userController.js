@@ -39,16 +39,16 @@ const validatePassword = (password, passwordV, res) => {
 
 const validateName = (name, res) => {
   if (!name || !name.match(/^[a-zA-Z]{3,}$/))
-  res.render('admin/register', {
-    message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-  });
+    res.render('admin/register', {
+      message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+    });
 };
 
 const validateLastName = (lastName, res) => {
   if (!lastName || !lastName.match(/^[a-zA-Z]{3,}$/))
-  res.render('admin/register', {
-    message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-  });
+    res.render('admin/register', {
+      message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+    });
 };
 
 const register = rescue(async (req, res) => {
