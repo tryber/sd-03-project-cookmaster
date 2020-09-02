@@ -38,9 +38,17 @@ app.post('/login', rescue(controllers.userController.login));
 app.get(
   '/recipes/new',
   middlewares.auth(),
-  rescue((_req, res) => res.render('recipes/new', { message: null })),
+  rescue((req, res) => res.render('recipes/new', { message: null, user: req.user })),
 );
-app.post('/recipes/new', rescue(controllers.recipeController.postRecipe));
+app.post('/recipes/new',  middlewares.auth(), rescue(controllers.recipeController.postRecipe));
+app.get(
+  '/recipes/:id/edit',
+  middlewares.auth(),
+  rescue(controllers.recipeController.getUpdate),
+);
+app.post('/recipes/:id/edit', rescue(controllers.recipeController.postUpdate));
+
+
 app.get('/recipes/search', rescue(controllers.searchController.searchRecipe));
 
 app.get('/recipes/:id', middlewares.auth(false), rescue(controllers.recipeController.getRecipe));

@@ -17,7 +17,7 @@ async function getRecipeById(id) {
     const db = await connect();
     const searchDb = await db
       .getTable('recipes')
-      .select(['user', 'name', 'ingredients', 'instructions'])
+      .select(['user_id', 'user', 'name', 'ingredients', 'instructions'])
       .where('id = :id')
       .bind('id', id)
       .execute();
@@ -36,12 +36,29 @@ async function getRecipeById(id) {
   }
 }
 
-async function insertRecipe(name, ingredients, instructions) {
+async function insertRecipe(name, ingredients, instructions, user_id) {
   try {
     const db = await connect();
     return db
       .getTable('recipes')
-      .insert(['name', 'ingredients', 'instructions'])
+      .insert(['user_id', 'name', 'ingredients', 'instructions'])
+      .values(user_id, name, ingredients, instructions)
+      .execute();
+  } catch (err) {
+    console.error(err);
+    return process.exit(1);
+  }
+}
+
+async function updateRecipe(id, name, ingredients, instructions) {
+  try {
+    const db = await connect();
+    return db
+      .getTable('recipes')
+      .update(['name', 'ingredients', 'instructions'])
+      .set([name, ingredients, instructions])
+      .where('user_id = :id')
+      .bind('id', id)
       .values(name, ingredients, instructions)
       .execute();
   } catch (err) {
@@ -50,4 +67,9 @@ async function insertRecipe(name, ingredients, instructions) {
   }
 }
 
-module.exports = { getAllRecipes, getRecipeById, insertRecipe };
+module.exports = {
+  getAllRecipes,
+  getRecipeById,
+  insertRecipe,
+  updateRecipe,
+};
