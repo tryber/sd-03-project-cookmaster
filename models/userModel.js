@@ -51,7 +51,7 @@ const findById = async (uId) => {
 const validadeName = (name = '') => name && !/\d/.test(name) && name >= 3;
 
 // regex obtido em: https://stackoverflow.com/questions/742451/what-is-the-simplest-regular-expression-to-validate-emails-to-not-accept-them-bl
-const validadeEmail = (email = '') => email && /^[^@\s]+@[^@\s\.]+\.[^@\.\s]+$/.test(email);
+const validadeEmail = (email = '') => email && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
 
 const getUser = async (uEmail = '') => {
   try {
