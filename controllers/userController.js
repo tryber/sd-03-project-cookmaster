@@ -21,15 +21,15 @@ const registerForm = (req, res) =>
     redirect: req.query.redirect,
   });
 
-const validateEmail = (email, res) => {
+const register = rescue(async (req, res) => {
+  const { email, password, passwordV, name, lastName } = req.body;
+
   if (!email || !email.match(/^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/))
     return res.render('admin/register', {
       message: 'O email deve ter o formato email@mail.com',
       redirect: null,
     });
-};
 
-const validatePassword = (password, passwordV, res) => {
   if (!password || password.length < 6)
     return res.render('admin/register', {
       message: 'A senha deve ter pelo menos 6 caracteres',
@@ -41,31 +41,18 @@ const validatePassword = (password, passwordV, res) => {
       message: 'As senhas tem que ser iguais',
       redirect: null,
     });
-};
 
-const validateName = (name, res) => {
   if (!name || !name.match(/^[a-zA-Z]{3,}$/))
     return res.render('admin/register', {
       message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
       redirect: null,
     });
-};
 
-const validateLastName = (lastName, res) => {
   if (!lastName || !lastName.match(/^[a-zA-Z]{3,}$/))
     return res.render('admin/register', {
       message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
       redirect: null,
     });
-};
-
-const register = rescue(async (req, res) => {
-  const { email, password, passwordV, name, lastName } = req.body;
-
-  validateEmail(email, res);
-  validatePassword(password, passwordV, res);
-  validateName(name, res);
-  validateLastName(lastName, res);
 
   await userModel.createUser({ email, password, passwordV, name, lastName });
 
