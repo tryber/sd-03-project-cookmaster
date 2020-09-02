@@ -10,6 +10,9 @@
     <div>
       <h3>Cookmaster</h3>
       <% if(user) { %>
+        <p><%= user.name %></p>
+        <% } %>
+      <% if(user) { %>
       <a data-testid="logout" href="/logout">Logout</a>
       <% } %>
       <%if(!user) {%>
@@ -17,10 +20,11 @@
       <% } %>
     </div>
     <div>
-      <h2>Receitas</h2>
-      <a href="/recipes/search">
-        <button data-testid="buscar-receita">Buscar Receitas</button>
-      </a>
+      <h2>Buscar Receitas</h2>
+      <form>
+          <input type="text" data-testid="receita" />
+          <button data-testid="buscar">Buscar</button>
+        </form>
     </div>
     <div>
       <% recipes && recipes.forEach(recipe => { %>

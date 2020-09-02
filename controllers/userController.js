@@ -15,7 +15,7 @@ const loginForm = (req, res) => {
   });
 };
 
-const login = async (req, res, _next) => {
+const login = async (req, res) => {
   const { email, password, redirect } = req.body;
 
   if (!email || !password)
@@ -45,14 +45,13 @@ const logout = async (req, res) => {
 };
 
 const registerUser = async (req, res) => {
-  const { email, password, confirm_password, name, lastName } = req.body;
-  console.log('email', '-', email, '-');
+  const { email, password, confirmPassword, name, lastName } = req.body;
   switch (true) {
     case !utils.validateEmail(email):
       return res.render('register', { message: 'O email deve ter o formato email@mail.com' });
     case password.length < 6:
       return res.render('register', { message: 'A senha deve ter pelo menos 6 caracteres' });
-    case password !== confirm_password:
+    case password !== confirmPassword:
       return res.render('register', { message: 'As senhas tem que ser iguais' });
     case name.length < 3:
       return res.render('register', {

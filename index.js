@@ -33,6 +33,8 @@ app.get(
   }),
 );
 
+app.get('/recipes/search=q?input', rescue(controllers.searchController.searchRecipe))
+
 app.get('/recipes/:id', middlewares.auth(false), rescue(controllers.recipeController.getRecipe));
 app.post('/register', rescue(controllers.userController.registerUser));
 app.get('/login', controllers.userController.loginForm);

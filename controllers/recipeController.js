@@ -15,7 +15,7 @@ const getRecipe = async (req, res) => {
   try {
     const { id } = req.params;
     const [recipe] = await getRecipeById(id);
-    console.log('recipe', recipe);
+    // console.log('recipe', recipe);
     if (req.user) return res.render('recipes/id', { recipe, user: req.user });
     return res.render('recipes/id', { recipe, user: null });
   } catch (err) {
