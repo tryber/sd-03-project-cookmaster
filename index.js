@@ -34,6 +34,10 @@ app.get('/register', (req, res) => {
   return controllers.userController.registerForm(req, res);
 });
 
+app.get('/recipes/:id', middlewares.auth(false), (req, res) => {
+  return controllers;
+});
+
 app.post('/login', controllers.userController.login);
 
 app.post('/register', middlewares.auth(false), (req, res) => {

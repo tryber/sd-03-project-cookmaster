@@ -18,6 +18,12 @@ const getRecipes = async (req, res) => {
   });
 };
 
+const getRecipe = async (req, res) => {
+  //do something
+  console.log(req.params);
+};
+
 module.exports = {
+  getRecipe,
   getRecipes,
 };
