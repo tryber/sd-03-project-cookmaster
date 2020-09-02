@@ -50,11 +50,8 @@ const findById = async (uId) => {
 // e essas funções daki n iam sair sem ajuda do hebert
 const validadeName = (name = '') => name && !/\d/.test(name) && name >= 3;
 
-// regex obtido em: http://www.regular-expressions.info/email.html
-const validadeEmail = (email = '') => email
-  && /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-    email,
-    );
+// regex obtido em: https://stackoverflow.com/questions/742451/what-is-the-simplest-regular-expression-to-validate-emails-to-not-accept-them-bl
+const validadeEmail = (email = '') => email && /^[^@\s]+@[^@\s\.]+\.[^@\.\s]+$/.test(email);
 
 const getUser = async (uEmail = '') => {
   try {
