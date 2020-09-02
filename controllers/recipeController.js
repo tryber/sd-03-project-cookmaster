@@ -66,8 +66,7 @@ const ableToDeleteRecipe = async (req, res) => {
   const { params } = req;
   const { id } = params;
   const user = req.user;
- 
-  // validação 
+  // validação
   const recipe = await recipeModel.getRecipe(id);
   if (!user || user.id !== recipe[1]) {
     return res.render('deleteRecipe', { message: 'Esta receita não é sua!', recipe, user, id, showForm: 0 });
@@ -80,7 +79,7 @@ const deleteRecipe = async (req, res) => {
   const { id } = params;
   const user = req.user;
   const { senha } = req.body;
-  // validação 
+  // validação
   const recipe = await recipeModel.getRecipe(id);
   const usuario = await userModel.findByEmail(user.email);
   if (usuario.password !== senha) {
@@ -88,7 +87,7 @@ const deleteRecipe = async (req, res) => {
   }
   // função para excluir receita
   await recipeModel.recipeDelete(recipe[0]);
-  return res.redirect('/'); //, { message: 'Receita excluida com sucesso!', user }
+  return res.redirect('/');
 };
 
 module.exports = {

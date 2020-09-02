@@ -38,7 +38,7 @@ app.get('/recipes/new', middlewares.auth(), (req, res) => {
   return res.render('recipeNew', { message: null, user, result: null, lastId: null });
 });
 app.get('/recipes/:id/edit', middlewares.auth(false), controllers.recipeController.ableToUpdateRecipe);
-app.get('/recipes/:id/delete',middlewares.auth(), controllers.recipeController.ableToDeleteRecipe);
+app.get('/recipes/:id/delete', middlewares.auth(), controllers.recipeController.ableToDeleteRecipe);
 app.get('/recipes/:id', middlewares.auth(false), controllers.recipeController.showRecipe);
 app.post('/recipes/search', middlewares.auth(false), controllers.recipeController.searchRecipe);
 app.post('/recipes/:id', middlewares.auth(), controllers.recipeController.updateRecipe);

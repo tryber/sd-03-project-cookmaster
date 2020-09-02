@@ -81,7 +81,7 @@ const insertRecipe = (userId, user, name, ingredients, instructions) =>
   .execute());
   // .then(() => ({ userId, user, name, ingredients, instructions }));
 
-  const recipeDelete = (recipeId) =>
+const recipeDelete = (recipeId) =>
     connect()
     .then((db) => db.getTable('recipes')
     .delete()
