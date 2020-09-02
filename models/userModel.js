@@ -69,7 +69,6 @@ const validateUser = async (user) => {
     case email === await getUser(email) && password && passwordConfirm && name && surname:
       return { ...res, message: 'Usuário já cadastrado' };
     case !validadeEmail(email):
-      console.log(validadeEmail(email) + '---' + email)
       return { ...res, message: 'O email deve ter o formato email@mail.com' };
     case !password || !password >= 6:
       return { ...res, message: 'A senha deve ter pelo menos 6 caracteres' };
