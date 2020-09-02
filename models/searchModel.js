@@ -14,7 +14,7 @@ const findByName = async (input) => {
       ? results.map(([user, name]) => ({
         user,
         name,
-      })) 
+      }))
       : [];
   } catch (err) {
     console.error(err);
