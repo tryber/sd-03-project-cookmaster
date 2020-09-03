@@ -90,7 +90,7 @@ const editUser = async (req, res) => {
 };
 
 const saveUserEditedData = async (req, res) => {
-  const { email, senha, confirmarSenha, nome, sobrenome } = req.body;
+  const { email, senha, nome, sobrenome } = req.body;
   const { id } = req.user;
 
   await homeModel.updateUser(id, email, senha, nome, sobrenome);
