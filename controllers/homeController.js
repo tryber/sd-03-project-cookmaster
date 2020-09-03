@@ -86,23 +86,15 @@ const editUser = async (req, res) => {
   const { id } = req.user;
 
   const user = await userModel.findById(id);
-  console.log(user);
   res.render('me/home', { data: user, message: null });
 };
 
 const saveUserEditedData = async (req, res) => {
-  console.log(req.body);
   const { email, senha, confirmarSenha, nome, sobrenome } = req.body;
   const { id } = req.user;
 
-  // Verificar senha igual
-  if ( senha !== confirmarSenha ) {
-    const user = await userModel.findById(id);
-    return res.render('me/home', { data: user, message: 'A senha deve ser igual'})
-  }
-
   await homeModel.updateUser(id, email, senha, nome, sobrenome);
-  res.redirect('/');
+  return res.redirect('/');
 };
 
 module.exports = {
