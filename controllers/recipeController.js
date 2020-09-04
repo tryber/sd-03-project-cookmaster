@@ -54,10 +54,10 @@ const postUpdate = async (req, res) => {
   // return res.render('recipes/edit', { recipe, user: req.user });
 };
 
-const deleteRecipe = async (req, res) => {
+const deleteRecip = async (req, res) => {
   const { id } = req.params;
   res.render('recipes/delete');
-  await deleteRecipe(id)
+  await deleteRecipe(id);
 }
 
 module.exports = {
@@ -66,4 +66,5 @@ module.exports = {
   postRecipe,
   getUpdate,
   postUpdate,
+  deleteRecip,
 };
