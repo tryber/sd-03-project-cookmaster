@@ -18,9 +18,11 @@ const listRecipes = async (req, res) => {
 
 const getRecipe = async (req, res) => {
   try {
-    const { params, user } = req;
-    const [recipe] = await getRecipeById(params.id);
-    // console.log('recipe', req.user);
+    const {
+      params: { id },
+      user,
+    } = req;
+    const recipe = await getRecipeById(id);
     if (user) return res.render('recipes/id', { recipe, user });
     return res.render('recipes/id', { recipe, user: null });
   } catch (err) {
@@ -31,23 +33,23 @@ const getRecipe = async (req, res) => {
 
 const postRecipe = async (req, res) => {
   const { name, ingredients, instructions } = req.body;
-  // console.log('req.user', req.user);
   await insertRecipe(name, ingredients, instructions, req.user.id);
   return res.render('recipes/new', { message: 'Registrada com sucesso' });
 };
 
 const getUpdate = async (req, res) => {
-  const { id } = req.user;
-  const recipe = await getRecipeById(id);
-  // console.log('recipe:', req.user)
-  if (id !== recipe.user_id) return res.render(`recipes/id`, { recipe, user: req.user });
-  return res.render('recipes/edit', { recipe, user: req.user });
+  const { user, params } = req;
+  const recipe = await getRecipeById(params.id);
+  if (parseInt(user.id) !== recipe.user_id) return res.render(`recipes/edit`, { recipe, user });
+  return res.render('recipes/id', { recipe, user });
 };
 
 const postUpdate = async (req, res) => {
-  const { name, ingredients, instructions } = req.user;
-  await updateRecipe(name, ingredients, instructions);
-  return res.render(`recipes/id`, { recipe, user: req.user });
+  const { id } = req.params;
+  const { name, ingredients, instructions } = req.body;
+
+  await updateRecipe(id, name, ingredients, instructions);
+  return res.redirect(`/`);
   // return res.render('recipes/edit', { recipe, user: req.user });
 };
 

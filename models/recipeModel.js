@@ -21,15 +21,18 @@ async function getRecipeById(id) {
       .where('id = :id')
       .bind('id', id)
       .execute();
-    const results = await searchDb.fetchAll();
-    return results
-      ? results.map(([user, name, ingredients, instructions]) => ({
+    const result = await searchDb.fetchAll();
+    const [[user_id, user, name, ingredients, instructions]] = result;
+    return result !== []
+      ? {
+          id,
+          user_id,
           user,
           name,
           ingredients,
           instructions,
-        }))
-      : [];
+        }
+      : null;
   } catch (err) {
     console.error(err);
     return process.exit(1);
@@ -55,11 +58,12 @@ async function updateRecipe(id, name, ingredients, instructions) {
     const db = await connect();
     return db
       .getTable('recipes')
-      .update(['name', 'ingredients', 'instructions'])
-      .set([name, ingredients, instructions])
-      .where('user_id = :id')
+      .update()
+      .set('name', name)
+      .set('ingredients', ingredients)
+      .set('instructions', instructions)
+      .where('id = :id')
       .bind('id', id)
-      .values(name, ingredients, instructions)
       .execute();
   } catch (err) {
     console.error(err);
