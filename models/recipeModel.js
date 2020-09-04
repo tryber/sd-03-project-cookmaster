@@ -22,15 +22,15 @@ async function getRecipeById(id) {
       .bind('id', id)
       .execute();
     const result = await searchDb.fetchAll();
-    const [[user_id, user, name, ingredients, instructions]] = result;
+    const [[userId, user, name, ingredients, instructions]] = result;
     return result !== []
       ? {
-        id,
-        user_id,
-        user,
-        name,
-        ingredients,
-        instructions,
+          id,
+          user_id: userId,
+          user,
+          name,
+          ingredients,
+          instructions,
         }
       : null;
   } catch (err) {
@@ -71,9 +71,20 @@ async function updateRecipe(id, name, ingredients, instructions) {
   }
 }
 
+async function deleteRecipe(id) {
+  try {
+    const db = await connect();
+    return db.getTable('recipes').delete().where('id = :id').bind('id', id).execute();
+  } catch (err) {
+    console.error(err);
+    return process.exit(1);
+  }
+}
+
 module.exports = {
   getAllRecipes,
   getRecipeById,
   insertRecipe,
   updateRecipe,
+  deleteRecipe,
 };

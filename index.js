@@ -41,12 +41,14 @@ app.get(
   rescue((req, res) => res.render('recipes/new', { message: null, user: req.user })),
 );
 app.post('/recipes/new', middlewares.auth(), rescue(controllers.recipeController.postRecipe));
+app.get('/recipes/:id', middlewares.auth(false), rescue(controllers.recipeController.getRecipe));
 app.get('/recipes/:id/edit', middlewares.auth(), rescue(controllers.recipeController.getUpdate));
 app.post('/recipes/:id/edit', rescue(controllers.recipeController.postUpdate));
+app.post('/recipes/:id/delete', rescue(controllers.recipeController.deleteRecipe));
 
 app.get('/recipes/search', rescue(controllers.searchController.searchRecipe));
 
-app.get('/recipes/:id', middlewares.auth(false), rescue(controllers.recipeController.getRecipe));
+
 app.post('/register', rescue(controllers.userController.registerUser));
 app.get('/login', rescue(controllers.userController.loginForm));
 
