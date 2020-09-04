@@ -3,7 +3,7 @@ const {
   getRecipeById,
   insertRecipe,
   updateRecipe,
-  deleteRecipe
+  deleteRecipe,
 } = require('../models/recipeModel');
 
 const listRecipes = async (req, res) => {
@@ -58,7 +58,7 @@ const deleteRecip = async (req, res) => {
   const { id } = req.params;
   res.render('recipes/delete');
   await deleteRecipe(id);
-}
+};
 
 module.exports = {
   listRecipes,
