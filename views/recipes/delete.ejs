@@ -10,15 +10,13 @@
     <div class="message"><%= message %></div>
     <% } %>
     <form action="/login" method="POST">
-      <label for="emailInput">Email: </label>
-      <input type="text" name="email" id="emailInput" data-testid="email" /><br />
       <label for="passwordInput">Senha: </label>
-      <input type="password" name="password" id="passwordInput" data-testid="senha" /><br />
+      <input type="password" name="password" data-testid="senha" id="passwordInput"  /><br />
       <% if (redirect) { %>
       <input type="hidden" name="redirect" value="<%= decodeURIComponent(redirect) %>" />
       <% } %>
-      <button type="submit" data-testid="entrar">Entrar</button>
-      <a href="/register" data-testid="cadastrar">Cadastre-se</a>
+      <a href="/register" data-testid="confirmar">Confirmar</a>
+      <button type="submit" data-testid="cancelar">Cancelar</button>
     </form>
   </body>
 </html>

@@ -58,20 +58,19 @@ const postUpdate = async (req, res) => {
 
 const confirmDelete = async (req, res) => {
   const { id } = req.params;
-  const { autor_id } = await getRecipeById(id);
-  if(autor_id !== req.user.id) return render('/');
-  res.render('recipes/delete', { message: null });
+  const { autor_id: autorId } = await getRecipeById(id);
+  if (autorId !== req.user.id) return render('/');
+  return res.render('recipes/delete', { message: null });
 };
-
 
 const deleteRecip = async (req, res) => {
   const { id } = req.params;
 
-  if(req.password === findById(req.user.id)) {
+  if (req.password === findById(req.user.id)) {
     await deleteRecipe(id);
-    return res.render('/')
+    return res.render('/');
   }
-  res.render('recipes/delete', { message: 'Senha incorreta'});
+  return res.render('recipes/delete', { message: 'Senha incorreta' });
 };
 
 module.exports = {
@@ -81,5 +80,5 @@ module.exports = {
   getUpdate,
   postUpdate,
   deleteRecip,
-  confirmDelete
+  confirmDelete,
 };
