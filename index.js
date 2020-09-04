@@ -44,7 +44,8 @@ app.post('/recipes/new', middlewares.auth(), rescue(controllers.recipeController
 app.get('/recipes/:id', middlewares.auth(false), rescue(controllers.recipeController.getRecipe));
 app.get('/recipes/:id/edit', middlewares.auth(), rescue(controllers.recipeController.getUpdate));
 app.post('/recipes/:id/edit', rescue(controllers.recipeController.postUpdate));
-app.post('/recipes/:id/delete', rescue(controllers.recipeController.deleteRecip));
+app.get('/recipes/:id/delete', middlewares.auth(), rescue(controllers.recipeController.deleteRecip));
+app.post('/recipes/:id/delete', middlewares.auth(), rescue(controllers.recipeController.confirmDelete));
 
 app.get('/recipes/search', rescue(controllers.searchController.searchRecipe));
 

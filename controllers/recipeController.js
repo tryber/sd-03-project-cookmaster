@@ -5,6 +5,8 @@ const {
   updateRecipe,
   deleteRecipe,
 } = require('../models/recipeModel');
+const { findById } = require('../models/userModel');
+const { render } = require('ejs');
 
 const listRecipes = async (req, res) => {
   try {
@@ -54,10 +56,22 @@ const postUpdate = async (req, res) => {
   // return res.render('recipes/edit', { recipe, user: req.user });
 };
 
+const confirmDelete = async (req, res) => {
+  const { id } = req.params;
+  const { autor_id } = await getRecipeById(id);
+  if(autor_id !== req.user.id) return render('/');
+  res.render('recipes/delete', { message: null });
+};
+
+
 const deleteRecip = async (req, res) => {
   const { id } = req.params;
-  res.render('recipes/delete');
-  await deleteRecipe(id);
+
+  if(req.password === findById(req.user.id)) {
+    await deleteRecipe(id);
+    return res.render('/')
+  }
+  res.render('recipes/delete', { message: 'Senha incorreta'});
 };
 
 module.exports = {
@@ -67,4 +81,5 @@ module.exports = {
   getUpdate,
   postUpdate,
   deleteRecip,
+  confirmDelete
 };
