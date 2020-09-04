@@ -40,7 +40,7 @@ const postRecipe = async (req, res) => {
 const getUpdate = async (req, res) => {
   const { user, params } = req;
   const recipe = await getRecipeById(params.id);
-  if (parseInt(user.id) !== recipe.user_id) return res.render(`recipes/edit`, { recipe, user });
+  if (parseInt(user.id, 10) !== recipe.user_id) return res.render('recipes/edit', { recipe, user });
   return res.render('recipes/id', { recipe, user });
 };
 
@@ -49,7 +49,7 @@ const postUpdate = async (req, res) => {
   const { name, ingredients, instructions } = req.body;
 
   await updateRecipe(id, name, ingredients, instructions);
-  return res.redirect(`/`);
+  return res.redirect('/');
   // return res.render('recipes/edit', { recipe, user: req.user });
 };
 

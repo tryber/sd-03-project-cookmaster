@@ -11,11 +11,11 @@
       <h3><%= recipe.user%></h3>
     </div>
     <% if(user) { console.log(recipe) %>
-      
-      <div>
-        <a data-testid="editar-receita" href="/recipes/<%= recipe.id %>/edit">Editar Receita</a>
-        <a data-testid="excluir-receita" href="/recipes/<%= recipe.id %>/delete">Excluir Receita</a>
-      </div>
+
+    <div>
+      <a data-testid="editar-receita" href="/recipes/<%= recipe.id %>/edit">Editar Receita</a>
+      <a data-testid="excluir-receita" href="/recipes/<%= recipe.id %>/delete">Excluir Receita</a>
+    </div>
     <% } %>
     <div>
       <h3>Ingredientes</h3>

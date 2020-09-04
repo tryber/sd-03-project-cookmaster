@@ -40,14 +40,9 @@ app.get(
   middlewares.auth(),
   rescue((req, res) => res.render('recipes/new', { message: null, user: req.user })),
 );
-app.post('/recipes/new',  middlewares.auth(), rescue(controllers.recipeController.postRecipe));
-app.get(
-  '/recipes/:id/edit',
-  middlewares.auth(),
-  rescue(controllers.recipeController.getUpdate),
-);
+app.post('/recipes/new', middlewares.auth(), rescue(controllers.recipeController.postRecipe));
+app.get('/recipes/:id/edit', middlewares.auth(), rescue(controllers.recipeController.getUpdate));
 app.post('/recipes/:id/edit', rescue(controllers.recipeController.postUpdate));
-
 
 app.get('/recipes/search', rescue(controllers.searchController.searchRecipe));
 

@@ -25,12 +25,12 @@ async function getRecipeById(id) {
     const [[user_id, user, name, ingredients, instructions]] = result;
     return result !== []
       ? {
-          id,
-          user_id,
-          user,
-          name,
-          ingredients,
-          instructions,
+        id,
+        user_id,
+        user,
+        name,
+        ingredients,
+        instructions,
         }
       : null;
   } catch (err) {
@@ -39,13 +39,13 @@ async function getRecipeById(id) {
   }
 }
 
-async function insertRecipe(name, ingredients, instructions, user_id) {
+async function insertRecipe(name, ingredients, instructions, userId) {
   try {
     const db = await connect();
     return db
       .getTable('recipes')
       .insert(['user_id', 'name', 'ingredients', 'instructions'])
-      .values(user_id, name, ingredients, instructions)
+      .values(userId, name, ingredients, instructions)
       .execute();
   } catch (err) {
     console.error(err);
