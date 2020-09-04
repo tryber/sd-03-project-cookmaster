@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Signup</title>
+  </head>
+  <body>
+    <% if (message) {%>
+    <div class="message">
+      <%= message %>
+    </div>
+    <% } %>
+    <h1>Editar Usuário</h1>
+    <form action="/me" method="POST">
+      <label for="emailInput">Email: </label>
+      <input type="text" name="email" value="<%=`${user.email}`%>" id="emailInput" data-testid="email" /><br />
+      <label for="passwordInput" >Senha: </label>
+      <input type="password" name="password" id="passwordInput" data-testid="senha" /><br />
+      <label for="confirmPasswordInput" >Confirmer Senha: </label>
+      <input type="password" name="confirmPassword" id="confirmPasswordInput" data-testid="confirmar-senha" /><br />
+      <label for="nameInput" >Nome: </label>
+      <input type="text" name="name" value="<%=`${user.firstName}`%>" id="nameInput" data-testid="nome" /><br />
+      <label for="lastNameInput" >Sobrenome: </label>
+      <input type="text" name="lastName" value="<%=`${user.lastName}`%>" id="lastNameInput" data-testid="sobrenome" /><br />
+      <a href="/admin">Cancelar</a>
+      <button type="submit" data-testid="salvar">Salvar</button>
+    </form>
+  </body>
+</html>
