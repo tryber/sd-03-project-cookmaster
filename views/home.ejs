@@ -9,3 +9,37 @@
     <h1>Boas vindas ao Cookmaster!</h1>
   </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Home</title>
+  </head>
+  <body>
+    <%- include('navigation', { user: user }); %>
+    <div>
+      <% if (user) {%>
+      // O botão 'Nova Receita' deverá conter o data-testid="nova-receita"
+      <button data-testid="nova-receita">Nova Receita</button>
+      <%}%>
+      // O botão 'Buscar Receita' deverá conter o data-testid="buscar-receita"
+      <button data-testid="buscar-receita" onclick="window.location.pathname='/recipes/search'">
+        Buscar Receita
+      </button>
+    </div>
+    <% if (recipes) { %>
+    <div>
+      <h2>Receitas</h2>
+      <% recipes.map(recipe => { %>
+      <div>
+        <p>Receita: <%= recipe.name %></p>
+        <p>Autor: <%= recipe.user %></p>
+        <a href="/recipes/<%= recipe.id %>">Ver mais</a>
+      </div>
+      <%})%>
+    </div>
+    <% } %>
+  </body>
+</html>
