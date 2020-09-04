@@ -1,6 +1,8 @@
+require('dotenv/config');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const routeRecipes = require('./routeRecipes');
 
 const middlewares = require('./middlewares');
 const controllers = require('./controllers');
@@ -11,18 +13,24 @@ app.use(cookieParser());
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
+app.use('/recipes', routeRecipes);
 
-app.get('/', (_req, res) => {
-  return res.render('home');
-});
+app.get('/', middlewares.auth(false), controllers.cookController.listCook);
 
-app.get('/admin', middlewares.auth(), (req, res) => {
-  return res.render('admin/home', { user: req.user });
-});
+app.get('/me/recipes', middlewares.auth(), controllers.userController.myRecipes);
+app.get('/me/edit', middlewares.auth(), controllers.userController.myAccount);
+app.post('/me', middlewares.auth(), controllers.userController.editAccount);
+app.get('/admin', middlewares.auth(), controllers.cookController.admin);
 
 app.get('/login', controllers.userController.loginForm);
-app.get('/logout', controllers.userController.logout);
 app.post('/login', controllers.userController.login);
+app.post('/signup', controllers.userController.signup);
+app.get('/signup', controllers.userController.signupForm);
+app.get('/logout', controllers.userController.logout);
 
+app.use((err, _req, res, next) => {
+  next(err);
+  res.status(500).send('Something broke!');
+});
 
-app.listen(3000, () => console.log('Listening on 3000'));
+app.listen(3000, () => console.log(process.env.HOSTNAME));
