@@ -17,19 +17,19 @@ const loginForm = (req, res) => {
 const regForm = (req, res) => {
   const { token = '' } = req.cookies || {};
   if (SESSIONS[token]) return res.redirect('/login');
-  // Se tiver logado, não faz sentido registrar
-  return res.render('admin/register', {
-    message: 'Cadastre um novo usuário',
-    redirect: req.query.redirect,
-  });
+  // Se estiver logado, não faz sentido registrar
+  return res.render('admin/register', { message: 'Teste' });
 };
 
 const register = async (req, res) => {
-  const { email, pass1, pass2, firstName, lastName } = req.body;
-  const response = userModel.valiDate(email, pass1, pass2, firstName, lastName);
-  response === true ? // Todos os campos foram validados
-  res.status(201).render('userCreated', { message: 'Cadastro efetuado com sucesso!' }) :
-  res.status(402).render('admin/register', { message: response })
+  const { email, password, password_conf, first_name, last_name } = req.body; // Vem do form
+  const response = userModel.valiDate(email, password, password_conf, first_name, last_name);
+  if ( response === true ) { // Todos os campos foram validados
+    await userModel.create(email, password, first_name, last_name);
+    res.status(201).render('admin/userCreated', { message: 'Cadastro efetuado com sucesso!' });
+  } else {
+    res.status(402).render('admin/register', { message: response });
+  }
 };
 
 const login = async (req, res, next) => {

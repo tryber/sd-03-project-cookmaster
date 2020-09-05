@@ -15,16 +15,16 @@ const create = async (email, password, firstName, lastName) => {
       .getTable('users')
       .insert(['email', 'password', 'first_name', 'last_name'])
       .values(email, password, firstName, lastName)
-      .execute()
+      .execute(),
     );
-}
+};
 
 const valiDate = (email, pass1, pass2, firstName, lastName) => {
   switch (true) {
-    case !(/([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}/igm).test(email):
+    case !(/([\w.\-_]+)?\w+@[\w-_]+(\.\w+){1,}/igm).test(email):
       // RegEx obtido em regexr.com
       return 'O email deve ter o formato email@mail.com';
-    case pass1 != pass2:
+    case pass1 !== pass2:
       return 'As senhas tem que ser iguais';
     case pass1.length < 6:
       return 'A senha deve ter pelo menos 6 caracteres';
@@ -35,7 +35,7 @@ const valiDate = (email, pass1, pass2, firstName, lastName) => {
     default:
       return true;
   }
-}
+};
 
 /**
  * Busca um usuário através do seu email e, se encontrado, retorna-o.
@@ -50,7 +50,7 @@ const findByEmail = async (email) => {
       .bind('email', email)
       .execute(),
   )
-  .then((results) => results.fetchAll()[0]) // O primeiro do único resultado
+  .then((results) => results.fetchAll()[0] || [])
   .then(([id, email, password, first_name, last_name]) => (
     { id,
       email,
@@ -58,7 +58,7 @@ const findByEmail = async (email) => {
       firstName: first_name,
       lastName: last_name })); // Array para objeto via destructuring
   if (!userData) return null;
-  else return userData;
+  return userData;
 };
 
 /**
@@ -74,7 +74,7 @@ const findById = async (id) => {
       .bind('id', id)
       .execute(),
   )
-  .then((results) => results.fetchAll()[0]) // O primeiro do único resultado
+  .then((results) => results.fetchAll()[0])
   .then(([id, email, password, first_name, last_name]) => (
     { id,
       email,
@@ -82,7 +82,7 @@ const findById = async (id) => {
       firstName: first_name,
       lastName: last_name })); // Array para objeto via destructuring
   if (!userData) return null;
-  else return userData;
+  return userData;
 };
 
 module.exports = {

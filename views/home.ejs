@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style.css">
+    <!-- <link rel="stylesheet" href="./style.css"> -->
     <title>Cookmaster - Home</title>
   </head>
   <body>
     <header>
       <p>Cookmaster</p>
       <% if (user) { %>
-        <a data-testid="logout" href="/logout">Logout</a>
+        <span><%= user.firstName %> <%= user.lastName %> | </span><a data-testid="logout" href="/logout">Logout</a>
       <% } else { %>
         <a data-testid="login" href="/login">Login</a>
       <% } %>
@@ -18,9 +18,20 @@
     <section>
       <aside><h1>Receitas</h1></aside>
       <% if (user) { %>
-        <aside><button data-testid="nova-receita">Nova Receita</button></aside>
+        <aside>
+          <button 
+            data-testid="nova-receita" 
+            onclick="window.location.pathname='/recipes/new'">
+            Nova Receita
+          </button>
+        </aside>
       <% } %>
-      <aside><button data-testid="buscar-receita">Buscar Receitas</button></aside>
+      <aside><button
+        data-testid="buscar-receita"
+        onclick="window.location.pathname='/recipes/search'"
+        >
+        Buscar Receitas</button>
+      </aside>
     </section>
     <section>
       <% if (recipes) { %>

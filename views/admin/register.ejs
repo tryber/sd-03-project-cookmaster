@@ -4,19 +4,24 @@
     <title>Cookmaster - novo usuário</title>
   </head>
   <body>
-    <form action="/login" method="POST">
+    <form action="/register" method="POST">
       <label for="email">Email:</label>
       <input data-testid="email" name="email" type="text" required />
       <label for="password">Senha:</label>
       <input data-testid="senha" name="password" type="password" required />
-      <label for="password-conf">Confirmar Senha:</label>
-      <input data-testid="confirmar-senha" name="password-conf" type="password" required />
+      <label for="password_conf">Confirmar Senha:</label>
+      <input data-testid="confirmar-senha" name="password_conf" type="password" required />
       <label for="first_name">Nome:</label>
       <input data-testid="first_name" name="first_name" type="text" required />
       <label for="last_name">Sobrenome:</label>
       <input data-testid="sobrenome" name="last_name" type="text" required />
       <button type="submit">Cadastrar-se</button>
     </form>
+    <% if (message) {%>
+    <div class="message">
+      <%= message %>
+    </div>
+    <% } %>
     <a href="/login">Fazer login</a>
   </body>
 </html>

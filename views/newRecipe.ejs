@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <title>Cookmaster - nova receita</title>
+  </head>
+  <body>
+    <header>
+      <p>Cookmaster</p>
+      <% if (user) { %>
+        <span><%= user.firstName %> <%= user.lastName %> | </span><a data-testid="logout" href="/logout">Logout</a>
+      <% } else { %>
+        <a data-testid="login" href="/login">Login</a>
+      <% } %>
+    </header>
+    <h1>Nova Receita</h1>
+    <form action="/recipes" method="POST">
+      <label for="nome">Nome da Receita:</label>
+      <input data-testid="nome-receita" name="name" type="text" required />
+      <p>Ingredientes</p>
+      <ul id="ingredients-list">
+      </ul>
+      <input
+        id="ingredient-input"
+        data-testid="senha"
+        name="text"
+        type="text"
+      />
+      <input type="hidden" id="ingredients-hidden" name="ingredients">
+      <button
+        id="ingredient-button"
+        type="button"
+        data-testid="adicionar-ingrediente"
+        onclick="addIngredient()">
+        Adicionar Ingrediente
+      </button>
+      <label for="modo-preparo">Modo de Preparo:</label>
+      <input data-testid="modo-de-preparo" name="instructions" type="text" required />
+      <section>
+        <button type="button" onclick="window.location.pathname='/'">Voltar</button>
+        <button type="submit" data-testid="postar-receita">Salvar receita</button>
+      </section>
+    </form>
+  </body>
+  <script>
+    const ingredientsList = document.getElementById('ingredients-list');
+    const ingredientInput = document.getElementById('ingredient-input');
+    const ingredients = document.getElementById('ingredients-hidden');
+    let ingredientsArr = [];
+
+    const addIngredient = () => {
+      const item = document.createElement('li');
+      const deleteButton = document.createElement('button');
+      item.innerText = ingredientInput.value;
+      deleteButton.innerText = 'Excluir Ingrediente';
+      ingredientsArr.push(ingredientInput.value);
+      ingredients.value = ingredientsArr.join(',');
+      item.className = 'ingredient-item';
+      deleteButton.className = 'delete-button';
+      ingredientsList.appendChild(item);
+      ingredientsList.appendChild(deleteButton);
+      ingredientInput.value = '';
+
+      deleteButton.addEventListener('click', () => {
+        ingredientsArr = ingredientsArr.filter((ingredient) => ingredient !== item.innerText);
+        ingredients.value = ingredientsArr.join(',');
+        deleteButton.remove();
+        item.remove();
+      });
+    };
+    // document.getElementById('ingredient-button').addEventListener('click', addIngredient);
+  </script>
+</html>
