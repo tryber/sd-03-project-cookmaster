@@ -70,7 +70,7 @@ const registerUser = async (req, res) => {
 const getUserEdit = async (req, res) => {
   const user = await userModel.findById(req.user.id);
   return res.render('editUser', { user });
-}
+};
 
 const editUser = async (req, res) => {
   const { email, password, confirm_password: confirmPassword, name, lastName } = req.body;

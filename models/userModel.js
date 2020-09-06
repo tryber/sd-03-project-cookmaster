@@ -70,7 +70,7 @@ async function updateUser(id, password, name, lastname, email) {
     console.error(err);
     return process.exit(1);
   }
-};
+}
 
 /* Quando você implementar a conexão com o banco, não deve mais precisar desse objeto */
 // const TEMP_USER = {
