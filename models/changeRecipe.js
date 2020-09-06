@@ -7,7 +7,7 @@ const findChangeRecipeById = async (idS) => (
         .getTable('recipes')
         .select(['id', 'user_id', 'user', 'name', 'ingredients', 'instructions'])
         .where('id = :idS')
-        .bind('id', idS)
+        .bind('idS', idS)
         .execute(),
     )
     .then((results) =>
