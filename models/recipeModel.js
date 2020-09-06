@@ -89,7 +89,6 @@ async function deleteRecipe(id) {
 async function getByUserId(userId) {
   try {
     const db = await connect();
-    console.log(userId)
     const searchDb = await db
       .getTable('recipes')
       .select()
@@ -100,7 +99,7 @@ async function getByUserId(userId) {
     return results !== [[]]
       ? results.map(
         ([id, uid, user, name, ingredients, instructions]) => (
-          { id, user_id: uid, user, name, ingredients, instructions })
+          { id, user_id: uid, user, name, ingredients, instructions, })
       )
       : null;
   } catch (err) {
