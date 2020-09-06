@@ -42,9 +42,9 @@ const registerRecipe = rescue(async (req, res) => {
   const { recipeName, ingredients, instructions } = req.body;
   const { id, name, lastName } = req.user;
   const userName = `${name} ${lastName}`;
-  
+
   if (!recipeName || !ingredients || !instructions) {
-    res.render('recipeNew', { user: req.user, message: "Todos os campos devem ser preenchidos" });
+    res.render('recipeNew', { user: req.user, message: 'Todos os campos devem ser preenchidos' });
   }
 
   await recipesModel.addRecipe(id, userName, recipeName, ingredients, instructions);
