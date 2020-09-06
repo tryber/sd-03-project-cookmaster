@@ -1,17 +1,17 @@
 const connect = require('./connect');
 
-const findRecipeById = async (id) => {
-  return connect()
+const findRecipeById = async (id) => (
+  connect()
     .then((db) =>
       db
         .getTable('recipes')
-        .select(["id", "user", "name", "ingredients", "instructions"])
-        .where("id = :id")
-        .bind("id", id)
-        .execute()
+        .select(['id', 'user', 'name', 'ingredients', 'instructions'])
+        .where('id = :id')
+        .bind('id', id)
+        .execute(),
     )
-    .then((results) => 
-      results.fetchOne()
+    .then((results) =>
+      results.fetchOne(),
     )
     .then(([id, email, name, ingredients, instructions]) => (
       {
@@ -21,19 +21,20 @@ const findRecipeById = async (id) => {
         ingredients,
         instructions,
       }
-    ));
-};
+    ))
+);
 
-const excludeRecipe = async (id) =>
-    connect()
+const excludeRecipe = async (id) => (
+  connect()
     .then((db) =>
       db
         .getTable('recipes')
         .delete()
-        .where("id = :id")
-        .bind("id", id)
+        .where('id = :id')
+        .bind('id', id)
         .execute()
-  );
+  )
+);
 
 module.exports = {
   findRecipeById,

@@ -1,50 +1,50 @@
 const connect = require('./connect');
 
-const findByQuery = async (name) => {
-  return connect()
+const findByQuery = async (recipeName) => (
+  connect()
     .then((db) =>
       db
         .getTable('recipes')
         .select(["id", "user", "name"])
         .where("name like :name")
-        .bind("name", `%${name}%`)
-        .execute()
+        .bind("name", `%${recipeName}%`)
+        .execute(),
     )
-    .then((results) => 
-      results.fetchAll()
+    .then((results) =>
+      results.fetchAll(),
     )
-    .then((results) => 
+    .then((results) =>
       results.map(([id, user, name]) => (
-      {
-        id,
-        user,
-        name,
-      }
+        {
+          id,
+          user,
+          name,
+        }
     )))
-};
+);
 
-const findByUserQuery = async (userId) => {
-  return connect()
+const findByUserQuery = async (userId) => (
+  connect()
     .then((db) =>
       db
         .getTable('recipes')
-        .select(["id", "user", "name", "user_id"])
-        .where("user_id = :userId")
-        .bind("userId", userId)
-        .execute()
+        .select(['id', 'user', 'name', 'user_id'])
+        .where('user_id = :userId')
+        .bind('userId', userId)
+        .execute(),
     )
-    .then((results) => 
-      results.fetchAll()
+    .then((results) =>
+      results.fetchAll(),
     )
-    .then((results) => 
+    .then((results) =>
       results.map(([id, user, name]) => (
-      {
-        id,
-        user,
-        name,
-      }
+        {
+          id,
+          user,
+          name,
+        }
     )))
-};
+);
 
 
 module.exports = {

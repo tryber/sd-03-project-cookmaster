@@ -7,5 +7,5 @@ const callMyRecipes = async (req, res) => {
 };
 
 module.exports = {
-    callMyRecipes,
+  callMyRecipes,
 };

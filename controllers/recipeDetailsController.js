@@ -1,5 +1,3 @@
-const { v4: uuid } = require('uuid');
-const { SESSIONS } = require('../middlewares/auth');
 const { recipeDetails } = require('../models');
 
 const recipeDetailsForm = async (req, res) => {
