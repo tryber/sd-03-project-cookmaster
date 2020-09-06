@@ -1,32 +1,100 @@
-/* Quando você implementar a conexão com o banco, não deve mais precisar desse objeto */
-const TEMP_USER = {
-  id: 'd2a667c4-432d-4dd5-8ab1-b51e88ddb5fe',
-  email: 'taylor.doe@company.com',
-  password: 'password',
-  name: 'Taylor',
-  lastName: 'Doe',
-};
+const connect = require('./connect');
 
-/* Substitua o código das funções abaixo para que ela,
-de fato, realize a busca no banco de dados */
-
-/**
- * Busca um usuário através do seu email e, se encontrado, retorna-o.
- * @param {string} email Email do usuário a ser encontrado
- */
 const findByEmail = async (email) => {
-  return TEMP_USER;
+  try {
+    const db = await connect();
+    const searchDb = await db
+      .getTable('users')
+      .select('id', 'password', 'first_name', 'last_name')
+      .where('email = :email')
+      .bind('email', email)
+      .execute();
+    const [id, password, name, lastName] = await searchDb.fetchAll()[0];
+    return id && password ?
+      { id, email, password, name, lastName } : null;
+  } catch (err) {
+    console.error(err);
+    return process.exit(1);
+  }
 };
 
 /**
  * Busca um usuário através do seu ID
  * @param {string} id ID do usuário
  */
-const findById = async (id) => {
-  return TEMP_USER;
+const findById = async (uid) => {
+  try {
+    const db = await connect();
+    const searchDb = await db
+      .getTable('users')
+      .select()
+      .where('id = :id')
+      .bind('id', uid)
+      .execute();
+    const [[id, email, password, name, lastName]] = await searchDb.fetchAll();
+    return { id, email, password, name, lastName };
+  } catch (err) {
+    console.error(err);
+    return process.exit(1);
+  }
 };
+
+const registerUser = async (email, password, name, lastname) => {
+  try {
+    const db = await connect();
+    return db
+      .getTable('users')
+      .insert(['email', 'password', 'first_name', 'last_name'])
+      .values(email, password, name, lastname)
+      .execute();
+  } catch (err) {
+    console.error(err);
+    return process.exit(1);
+  }
+};
+
+async function updateUser(id, password, name, lastname, email) {
+  try {
+    const db = await connect();
+    return db
+      .getTable('users')
+      .update()
+      .set('first_name', name)
+      .set('email', email)
+      .set('password', password)
+      .set('last_name', lastname)
+      .where('id = :id')
+      .bind('id', id)
+      .execute();
+  } catch (err) {
+    console.error(err);
+    return process.exit(1);
+  }
+}
+
+/* Quando você implementar a conexão com o banco, não deve mais precisar desse objeto */
+// const TEMP_USER = {
+//   id: 'd2a667c4-432d-4dd5-8ab1-b51e88ddb5fe',
+//   email: 'bruno.batista@gmail.com',
+//   password: '12345678',
+//   name: 'Taylor',
+//   lastName: 'Doe',
+// };
+
+/* Substitua o código das funções abaixo para que ela,
+de fato, realize a busca no banco de dados */
+
+// const registerUser = async (email, password, name, lastName) =>
+//   connect().then((db) => db.getTable('users'));
+
+/**
+ * Busca um usuário através do seu email e, se encontrado, retorna-o.
+ * @param {string} email Email do usuário a ser encontrado
+ */
 
 module.exports = {
   findByEmail,
   findById,
+  registerUser,
+  updateUser,
 };

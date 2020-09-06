@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Cadastro de Receita</title>
+  </head>
+  <body display="flex">
+    <h1>Nova Receita</h1>
+    <form method="POST" action="/recipes/<%= recipe.id %>/edit" id="form">
+      <input
+        type="text"
+        display="none"
+        id="hidden"
+        name="ingredients"
+        value="<%= recipe.ingredients %>"
+      />
+      <label for="name"
+        >Nome da Receita
+        <input type="text" name="name" data-testid="nome-receita" value="<%= recipe.name %>" />
+      </label>
+      <label for="ingredients"
+        >Adicionar Ingrediente
+        <ul id="list"></ul>
+        <input type="text" id="ingredientInput" data-testid="ingredientes" />
+        <button id="ingredientsBtn" data-testid="adicionar-ingrediente" type="button">
+          Adicionar a Lista
+        </button>
+      </label>
+      <label for="instructions"
+        >Modo de Preparo
+        <input
+          type="text"
+          name="instructions"
+          data-testid="modo-de-preparo"
+          value="<%= recipe.instructions %>"
+          width="500px"
+        />
+      </label>
+      <a href="/">Voltar</a>
+      <button data-testid="postar-receita" type="submit">Salvar Receita</button>
+    </form>
+  </body>
+  <script>
+    const list = document.getElementById('list');
+
+    const input = document.getElementById('ingredientInput');
+    const hiddenInput = document.getElementById('hidden');
+    const p = document.createElement('p');
+    const btn = document.createElement('button');
+
+    const ingredientsList = [];
+
+    const addIngredient = (text) => {
+      const newIngredient = document.createElement('li');
+      newIngredient.innerHTML = `<span >${text}</span>
+        <button type='button'>Excluir Ingrediente </ button> `;
+      console.log(newIngredient.children);
+      addExcludeBtn(newIngredient);
+      list.appendChild(newIngredient);
+    };
+
+    const addExcludeBtn = (newIngredient) => {
+      newIngredient.children[1].addEventListener('click', ({ target }) => {
+        const index = ingredientsList.indexOf(newIngredient);
+        ingredientsList.splice(index, 1);
+        hiddenInput.value = ingredientsList.join(',');
+        target.parentNode.remove();
+      });
+    };
+
+    if (hiddenInput.value) {
+      '<%= recipe.ingredients %>'.split(',').forEach((ingredient) => {
+        console.log(ingredient);
+        ingredientsList.push(ingredient);
+        addIngredient(ingredient);
+      });
+    }
+
+    document.getElementById('ingredientsBtn').addEventListener('click', () => {
+      ingredientsList.push(input.value);
+      addIngredient(input.value);
+      hiddenInput.value = ingredientsList.join(',');
+      console.log(ingredientsList);
+    });
+  </script>
+</html>

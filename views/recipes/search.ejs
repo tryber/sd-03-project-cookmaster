@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Home</title>
+  </head>
+  <body>
+    <h2>Home - Cookmaster</h2>
+    <div>
+      <h3>Cookmaster</h3>
+      <% if(user) { %>
+        <p><%= user.name %></p>
+        <% } %>
+      <% if(user) { %>
+      <a data-testid="logout" href="/logout">Logout</a>
+      <% } %>
+      <%if(!user) {%>
+      <a data-testid="login" href="/login">Login</a>
+      <% } %>
+    </div>
+    <div>
+      <h2>Buscar Receitas</h2>
+      <form method="GET" action="/recipes/search">
+          <input type="text" data-testid="receita" name='query'/>
+          <button data-testid="buscar" type='submit'>Buscar</button>
+        </form>
+    </div>
+    <div>
+      <% recipes && recipes.forEach(recipe => { %>
+        <div>
+          <h4><%= recipe.name %></h4>
+          <p><%= recipe.user %></p>
+          <a href="/recipes/<%= recipe.id %>">Ver mais</a>
+        </div>
+      <% })%>
+    </div>
+    <%if(user) {%>
+    <button data-testid="nova-receita">Nova Receita</button>
+    <% } %>
+  </body>
+</html>
