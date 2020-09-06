@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster</title>
+    <a href="/logout" data-testid="logout">Logout</a>
+  </head>
+  <body>
+    <div>
+      <h2>Editar Receita</h2>
+      <form action="/recipes/<%= recipe.id %>" method="POST">
+        <label for="nameInput" >Nome da Receita </label>
+        <input
+          type="text"
+          name="name"
+          id="nameInput"
+          data-testid="nome-receita"
+          value="<%= recipe.name %>"
+        >
+          <%= recipe.name %>
+        </input><br />
+        <div>
+          <ul id="ingredientsList">
+            <% recipe.ingredients.split(",").forEach((elem, index) => {%>
+              <li data-index="<%= index %>"><%= elem %></li>
+              <button data-index="<%= index %>" onclick="deleteIngrendient(`<%= index %>`)">Excluir Ingrediente</button>
+            <%})%>
+          </ul>
+        </div>
+        <label for="ingredientsInput">Ingredietes</label>
+        <input
+          type="text"
+          name="ingredients"
+          id="ingredientsInput"
+          data-testid="ingredientes"
+        >
+        </input><br/>
+        <button type="button" id="addIngred" data-testid="adicionar-ingrediente">Incluir Ingrediente</button><br />
+        <label for="instructionsInput">Modo de Preparo </label>
+        <input
+          type="text"
+          name="instructions"
+          id="instructionsInput"
+          data-testid="modo-de-preparo"
+        >
+          <%= recipe.instructions %>
+        </input><br />
+        <button type="submit" id="salvar" data-testid="postar-receita">
+            Salvar
+        </button>
+      </form>
+    </div>
+  </body>
+  <script>
+    let inputText = document.getElementById('ingredientsInput');
+    let criarIngredient = document.getElementById('addIngred');
+    let arrIngredients = "<%= recipe.ingredients %>".split(",");
+    inputText.value = '';
+
+    function deleteIngrendient(index) {
+      arrIngredients.splice(index, 1);
+      Array.from(document.querySelectorAll(`[data-index='${index}']`)).forEach((elem) => {
+        elem.remove();
+      });
+    };
+
+    criarIngredient.addEventListener('click',function() {
+      const addLi = document.createElement('li');
+      addLi.className = 'liIngredients';
+      addLi.innerText = inputText.value;
+      document.getElementById('ingredientsList').appendChild(addLi);
+
+        const addButton = document.createElement('button');
+        addButton.innerText = 'Excluir Ingrediente';
+        document.getElementById('ingredientsList').appendChild(addButton);
+
+        addButton.addEventListener('click', function () {
+            arrIngredients = arrIngredients.filter((elem) =>
+                elem !== addLi.innerText
+            );
+            addButton.remove();
+            addLi.remove();
+        });
+        arrIngredients.push(inputText.value)
+        inputText.value = '';
+    });
+
+    salvar.addEventListener('click',function(){
+      inputText.value = arrIngredients.join(",");
+    })
+  </script>
+</html>

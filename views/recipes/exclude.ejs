@@ -1,0 +1,22 @@
+</head>
+<body>
+  <% if (message) {%>
+    <div class="message">
+      <p><%= message %></p>
+    </div>
+  <% } %>
+  <div>
+    <h2>Confirme a exclusão da receita</h2>
+    <form action="/recipes/<%= id %>/delete" method="POST">
+      <label for="passwordInput" >Senha </label>
+      <input type="password" name="password" id="passwordInput" data-testid="senha" /><br />
+      <button type="submit" data-testid="confirmar">
+        Confirmar
+      </button>
+      <button  onclick="window.location.pathname='/'" data-testid="cancelar">
+        Cancelar
+      </button>
+    </form>
+  </div>
+</body>
+</html>

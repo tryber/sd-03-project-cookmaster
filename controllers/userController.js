@@ -1,9 +1,8 @@
 const { v4: uuid } = require('uuid');
 const { SESSIONS } = require('../middlewares/auth');
+const { userModel } = require('../models');
 
-const userModel = require('../models/userModel');
-
-const loginForm = (req, res) => {
+const loginForm = async (req, res) => {
   const { token = '' } = req.cookies || {};
 
   if (SESSIONS[token]) return res.redirect('/');
@@ -34,7 +33,7 @@ const login = async (req, res, next) => {
   SESSIONS[token] = user.id;
 
   res.cookie('token', token, { httpOnly: true, sameSite: true });
-  res.redirect(redirect || '/admin');
+  res.redirect(redirect || '/');
 };
 
 const logout = (req, res) => {
