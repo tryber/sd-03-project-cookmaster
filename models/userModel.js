@@ -22,7 +22,9 @@ const findByEmail = async (email) => connect()
     .execute()
   )
   .then((fetch) => fetch.fetchOne())
-  .then(([id, firstName, lastName, password, email]) => ({ id, email, password, name: firstName, lastName }))
+  .then(([id, firstName, lastName, password, email]) => ({ 
+    id, email, password, name: firstName, lastName 
+  }))
   .catch((err) => console.log(err));
 
 /**
@@ -37,7 +39,9 @@ const findById = async (id) => connect()
     .execute()
   )
   .then((fetch) => fetch.fetchOne())
-  .then(([id, firstName, lastName, password, email]) => ({ id, name: firstName, lastName, password, email }));
+  .then(([id, firstName, lastName, password, email]) => ({ 
+    id, name: firstName, lastName, password, email 
+  }));
 
 const upadateUser = async (id, email, password, first_name, last_name) => {
   const db = await connect();
