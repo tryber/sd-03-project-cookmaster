@@ -47,13 +47,11 @@
   </div>
 </body>
 <script>
-  let ingredients = [];
   const buttonAdd = document.getElementById('add');
   const newIngredient = document.getElementById('ingredientsInput');
   const ingredientsList = document.getElementById('ingredientsList');
 
   const deleteIngredient = (event) => {
-    ingredients = ingredients.filter((i) => i !== event.target.parentElement.id);
     ingredientsList.removeChild(event.target.parentElement);
   };
 
@@ -64,13 +62,17 @@
     ingredientLi.id = newIngredient.value;
     ingredientLi.innerHTML = newIngredient.value + `<button type="button" onclick="deleteIngredient(event)">Excluir Ingrediente</button>`;
 
-    ingredients.push(newIngredient.value);
     newIngredient.value = "";
   };
 
   buttonAdd.addEventListener('click', addIngredient);
 
   const submitRecipe = () => {
+    const list = document.querySelectorAll("li");
+    let ingredients = [];
+    for (let i = 0; i < list.length; i += 1) {
+      ingredients.push(list[i].id)
+    }
     newIngredient.value = ingredients;
     document.getElementById('form-div').submit();
   };
