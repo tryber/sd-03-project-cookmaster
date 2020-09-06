@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+  <body>
+    <% if (message) {%>
+      <div class="message">
+      <% message.forEach((elem) => { %>
+          <p><%=elem%></p>
+      <% }) %>
+      </div>
+    <% } %>
+    <form action="/me" method="POST">
+      <label for="emailInput">Email: </label>
+      <input 
+        type="text" name="email" id="emailInput" data-testid="email" value="<%= user.email %>" 
+      /><br />
+      <label for="passwordInput">Senha: </label>
+      <input 
+        type="password" name="password" id="passwordInput" 
+        data-testid="senha" value="<%= user.password %>" 
+      /><br />
+      <label for="checkInput">Confirmar Senha: </label>
+      <input 
+        type="password" name="confirm" id="checkInput" 
+        data-testid="confirmar-senha" 
+      /><br />
+      <label for="nameInput">Nome: </label>
+      <input type="text" name="name" id="nameInput" data-testid="nome" value="<%= user.name %>" />
+      <br />
+      <label for="lastNameInput">Sobrenome: </label>
+      <input 
+        type="text" name="lastName" id="lastNameInput" 
+        data-testid="sobrenome" value="<%= user.lastName %>" 
+      /><br />
+      <button type="submit" data-testid="salvar">Salvar</button>
+    </form>
+    <button type="button" onclick="window.location.pathname='/'">Cancelar</button>
+  </body>
+</html>
