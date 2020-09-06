@@ -21,7 +21,7 @@ const renderRecipeDetail = rescue(async (req, res) => {
 
 const renderRecipeEdit = rescue(async (req, res) => {
   const { id } = req.params;
-  const recipe = await recipesModel.recipeById(id); 
+  const recipe = await recipesModel.recipeById(id);
 
   res.render('recipeEdit', { user: req.user, recipe, message: null });
 });
@@ -60,13 +60,13 @@ const recipeEdit = rescue(async (req, res) => {
   const { recipeName, ingredients, instructions } = req.body;
 
   if (!recipeName || !ingredients || !instructions) {
-    res.render('recipeNew', { user: req.user, message: 'Todos os campos devem ser preenchidos' });
+    res.render('recipeNew', { user: req.user, message: 'Todos os campos da receita devem ser preenchidos' });
   }
 
   await recipesModel.updateRecipe(id, recipeName, ingredients, instructions);
 
   return res.redirect(`/recipes/${id}`);
-})
+});
 
 module.exports = {
   renderRecipes,

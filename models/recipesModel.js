@@ -64,7 +64,7 @@ const addRecipe = async (userId, userName, recipeName, ingredients, instructions
       .execute(),
   );
 
-const updateRecipe = async (id, recipeName, ingredients, instructions) => 
+const updateRecipe = async (id, recipeName, ingredients, instructions) =>
   connection().then((db) =>
     db
       .getTable('recipes')
