@@ -36,7 +36,6 @@ const getRecipe = async (req, res) => {
 
 const postRecipe = async (req, res) => {
   const { name, ingredients, instructions } = req.body;
-  // const id = 
   await insertRecipe(name, req.user.name, ingredients, instructions, req.user.id);
   const recipes = await getAllRecipes();
   return res.render('home', { user: req.user, message: 'Receita Cadastrada com Sucesso', recipes });

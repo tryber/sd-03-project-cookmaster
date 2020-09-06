@@ -99,7 +99,7 @@ async function getByUserId(userId) {
     return results !== [[]]
       ? results.map(
         ([id, uid, user, name, ingredients, instructions]) => (
-          { id, user_id: uid, user, name, ingredients, instructions, })
+          { id, user_id: uid, user, name, ingredients, instructions })
       )
       : null;
   } catch (err) {
