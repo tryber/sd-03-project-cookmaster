@@ -98,13 +98,13 @@ async function getByUserId(userId) {
     const results = await searchDb.fetchAll();
     return results !== [[]]
       ? results.map(([id, uid, user, name, ingredients, instructions]) => ({
-          id,
-          user_id: uid,
-          user,
-          name,
-          ingredients,
-          instructions,
-        }))
+        id,
+        user_id: uid,
+        user,
+        name,
+        ingredients,
+        instructions,
+      }))
       : null;
   } catch (err) {
     console.error(err);
