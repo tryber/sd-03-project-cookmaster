@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster</title>
+    <a href="/logout" data-testid="logout">Logout</a>
+  </head>
+  <body>
+    <div>
+      <h2>Nova Receita</h2>
+      <form action="/recipes" method="POST">
+        <label for="nameInput" >Nome da Receita </label>
+        <input type="text" name="name" id="nameInput" data-testid="nome-receita" /><br />
+        <div>
+          <ul id="ingredientsList">
+          </ul>
+        </div>
+        <label for="ingredientsInput">Ingredietes</label>
+        <input
+          type="text"
+          name="ingredients"
+          id="ingredientsInput"
+          data-testid="ingredientes"
+        /><br/>
+        <button type="button" id="addIngred" data-testid="adicionar-ingrediente">Incluir Ingrediente</button><br />
+        <label for="instructionsInput">Modo de Preparo </label>
+        <input type="text" name="instructions" id="instructionsInput" data-testid="modo-de-preparo" /><br />
+        <button type="submit" id="salvar" data-testid="postar-receita">
+            Salvar
+        </button>
+      </form>
+    </div>
+  </body>
+  <script>
+    let arrIngredients = [];
+    let criarIngredient = document.getElementById('addIngred');
+    let inputText = document.getElementById('ingredientsInput');
+
+    criarIngredient.addEventListener('click',function() {
+        const addLi = document.createElement('li');
+        addLi.className = 'liIngredients';
+        addLi.innerText = inputText.value;
+        document.getElementById('ingredientsList').appendChild(addLi);
+
+        const addButton = document.createElement('button');
+        addButton.innerText = 'Excluir Ingrediente';
+        document.getElementById('ingredientsList').appendChild(addButton);
+
+        addButton.addEventListener('click', function () {
+            arrIngredients = arrIngredients.filter((elem) => 
+                elem !== addLi.innerText
+            );
+            addButton.remove();
+            addLi.remove();
+        });
+        arrIngredients.push(inputText.value)
+        inputText.value = '';
+    });
+
+    salvar.addEventListener('click',function(){
+      inputText.value = arrIngredients.join(",");
+    })
+  </script>
+</html>

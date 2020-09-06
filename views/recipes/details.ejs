@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster</title>
+    <% if(!user) { %>
+      <a href="/login" data-testid="login">Login</a>
+    <% } %>
+    <% if(user) { %>
+      <p><%= user.name%></p>
+      <a href="/logout" data-testid="logout">Logout</a>
+    <% } %>
+  </head>
+  <body>
+    <div>
+      <h2><%= recipe.name %></h2>
+    </div>
+    <div>
+      <h3>Ingredientes</h3>
+      <p><%= recipe.ingredients %></p>
+    </div>
+    <div>
+      <h3>Modo de preparo</h3>
+        <li><%=recipe.instructions%></li>
+    </div>
+    <div>
+      <% if(user) {%>
+        <a href="/recipes/<%= recipe.id %>/edit" data-testid="editar-receita">Editar Receita</a>
+        <!-- <button onclick="window.location.pathname='/recipes/<%= recipe.id %>/edit'" data-testid="editar-receita" >
+          Editar Receita
+        </button> -->
+        <button onclick="window.location.pathname='/recipes/<%= recipe.id %>/delete'" data-testid="excluir-receita" >
+          Excluir Receita
+        </button>
+      <% } %>
+    </div>
+  </body>
+</html>

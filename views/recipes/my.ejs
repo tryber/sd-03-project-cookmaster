@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster</title>
+    <a href="/logout" data-testid="logout">Logout</a>
+  </head>
+  <body>
+    <div>
+      <h2>Minhas Receitas</h2>
+    </div>
+    <div>
+      <% recipe.forEach((elem) => { %>
+        <div>
+          <h4><%=elem.name%></h4>
+          <p><%=elem.user%></p>
+          <a href=<%= `/recipes/${elem.id}` %>>Ver mais</a> 
+        </div>
+      <% }) %>
+    </div>
+    <button onclick="window.location.pathname='/recipes/new'" data-testid="nova-receita" >
+      Nova Receita
+    </button>
+  </body>
+</html>
