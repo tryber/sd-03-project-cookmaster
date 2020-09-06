@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cookmaster - Home</title>
+  <title>Cookmaster - Minhas Receitas</title>
 </head>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
@@ -33,12 +33,8 @@
 
 <body>
   <%- include('navbar', { user }); %>
-  <h1>Receitas</h1>
-  <button data-testid='buscar-receita'><a href='/recipes/search'>Buscar Receitas</a></button>
-  <% if (user) {%>
+  <h1>Minhas Receitas</h1>
   <button data-testid='nova-receita'><a href='/recipes/new'>Nova Receita</a></button>
-  <button data-testid='minhas-receitas'><a href='/me/recipes'>Minhas Receitas</a></button>
-  <% } %>
   <div class='main-content'>
     <% if (recipes) {%>
     <% recipes.forEach(recipe => { %>

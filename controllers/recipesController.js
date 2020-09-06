@@ -1,4 +1,5 @@
 const recipesModel = require('../models/recipesModel');
+const userModel = require('../models/userModel');
 const rescue = require('express-rescue');
 
 const renderRecipes = rescue(async (req, res) => {
@@ -27,7 +28,9 @@ const renderRecipeEdit = rescue(async (req, res) => {
 });
 
 const renderRecipeDelete = rescue(async (req, res) => {
-  res.render('recipeDelete', { user: req.user });
+  const { id } = req.params;
+
+  res.render('recipeDelete', { user: req.user, id, message: null });
 });
 
 const searchRecipe = rescue(async (req, res) => {
@@ -68,6 +71,31 @@ const recipeEdit = rescue(async (req, res) => {
   return res.redirect(`/recipes/${id}`);
 });
 
+const recipeDelete = rescue(async (req, res) => {
+  const { id } = req.params;
+  const currentUser = req.user;
+
+  const user = await userModel.findById(currentUser.id);
+
+  const { password } = req.body;
+
+  if (password !== user.password) {
+    return res.render('recipeDelete', { user: req.user, id, message: "Senha incorreta." });
+  }
+
+  await recipesModel.deleteRecipe(id);
+
+  return res.redirect('/');
+});
+
+const renderUserRecipes = rescue(async (req, res) => {
+  const user = req.user;
+
+  const recipes = await recipesModel.recipeByUser(user.id);
+
+  res.render('userRecipes', { user, recipes })
+})
+
 module.exports = {
   renderRecipes,
   renderRecipeDetail,
@@ -77,4 +105,6 @@ module.exports = {
   searchRecipe,
   registerRecipe,
   recipeEdit,
+  recipeDelete,
+  renderUserRecipes,
 };
