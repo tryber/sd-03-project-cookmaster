@@ -22,7 +22,7 @@ const excludeForm = async (req, res) => {
 
   await recipeDetails.excludeRecipe(id);
 
-  res.redirect('/');
+  return res.redirect('/');
 };
 
 module.exports = {

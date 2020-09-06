@@ -7,7 +7,7 @@ const addRecipe = async (id, user, name, ingredients, instructions) =>
         .getTable('recipes')
         .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
         .values(id, user, name, ingredients, instructions)
-        .execute()
+        .execute(),
   );
 
 module.exports = {

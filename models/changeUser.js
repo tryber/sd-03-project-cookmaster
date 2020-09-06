@@ -12,7 +12,7 @@ const alterUser = async (id, email, password, name, lastName) => (
         .set('last_name', lastName)
         .where('id = :id')
         .bind('id', id)
-        .execute()
+        .execute(),
     )
 );
 
