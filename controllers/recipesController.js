@@ -29,7 +29,7 @@ const renderRecipeEdit = rescue(async (req, res) => {
     return res.redirect(`/recipes/${id}`);
   }
 
-  res.render('recipeEdit', { user: req.user, recipe, message: null });
+  return res.render('recipeEdit', { user: req.user, recipe, message: null });
 });
 
 const renderRecipeDelete = rescue(async (req, res) => {
