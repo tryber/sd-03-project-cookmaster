@@ -9,7 +9,7 @@ const findByEmail = async (email) => {
       .where('email = :email')
       .bind('email', email)
       .execute();
-    const [ [id, mail, password] ] = await searchDb.fetchAll();
+    const [[id, mail, password]] = await searchDb.fetchAll();
     return mail ? { id, email: mail, password } : null;
   } catch (err) {
     console.error(err);
@@ -30,7 +30,7 @@ const findById = async (uid) => {
       .where('id = :id')
       .bind('id', uid)
       .execute();
-    const [ [ id, email, password, name, lastName] ] = await searchDb.fetchAll();
+    const [[id, email, password, name, lastName]] = await searchDb.fetchAll();
 
     return { id, email, password, name, lastName };
   } catch (err) {

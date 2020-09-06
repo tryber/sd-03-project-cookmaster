@@ -65,7 +65,6 @@ const confirmDelete = async (req, res) => {
   const { id } = req.params;
   const recipe = await getRecipeById(id);
   if (recipe.user_id !== req.user.id) return res.render('recipes/id', { user: req.user, recipe });
-  console.log('recipe:', recipe);
   return res.render('recipes/delete', { message: null, user: req.user, id });
 };
 

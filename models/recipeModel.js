@@ -42,12 +42,12 @@ async function getRecipeById(id) {
 async function insertRecipe(name, user, ingredients, instructions, userId) {
   try {
     const db = await connect();
-    const result = await  db
+    const result = await db
       .getTable('recipes')
-      .insert(['user_id', 'user','name', 'ingredients', 'instructions'])
+      .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
       .values(userId, user, name, ingredients, instructions)
       .execute();
-      return result.getAutoIncrementValue();
+    return result.getAutoIncrementValue();
   } catch (err) {
     console.error(err);
     return process.exit(1);
@@ -97,18 +97,10 @@ async function getByUserId(userId) {
       .bind('user_id', userId)
       .execute();
     const results = await searchDb.fetchAll();
-    console.log(results)
     return results !== [[]]
       ? results.map(
-        ( [id, uid, user, name, ingredients, instructions] ) => (
-          {
-            id,
-            user_id: uid,
-            user,
-            name,
-            ingredients,
-            instructions,
-          })
+        ([id, uid, user, name, ingredients, instructions]) => (
+          { id, user_id: uid, user, name, ingredients, instructions })
       )
       : null;
   } catch (err) {
