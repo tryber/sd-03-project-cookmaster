@@ -23,6 +23,11 @@ const renderRecipeDetail = rescue(async (req, res) => {
 const renderRecipeEdit = rescue(async (req, res) => {
   const { id } = req.params;
   const recipe = await recipesModel.recipeById(id);
+  const user = req.user;
+
+  if (!user && recipe.userId !== user.id) {
+    return res.redirect(`/recipes/${id}`);
+  }
 
   res.render('recipeEdit', { user: req.user, recipe, message: null });
 });
