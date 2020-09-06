@@ -76,10 +76,10 @@ async function deleteRecipe(id) {
   try {
     const db = await connect();
     return db.getTable('recipes')
-    .delete()
-    .where('id = :id')
-    .bind('id', id)
-    .execute();
+      .delete()
+      .where('id = :id')
+      .bind('id', id)
+      .execute();
   } catch (err) {
     console.error(err);
     return process.exit(1);
@@ -97,10 +97,14 @@ async function getByUserId(userId) {
       .execute();
     const results = await searchDb.fetchAll();
     return results !== [[]]
-      ? results.map(
-        ([id, uid, user, name, ingredients, instructions]) => (
-          { id, user_id: uid, user, name, ingredients, instructions, })
-      )
+      ? results.map(([id, uid, user, name, ingredients, instructions]) => ({
+          id,
+          user_id: uid,
+          user,
+          name,
+          ingredients,
+          instructions,
+        }))
       : null;
   } catch (err) {
     console.error(err);
