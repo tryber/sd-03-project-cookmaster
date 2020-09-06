@@ -1,6 +1,6 @@
 const { v4: uuid } = require('uuid');
 const { SESSIONS } = require('../middlewares/auth');
-const { connect, userModel } = require('../models');
+const { userModel } = require('../models');
 
 const loginForm = async (req, res) => {
   const { token = '' } = req.cookies || {};

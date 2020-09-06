@@ -42,7 +42,7 @@ function checkLastName(arrMessage, lastName, namesTest) {
   return arrMessage;
 }
 
-const setRegister = async (req, res, next) => {
+const setRegister = async (req, res) => {
   const { email, password, confirm, name, lastName } = req.body;
 
   const namesTest = /^[a-zA-Z]*$/;
@@ -59,7 +59,7 @@ const setRegister = async (req, res, next) => {
     });
   }
 
-  await register.addUser(email, password, name, lastName)
+  await register.addUser(email, password, name, lastName);
 
   return res.render('users/login', { message: ['Cadastro efetuado com sucesso!'] });
 };

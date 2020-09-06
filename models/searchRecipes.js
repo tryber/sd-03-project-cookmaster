@@ -5,9 +5,9 @@ const findByQuery = async (recipeName) => (
     .then((db) =>
       db
         .getTable('recipes')
-        .select(["id", "user", "name"])
-        .where("name like :name")
-        .bind("name", `%${recipeName}%`)
+        .select(['id', 'user', 'name'])
+        .where('name like :recipeName')
+        .bind('name', `%${recipeName}%`)
         .execute(),
     )
     .then((results) =>

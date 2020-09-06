@@ -10,7 +10,7 @@ const reciveDetailsForm = async (req, res) => {
   return res.render('recipes/transition', { recipe, user: req.user });
 };
 
-const changeDetailsForm = async (req, res, _next) => {
+const changeDetailsForm = async (req, res) => {
   const { id } = req.params;
   const { name, ingredients, instructions } = req.body;
 

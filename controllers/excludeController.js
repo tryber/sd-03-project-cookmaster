@@ -5,7 +5,7 @@ const reciveExcludeForm = async (req, res) => {
   return res.render('recipes/exclude', { id, user: req.user, message: null });
 };
 
-const excludeForm = async (req, res, _next) => {
+const excludeForm = async (req, res) => {
   const { id } = req.params;
   const { password } = req.body;
   const userID = req.user.id;
