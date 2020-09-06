@@ -3,6 +3,7 @@ const { SESSIONS } = require('../middlewares/auth');
 const utils = require('./utils');
 
 const userModel = require('../models/userModel');
+const recipeModel = require('../models/recipeModel');
 
 const loginForm = (req, res) => {
   const { token = '' } = req.cookies || {};
@@ -45,7 +46,7 @@ const logout = async (req, res) => {
 };
 
 const registerUser = async (req, res) => {
-  const { email, password, confirmPassword, name, lastName } = req.body;
+  const { email, password, confirm_password: confirmPassword, name, lastName } = req.body;
   switch (true) {
     case !utils.validateEmail(email):
       return res.render('register', { message: 'O email deve ter o formato email@mail.com' });
@@ -68,7 +69,7 @@ const registerUser = async (req, res) => {
 };
 
 const editUser = async (req, res) => {
-  const { email, password, confirmPassword, name, lastName } = req.body;
+  const { email, password, confirm_password: confirmPassword, name, lastName } = req.body;
   switch (true) {
     case !utils.validateEmail(email):
       return res.render('editUser', { message: 'O email deve ter o formato email@mail.com' });
@@ -87,7 +88,8 @@ const editUser = async (req, res) => {
     default:
   }
   await userModel.updateUser(email, password, name, lastName);
-  return res.render('editUser', { message: 'Edição efetuada com sucesso!' });
+  const recipes = await recipeModel.getAllRecipes();
+  return res.render('home', { user: req.user, recipes });
 };
 
 module.exports = {

@@ -57,12 +57,12 @@ async function updateUser(email, password, name, lastname) {
   try {
     const db = await connect();
     return db
-      .getTable('recipes')
+      .getTable('users')
       .update()
-      .set('name', name)
+      .set('first_name', name)
       .set('email', email)
       .set('password', password)
-      .set('lastname', lastname)
+      .set('last_name', lastname)
       .where('email = :email')
       .bind('email', email)
       .execute();
