@@ -34,16 +34,16 @@ const findById = async (id) =>
 
 /**
  * Busca uma receita através do seu nome
- * @param {string} name (parte do) título da receita
+ * @param {string} uName (parte do) título da receita
  */
-const findByName = async (name) =>
+const findByName = async (uName) =>
   connection()
     .then((data) =>
       data
         .getTable('recipes')
         .select(['id', 'user_id', 'user', 'name'])
         .where('name like :name')
-        .bind('name', `%${name}%`)
+        .bind('name', `%${uName}%`)
         .execute(),
   )
   .then((results) => results.fetchAll())
@@ -81,7 +81,7 @@ const addNew = ({ userID, user, name, ingredients, instructions }) =>
       .execute(),
   );
 
-const update = ( recipeID, name, ingredients, instructions ) =>
+const update = (recipeID, name, ingredients, instructions) =>
   connection().then((data) =>
     data
       .getTable('recipes')
@@ -94,7 +94,7 @@ const update = ( recipeID, name, ingredients, instructions ) =>
       .execute(),
   );
 
-const erase = ( recipeID ) =>
+const erase = (recipeID) =>
   connection().then((data) =>
     data
       .getTable('recipes')
@@ -111,5 +111,5 @@ module.exports = {
   findByUserID,
   addNew,
   update,
-  erase
+  erase,
 };

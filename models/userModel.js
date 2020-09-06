@@ -30,39 +30,39 @@ const valiDate = (email, pass1, pass2, firstName, lastName) => {
 
 /**
  * Busca um usuário através do seu email e, se encontrado, retorna-o.
- * @param {string} email Email do usuário a ser encontrado
+ * @param {string} uEmail Email do usuário a ser encontrado
  */
-const findByEmail = async (email) => {
+const findByEmail = async (uEmail) => {
   const userData = await connection()
     .then((data) => data
       .getTable('users')
       .select(['id', 'email', 'password', 'first_name', 'last_name'])
       .where('email = :email')
-      .bind('email', email)
+      .bind('email', uEmail)
       .execute(),
   )
   .then((results) => results.fetchAll()[0] || [])
-  .then(([id, email, password, first_name, last_name]) => (
+  .then(([id, email, password, firstName, lastName]) => (
     { id,
       email,
       password,
-      firstName: first_name,
-      lastName: last_name })); // Array para objeto via destructuring
+      firstName,
+      lastName })); // Array para objeto via destructuring
   if (!userData) return null;
   return userData;
 };
 
 /**
  * Busca um usuário através do seu ID
- * @param {string} id ID do usuário
+ * @param {string} uid ID do usuário
  */
-const findById = async (id) => {
+const findById = async (uid) => {
   const userData = await connection()
     .then((data) => data
       .getTable('users')
       .select(['id', 'email', 'password', 'first_name', 'last_name'])
       .where('id = :id')
-      .bind('id', id)
+      .bind('id', uid)
       .execute(),
   )
   .then((results) => results.fetchAll()[0])

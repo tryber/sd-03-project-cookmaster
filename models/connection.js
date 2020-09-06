@@ -10,8 +10,8 @@ const config = {
 };
 
 // Cria uma nova sessão automaticamente
-module.exports = async () => {
-  return mysqlx.getSession(config)
+module.exports = async () =>
+  mysqlx.getSession(config)
   .then((session) => {
     return session.getSchema('cookmaster');
   })
@@ -19,4 +19,3 @@ module.exports = async () => {
     console.error(err);
     process.exit(1);
   });
-};

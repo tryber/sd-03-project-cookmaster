@@ -1,5 +1,5 @@
 const Recipe = require('../models/recipeModel');
-const User = require('../models/userModel')
+const User = require('../models/userModel');
 
 const listRecipes = async (req, res) => {
   const recipes = await Recipe.getAllRecipes();
@@ -54,10 +54,10 @@ const deleteRecipe = async (req, res) => {
     await Recipe.erase(req.params.id);
     res.redirect('/recipes');
   } else {
-  res.render('confirmRecipeDelete', {
-    recipeID: req.params.id,
-    user: req.user,
-    message: 'Senha incorreta.',
+    res.render('confirmRecipeDelete', {
+      recipeID: req.params.id,
+      user: req.user,
+      message: 'Senha incorreta.',
     });
   }
 };
