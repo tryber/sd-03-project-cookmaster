@@ -9,12 +9,12 @@ const listRecipes = async (req, res) => {
 const listMyRecipes = async (req, res) => {
   const recipes = await models.recipeModel.listByUserId(req.user.id);
   return res.render('recipes/me', { recipes });
-}
+};
 
 const recipeDetails = async (req, res) => {
   const recipe = await models.recipeModel.findById(req.params.id);
   return res.render('recipes/details', {
-    recipe, owned: (req.user && recipe.uId === req.user.id) ? true : false,
+    recipe, owned: (req.user && recipe.uId === req.user.id),
   });
 };
 

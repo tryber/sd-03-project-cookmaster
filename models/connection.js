@@ -12,15 +12,18 @@ const mysqlx = require('@mysql/xdevapi');
 
 let schema;
 
-module.exports = () => schema
-  ? Promise.resolve(schema)
-  : mysqlx
+module.exports = () => {
+  if (schema) {
+    return Promise.resolve(schema);
+  }
+  return mysqlx
     .getSession(config)
-    .then(async (session) => {
-      schema = await session.getSchema('cookmaster');
+    .then((session) => {
+      schema = session.getSchema('cookmaster');
       return schema;
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
       process.exit(1);
     });
+};

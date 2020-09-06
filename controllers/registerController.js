@@ -1,4 +1,4 @@
-const { register } = require('../models')
+const { register } = require('../models');
 
 const registerForm = (_req, res) => (
   res.render('users/login', {
@@ -53,7 +53,7 @@ const verifyLastName = (lastName, arrMessage) => {
 
 const setRegister = async (req, res) => {
   const { email, password, confirm, name, lastName } = req.body;
-  let arrMessage = []
+  let arrMessage = [];
 
   arrMessage = verifyEmail(email, arrMessage);
   arrMessage = verifyPassword(password, arrMessage);
