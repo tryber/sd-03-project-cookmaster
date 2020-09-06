@@ -64,6 +64,18 @@ const register = rescue(async (req, res) => {
   res.render('admin/register', { message: 'Cadastro efetuado com sucesso!' });
 });
 
+const renderEditUser = (req, res) =>
+  res.render('admin/edit', { message: null, user: req.user });
+
+const editUser = rescue(async (req, res) => {
+  const { email, password, passwordV, name, lastName } = req.body;
+  const { id } = req.user;
+
+  await userModel.editUser({ id, email, password, passwordV, name, lastName });
+
+  res.redirect('/');
+});
+
 const login = async (req, res, next) => {
   const { email, password, redirect } = req.body;
 
@@ -99,4 +111,6 @@ module.exports = {
   logout,
   registerForm,
   register,
+  renderEditUser,
+  editUser,
 };
