@@ -80,9 +80,7 @@ app.get('/me/recipes', middlewares.auth(), rescue(controllers.recipeController.g
 app.get(
   '/me/edit',
   middlewares.auth(),
-  rescue((_req, res) => {
-    return res.render('editUser', { message: null });
-  }),
+  rescue(controllers.userController.getUserEdit),
 );
 
 app.post('/me', middlewares.auth(), rescue(controllers.userController.editUser));

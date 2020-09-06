@@ -9,9 +9,9 @@ const findByEmail = async (email) => {
       .where('email = :email')
       .bind('email', email)
       .execute();
-      const [id, password, first_name, last_name] = await searchDb.fetchAll()[0];
+    const [id, password, name, lastName] = await searchDb.fetchAll()[0];
     return id && password ?
-     { id, email, password, name: first_name, lastName: last_name } : null;
+      { id, email, password, name, lastName } : null;
   } catch (err) {
     console.error(err);
     return process.exit(1);
@@ -32,7 +32,6 @@ const findById = async (uid) => {
       .bind('id', uid)
       .execute();
     const [[id, email, password, name, lastName]] = await searchDb.fetchAll();
-
     return { id, email, password, name, lastName };
   } catch (err) {
     console.error(err);
@@ -71,7 +70,7 @@ async function updateUser(id, password, name, lastname, email) {
     console.error(err);
     return process.exit(1);
   }
-}
+};
 
 /* Quando você implementar a conexão com o banco, não deve mais precisar desse objeto */
 // const TEMP_USER = {
