@@ -80,7 +80,7 @@ const recipeDelete = rescue(async (req, res) => {
   const { password } = req.body;
 
   if (password !== user.password) {
-    return res.render('recipeDelete', { user: req.user, id, message: 'Senha incorreta.' });
+    return res.render('recipeDelete', { user: req.user, id, message: 'Senha Incorreta.' });
   }
 
   await recipesModel.deleteRecipe(id);
