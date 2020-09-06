@@ -48,13 +48,13 @@ const editUserForm = async (req, res) => {
   return res.render('users/update', {
     message: null,
     user,
-  })
+  });
 };
 
 const editUserPost = async (req, res) => {
-  const { email, password, confirm, name, lastName } = req.body;
+  const { email, password, name, lastName } = req.body;
   const user = await userModel.findById(req.user.id);
-  
+
   await userModel.upadateUser(user.id, email, password, name, lastName);
 
   return res.redirect('/');

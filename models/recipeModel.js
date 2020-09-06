@@ -10,16 +10,16 @@ const fetchAllRecipes = async () => {
   return recipes.map(([id, user, name]) => ({ id, user, name }));
 };
 
-const findById = async (id) => connect()
+const findById = async (rId) => connect()
   .then((db) => db.getTable('recipes')
     .select(['id', 'user_id', 'user', 'name', 'ingredients', 'instructions'])
     .where('id = :id')
-    .bind('id', id)
-    .execute()
+    .bind('id', rId)
+    .execute(),
   )
   .then((fetch) => fetch.fetchOne())
-  .then(([id, uId, user, name, ingredients, instructions]) => ({ 
-    id, uId, user, name, ingredients, instructions, 
+  .then(([id, uId, user, name, ingredients, instructions]) => ({
+    id, uId, user, name, ingredients, instructions,
   }));
 
 const findByQuery = async (query) => {
@@ -29,13 +29,13 @@ const findByQuery = async (query) => {
     .getTable('recipes')
     .select(['id', 'user_id', 'user', 'name', 'ingredients', 'instructions'])
     .where('name LIKE :name')
-    .bind('name', `%${query}%`) 
+    .bind('name', `%${query}%`)
     .execute();
 
   const recipes = fetch.fetchAll();
 
-  return recipes.map(([id, uId, user, name, ingredients, instructions]) => ({ 
-    id, uId, user, name, ingredients, instructions, 
+  return recipes.map(([id, uId, user, name, ingredients, instructions]) => ({
+    id, uId, user, name, ingredients, instructions,
   }));
 };
 
@@ -46,7 +46,7 @@ const registerRecipe = async (uId, user, name, ingredients, instructions) => {
     .getTable('recipes')
     .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
     .values(uId, user, name, ingredients, instructions)
-    .execute()
+    .execute();
 };
 
 const upadateRecipe = async (id, name, ingredients, instructions) => {
@@ -60,9 +60,8 @@ const upadateRecipe = async (id, name, ingredients, instructions) => {
     .set('instructions', instructions)
     .where('id = :id')
     .bind('id', id)
-    .execute()
-
-}
+    .execute();
+};
 
 const deleteRecipe = async (id) => {
   const db = await connect();
@@ -72,22 +71,23 @@ const deleteRecipe = async (id) => {
     .delete()
     .where('id = :id')
     .bind('id', id)
-    .execute()
-}
+    .execute();
+};
 
-const listByUserId = async (id) => {
+const listByUserId = async (uid) => {
   const db = await connect();
   const list = await db
     .getTable('recipes')
     .select(['id', 'user_id', 'user', 'name', 'ingredients', 'instructions'])
     .where('user_id = :id')
-    .bind('id', id)
-    .execute()
-  
+    .bind('id', uid)
+    .execute();
+
   const recipes = list.fetchAll();
-  return recipes.map(([id, uId, user, name, ingredients, instructions]) => ({ 
-    id, uId, user, name, ingredients, instructions 
-  }))};
+  return recipes.map(([id, uId, user, name, ingredients, instructions]) => ({
+    id, uId, user, name, ingredients, instructions,
+  }));
+};
 
 module.exports = {
   fetchAllRecipes,
@@ -97,4 +97,4 @@ module.exports = {
   upadateRecipe,
   deleteRecipe,
   listByUserId,
-}
+};

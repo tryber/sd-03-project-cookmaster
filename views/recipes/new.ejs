@@ -17,7 +17,7 @@
       Adicionar Ingrediente
     </button><br />
     <label for="instructions">Modo de Preparo</label>
-    <textarea 
+    <textarea
       id="instructions" data-testid="modo-de-preparo" name="instructions" rows="4" cols="50"
     ></textarea>
     <button onclick="preSubmit()" type="submit" data-testid="postar-receita" >
@@ -33,7 +33,7 @@
   const addIngredient = () => {
     const ingLi = document.createElement('li');
     const removeBtn = document.createElement('button');
-    
+
     removeBtn.type = 'button';
     removeBtn.innerText = 'Excluir Ingrediente';
 
