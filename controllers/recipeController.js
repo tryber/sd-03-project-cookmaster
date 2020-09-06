@@ -25,6 +25,7 @@ const getRecipe = async (req, res) => {
       params: { id },
       user,
     } = req;
+    // console.log('caller is' + getRecipe.caller)
     const recipe = await getRecipeById(id);
     if (user) return res.render('recipes/id', { recipe, user });
     return res.render('recipes/id', { recipe, user: null });
@@ -85,6 +86,21 @@ const getRecipesByUserId = async (req, res) => {
   return res.render('me/recipes', { recipes, user: req.user });
 };
 
+const searchRecipe = async (req, res) => {
+  console.log('============================================')
+  try {
+    const { query } = req.query;
+    console.log('req.body', query)
+    const recipes = query && (await findByName(query));
+    if (query === '') return res.render('recipes/search', { recipes, user: req.user });
+    if (req.user) return res.render('recipes/search', { recipes, user: req.user });
+    return res.render('recipes/search', { recipes, user: null });
+  } catch (err) {
+    console.error(err);
+    return process.exit(1);
+  }
+};
+
 module.exports = {
   listRecipes,
   getRecipe,
@@ -94,4 +110,5 @@ module.exports = {
   deleteRecip,
   confirmDelete,
   getRecipesByUserId,
+  searchRecipe,
 };

@@ -5,6 +5,7 @@ const rescue = require('express-rescue');
 
 const middlewares = require('./middlewares');
 const controllers = require('./controllers');
+const recipeModel = require('./models/recipeModel');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -12,6 +13,8 @@ app.use(cookieParser());
 
 app.use((req, _res, next) => {
   console.log(`${req.method} ${req.path}`);
+  console.log(`${JSON.stringify(req.body)} ${''}`);
+
   next();
 });
 
@@ -34,6 +37,17 @@ app.get(
   rescue((req, res) => res.render('recipes/new', { message: null, user: req.user })),
 );
 app.post('/recipes/new', middlewares.auth(), rescue(controllers.recipeController.postRecipe));
+
+app.get(
+  '/recipes/search',
+  rescue(async (req, res) => {
+    console.log('----------------------------------');
+    const recipes = await recipeModel.getAllRecipes();
+    return res.render('recipes/search', { recipes, user: req.user });
+  }),
+);
+app.post('/recipes/search', rescue(controllers.recipeController.searchRecipe));
+
 app.get('/recipes/:id', middlewares.auth(false), rescue(controllers.recipeController.getRecipe));
 
 app.get('/recipes/:id/edit', middlewares.auth(), rescue(controllers.recipeController.getUpdate));
@@ -49,8 +63,6 @@ app.post(
   middlewares.auth(),
   rescue(controllers.recipeController.deleteRecip),
 );
-
-app.get('/recipes/search', rescue(controllers.searchController.searchRecipe));
 
 app.post('/register', rescue(controllers.userController.registerUser));
 
