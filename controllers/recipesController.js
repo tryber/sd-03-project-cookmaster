@@ -35,7 +35,21 @@ const searchRecipe = rescue(async (req, res) => {
 });
 
 const renderRecipeNew = rescue(async (req, res) => {
-  res.render('recipeNew', { user: req.user });
+  res.render('recipeNew', { user: req.user, message: null });
+});
+
+const registerRecipe = rescue(async (req, res) => {
+  const { recipeName, ingredients, instructions } = req.body;
+  const { id, name, lastName } = req.user;
+  const userName = `${name} ${lastName}`;
+  
+  if (!recipeName || !ingredients || !instructions) {
+    res.render('recipeNew', { user: req.user, message: "Todos os campos devem ser preenchidos" });
+  }
+
+  await recipesModel.addRecipe(id, userName, recipeName, ingredients, instructions);
+
+  return res.redirect('/');
 });
 
 module.exports = {
@@ -45,4 +59,5 @@ module.exports = {
   renderRecipeDelete,
   renderRecipeNew,
   searchRecipe,
+  registerRecipe,
 };

@@ -36,7 +36,7 @@
   <h1>Receitas</h1>
   <button data-testid='buscar-receita'><a href='/recipes/search'>Buscar Receitas</a></button>
   <% if (user) {%>
-  <button data-testid='nova-receita'>Nova Receita</button>
+  <button data-testid='nova-receita' href='/recipes/new'>Nova Receita</button>
   <% } %>
   <div class='main-content'>
     <% if (recipes) {%>

@@ -26,7 +26,9 @@ app.post('/login', controllers.userController.login);
 app.get('/register', controllers.userController.registerForm);
 app.post('/register', controllers.userController.register);
 
+app.post('/recipes', middlewares.auth(), controllers.recipesController.registerRecipe);
 app.get('/recipes/search', middlewares.auth(false), controllers.recipesController.searchRecipe);
+app.get('/recipes/new', middlewares.auth(), controllers.recipesController.renderRecipeNew);
 app.get('/recipes/:id', middlewares.auth(false), controllers.recipesController.renderRecipeDetail);
 app.get('/recipes/:id/edit', controllers.recipesController.renderRecipeEdit);
 app.get('/recipes/:id/delete', controllers.recipesController.renderRecipeDelete);

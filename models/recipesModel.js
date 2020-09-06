@@ -55,8 +55,18 @@ const recipeByName = async (recipe) =>
       instructions,
     })));
 
+const addRecipe = async (userId, userName, recipeName, ingredients, instructions) =>
+  connection().then((db) =>
+    db
+      .getTable('recipes')
+      .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
+      .values(userId, userName, recipeName, ingredients, instructions)
+      .execute(),
+  );
+
 module.exports = {
   getAllRecipes,
   recipeById,
   recipeByName,
+  addRecipe,
 };
