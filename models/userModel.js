@@ -1,13 +1,13 @@
 const connect = require('./connect');
 
-const findByEmail = async (email) => (
+const findByEmail = async (emailS) => (
   connect()
     .then((db) =>
       db
         .getTable('users')
         .select(['id', 'email', 'password', 'first_name', 'last_name'])
-        .where('email = :email')
-        .bind('email', email)
+        .where('email = :emailS')
+        .bind('emailS', emailS)
         .execute(),
     )
     .then((results) =>
@@ -24,14 +24,14 @@ const findByEmail = async (email) => (
     ))
 );
 
-const findById = async (id) => (
+const findById = async (idS) => (
   connect()
     .then((db) =>
       db
         .getTable('users')
         .select(['id', 'email', 'password', 'first_name', 'last_name'])
-        .where('id = :id')
-        .bind('id', id)
+        .where('id = :idS')
+        .bind('idS', idS)
         .execute(),
     )
     .then((results) =>

@@ -1,13 +1,13 @@
 const connect = require('./connect');
 
-const findRecipeById = async (id) => (
+const findRecipeById = async (idS) => (
   connect()
     .then((db) =>
       db
         .getTable('recipes')
         .select(['id', 'user', 'name', 'ingredients', 'instructions'])
-        .where('id = :id')
-        .bind('id', id)
+        .where('id = :idS')
+        .bind('idS', idS)
         .execute(),
     )
     .then((results) =>

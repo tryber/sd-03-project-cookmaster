@@ -1,13 +1,13 @@
 const connect = require('./connect');
 
-const findByQuery = async (name) => (
+const findByQuery = async (nameS) => (
   connect()
     .then((db) =>
       db
         .getTable('recipes')
         .select(['id', 'user', 'name'])
-        .where('name like :name')
-        .bind('name', `%${name}%`)
+        .where('name like :nameS')
+        .bind('nameS', `%${nameS}%`)
         .execute(),
     )
     .then((results) =>
