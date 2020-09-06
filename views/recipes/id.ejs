@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cookmaster - Login</title>
+
   </head>
   <body>
     <div>
       <h1><%= recipe.name %></h1>
       <h3><%= recipe.user%></h3>
     </div>
-    <% if(user) { console.log(recipe) %>
-
+    <% if(user) { %>
     <div>
       <a data-testid="editar-receita" href="/recipes/<%= recipe.id %>/edit">Editar Receita</a>
       <a data-testid="excluir-receita" href="/recipes/<%= recipe.id %>/delete">Excluir Receita</a>

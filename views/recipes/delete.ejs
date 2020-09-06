@@ -9,14 +9,12 @@
     <% if (message) {%>
     <div class="message"><%= message %></div>
     <% } %>
-    <form action="/login" method="POST">
+    <form action="/recipes/<%= id %>/delete" method="POST">
       <label for="passwordInput">Senha: </label>
       <input type="password" name="password" data-testid="senha" id="passwordInput"  /><br />
-      <% if (redirect) { %>
-      <input type="hidden" name="redirect" value="<%= decodeURIComponent(redirect) %>" />
-      <% } %>
-      <a href="/register" data-testid="confirmar">Confirmar</a>
+      <button data-testid="confirmar" >Confirmar</button>
       <button type="submit" data-testid="cancelar">Cancelar</button>
     </form>
   </body>
 </html>
+<!-- 12345678 -->

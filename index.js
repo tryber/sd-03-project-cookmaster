@@ -5,6 +5,7 @@ const rescue = require('express-rescue');
 
 const middlewares = require('./middlewares');
 const controllers = require('./controllers');
+const { auth } = require('./middlewares');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -42,15 +43,19 @@ app.get(
 );
 app.post('/recipes/new', middlewares.auth(), rescue(controllers.recipeController.postRecipe));
 app.get('/recipes/:id', middlewares.auth(false), rescue(controllers.recipeController.getRecipe));
+
 app.get('/recipes/:id/edit', middlewares.auth(), rescue(controllers.recipeController.getUpdate));
 app.post('/recipes/:id/edit', rescue(controllers.recipeController.postUpdate));
-app.get('/recipes/:id/delete', middlewares.auth(), rescue(controllers.recipeController.deleteRecip));
-app.post('/recipes/:id/delete', middlewares.auth(), rescue(controllers.recipeController.confirmDelete));
+
+app.get('/recipes/:id/delete', middlewares.auth(), rescue(controllers.recipeController.confirmDelete));
+app.post('/recipes/:id/delete', middlewares.auth(), rescue(controllers.recipeController.deleteRecip));
 
 app.get('/recipes/search', rescue(controllers.searchController.searchRecipe));
 
 
 app.post('/register', rescue(controllers.userController.registerUser));
 app.get('/login', rescue(controllers.userController.loginForm));
+
+app.get('/me/recipes', middlewares.auth(), rescue(controllers.recipeController.getRecipesByUserId))
 
 app.listen(3000, () => console.log('Listening on 3000'));

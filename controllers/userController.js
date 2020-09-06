@@ -19,14 +19,14 @@ const login = async (req, res) => {
   const { email, password, redirect } = req.body;
 
   if (!email || !password)
-    return res.render('/login', {
+    return res.render('login', {
       message: 'Preencha o email e a senha',
       redirect: null,
     });
 
   const user = await userModel.findByEmail(email);
   if (!user || user.password !== password)
-    return res.render('/login', {
+    return res.render('login', {
       message: 'Email ou senha incorretos',
       redirect: null,
     });

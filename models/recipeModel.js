@@ -39,14 +39,15 @@ async function getRecipeById(id) {
   }
 }
 
-async function insertRecipe(name, ingredients, instructions, userId) {
+async function insertRecipe(name, user, ingredients, instructions, userId) {
   try {
     const db = await connect();
-    return db
+    const result = await  db
       .getTable('recipes')
-      .insert(['user_id', 'name', 'ingredients', 'instructions'])
-      .values(userId, name, ingredients, instructions)
+      .insert(['user_id', 'user','name', 'ingredients', 'instructions'])
+      .values(userId, user, name, ingredients, instructions)
       .execute();
+      return result.getAutoIncrementValue();
   } catch (err) {
     console.error(err);
     return process.exit(1);
@@ -85,10 +86,43 @@ async function deleteRecipe(id) {
   }
 }
 
+async function getByUserId(userId) {
+  try {
+    const db = await connect();
+    console.log(userId)
+    const searchDb = await db
+      .getTable('recipes')
+      .select()
+      .where('user_id = :user_id')
+      .bind('user_id', userId)
+      .execute();
+    const results = await searchDb.fetchAll();
+    console.log(results)
+    return results !== [[]]
+      ? results.map(
+        ( [id, uid, user, name, ingredients, instructions] ) => (
+          {
+            id,
+            user_id: uid,
+            user,
+            name,
+            ingredients,
+            instructions,
+          })
+      )
+      : null;
+  } catch (err) {
+    console.error(err);
+    return process.exit(1);
+  }
+}
+
+
 module.exports = {
   getAllRecipes,
   getRecipeById,
   insertRecipe,
   updateRecipe,
   deleteRecipe,
+  getByUserId,
 };

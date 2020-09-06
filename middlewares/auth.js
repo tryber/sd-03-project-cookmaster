@@ -10,6 +10,7 @@ const getUser = async (req) => {
   if (!userId) return null;
 
   const user = await userModel.findById(userId);
+  console.log('user', user)
   if (!user) return null;
 
   return user;

@@ -4,9 +4,9 @@ const {
   insertRecipe,
   updateRecipe,
   deleteRecipe,
+  getByUserId,
 } = require('../models/recipeModel');
 const { findById } = require('../models/userModel');
-const { render } = require('ejs');
 
 const listRecipes = async (req, res) => {
   try {
@@ -36,15 +36,20 @@ const getRecipe = async (req, res) => {
 
 const postRecipe = async (req, res) => {
   const { name, ingredients, instructions } = req.body;
-  await insertRecipe(name, ingredients, instructions, req.user.id);
-  return res.render('recipes/new', { message: 'Registrada com sucesso' });
+  const id = await insertRecipe(name, req.user.name, ingredients, instructions, req.user.id);
+  // const recipe = await getRecipeById(id)
+  // return res.redirect(`/recipes/${id}`);
+  const recipes = await getAllRecipes();
+  return res.render('home', { user: req.user, message: 'Receita Cadastrada com Sucesso', recipes });
 };
 
 const getUpdate = async (req, res) => {
   const { user, params } = req;
   const recipe = await getRecipeById(params.id);
-  if (parseInt(user.id, 10) !== recipe.user_id) return res.render('recipes/edit', { recipe, user });
-  return res.render('recipes/id', { recipe, user });
+  if (user.id !== recipe.user_id) {
+    return res.render('recipes/id', { recipe, user });
+  }
+  return res.render('recipes/edit', { recipe, user });
 };
 
 const postUpdate = async (req, res) => {
@@ -58,19 +63,29 @@ const postUpdate = async (req, res) => {
 
 const confirmDelete = async (req, res) => {
   const { id } = req.params;
-  const { autor_id: autorId } = await getRecipeById(id);
-  if (autorId !== req.user.id) return render('/');
-  return res.render('recipes/delete', { message: null });
+  const recipe = await getRecipeById(id);
+  if (recipe.user_id !== req.user.id) return res.render('recipes/id', { user: req.user, recipe });
+  console.log('recipe:', recipe);
+  return res.render('recipes/delete', { message: null, user: req.user, id });
 };
 
 const deleteRecip = async (req, res) => {
   const { id } = req.params;
+  const { user, body } = req;
+  const { password } = await findById(user.id);
 
-  if (req.password === findById(req.user.id)) {
+  if (body.password === password.toString()) {
     await deleteRecipe(id);
-    return res.render('/');
+    const recipes = await getAllRecipes();
+    return res.render('home', { user, recipes });
   }
-  return res.render('recipes/delete', { message: 'Senha incorreta' });
+  return res.render('recipes/delete', { message: 'Senha Incorreta.', id, user: req.user });
+};
+
+const getRecipesByUserId = async (req, res) => {
+  const { id } = req.user;
+  const recipes = await getByUserId(id);
+  return res.render('me/recipes', { recipes, user: req.user });
 };
 
 module.exports = {
@@ -81,4 +96,5 @@ module.exports = {
   postUpdate,
   deleteRecip,
   confirmDelete,
+  getRecipesByUserId,
 };

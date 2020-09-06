@@ -9,7 +9,7 @@ const findByEmail = async (email) => {
       .where('email = :email')
       .bind('email', email)
       .execute();
-    const [id, mail, password] = await searchDb.fetchAll()[0];
+    const [ [id, mail, password] ] = await searchDb.fetchAll();
     return mail ? { id, email: mail, password } : null;
   } catch (err) {
     console.error(err);
@@ -21,17 +21,18 @@ const findByEmail = async (email) => {
  * Busca um usuário através do seu ID
  * @param {string} id ID do usuário
  */
-const findById = async (id) => {
+const findById = async (uid) => {
   try {
     const db = await connect();
     const searchDb = await db
       .getTable('users')
-      .select('id')
+      .select()
       .where('id = :id')
-      .bind('id', id)
+      .bind('id', uid)
       .execute();
-    const result = await searchDb.fetchAll()[0];
-    return result;
+    const [ [ id, email, password, name, lastName] ] = await searchDb.fetchAll();
+
+    return { id, email, password, name, lastName };
   } catch (err) {
     console.error(err);
     return process.exit(1);
