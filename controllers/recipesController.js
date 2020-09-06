@@ -80,7 +80,7 @@ const recipeDelete = rescue(async (req, res) => {
   const { password } = req.body;
 
   if (password !== user.password) {
-    return res.render('recipeDelete', { user: req.user, id, message: "Senha incorreta." });
+    return res.render('recipeDelete', { user: req.user, id, message: 'Senha incorreta.' });
   }
 
   await recipesModel.deleteRecipe(id);
@@ -93,8 +93,8 @@ const renderUserRecipes = rescue(async (req, res) => {
 
   const recipes = await recipesModel.recipeByUser(user.id);
 
-  res.render('userRecipes', { user, recipes })
-})
+  res.render('userRecipes', { user, recipes });
+});
 
 module.exports = {
   renderRecipes,
