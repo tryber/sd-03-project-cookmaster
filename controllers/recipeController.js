@@ -5,6 +5,7 @@ const {
   updateRecipe,
   deleteRecipe,
   getByUserId,
+  findByName,
 } = require('../models/recipeModel');
 const { findById } = require('../models/userModel');
 
