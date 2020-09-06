@@ -67,9 +67,33 @@ const registerUser = async (req, res) => {
   return res.render('register', { message: 'Cadastro efetuado com sucesso!' });
 };
 
+const editUser = async (req, res) => {
+  const { email, password, confirmPassword, name, lastName } = req.body;
+  switch (true) {
+    case !utils.validateEmail(email):
+      return res.render('editUser', { message: 'O email deve ter o formato email@mail.com' });
+    case password.length < 6:
+      return res.render('editUser', { message: 'A senha deve ter pelo menos 6 caracteres' });
+    case password !== confirmPassword:
+      return res.render('editUser', { message: 'As senhas tem que ser iguais' });
+    case name.length < 3:
+      return res.render('editUser', {
+        message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+      });
+    case lastName.length < 3:
+      return res.render('editUser', {
+        message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+      });
+    default:
+  }
+  await userModel.updateUser(email, password, name, lastName);
+  return res.render('editUser', { message: 'Edição efetuada com sucesso!' });
+};
+
 module.exports = {
   login,
   loginForm,
   logout,
   registerUser,
+  editUser,
 };

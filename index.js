@@ -25,13 +25,6 @@ app.get('/admin', middlewares.auth(), (req, res) => {
     user: req.user,
   });
 });
-
-app.get(
-  '/register',
-  rescue((_req, res) => {
-    return res.render('register', { message: null });
-  }),
-);
 app.get('/logout', rescue(controllers.userController.logout));
 app.post('/login', rescue(controllers.userController.login));
 
@@ -60,8 +53,26 @@ app.post(
 app.get('/recipes/search', rescue(controllers.searchController.searchRecipe));
 
 app.post('/register', rescue(controllers.userController.registerUser));
+
+app.get(
+  '/register',
+  rescue((_req, res) => {
+    return res.render('register', { message: null });
+  }),
+);
+
 app.get('/login', rescue(controllers.userController.loginForm));
 
 app.get('/me/recipes', middlewares.auth(), rescue(controllers.recipeController.getRecipesByUserId));
+
+app.get(
+  '/me/edit',
+  middlewares.auth(),
+  rescue((_req, res) => {
+    return res.render('editUser', { message: null });
+  }),
+);
+
+app.post('/me', middlewares.auth(), rescue(controllers.userController.editUser));
 
 app.listen(3000, () => console.log('Listening on 3000'));
