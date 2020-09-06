@@ -6,13 +6,10 @@
     <title>Cookmaster - Cadastro</title>
   </head>
   <body>
-    <% if(message) { %>
-      <h2><%= message %></h2>
-    <% } %>
     <form method="POST" action="/me">
       <label for="email"
         >Email
-        <input type="email" name="email" data-testid="email" />
+        <input type="email" value='<%= user.email %>' name="email" data-testid="email" />
       </label>
       <label for="password"
         >Senha
@@ -26,14 +23,14 @@
       </label>
       <label for="name"
         >Nome
-        <input type="text" name="name" data-testid="nome"
+        <input type="text" name="name" value='<%= user.name %>' data-testid="nome"
 
         />
       </label>
       <label for="lastName"
         >Sobrenome
         <input type="text" name="lastName" data-testid="sobrenome"
-
+        value='<%= user.lastName %>'
         />
       </label>
       <a data-testid="login" href="/login" data-testid="login">Fazer Login</a>

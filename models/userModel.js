@@ -5,12 +5,13 @@ const findByEmail = async (email) => {
     const db = await connect();
     const searchDb = await db
       .getTable('users')
-      .select(['id', 'email', 'password'])
+      .select('id', 'password', 'first_name', 'last_name')
       .where('email = :email')
       .bind('email', email)
       .execute();
-    const [[id, mail, password]] = await searchDb.fetchAll();
-    return mail ? { id, email: mail, password } : null;
+      const [id, password, first_name, last_name] = await searchDb.fetchAll()[0];
+    return id && password ?
+     { id, email, password, name: first_name, lastName: last_name } : null;
   } catch (err) {
     console.error(err);
     return process.exit(1);
@@ -53,7 +54,7 @@ const registerUser = async (email, password, name, lastname) => {
   }
 };
 
-async function updateUser(email, password, name, lastname) {
+async function updateUser(id, password, name, lastname, email) {
   try {
     const db = await connect();
     return db
@@ -63,8 +64,8 @@ async function updateUser(email, password, name, lastname) {
       .set('email', email)
       .set('password', password)
       .set('last_name', lastname)
-      .where('email = :email')
-      .bind('email', email)
+      .where('id = :id')
+      .bind('id', id)
       .execute();
   } catch (err) {
     console.error(err);

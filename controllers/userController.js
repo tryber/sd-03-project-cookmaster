@@ -24,7 +24,6 @@ const login = async (req, res) => {
       message: 'Preencha o email e a senha',
       redirect: null,
     });
-
   const user = await userModel.findByEmail(email);
   if (!user || user.password !== password)
     return res.render('login', {
@@ -68,6 +67,11 @@ const registerUser = async (req, res) => {
   return res.render('register', { message: 'Cadastro efetuado com sucesso!' });
 };
 
+const getUserEdit = async (req, res) => {
+  const user = await userModel.findById(req.user.id);
+  return res.render('editUser', { user });
+}
+
 const editUser = async (req, res) => {
   const { email, password, confirm_password: confirmPassword, name, lastName } = req.body;
   switch (true) {
@@ -87,7 +91,7 @@ const editUser = async (req, res) => {
       });
     default:
   }
-  await userModel.updateUser(email, password, name, lastName);
+  await userModel.updateUser(req.user.id, password, name, lastName, email);
   const recipes = await recipeModel.getAllRecipes();
   return res.render('home', { user: req.user, recipes });
 };
@@ -98,4 +102,5 @@ module.exports = {
   logout,
   registerUser,
   editUser,
+  getUserEdit,
 };
