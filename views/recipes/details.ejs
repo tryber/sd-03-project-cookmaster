@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cookmaster - Recipe details</title>
+</head>
+<body>
+  <h1><%= recipe.name %> </h1>
+  <h3><%= recipe.user %> </h3>
+  <h2>Ingredientes</h2>
+  <h4><%= recipe.ingredients %> </h4>
+  <h3>Modo de Preparo</h3>
+  <p><%= recipe.instructions %></p>
+  <% if (owned) { %>
+    <a href='/recipes/<%= recipe.id %>/edit' data-testid="editar-receita" >Editar Receita</a>
+    <a href='/recipes/<%= recipe.id %>/delete' data-testid="excluir-receita" >Excluir Receita</a>
+  <% } %>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cookmaster - Edit recipe</title>
+</head>
+<body>
+  <h1>Editar Receita</h1>
+  <form action="/recipes/<%= recipe.id %>" method="POST">
+    <label for="recipeName">Nome da receita</label>
+    <input type="text" name="recipeName" data-testid="nome-receita" value="<%= recipe.name %>"  /><br />
+    <h4>Ingredientes</h4>
+    <ul id="list"></ul>
+    <input type="text" id="ingredient" name="ingredients" data-testid="ingredientes"  />
+    <button type="button" data-testid="adicionar-ingrediente" onclick="addIngredient()">
+      Adicionar Ingrediente
+    </button><br />
+    <label for="instructions">Modo de Preparo</label>
+    <textarea
+      id="instructions" data-testid="modo-de-preparo"
+      name="instructions" rows="4" cols="50"
+    ><%= recipe.instructions %></textarea>
+    <button onclick="preSubmit()" type="submit" data-testid="postar-receita" >
+      Salvar Receita
+    </button>
+  </form>
+</body>
+<script>
+  let ingredientArr = '<%= recipe.ingredients %>'.split(',');
+  const list = document.getElementById('list');
+  const ingredientInput = document.getElementById('ingredient');
+
+  const addIngredient = () => {
+    const ingLi = document.createElement('li');
+    const removeBtn = document.createElement('button');
+
+    removeBtn.type = 'button';
+    removeBtn.innerText = 'Excluir Ingrediente';
+
+    ingredientArr.push(ingredientInput.value);
+    ingLi.innerText = ingredientInput.value;
+
+    list.appendChild(ingLi);
+    list.appendChild(removeBtn);
+
+    removeBtn.addEventListener('click', () => {
+      ingredientArr = ingredientArr.filter((ing) => ing !== ingLi.innerText );
+      ingLi.remove();
+      removeBtn.remove();
+    })
+
+    ingredientInput.value = '';
+  }
+
+  const listIngredient = (e) => {
+    const ingLi = document.createElement('li');
+    const removeBtn = document.createElement('button');
+
+    removeBtn.type = 'button';
+    removeBtn.innerText = 'Excluir Ingrediente';
+
+    ingLi.innerText = e;
+
+    list.appendChild(ingLi);
+    list.appendChild(removeBtn);
+
+    removeBtn.addEventListener('click', () => {
+      ingredientArr = ingredientArr.filter((ing) => ing !== ingLi.innerText );
+      ingLi.remove();
+      removeBtn.remove();
+    })
+  }
+
+  ingredientArr.forEach(element => {
+    listIngredient(element);
+  });
+
+  const preSubmit = () => {
+    ingredientInput.value = ingredientArr.join(',');
+  }
+</script>
+</html>

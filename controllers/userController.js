@@ -34,7 +34,7 @@ const login = async (req, res, next) => {
   SESSIONS[token] = user.id;
 
   res.cookie('token', token, { httpOnly: true, sameSite: true });
-  res.redirect(redirect || '/admin');
+  res.redirect(redirect || '/');
 };
 
 const logout = (req, res) => {
@@ -43,8 +43,27 @@ const logout = (req, res) => {
   res.render('admin/logout');
 };
 
+const editUserForm = async (req, res) => {
+  const user = await userModel.findById(req.user.id);
+  return res.render('users/update', {
+    message: null,
+    user,
+  });
+};
+
+const editUserPost = async (req, res) => {
+  const { email, password, name, lastName } = req.body;
+  const user = await userModel.findById(req.user.id);
+
+  await userModel.upadateUser(user.id, email, password, name, lastName);
+
+  return res.redirect('/');
+};
+
 module.exports = {
   login,
   loginForm,
   logout,
+  editUserPost,
+  editUserForm,
 };
