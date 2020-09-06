@@ -87,10 +87,8 @@ const getRecipesByUserId = async (req, res) => {
 };
 
 const searchRecipe = async (req, res) => {
-  console.log('============================================')
   try {
     const { query } = req.query;
-    console.log('req.body', query)
     const recipes = query && (await findByName(query));
     if (query === '') return res.render('recipes/search', { recipes, user: req.user });
     if (req.user) return res.render('recipes/search', { recipes, user: req.user });

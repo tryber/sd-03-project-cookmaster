@@ -112,7 +112,7 @@ async function getByUserId(userId) {
   }
 }
 
-async function findByName (input) {
+async function findByName(input) {
   try {
     const db = await connect();
     const searchDb = await db
