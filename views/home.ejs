@@ -19,10 +19,15 @@
       <aside><h1>Receitas</h1></aside>
       <% if (user) { %>
         <aside>
-          <button 
-            data-testid="nova-receita" 
+          <button
+            data-testid="nova-receita"
             onclick="window.location.pathname='/recipes/new'">
             Nova Receita
+          </button>
+          <button
+            data-testid="minhas-receitas"
+            onclick="window.location.pathname='/me/recipes'">
+            Minhas Receitas
           </button>
         </aside>
       <% } %>

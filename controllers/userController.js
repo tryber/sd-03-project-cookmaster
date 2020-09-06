@@ -24,7 +24,7 @@ const regForm = (req, res) => {
 const register = async (req, res) => {
   const { email, password, password_conf, first_name, last_name } = req.body; // Vem do form
   const response = userModel.valiDate(email, password, password_conf, first_name, last_name);
-  if ( response === true ) { // Todos os campos foram validados
+  if (response === true) { // Todos os campos foram validados
     await userModel.create(email, password, first_name, last_name);
     res.status(201).render('admin/userCreated', { message: 'Cadastro efetuado com sucesso!' });
   } else {

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Minhas receitas</title>
+  </head>
+  <body>
+    <header>
+      <p>Cookmaster</p>
+      <% if (user) { %>
+        <a data-testid="logout" href="/logout">Logout</a>
+      <% } else { %>
+        <a data-testid="login" href="/login">Login</a>
+      <% } %>
+    </header>
+    <section>
+      <h1>Minhas Receitas</h1>
+      <aside>
+        <% if (recipes) { %>
+          <% recipes.map((recipe) => { %>
+            <h2><%= recipe.name %></h2>
+            <h3><%= recipe.user %></h3>
+            <a href="/recipes/<%= recipe.id %> "%>>Ver mais</a>
+          <% }) %>
+        <% } else {%>
+        <h3>Não há receitas em seu nome :P</h3>
+        <% } %>
+      </aside>
+    </section>
+  </body>
+</html>

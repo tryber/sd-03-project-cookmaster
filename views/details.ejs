@@ -8,7 +8,7 @@
   <body>
     <header>
       <p>Cookmaster</p>
-      <% if (user.length) { %>
+      <% if (user) { %>
         <p><%= `${user.firstName} ${user.lastName}` %></p>
         <a data-testid="logout" href="/logout">Logout</a>
       <% } else { %>
@@ -21,11 +21,17 @@
         <aside>
           <button
             data-testid="editar-receita"
-            onclick="window.location.pathname='/recipes/<%= recipe.recipeId %>/edit'"
+            onclick="window.location.pathname='/recipes/<%= recipe.id %>/edit'"
           >Editar Receita
           </button>
         </aside>
-        <aside><button data-testid="excluir-receita">Excluir Receitas</button></aside>
+        <aside>
+          <button
+            data-testid="excluir-receita"
+            onclick="window.location.pathname='/recipes/<%= recipe.id %>/delete'"
+          >Excluir Receita
+          </button>
+        </aside>
       <% } %>
     </section>
     <section>

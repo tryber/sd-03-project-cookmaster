@@ -28,17 +28,17 @@ const findById = async (id) =>
         .execute(),
   )
   .then((results) => results.fetchAll()[0])
-  .then(([ recipeId, userID, user, name, ingredients, instructions ]) => 
-  ({ id: recipeId, userID, user, name, ingredients, instructions })
+  .then(([recipeId, userID, user, name, ingredients, instructions]) =>
+  ({ id: recipeId, userID, user, name, ingredients, instructions }),
 );
 
 /**
  * Busca uma receita através do seu nome
  * @param {string} name (parte do) título da receita
  */
-const findByName = async (name) => {
-  return connection()
-    .then((data) => 
+const findByName = async (name) =>
+  connection()
+    .then((data) =>
       data
         .getTable('recipes')
         .select(['id', 'user_id', 'user', 'name'])
@@ -49,25 +49,67 @@ const findByName = async (name) => {
   .then((results) => results.fetchAll())
   .then((recipesList) => {
     if (!recipesList) return null;
-    return recipesList.map(([id, user_id, user, name]) => ({ id, user_id, user, name }));
-  })
-};
+    return recipesList.map(([id, userID, user, name]) => ({ id, userID, user, name }));
+  });
 
-const addNew = ({userID, user, name, ingredients, instructions}) =>
-  connection().then((data) => 
+/**
+ * Busca uma receita através do seu nome
+ * @param {string} userId ID do usuário
+ */
+const findByUserID = async (userId) =>
+  connection()
+    .then((data) =>
+      data
+        .getTable('recipes')
+        .select(['id', 'user_id', 'user', 'name'])
+        .where('user_id like :uid')
+        .bind('uid', `%${userId}%`)
+        .execute(),
+  )
+  .then((results) => results.fetchAll())
+  .then((recipesList) => {
+    if (!recipesList) return null;
+    return recipesList.map(([id, userID, user, name]) => ({ id, userID, user, name }));
+  });
+
+const addNew = ({ userID, user, name, ingredients, instructions }) =>
+  connection().then((data) =>
     data
       .getTable('recipes')
       .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
       .values(userID, user, name, ingredients, instructions)
-      .execute()
+      .execute(),
   );
 
-// const update = 
+const update = ( recipeID, name, ingredients, instructions ) =>
+  connection().then((data) =>
+    data
+      .getTable('recipes')
+      .update()
+      .set('name', name)
+      .set('ingredients', ingredients)
+      .set('instructions', instructions)
+      .where('id = :id')
+      .bind('id', recipeID)
+      .execute(),
+  );
 
+const erase = ( recipeID ) =>
+  connection().then((data) =>
+    data
+      .getTable('recipes')
+      .delete()
+      .where('id = :id')
+      .bind('id', recipeID)
+      .execute(),
+  );
 
 module.exports = {
   findById,
   getAllRecipes,
   findByName,
-  addNew
+  findByUserID,
+  addNew,
+  update,
+  erase
 };

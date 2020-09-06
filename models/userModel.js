@@ -1,14 +1,5 @@
 const connection = require('./connection');
 
-/* Quando você implementar a conexão com o banco, não deve mais precisar desse objeto */
-// const TEMP_USER = {
-//   id: 'd2a667c4-432d-4dd5-8ab1-b51e88ddb5fe',
-//   email: 'taylor.doe@company.com',
-//   password: 'password',
-//   name: 'Taylor',
-//   lastName: 'Doe',
-// };
-
 const create = async (email, password, firstName, lastName) => {
   connection().then((data) =>
     data
@@ -75,12 +66,12 @@ const findById = async (id) => {
       .execute(),
   )
   .then((results) => results.fetchAll()[0])
-  .then(([id, email, password, first_name, last_name]) => (
+  .then(([id, email, password, firstName, lastName]) => (
     { id,
       email,
       password,
-      firstName: first_name,
-      lastName: last_name })); // Array para objeto via destructuring
+      firstName,
+      lastName })); // Array para objeto via destructuring
   if (!userData) return null;
   return userData;
 };
