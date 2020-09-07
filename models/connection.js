@@ -11,7 +11,7 @@ const config = {
 
 let schema;
 
-module.exports = () =>
+module.exports = function() =>
   schema
     ? Promise.resolve(schema)
     : mysqlx
