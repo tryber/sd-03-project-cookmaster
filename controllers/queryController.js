@@ -1,6 +1,7 @@
 const queryModel = require('../models/queryModel');
 
 const getRecipes = async (req, res) => {
+  const user = req.user;
   const recipes = await queryModel.getAllRecipes();
   const filteredRecipes = recipes.reduce((acc, cur) => {
     acc = [...acc, {
@@ -13,7 +14,7 @@ const getRecipes = async (req, res) => {
     return acc;
   }, []);
   return res.render('home', {
-    filteredRecipes, isAuth: req.user, message: null,
+    filteredRecipes, user, message: null,
   });
 };
 
@@ -21,13 +22,18 @@ const getRecipe = async (req, res) => {
   const user = req.user;
   const recipe = await queryModel.getRecipeById(req.params.id);
   recipe.ingredients = recipe.ingredients.split(',');
-  if (user) {
-    return res.render('recipe', { recipe, isAuth: true, user });
-  }
-  return res.render('recipe', { recipe, isAuth: false });
+  return res.render('recipe', { recipe, user });
+};
+
+const searchRecipes = async (req, res) => {
+  const { q } = req.query;
+  const user = req.user;
+  const filteredRecipes = await queryModel.findRecipeByQuery(q);
+  return res.render('search', { filteredRecipes, user });
 };
 
 module.exports = {
   getRecipe,
   getRecipes,
+  searchRecipes,
 };

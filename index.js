@@ -18,7 +18,7 @@ app.get('/', middlewares.auth(false), (req, res) => {
   return controllers.queryController.getRecipes(req, res);
 });
 
-app.get('/admin', middlewares.auth(true), (req, res) => {
+app.get('/admin', middlewares.auth(), (req, res) => {
   return res.render('admin/home', { user: req.user });
 });
 
@@ -26,12 +26,16 @@ app.get('/login', middlewares.auth(false), (req, res) => {
   return controllers.userController.loginForm(req, res);
 });
 
-app.get('/logout', middlewares.auth(true), (req, res) => {
+app.get('/logout', middlewares.auth(), (req, res) => {
   return controllers.userController.logout(req, res);
 });
 
 app.get('/register', (req, res) => {
   return controllers.userController.registerForm(req, res);
+});
+
+app.get('/recipes/search', (req, res) => {
+  return controllers.queryController.searchRecipes(req, res);
 });
 
 app.get('/recipes/:id', middlewares.auth(false), (req, res) => {

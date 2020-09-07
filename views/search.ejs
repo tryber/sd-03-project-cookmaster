@@ -24,22 +24,30 @@
         >
           Logout
         </button>
-        <button
-          type="button"
-          data-testid="nova-receita"
-        >
-          Nova Receita
-        </button>
       <%};%>
-      <button
-        type="button"
-        data-testid="buscar-receita"
-        onclick="window.location.pathname='/recipes/search'"
-      >
-        Buscar Receitas
-      </button>
     </header>
     <article class="receitas">
+      <h2>Buscar</h2>
+      <form
+        action="/recipes/search"
+        method="GET"
+      >
+        <label for="receitaIn">
+          Pesquise:
+          <input
+            type="text"
+            name="q"
+            id="receitaIn"
+            data-testid="receita"
+          >
+        </label>
+        <button
+          type="submit"
+          data-testid="buscar"
+        >
+          Buscar
+        </button>
+      </form>
       <h2>Receitas</h2>
       <div>
         <%filteredRecipes.map((recipe) => {%>

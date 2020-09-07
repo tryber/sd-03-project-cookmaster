@@ -30,7 +30,22 @@ const getRecipeById = async (uId) => {
   }
 };
 
+// funçao q o luis campos jogou no slack
+const findRecipeByQuery = async (query) => connect()
+  .then((db) =>
+    db
+      .getTable('recipes')
+      .select(['id', 'user', 'name'])
+      .where('name LIKE :name')
+      .bind('name', `%${query}%`)
+      .execute(),
+    )
+    .then((results) => results.fetchAll())
+    .then((recipes) => recipes
+      .map(([id, user, name]) => ({ id, user, name })));
+
 module.exports = {
   getAllRecipes,
   getRecipeById,
+  findRecipeByQuery,
 };
