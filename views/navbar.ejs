@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('base') -%>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+      <div class="level">
+        <div class="navbar-brand navbar-start level-left">
+          <div class="link-placeholder level-item">
+            <a class="has-text-white" href="/">
+              <span class="icon is-large">
+                <i class="fas fa-utensils"></i>
+              </span>
+
+              <span class="is-size-3 is-upppercase">Cookmaster</span>
+            </a>
+          </div>
+          <% if (!user) {%>
+          <div class="navbar-end level-right">
+            <div class="navbar-item level-item">
+              <a
+                class="navbar-item is-size-4 is-uppercase has-text-weight-medium"
+                data-testid="login"
+                href="/login"
+              >
+                Login
+              </a>
+              <%}%> <% if (user) {%>
+              <span class="navbar-item is-size-4 is-uppercase has-text-weight-medium"
+                ><%= user.name %> <%= user.lastName %></span
+              >
+              <a
+                class="navbar-item is-size-4 is-uppercase has-text-weight-medium"
+                data-testid="logout"
+                href="/logout"
+              >
+                Logout
+              </a>
+            </div>
+          </div>
+          <%}%>
+        </div>
+      </div>
+    </nav>
+  </body>
+</html>

@@ -1,27 +1,26 @@
-// src: https://github.com/tryber/sd-03-live-lectures/blob/catch-up/express-mvc/models/connect.js
-
-const mysqlx = require('@mysql/xdevapi');
 require('dotenv/config');
+const mysqlx = require('@mysql/xdevapi');
 
-let connection;
+const config = {
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  host: process.env.HOSTNAME,
+  port: 33060,
+  socketPath: '/var/run/mysqld/mysqld.sock',
+};
 
-module.exports = () => (
-  connection
-  ? Promise.resolve(connection)
-  : mysqlx
-    .getSession({
-      host: process.env.HOSTNAME,
-      user: process.env.MYSQL_USER,
-      password: process.env.MYSQL_PASSWORD,
-      port: '33060',
-      socketPath: '/var/run/mysqld/mysqld.sock',
-    })
-  .then(async (session) => {
-    connection = await session.getSchema('cookmaster');
-    return connection;
-  })
-  .catch((err) => {
-    console.error(err);
-    process.exit(1);
-  })
-);
+let schema;
+
+module.exports = () =>
+  schema
+    ? Promise.resolve(schema)
+    : mysqlx
+        .getSession(config)
+        .then(async (session) => {
+          schema = await session.getSchema('cookmaster');
+          return schema;
+        })
+        .catch((err) => {
+          console.error(err);
+          process.exit(1);
+        });

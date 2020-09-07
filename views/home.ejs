@@ -1,36 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%- include('base') -%>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cookmaster - Home</title>
   </head>
   <body>
-    <header>
-      <h1>Cookmaster!</h1>
-      <%if (!isAuth) {%>
-      <button type="button" data-testid="login" onclick="window.location.pathname='/login'">
-        Login
-      </button>
-      <%} else {%>
-      <button type="button" data-testid="logout" onclick="window.location.pathname='/logout'">
-        Logout
-      </button>
-      <button type="button" data-testid="nova-receita">Nova Receita</button>
-      <%};%>
-    </header>
-    <article class="receitas">
+    <%- include('navbar', { user }); %>
+    <div>
+      <a href="/recipes/search">
+        <button data-testid="buscar-receita">
+          Buscar Receita
+        </button>
+      </a>
+      <% if (user) {%>
+        <a href="/recipes/new">
+          <button data-testid="nova-receita">Nova Receita</button>
+        </a>
+        <a href="/me/recipes">
+          <button data-testid="minhas-receitas">Minhas Receitas</button>
+        </a>
+        <a href="/me/edit">
+          <button data-testid="minha-conta">Minha Conta</button>
+        </a>
+      <%}%>
+    </div>
+    <% if (recipes) {%>
+    <div>
       <h2>Receitas</h2>
+      <% recipes.map(recipe => { %>
       <div>
-        <%filteredRecipes.map((recipe) => {%>
-        <div style="border: 1px solid black">
-          <h4><%=recipe.name%></h4>
-          <h4><%=recipe.user%></h4>
-          <a href="#">Ver mais</a>
-        </div>
-        <%})%>
+        <p>Receita: <%= recipe.name %></p>
+        <p>Autor: <%= recipe.user %></p>
+        <a href="/recipes/<%= recipe.id %>">Ver mais</a>
       </div>
-    </article>
+      <%})%>
+    </div>
+    <% } %>
   </body>
 </html>
