@@ -9,14 +9,19 @@
     <header>
       <div>
         Cookmaster
-        <a href="/login" data-testid="login">Login</a>
       </div>
+      <% if (user) { %>
+        <a href="/logout" data-testid="login">Logout</a>
+      <% } else { %>
+        <a href="/login" data-testid="login">Login</a>
+      <% } %>
     </header>
     <div></div>
     <h2>Receitas</h2>
-    <% if (logged.length === 1) { %>
+    <% if (user) { %>
       <button data-testid="nova-receita">Nova Receita</button>
     <% } %>
+    <button data-testid="buscar-receita">Buscar Receita</button>
     <% recipes.forEach((recipe) => { %>
       <div>
         <h4><%= recipe.nameRecipe %></h4>
