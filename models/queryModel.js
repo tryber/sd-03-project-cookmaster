@@ -30,22 +30,56 @@ const getRecipeById = async (uId) => {
   }
 };
 
-// funçao q o luis campos jogou no slack
-const findRecipeByQuery = async (query) => connect()
-  .then((db) =>
-    db
-      .getTable('recipes')
-      .select(['id', 'user', 'name'])
-      .where('name LIKE :name')
-      .bind('name', `%${query}%`)
-      .execute(),
-    )
-    .then((results) => results.fetchAll())
-    .then((recipes) => recipes
-      .map(([id, user, name]) => ({ id, user, name })));
+// funçao q o luis campos jogou no slack e que adaptei com try catch
+const getRecipeByQuery = async (query) => {
+  try {
+    const recipes = await connect()
+      .then((db) =>
+      db
+        .getTable('recipes')
+        .select(['id', 'user', 'name'])
+        .where('name LIKE :query')
+        .bind('query', `%${query}%`)
+        .execute(),
+      )
+      .then((results) => results.fetchAll())
+
+    if (recipes.length) {
+      return recipes.map(([id, user, name]) => ({ id, user, name }));
+    }
+    return [];
+  } catch (err) {
+    return err;
+  }
+};
+
+const getRecipeByUserId = async (uId) => {
+  try {
+    const recipes = await connect()
+      .then((db) =>
+      db
+        .getTable('recipes')
+        .select()
+        .where('user_id = :id')
+        .bind('id', uId)
+        .execute(),
+      )
+      .then((results) => results.fetchAll())
+
+    if (recipes.length) {
+      return recipes.map(([id, userId, user, name, ingredients, instructions]) => ({
+        id, userId, user, name, ingredients, instructions,
+      }));
+    };
+    return [];
+  } catch (err) {
+    return err;
+  }
+};
 
 module.exports = {
   getAllRecipes,
   getRecipeById,
-  findRecipeByQuery,
+  getRecipeByQuery,
+  getRecipeByUserId,
 };

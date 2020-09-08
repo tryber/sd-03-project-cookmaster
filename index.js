@@ -42,6 +42,10 @@ app.get('/recipes/:id', middlewares.auth(false), (req, res) => {
   return controllers.queryController.getRecipe(req, res);
 });
 
+app.get('/me/recipes', middlewares.auth(), (req, res) => {
+  return controllers.queryController.getUserRecipes(req, res);
+});
+
 app.post('/login', controllers.userController.login);
 
 app.post('/register', middlewares.auth(false), (req, res) => {
