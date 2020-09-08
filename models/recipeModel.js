@@ -52,8 +52,18 @@ const getRecipeBySearch = async (query) => (
     }))
 );
 
+const insertRecipe = async (userId, ownerUser, name, ingredients, instructions) => (
+  connection()
+    .then((schema) => schema
+      .getTable('recipes')
+      .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
+      .values(userId, ownerUser, name, ingredients, instructions)
+      .execute())
+);
+
 module.exports = {
   getRecipeList,
   getRecipeById,
   getRecipeBySearch,
+  insertRecipe,
 };

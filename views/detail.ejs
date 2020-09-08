@@ -14,9 +14,9 @@
         <button data-testid="editar-receita">Editar Receita</button>
       </a>
       <a href="/recipes/<%= recipeId %>/delete">
-        <button data-testid="excluir-receita">Excluir Receita</button>
+        <button onclick="window.location.pathname='<%= `/recipes/${recipe.id}/edit` %>'">Excluir Receita</button>
       </a>
-
+      
     <% } %>
 
     <% console.log('token', token); %>

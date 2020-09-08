@@ -16,7 +16,7 @@
       <a href="#">
         <button type="button">Minhas Receitas</button>
       </a>
-      <a href="#">
+      <a href="/recipes/new">
         <button data-testid="nova-receita" type="button">Nova Receita</button>
       </a>
       <a href="#">
@@ -37,11 +37,11 @@
 
     <% console.log('recipes',recipes) %>
     <% recipes.forEach((recipe) => { %>
-    <div>
-      <p><%= recipe.name %></p>
-      <p><%= recipe.user %></p>
-      <a href=<%= `/recipes/${recipe.id}` %>>Ver mais</a>
-    </div>
+      <div>
+        <p><%= recipe.name %></p>
+        <p><%= recipe.user %></p>
+        <a href=<%= `/recipes/${recipe.id}` %>>Ver mais</a>
+      </div>
     <% }) %>
 
   </body>

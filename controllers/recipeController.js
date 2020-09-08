@@ -34,8 +34,77 @@ const recipeSearch = async (req, res) => {
   });
 };
 
+let ingredientsList = [];
+
+const recipeForm = async (req, res) => {
+  ingredientsList = [];
+  const {
+    id,
+    email,
+    userName,
+    lastName,
+  } = req.user;
+
+  return res.render('new', {
+    user: {
+      id,
+      email,
+      userName,
+      lastName,
+    },
+    body: null,
+    ingredientsList: null,
+    deleteIngredient: null,
+    save: null,
+  });
+};
+
+const recipeRegister = async (req, res) => {
+  const {
+    id,
+    email,
+    userName,
+    lastName,
+  } = req.user;
+  const ownerUser = `${id[3]} ${id[4]}`;
+  const {
+    recipeName,
+    ingredients,
+    instructions,
+    deleteIngredient,
+    save,
+  } = req.body;
+
+  if (ingredients.length > 0) {
+    ingredientsList.push(ingredients);
+  } else if (deleteIngredient) {
+    ingredientsList.splice(deleteIngredient, 1);
+  }
+
+  if (save && ingredients.length > 0) {
+    await recipeModel.insertRecipe(id, ownerUser, recipeName, ingredientsList.join(), instructions);
+    return res.redirect('/');
+  }
+
+  return res.render('new', {
+    body: { recipeName, ingredients, instructions },
+    user: {
+      id,
+      email,
+      userName,
+      lastName,
+    },
+    ingredientsList,
+    deleteIngredient,
+    save,
+    ownerUser,
+  });
+};
+
 module.exports = {
   recipeList,
   recipeDetail,
   recipeSearch,
+  recipeForm,
+  recipeRegister,
 };
