@@ -42,6 +42,10 @@ app.get('/recipes/:id', middlewares.auth(false), (req, res) => {
   return controllers.queryController.getRecipe(req, res);
 });
 
+app.get('/recipes/:id/delete', middlewares.auth(), (req, res) => {
+  return controllers.queryController.deleteForm(req, res);
+});
+
 app.get('/me/recipes', middlewares.auth(), (req, res) => {
   return controllers.queryController.getUserRecipes(req, res);
 });

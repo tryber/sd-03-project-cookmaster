@@ -104,7 +104,6 @@ const createUser = async (userData) => {
     console.error(err);
     process.exit(1);
   }
-  return 1;
 };
 
 module.exports = {

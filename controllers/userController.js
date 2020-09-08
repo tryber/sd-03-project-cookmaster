@@ -59,7 +59,14 @@ const register = async (req, res) => {
   res.render('admin/login', regisRes);
 };
 
+const deleteForm = async (req, res) => {
+  const user = req.user;
+  const isAuthor = await userModel.findById(user.id);
+  res.render('admin/deleteForm', { message: null });
+}
+
 module.exports = {
+  deleteForm,
   login,
   loginForm,
   logout,
