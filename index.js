@@ -58,6 +58,6 @@ app.post('/register', middlewares.auth(false), (req, res) => {
 
 app.post('/recipes/:id/delete', middlewares.auth(), (req, res) => {
   return controllers.userController.deleteRecipe(req, res);
-})
+});
 
 app.listen(3000, () => console.log('Listening on 3000'));

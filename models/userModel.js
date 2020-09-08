@@ -90,8 +90,8 @@ const validateUser = async (user) => {
 };
 
 const createUser = async (userData) => {
-  const { email, password, name, surname } = userData.user;
   try {
+    const { email, password, name, surname } = userData.user;
     await connect()
       .then((db) => db
       .getTable('users')

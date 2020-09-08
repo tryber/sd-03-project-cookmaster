@@ -83,7 +83,7 @@ const deleteRecipe = async (rId) => connect()
     .delete()
     .where('id = :id')
     .bind('id', rId)
-    .execute()
+    .execute(),
   );
 
 module.exports = {
