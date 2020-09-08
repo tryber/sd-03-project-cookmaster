@@ -2,7 +2,7 @@
  * Busca um usuário através do seu email e, se encontrado, retorna-o.
  * @param {string} email Email do usuário a ser encontrado
  */
-const connect = require('./connection')
+const connect = require('./connection');
 
 const findByEmail = async (email) => connect()
   .then((db) => db
@@ -12,9 +12,9 @@ const findByEmail = async (email) => connect()
     .bind('email', email)
     .execute())
   .then((result) => result.fetchAll())
-  .then((rows) => rows.map(([id, email, password]) => ({
+  .then((rows) => rows.map(([id, userEmail, password]) => ({
     id,
-    email,
+    userEmail,
     password,
   }))[0]);
 

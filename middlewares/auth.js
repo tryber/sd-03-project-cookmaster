@@ -1,12 +1,11 @@
 const userModel = require('../models/userModel');
-const connect = require('../models/connection');
 
 const SESSIONS = {};
 
 const getUser = async (req) => {
   const { token = '' } = req.cookies || {};
   if (!token) return null;
-  
+
   const userId = SESSIONS[token];
 
   if (!userId) return null;
