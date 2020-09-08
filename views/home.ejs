@@ -3,9 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cookmaster - Home</title>
+    <title>Cookmaster - Home1</title>
   </head>
   <body>
-    <h1>Boas vindas ao Cookmaster!</h1>
+    <header>
+      <div>
+        Cookmaster
+        <a href="/login" data-testid="login">Login</a>
+      </div>
+    </header>
+    <h2>Receitas</h2>
+    <% if (logged.length === 1) { %>
+      <button data-testid="nova-receita">Nova Receita</button>
+    <% } %>
+    <% recipes.forEach((recipe) => { %>
+      <div>
+        <h4><%= recipe.nameRecipe %></h4>
+        <h5><%= recipe.user %></h5>
+        <a href="Link">Ver mais</a>
+      </div>
+    <% }) %>
   </body>
 </html>
