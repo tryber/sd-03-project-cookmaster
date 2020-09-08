@@ -2,6 +2,7 @@ const { v4: uuid } = require('uuid');
 const { SESSIONS } = require('../middlewares/auth');
 
 const userModel = require('../models/userModel');
+const queryModel = require('../models/queryModel');
 
 const loginForm = (req, res) => {
   const { token = '' } = req.cookies || {};
@@ -60,18 +61,24 @@ const register = async (req, res) => {
 };
 
 const deleteForm = async (req, res) => {
-  const id = req.params.id;
-  return res.render('admin/deleteForm', { message: null, id });
+  const user = req.user;
+  const { id } = req.params;
+  if (parseInt(id) === parseInt(user.id)) {
+    return res.render('admin/deleteForm', { message: null, id });
+  }
+  return res.redirect('/');
 }
 
 const deleteRecipe = async (req, res) => {
+  const { id } = req.params;
+  const { pass } = req.body;
   const user = req.user;
-  console.log(req.query);
-  // if (passwordIncorrect) {
-  //   res.render('admin/deleteForm', { message: 'Senha Incorreta.' });
-  // }
-  // Senha correta
-  return res.render('home', { user });
+  const dbUser = await userModel.findById(user.id)
+  if (pass !== dbUser.password) {
+    return res.render('admin/deleteForm', { message: 'Senha incorreta.', id });
+  };
+  await queryModel.deleteRecipe(id);
+  return res.redirect('/');
 }
 
 module.exports = {

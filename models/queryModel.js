@@ -77,7 +77,17 @@ const getRecipeByUserId = async (uId) => {
   }
 };
 
+const deleteRecipe = async (rId) => connect()
+  .then((db) => db
+    .getTable('recipes')
+    .delete()
+    .where('id = :id')
+    .bind('id', rId)
+    .execute()
+  );
+
 module.exports = {
+  deleteRecipe,
   getAllRecipes,
   getRecipeById,
   getRecipeByQuery,
