@@ -101,8 +101,7 @@ const createUser = async (userData) => {
 
     return userData;
   } catch (err) {
-    console.error(err);
-    process.exit(1);
+    return err;
   }
 };
 
