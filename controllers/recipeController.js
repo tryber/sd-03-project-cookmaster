@@ -60,20 +60,9 @@ const recipeForm = async (req, res) => {
 };
 
 const recipeRegister = async (req, res) => {
-  const {
-    id,
-    email,
-    userName,
-    lastName,
-  } = req.user;
+  const { id, email, userName, lastName } = req.user;
   const ownerUser = `${id[3]} ${id[4]}`;
-  const {
-    recipeName,
-    ingredients,
-    instructions,
-    deleteIngredient,
-    save,
-  } = req.body;
+  const { recipeName, ingredients, instructions, deleteIngredient, save } = req.body;
 
   if (ingredients.length > 0) {
     ingredientsList.push(ingredients);
@@ -88,12 +77,7 @@ const recipeRegister = async (req, res) => {
 
   return res.render('new', {
     body: { recipeName, ingredients, instructions },
-    user: {
-      id,
-      email,
-      userName,
-      lastName,
-    },
+    user: { id, email, userName, lastName },
     ingredientsList,
     deleteIngredient,
     save,
