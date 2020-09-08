@@ -42,7 +42,7 @@ const getRecipeByQuery = async (query) => {
         .bind('query', `%${query}%`)
         .execute(),
       )
-      .then((results) => results.fetchAll())
+      .then((results) => results.fetchAll());
 
     if (recipes.length) {
       return recipes.map(([id, user, name]) => ({ id, user, name }));
@@ -64,13 +64,13 @@ const getRecipeByUserId = async (uId) => {
         .bind('id', uId)
         .execute(),
       )
-      .then((results) => results.fetchAll())
+      .then((results) => results.fetchAll());
 
     if (recipes.length) {
       return recipes.map(([id, userId, user, name, ingredients, instructions]) => ({
         id, userId, user, name, ingredients, instructions,
       }));
-    };
+    }
     return [];
   } catch (err) {
     return err;

@@ -21,7 +21,6 @@ const getRecipes = async (req, res) => {
 const getRecipe = async (req, res) => {
   const user = req.user;
   const recipe = await queryModel.getRecipeById(req.params.id);
-  console.log(recipe);
   recipe.ingredients = recipe.ingredients.split(',');
   return res.render('recipe', { recipe, user });
 };
@@ -37,7 +36,7 @@ const getUserRecipes = async (req, res) => {
   const user = req.user;
   const recipes = await queryModel.getRecipeByUserId(user.id);
   return res.render('admin/myRecipes', { recipes });
-}
+};
 
 module.exports = {
   getRecipe,
