@@ -56,17 +56,27 @@ const register = async (req, res) => {
     redirect: null,
   });
   const regisRes = await userModel.createUser(validation);
-  res.render('admin/login', regisRes);
+  return res.render('admin/login', regisRes);
 };
 
 const deleteForm = async (req, res) => {
+  const id = req.params.id;
+  return res.render('admin/deleteForm', { message: null, id });
+}
+
+const deleteRecipe = async (req, res) => {
   const user = req.user;
-  const isAuthor = await userModel.findById(user.id);
-  res.render('admin/deleteForm', { message: null });
+  console.log(req.query);
+  // if (passwordIncorrect) {
+  //   res.render('admin/deleteForm', { message: 'Senha Incorreta.' });
+  // }
+  // Senha correta
+  return res.render('home', { user });
 }
 
 module.exports = {
   deleteForm,
+  deleteRecipe,
   login,
   loginForm,
   logout,
