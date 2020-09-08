@@ -13,8 +13,9 @@
       <a href="/recipes/<%= recipeId %>/edit">
         <button data-testid="editar-receita">Editar Receita</button>
       </a>
+      
       <a href="/recipes/<%= recipeId %>/delete">
-        <button onclick="window.location.pathname='<%= `/recipes/${recipe.id}/edit` %>'">Excluir Receita</button>
+        <button data-testid="excluir-receita">Excluir Receita</button>
       </a>
 
     <% } %>
