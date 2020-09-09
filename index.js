@@ -14,7 +14,7 @@ app.set('view engine', 'ejs');
 app.set('views', './views');
 
 app.use('/', routes.homeRouter);
-app.use('/cadaster', routes.registerRouter)
+app.use('/login/cadaster', routes.registerRouter)
 
 app.get('/admin', middlewares.auth(), (req, res) => {
   return res.render('admin/home', { user: req.user });

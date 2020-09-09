@@ -4,10 +4,10 @@ const registerController = require('../controllers/registerController');
 
 const cadaster = Router();
 
-cadaster.get('/cadaster', (req, res) => {
-  return res.render('cadaster')
+cadaster.get('/', (_req, res) => {
+  return res.render('cadaster', { message: null })
 });
 
-cadaster.post('/cadaster', registerController.registration);
+cadaster.post('/', registerController.registration);
 
 module.exports = cadaster;

@@ -2,7 +2,6 @@ const registerModel = require('../models/registerModel');
 
 const registration = async (req, res) => {
   const { email, password, confirmPassword, firstName, lastName } = req.body;
-
   const userValidation = await registerModel.isValidUser(
     email, password, confirmPassword, firstName, lastName
   );
@@ -11,7 +10,7 @@ const registration = async (req, res) => {
     res.render('cadaster', { ...userValidation });
   };
 
-  await regiterModel.regiterUser(
+  await registerModel.registerUser(
     email, password, confirmPassword, firstName, lastName
   );
 

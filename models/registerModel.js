@@ -1,6 +1,6 @@
 const connect = require('./connection');
 
-const regiterUser = async (
+const registerUser = async (
   email,
   password,
   firstName,
@@ -8,10 +8,10 @@ const regiterUser = async (
 ) => {
   const db = await connect()
 
-  await db.getTable('cats')
-    .insert((['email', 'password', 'first_name', 'last_name'])
+  await db.getTable('users')
+    .insert((['email', 'password', 'first_name', 'last_name']))
     .values(email, password, firstName, lastName)
-    .execute());
+    .execute();
 }
 
 const isValidUser = (email, password, confirmPassword, firstName, lastName) => {
@@ -39,6 +39,6 @@ const isValidUser = (email, password, confirmPassword, firstName, lastName) => {
 };
 
 module.exports = {
-  regiterUser,
+  registerUser,
   isValidUser,
 };
