@@ -39,7 +39,7 @@ const getUserRecipes = async (req, res) => {
 };
 
 const newRecipeForm = (req, res) => res
-  .render('admin/newRecipe', { message: null, user });
+  .render('admin/newRecipe', { message: null });
 
 module.exports = {
   getRecipe,

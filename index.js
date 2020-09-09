@@ -40,7 +40,7 @@ app.get('/recipes/search', (req, res) => {
 
 app.get('/recipes/new', middlewares.auth(), (req, res) => {
   return controllers.queryController.newRecipeForm(req, res);
-})
+});
 
 app.get('/recipes/:id', middlewares.auth(false), (req, res) => {
   return controllers.queryController.getRecipe(req, res);
