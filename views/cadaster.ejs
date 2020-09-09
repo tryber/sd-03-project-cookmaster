@@ -11,16 +11,17 @@
   <% } %>
   <form action="/login/cadaster" method="POST">
     <label for="">email: </label>
-    <input type="text" name="email">
+    <input type="text" name="email" data-testid="email">
     <label for="">senha: </label>
-    <input type="password" name="password">
+    <input type="password" name="password" data-testid="senha">
     <label for="">comfirmar senha: </label>
-    <input type="password" name="confirmPassword">
+    <input type="password" name="confirmPassword" data-testid="confirmar-senha">
     <label for="">Nome: </label>
-    <input type="text" name="firstName">
+    <input type="text" name="firstName" data-testid="nome">
     <label for="">Sobrenome: </label>
-    <input type="text" name="lastName">
+    <input type="text" name="lastName" data-testid="sobrenome">
     <button type="submit" data-testid="cadastrar">Cadatrar-se</button>
   </form>
+  <a href="/login">Fazer login</a>
 </body>
 </html>
