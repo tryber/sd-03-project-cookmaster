@@ -6,16 +6,16 @@
     <title>Cookmaster</title>
   </head>
   <body>
-      <form action="/<%= recipe %>/delete" method="POST">
-        <% if (user) console.log('User: ', user.id[0]); %>
-
-        <% console.log('recipe: ', recipe); %>
-
-        <% console.log('password: ', password); %>
+      <form action="/<%= rcpId %>/delete" method="POST">
 
         <% if(message) {%>
           <p><%=message%></p>
         <%}%>
+
+        <%= console.log('idRecipe', idRecipe); %>
+        <%= console.log('id', id); %>
+        <%= console.log('password', password); %>
+        <%= console.log('idUser', idUser); %>
 
         <h3>Confirme a exclusão da receita</h3>
         <label for="pass">Senha: </label>

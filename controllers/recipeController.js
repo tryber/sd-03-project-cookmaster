@@ -3,17 +3,18 @@ const userModel = require('../models/userModel');
 
 const recipeList = async (req, res) => {
   const recipes = await recipeModel.getRecipeList();
+
   return res.render('home', { recipes, token: req.user });
 };
 
 const recipeDetail = async (req, res) => {
   const recipeById = await recipeModel.getRecipeById(req.params.id);
-  const recipeId = req.params.id;
+  const recipeId = parseInt(req.params.id, 10);
   const { userId } = recipeById;
   const recipeUser = await userModel.findById(userId);
   return res.render('detail', {
     recipeById,
-    token: req.user,
+    token: (req.user && recipeUser.id[0] === parseInt(req.user.id, 10)),
     recipeUser,
     recipeId,
   });
@@ -85,33 +86,37 @@ const recipeRegister = async (req, res) => {
 };
 
 const deleteForm = async (req, res) => {
-  let message;
-  const { id } = req.user;
-  const recipe = parseInt(req.params.id, 10);
+  const rcpId = req.params.id;
+  return res.render('delete', {
+    message: null,
+    rcpId,
+    id: null,
+    idRecipe: null,
+    password: null,
+    idUser: null,
+  });
+};
+
+const recipeDelete = async (req, res) => {
   const { password } = req.body;
-  const user = await userModel.findById(id[0]);
+  const idUser = req.user;
+  const { id } = req.params;
 
-  if (id[0] !== recipe) {
-    return res.redirect(`/recipes/${recipe}`);
-  }
-
-  if (password !== user.password) {
+  if (idUser.id[2] !== password) {
     return res.render('delete', {
-      user: { id },
-      message: 'Senha incorreta.',
-      recipe,
+      message: 'Senha Incorreta.',
+      id,
+      idUser: idUser.id[2],
+      idRecipe: null,
       password,
+      rcpId: null,
     });
   }
 
-  await userModel.findById(id[0]);
+  await recipeModel.deleteRecipe(id);
 
-  return res.render('delete', {
-    user: { id },
-    message,
-    recipe,
-    password,
-  });
+  const recipes = await recipeModel.getRecipeList();
+  return res.render('home', { recipes, token: req.user });
 };
 
 module.exports = {
@@ -121,4 +126,5 @@ module.exports = {
   recipeForm,
   recipeRegister,
   deleteForm,
+  recipeDelete,
 };
