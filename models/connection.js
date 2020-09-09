@@ -19,8 +19,7 @@ module.exports = async () => {
   .then((session) => {
     connection = session.getSchema('cookmaster');
     return connection;
-    }
-  )
+  })
   .catch((err) => {
     console.error(err);
     process.exit(1);
