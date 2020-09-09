@@ -3,9 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cookmaster - Home</title>
+    <title>Cookmaster</title>
   </head>
   <body>
+
+    <% if(!user) { %>
+      <a href="/login" data-testid="login">Login</a>
+    <% } %>
+    <% if(user) { %>
+      <a href="/logout" data-testid="logout">Logout</a>
+    <% } %>
+
+
+    
+    <% if(user) { %>
+      <button href="/login" data-testid="nova-receita">nova receita</button>
+    <% } %>
+ 
+
+
     <h1>Boas vindas ao Cookmaster!</h1>
+
+    <h2>Receitas</h2>
+    <button onclick="window.location.pathname='/recipes/search'" data-testid="buscar-receita">
+      Buscar receitas
+    </button>  
+
+			<% for(let i = 0; i < allrecipes.length; i++){ %>
+				<div class="receita">
+					<p class="receita-name"><%= allrecipes[i].name %></p>
+					<p class="receita-user"><%= allrecipes[i].user %></p>
+          <a href=<%= `/recipes/${allrecipes[i].id}` %>>Ver mais</a>
+				</div>
+			<% } %>
+
   </body>
 </html>
