@@ -4,7 +4,7 @@ const registerUser = async (
   email,
   password,
   firstName,
-  lastName
+  lastName,
 ) => {
   const db = await connect();
 
@@ -15,22 +15,13 @@ const registerUser = async (
 };
 
 const isValidUser = (email, password, confirmPassword, firstName, lastName) => {
-  switch(true) {
+  switch (true) {
     case (!/[A-Z0-9]{1,}@[A-Z0-9]{2,}\.[A-Z0-9]{2,}/i.test(email)):
-      return {
-        validation: false,
-        message: 'O email deve ter o formato email@mail.com',
-      };
+      return { validation: false, message: 'O email deve ter o formato email@mail.com' };
     case (password.length < 6):
-      return {
-        validation: false,
-        message: 'A senha deve ter pelo menos 6 caracteres',
-      };
+      return { validation: false, message: 'A senha deve ter pelo menos 6 caracteres' };
     case (password !== confirmPassword):
-      return {
-        validation: false,
-        message: 'As senhas tem que ser iguais',
-      };
+      return { validation: false, message: 'As senhas tem que ser iguais' };
     case (firstName.length < 3):
       return {
         validation: false,
@@ -44,7 +35,7 @@ const isValidUser = (email, password, confirmPassword, firstName, lastName) => {
     default:
       return { validation: true, message: 'Cadastro efetuado com sucesso!' };
   }
-}
+};
 
 module.exports = {
   registerUser,
