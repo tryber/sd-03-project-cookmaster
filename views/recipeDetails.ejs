@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe Details</title>
+</head>
+<body>
+  <h2><%= name %></h2>
+  <span><%= user %></span>
+  <div>
+  <% if (userValidation) { %>
+    <a href="/edit" data-testid="editar-receita">Editar Receita</a>
+    <a href="/delete" data-testid="excluir-receita">Excluir Receita</a>
+  <% } %>
+  </div>
+  <h3>Ingredientes</h3>
+  <ul>
+  <% ingredients.forEach((ingredient) => { %>
+    <li><%= ingredient %></li>
+  <% }) %>
+  </ul>
+  <h3>Modo de Preparo</h3>
+  <%= instructions %>
+</body>
+</html>

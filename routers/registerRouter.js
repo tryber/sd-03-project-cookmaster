@@ -1,6 +1,6 @@
 const { Router } = require('express');
 
-const registerController = require('../controllers/registerController');
+const { registerController } = require('../controllers');
 
 const cadaster = Router();
 
