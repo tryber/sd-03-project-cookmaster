@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookmaster - Deletar</title>
+</head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+  body {
+    background-color: whitesmoke;
+    font-family: 'Roboto Slab', serif;
+    margin: 0;
+  }
+
+  .form-div {
+    background-color: rgb(255, 180, 162);
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    margin: 20% 40% 0 40%;
+    padding: 20px;
+    width: 300px;
+  }
+</style>
+
+<body>
+  <%- include('navbar', { user }); %>
+  <% if (message) {%>
+  <div class="message">
+    <%= message %>
+  </div>
+  <% } %>
+  <form action="/recipes/<%= id %>/delete" method="POST" class='form-div'>
+    <h3>Confirme a exclusão da receita</h3>
+    <label for="passwordInput">Senha: </label>
+    <input type="password" name="password" id="passwordInput" data-testid='senha' />
+    <button type="submit" data-testid='confirmar'>Confirmar</button>
+  </form>
+  <button data-testid='cancelar'><a href="/recipes/<%= id %>">Cancelar</a></button>
+</body>
+
+</html>

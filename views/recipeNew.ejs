@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookmaster - Nova Receita</title>
+</head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+  body {
+    background-color: whitesmoke;
+    font-family: 'Roboto Slab', serif;
+    margin: 0;
+  }
+
+  #form-div {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+  }
+</style>
+
+<body>
+  <%- include('navbar', { user }); %>
+  <div>
+    <h1>Nova Receita</h1>
+    <% if (message) {%>
+    <div class="message">
+      <%= message %>
+    </div>
+    <% } %>
+    <form action="/recipes" method="POST" id='form-div'>
+      <label for="nameInput">Nome da Receita: </label>
+      <input type="text" name="recipeName" id="nameInput" data-testid="nome-receita" /><br />
+
+      <label for="ingredientsInput">Ingredientes: </label>
+      <ul id='ingredientsList'></ul>
+      <input type="text" name="ingredients" id="ingredientsInput" data-testid="ingredientes" /><br />
+      <button type="button" data-testid="adicionar-ingrediente" id="add">Adicionar Ingrediente</button>
+
+      <label for="instructionsInput">Modo de Preparo </label>
+      <input type="textarea" name="instructions" id="instructionsInput" data-testid="modo-de-preparo" /><br />
+      <button type="submit" data-testid="postar-receita" onclick=submitRecipe()>Salvar Receita</button>
+    </form>
+  </div>
+</body>
+<script>
+  const buttonAdd = document.getElementById('add');
+  const newIngredient = document.getElementById('ingredientsInput');
+  const ingredientsList = document.getElementById('ingredientsList');
+
+  const deleteIngredient = (event) => {
+    ingredientsList.removeChild(event.target.parentElement);
+  };
+
+  const addIngredient = () => {
+    const ingredientLi = document.createElement('li');
+    ingredientsList.appendChild(ingredientLi);
+
+    ingredientLi.id = newIngredient.value;
+    ingredientLi.innerHTML = newIngredient.value + `<button type="button" onclick="deleteIngredient(event)">Excluir Ingrediente</button>`;
+
+    newIngredient.value = "";
+  };
+
+  buttonAdd.addEventListener('click', addIngredient);
+
+  const submitRecipe = () => {
+    const list = document.querySelectorAll("li");
+    let ingredients = [];
+    for (let i = 0; i < list.length; i += 1) {
+      ingredients.push(list[i].id)
+    }
+    newIngredient.value = ingredients;
+    document.getElementById('form-div').submit();
+  };
+
+</script>
+
+</html>
