@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster</title>
+  </head>
+  <body>
+      <form action="/<%= recipe %>/delete" method="POST">
+        <% if (user) console.log('User: ', user.id[0]); %>
+
+        <% console.log('recipe: ', recipe); %>
+
+        <% console.log('password: ', password); %>
+
+        <% if(message) {%>
+          <p><%=message%></p>
+        <%}%>
+        
+        <h3>Confirme a exclusão da receita</h3>
+        <label for="pass">Senha: </label>
+        <input type="password" name="password" id="password" data-testid="senha"/></br>
+        <a href="/"><button data-testid="cancelar" >Cancelar</button></a>
+        <button type="submit" data-testid="confirmar" >Confirmar</button>
+      </form>
+  </body>
+</html>

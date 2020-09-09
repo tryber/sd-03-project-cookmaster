@@ -3,7 +3,6 @@ const userModel = require('../models/userModel');
 
 const recipeList = async (req, res) => {
   const recipes = await recipeModel.getRecipeList();
-
   return res.render('home', { recipes, token: req.user });
 };
 
@@ -85,10 +84,41 @@ const recipeRegister = async (req, res) => {
   });
 };
 
+const deleteForm = async (req, res) => {
+  let message;
+  const { id } = req.user;
+  const recipe = parseInt(req.params.id, 10);
+  const { password } = req.body;
+  const user = await userModel.findById(id[0]);
+
+  if (id[0] !== recipe) {
+    return res.redirect(`/recipes/${recipe}`);
+  }
+
+  if (password !== user.password) {
+    return res.render('delete', {
+      user: { id },
+      message: 'Senha incorreta.',
+      recipe,
+      password,
+    });
+  }
+
+  await userModel.findById(id[0]);
+
+  return res.render('delete', {
+    user: { id },
+    message,
+    recipe,
+    password,
+  });
+};
+
 module.exports = {
   recipeList,
   recipeDetail,
   recipeSearch,
   recipeForm,
   recipeRegister,
+  deleteForm,
 };

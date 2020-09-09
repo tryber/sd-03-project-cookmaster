@@ -61,9 +61,20 @@ const insertRecipe = async (userId, ownerUser, name, ingredients, instructions) 
       .execute())
 );
 
+const deleteRecipe = async (id) => (
+  connection()
+    .then((schema) => schema
+      .getTable('recipes')
+      .delete()
+      .where('id = :id')
+      .bind('id', id)
+      .execute())
+);
+
 module.exports = {
   getRecipeList,
   getRecipeById,
   getRecipeBySearch,
   insertRecipe,
+  deleteRecipe,
 };
