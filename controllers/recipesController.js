@@ -76,7 +76,7 @@ const recipeEdit = rescue(async (req, res) => {
 
   await recipesModel.updateRecipe(id, recipeName, ingredients, instructions);
 
-  return res.redirect(`/`);
+  return res.redirect('/');
 });
 
 const recipeDelete = rescue(async (req, res) => {
