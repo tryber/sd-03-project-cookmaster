@@ -33,9 +33,12 @@ const renderRecipeEdit = rescue(async (req, res) => {
 });
 
 const renderRecipeDelete = rescue(async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.user;
+  const { userId } = await recipesModel.recipeById(req.params.id);
 
-  res.render('recipeDelete', { user: req.user, id, message: null });
+  if (userId !== id) res.redirect('/');
+
+  return res.render('recipeDelete', { message: null, user: req.user, id: req.params.id });
 });
 
 const searchRecipe = rescue(async (req, res) => {
@@ -73,7 +76,7 @@ const recipeEdit = rescue(async (req, res) => {
 
   await recipesModel.updateRecipe(id, recipeName, ingredients, instructions);
 
-  return res.redirect(`/recipes/${id}`);
+  return res.redirect(`/`);
 });
 
 const recipeDelete = rescue(async (req, res) => {
