@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Login</title>
+  </head>
+  <body>
+    <% if (message) {%>
+    <div class="message">
+      <%= message %>
+    </div>
+    <% } %>
+    <form action="/recipes" method="POST">
+      <h2>Nova receita!</h2>
+      <label
+        for="nameInput"
+      >
+        Nome da receita:
+      </label>
+      <input
+        type="text"
+        name="name"
+        id="nameInput"
+        data-testid="nome-receita"
+      />
+      <br />
+      <ul
+        id="ingredientsList"
+      ></ul>
+      <input
+        type="text"
+        id="ingredientInput"
+        data-testid="ingredientes"
+      >
+      <button
+        type="button"
+        id="addBtn"
+        data-testid="adicionar-ingrediente"
+      >
+        Adicionar
+      </button>
+      <br />
+      <label
+        for="prepareInput"
+      >
+        Modo de preparo:
+      </label>
+      <input
+        type="text"
+        name="surname"
+        id="prepareInput"
+        data-testid="modo-de-preparo"
+      />
+      <br />
+      <button
+        type="submit"
+        data-testid="postar-receita"
+      >
+        Salvar receita
+      </button>
+      <button
+        type="submit"
+        data-testid="login"
+        onclick="window.Location.pathname='/'"
+      >
+        Voltar
+      </button>
+    </form>
+    <script>
+      // some parts of the code from w3schools
+      // precisely w3schools.com/howto/tryit.asp?filename=tryhow_js_todo
+      // global vars declaration
+      const UL = document.getElementById('ingredientsList');
+      const ADDBTN = document.getElementById('addBtn');
+      let INPUT = document.getElementById('ingredientInput');
+      const INGREDIENTS = [];
+
+      const removeIngredient = (a) => {
+        console.log(a, '-----', INGREDIENTS);
+      };
+
+      const createIngredient = () => {
+        const li = document.createElement('li');
+        const input = INPUT.value;
+        if (input === '') {
+          alert('Voce deve escrever algum ingrediente');
+        } else {
+          INGREDIENTS.push(input);
+          const text = document.createTextNode(input);
+          li.appendChild(text);
+          UL.appendChild(li);
+          INPUT.value = '';
+        }
+      };
+    </script>
+  </body>
+</html>
