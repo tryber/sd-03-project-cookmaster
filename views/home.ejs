@@ -14,20 +14,16 @@
       <a href="/logout" data-testid="logout">Logout</a>
     <% } %>
 
-
-    
     <% if(user) { %>
       <button href="/login" data-testid="nova-receita">nova receita</button>
     <% } %>
- 
-
 
     <h1>Boas vindas ao Cookmaster!</h1>
 
     <h2>Receitas</h2>
     <button onclick="window.location.pathname='/recipes/search'" data-testid="buscar-receita">
       Buscar receitas
-    </button>  
+    </button>
 
 			<% for(let i = 0; i < allrecipes.length; i++){ %>
 				<div class="receita">

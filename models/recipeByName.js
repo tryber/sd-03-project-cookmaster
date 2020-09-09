@@ -23,6 +23,6 @@ const recipeByName = async (recipe) =>
     )
     .catch(console.log('Model: Erro no recipeByName'));
 
-    module.exports = {
-        recipeByName,
-    }
+module.exports = {
+  recipeByName,
+};

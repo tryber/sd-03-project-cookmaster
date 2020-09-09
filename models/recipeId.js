@@ -29,6 +29,6 @@ const recipeById = async (
     )
     .catch(console.log('Model: erro no recipeId'));
 
-    module.exports = {
-        recipeId,
-    }
+module.exports = {
+  recipeId,
+};
