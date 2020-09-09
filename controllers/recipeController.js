@@ -4,13 +4,13 @@ const recipeDetails = async (req, res) => {
   const { id } = req.params;
 
   const recipe = await recipeModel.getRecipesById(id);
-  
-  const arrayOfIngredients = recipe.ingredients.split(',')
-  
+
+  const arrayOfIngredients = recipe.ingredients.split(',');
+
   res.render('recipeDetails', {
     ...recipe,
     ingredients: arrayOfIngredients,
-    userValidation: req.user
+    userValidation: req.user,
   });
 };
 
