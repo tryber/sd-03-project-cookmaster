@@ -1,5 +1,5 @@
 const mysqlx = require('@mysql/xdevapi');
-const connect = require('../../B28-Store-Manager/model/connect');
+// const connect = require('../../B28-Store-Manager/model/connect');
 require('dotenv').config();
 
 let connection;
@@ -16,11 +16,13 @@ const config = {
 module.exports = async () => {
   if (connection) return Promise.resolve(connection);
   return mysqlx.getSession(config)
-  .then((connection) => {
-    connection = session.getSchema('cookmaster')
-    return connection })
+  .then((session) => {
+    connection = session.getSchema('cookmaster');
+    return connection;
+    }
+  )
   .catch((err) => {
     console.error(err);
     process.exit(1);
   });
-}
+};
