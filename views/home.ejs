@@ -7,5 +7,23 @@
   </head>
   <body>
     <h1>Boas vindas ao Cookmaster!</h1>
+    <h2>Receitas</h2>
+    <ul>
+      <% recipes.forEach((recipe) => { %>
+        <li class="recipe-item">
+          <h1 class="recipe-title"><%= recipe[3] %></h1>
+          <h3 class="user-name"><%= recipe[2] %></h3>
+          <a href="">Ver mais</a>
+        </li>
+      <% }) %>
+    </ul>
+    <button data-testid="buscar-receita">Buscar Receita</button>
+    <%if (!user) {%>
+      <a href="/login" data-testid="login">Login</a>
+    <% } %>
+    <%if (user) {%>
+      <a href="/logout" data-testid="logout">Logout</a>
+      <button data-testid="nova-receita">Nova Receita</button>
+    <% } %>
   </body>
 </html>
