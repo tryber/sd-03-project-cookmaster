@@ -115,7 +115,6 @@ const recipeUpdate = async (req, res) => {
   let recipe = await recipeModel.getRecipeById(req.params.id);
   newList = recipe.ingredients;
   const listWithDelete = newList.split(',');
-
   if (ingredients.length > 0) {
     listWithDelete.push(ingredients);
     newList = `${listWithDelete.join()}`;
@@ -123,11 +122,8 @@ const recipeUpdate = async (req, res) => {
     listWithDelete.splice(deleteIngredient, 1);
     newList = `${listWithDelete.join()}`;
   }
-
   await recipeModel.updateRecipe(req.params.id, recipeName, newList, instructions);
-
   recipe = await recipeModel.getRecipeById(req.params.id);
-
   if (deleteIngredient || ingredients.length > 0) {
     return res.render('update', {
       recipe,
@@ -141,7 +137,6 @@ const recipeUpdate = async (req, res) => {
       listWithDelete,
     });
   }
-
   return res.redirect('/');
 };
 
