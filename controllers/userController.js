@@ -69,9 +69,10 @@ const updateUser = async (req, res) => {
   req.body.id = user.id;
   const validation = await userModel.validateUser(req.body);
   if (validation.error) return res.render('admin/editUser', {
-    message: validation.message, user: req.body
+    message: validation.message,
+    user: req.body,
   });
-  const data = await userModel.updateUser(validation);
+  await userModel.updateUser(validation);
   return res.redirect('/');
 };
 

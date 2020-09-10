@@ -53,14 +53,14 @@ const validadeName = (name = '') => name && !/\d/.test(name) && name.length >= 3
 // regex obtido em: https://stackoverflow.com/questions/742451/what-is-the-simplest-regular-expression-to-validate-emails-to-not-accept-them-bl
 const validadeEmail = (email = '') => email && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
 
-const getUser = async (uEmail = '') => {
-  try {
-    const user = uEmail && (await findByEmail(uEmail));
-    return user.email;
-  } catch (err) {
-    return err;
-  }
-};
+// const getUser = async (uEmail = '') => {
+//   try {
+//     const user = uEmail && (await findByEmail(uEmail));
+//     return user.email;
+//   } catch (err) {
+//     return err;
+//   }
+// };
 
 const validateUser = async (user) => {
   const res = { error: true, message: '' };

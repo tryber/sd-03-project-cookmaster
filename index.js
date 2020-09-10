@@ -84,6 +84,6 @@ app.post('/recipes/:id', middlewares.auth(), (req, res) => {
 
 app.post('/me', middlewares.auth(), (req, res) => {
   return controllers.userController.updateUser(req, res);
-})
+});
 
 app.listen(3000, () => console.log('Listening on 3000'));
