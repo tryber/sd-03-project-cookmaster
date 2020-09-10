@@ -45,7 +45,7 @@ app.get('/recipes/new', middlewares.auth(), (req, res) => {
 app.get('/recipes/:id/edit', middlewares.auth(), (req, res) => {
   req.going = 'admin/editRecipe';
   return controllers.queryController.forms(req, res);
-})
+});
 
 app.get('/recipes/:id/delete', middlewares.auth(), (req, res) => {
   req.going = 'admin/deleteForm';
@@ -75,7 +75,7 @@ app.post('/recipes/:id/delete', middlewares.auth(), (req, res) => {
 });
 
 app.post('/recipes/:id', middlewares.auth(), (req, res) => {
-  return;
+  return controllers.queryController.editRecipe(req, res);
 });
 
 app.listen(3000, () => console.log('Listening on 3000'));

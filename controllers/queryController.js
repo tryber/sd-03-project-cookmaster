@@ -61,6 +61,12 @@ const forms = async (req, res) => {
   return res.redirect('/');
 };
 
+const editRecipe = async (req, res) => {
+  const { body: {  recipeName, ingredients, recipeHow }, params: { id } } = req;
+  await queryModel.updateRecipe(id, recipeName, ingredients, recipeHow);
+  return res.redirect(`/recipes/${id}`);
+}
+
 const deleteRecipe = async (req, res) => {
   const { id } = req.params;
   const { pass } = req.body;
@@ -75,6 +81,7 @@ const deleteRecipe = async (req, res) => {
 
 
 module.exports = {
+  editRecipe,
   forms,
   deleteRecipe,
   getRecipe,
