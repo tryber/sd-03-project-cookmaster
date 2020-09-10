@@ -38,13 +38,22 @@ const getUserRecipes = async (req, res) => {
   return res.render('admin/myRecipes', { recipes });
 };
 
-const newRecipeForm = (req, res) => res
-  .render('admin/newRecipe', { message: null });
+const newRecipeForm = (_req, res) => res.render('admin/newRecipe', { message: null });
+
+const newRecipe = async (req, res) => {
+  const { body, user } = req;
+  const recipe = await queryModel.createRecipe(body, user);
+  if (recipe.error) {
+    return res.render('admin/newRecipe', { message: recipe.message });
+  }
+  return res.redirect('/');
+};
 
 module.exports = {
   getRecipe,
   getRecipes,
   getUserRecipes,
+  newRecipe,
   newRecipeForm,
   searchRecipes,
 };

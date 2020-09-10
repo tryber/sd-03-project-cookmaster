@@ -86,7 +86,26 @@ const deleteRecipe = async (rId) => connect()
     .execute(),
   );
 
+const createRecipe = async (recipe, user) => {
+  try {
+    const { recipeName, ingredients, recipeHow } = recipe;
+    if (!recipeName || !ingredients || !recipeHow) {
+      return { error: true, message: 'Nenhum campo deve estar vazio!' };
+    }
+    await connect()
+      .then((db) => db
+        .getTable('recipes')
+        .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
+        .values(user.id, user.name, recipeName, ingredients, recipeHow)
+        .execute());
+    return { error: false };
+  } catch (err) {
+    return err;
+  }
+};
+
 module.exports = {
+  createRecipe,
   deleteRecipe,
   getAllRecipes,
   getRecipeById,

@@ -60,6 +60,10 @@ app.post('/register', middlewares.auth(false), (req, res) => {
   return controllers.userController.register(req, res);
 });
 
+app.post('/recipes', middlewares.auth(), (req, res) => {
+  return controllers.queryController.newRecipe(req, res);
+});
+
 app.post('/recipes/:id/delete', middlewares.auth(), (req, res) => {
   return controllers.userController.deleteRecipe(req, res);
 });
