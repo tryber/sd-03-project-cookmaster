@@ -50,14 +50,13 @@ const newRecipe = async (req, res) => {
   return res.redirect('/');
 };
 
-
-const deleteForm = async (req, res) => {
+const forms = async (req, res) => {
   const user = req.user;
   const { id } = req.params;
   const recipe = await queryModel.getRecipeById(id);
 
   if (recipe.userId === user.id) {
-    return res.render('admin/deleteForm', { message: null, id });
+    return res.render(req.going, { message: null, id, recipe });
   }
   return res.redirect('/');
 };
@@ -76,7 +75,7 @@ const deleteRecipe = async (req, res) => {
 
 
 module.exports = {
-  deleteForm,
+  forms,
   deleteRecipe,
   getRecipe,
   getRecipes,
