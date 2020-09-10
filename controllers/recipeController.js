@@ -8,7 +8,7 @@ const recipeList = async (req, res) => {
 };
 
 const myRecipeList = async (req, res) => {
-  const recipes = await recipeModel.getRecipeListById(req.user.id);
+  const recipes = await recipeModel.getRecipeListById(parseInt(req.user.id, 10));
 
   return res.render('my', { recipes });
 };
