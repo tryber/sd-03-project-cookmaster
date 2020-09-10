@@ -91,7 +91,7 @@ const editUserForm = async (req, res) => {
 const editUser = async (req, res) => {
   const { email, password, name, lastName } = req.body;
 
-  await userModel.editUser(req.user.id, email, password, name, lastName);
+  await userModel.updateUser(req.user.id, email, password, name, lastName);
 
   return res.redirect('/');
 };

@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%- include('../base') -%>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cookmaster - Admin</title>
   </head>
   <body>
-    <%- include('../navbar', { user }); %>
     <h1>Painel Administrativo Cookmaster</h1>
     <p>Usuário atual: <%= `${user.name} ${user.lastName}` %></p>
     <pre><%= JSON.stringify(user, null, 4) %></pre>
+    <a href="/">
+      <button>Home</button>
+    </a>
+    <a href="/logout">
+      <button>Logout</button>
+    </a>
   </body>
 </html>
