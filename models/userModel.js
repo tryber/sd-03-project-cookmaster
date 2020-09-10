@@ -71,10 +71,25 @@ const isValidTwo = (email, firstName, lastName) => {
   return undefined;
 };
 
+const updateUser = async (id, email, password, firstName, lastName) => (
+  connection()
+    .then((schema) => schema
+      .getTable('users')
+      .update()
+      .set('email', email)
+      .set('password', password)
+      .set('first_name', firstName)
+      .set('last_name', lastName)
+      .where('id = :id')
+      .bind('id', id)
+      .execute())
+);
+
 module.exports = {
   findByEmail,
   findById,
   isValid,
   isValidTwo,
   insertRegister,
+  updateUser,
 };

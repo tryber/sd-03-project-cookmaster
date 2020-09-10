@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Me</title>
+  </head>
+  <body>
+    <form method="POST">
+
+      <label for="email">Email: </label>
+      <input type="text" name="email" id="email" data-testid='email' value="<%= idUser.id[1] %>" /></br>
+
+      <label for="password">Password: </label>
+      <input type="password" name="password" id="password" data-testid='senha' /></br>
+
+      <label for="passconfirm">Confirmar Senha: </label>
+      <input type="password" name="passconfirm" id="passconfirm" data-testid='confirmar-senha' /></br>
+
+      <label for="nome">Nome: </label>
+      <input type="text" name="firstName" id="nome" data-testid='nome' value="<%= idUser.id[3] %>" /></br>
+
+      <label for="sobrenome">Sobrenome: </label>
+      <input type="text" name="lastName" id="sobrenome" data-testid='sobrenome' value="<%= idUser.id[4] %>" /></br>
+
+      <button type="submit" data-testid="salvar" >Salvar</button>
+    </form>
+  </body>
+</html>

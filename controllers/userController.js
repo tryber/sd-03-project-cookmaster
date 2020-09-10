@@ -76,6 +76,24 @@ const registerUser = async (req, res) => {
 
 // Edition
 
+const userEditForm = (req, res) => {
+  const idUser = req.user;
+  return res.render('admin/edit', {
+    message: null,
+    email: null,
+    idUser,
+  });
+};
+
+const userEdit = async (req, res) => {
+  const { email, password, firstName, lastName } = req.body;
+  const idUser = req.user;
+
+  await userModel.updateUser(idUser.id[0], email, password, firstName, lastName);
+
+  return res.redirect('/');
+};
+
 module.exports = {
   login,
   loginForm,
@@ -86,7 +104,7 @@ module.exports = {
   registerForm,
 
   // Edition
-  // userEdit,
-  // userEditForm,
+  userEdit,
+  userEditForm,
 
 };

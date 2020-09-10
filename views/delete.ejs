@@ -3,16 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cookmaster</title>
+    <title>Cookmaster - Deletar Receita</title>
   </head>
   <body>
-      <form action="/<%= rcpId %>/delete" method="POST">
+      <form method="POST">
 
         <% if(message) {%>
           <p><%=message%></p>
         <%}%>
 
-        <%= console.log('idRecipe', idRecipe); %>
         <%= console.log('id', id); %>
         <%= console.log('password', password); %>
         <%= console.log('idUser', idUser); %>
@@ -20,7 +19,7 @@
         <h3>Confirme a exclusão da receita</h3>
         <label for="pass">Senha: </label>
         <input type="password" name="password" id="password" data-testid="senha"/></br>
-        <a href="/"><button data-testid="cancelar" >Cancelar</button></a>
+        <button type="reset"data-testid="cancelar" >Cancelar</button>
         <button type="submit" data-testid="confirmar" >Confirmar</button>
       </form>
   </body>

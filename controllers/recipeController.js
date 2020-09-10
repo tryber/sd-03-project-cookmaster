@@ -7,6 +7,12 @@ const recipeList = async (req, res) => {
   return res.render('home', { recipes, token: req.user });
 };
 
+const myRecipeList = async (req, res) => {
+  const recipes = await recipeModel.getRecipeListById(req.user.id);
+
+  return res.render('my', { recipes });
+};
+
 const recipeDetail = async (req, res) => {
   const recipeById = await recipeModel.getRecipeById(req.params.id);
   const recipeId = parseInt(req.params.id, 10);
@@ -72,7 +78,9 @@ const recipeRegister = async (req, res) => {
 
   if (save && ingredients.length > 0) {
     await recipeModel.insertRecipe(id, ownerUser, recipeName, ingredientsList.join(), instructions);
-    return res.redirect('/');
+    const recipes = await recipeModel.getRecipeList();
+
+    return res.render('home', { recipes, token: req.user });
   }
 
   return res.render('new', {
@@ -91,7 +99,6 @@ const deleteForm = async (req, res) => {
     message: null,
     rcpId,
     id: null,
-    idRecipe: null,
     password: null,
     idUser: null,
   });
@@ -107,7 +114,6 @@ const recipeDelete = async (req, res) => {
       message: 'Senha Incorreta.',
       id,
       idUser: idUser.id[2],
-      idRecipe: null,
       password,
       rcpId: null,
     });
@@ -121,6 +127,7 @@ const recipeDelete = async (req, res) => {
 
 module.exports = {
   recipeList,
+  myRecipeList,
   recipeDetail,
   recipeSearch,
   recipeForm,

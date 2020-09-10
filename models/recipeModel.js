@@ -17,6 +17,25 @@ const getRecipeList = async () => (
     })))
 );
 
+const getRecipeListById = async (param) => (
+  connection()
+    .then((schema) => schema
+      .getTable('recipes')
+      .select(['id', 'user_id', 'user', 'name', 'ingredients', 'instructions'])
+      .where('user_id = :id')
+      .bind('id', param)
+      .execute())
+    .then((results) => results.fetchAll())
+    .then((recipes) => recipes.map(([id, userId, user, name, ingredients, instructions]) => ({
+      id,
+      userId,
+      user,
+      name,
+      ingredients,
+      instructions,
+    })))
+);
+
 const getRecipeById = async (id) => (
   connection()
     .then((schema) => schema
@@ -73,6 +92,7 @@ const deleteRecipe = async (id) => (
 
 module.exports = {
   getRecipeList,
+  getRecipeListById,
   getRecipeById,
   getRecipeBySearch,
   insertRecipe,
