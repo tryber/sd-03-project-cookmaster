@@ -2,7 +2,7 @@ const connection = require('./connection');
 
 const addRecipe = async (userId, userName, recipeName, ingredients, instructions) =>
   connection().then((
-    db, // cria uma receita nova
+    db, // cria uma receita
   ) =>
     db
       .getTable('recipes')
