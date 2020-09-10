@@ -14,20 +14,22 @@ const recipeById = async (
         .bind('id', id) // faz um bind no id
         .execute(),
     )
-    .then(function(results) {results.fetchAll()[0]}) // transforma em um array e pega o primeiro indice
+    .then(function (results) {
+      return results.fetchAll()[0];
+    }) // transforma em um array e pega o primeiro indice
     .then(([recipeId, userId, user, name, ingredients, instructions] = []) =>
-    recipeId
-      ? {
+      recipeId
+        ? {
           id: recipeId,
           userId,
           user,
           name,
           ingredients,
           instructions,
-        }
-      : null,
+          }
+        : null,
     );
 
 module.exports = {
-  recipeId,
+  recipeById,
 };
