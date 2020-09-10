@@ -7,15 +7,6 @@
   </head>
   <body>
     <% if (recipe) console.log('recipe', recipe) %>
-    <% if (recipe) console.log('recipe name:', recipe.name) %>
-    <% if (ingredientsList) console.log('ingredientsList', ingredientsList) %>
-    <% if (recipeName) console.log('recipeName', recipeName) %>
-    <% if (ingredients) console.log('ingredients', ingredients) %>
-    <% if (instructions) console.log('instructions', instructions) %>
-    <% if (deleteIngredient) console.log('deleteIngredient', deleteIngredient) %>
-    <% if (save) console.log('save', save) %>
-    <% if (newList) console.log('newList:', newList) %>
-    <% if (listWithDelete) console.log('listWithDelete:', listWithDelete) %>
 
     <form action="/recipes/<%= recipe.id %>" method="POST">
       <h1>Editar Receita</h1> </br>

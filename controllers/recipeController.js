@@ -98,14 +98,6 @@ const recipeUpdateForm = async (req, res) => {
 
   return res.render('update', {
     recipe,
-    newList: null,
-    recipeName: null,
-    ingredients: null,
-    instructions: null,
-    ingredientsList: null,
-    deleteIngredient: null,
-    save: null,
-    listWithDelete: null,
   });
 };
 
@@ -127,14 +119,6 @@ const recipeUpdate = async (req, res) => {
   if (deleteIngredient || ingredients.length > 0) {
     return res.render('update', {
       recipe,
-      recipeName,
-      ingredients,
-      instructions,
-      ingredientsList,
-      deleteIngredient,
-      save,
-      newList,
-      listWithDelete,
     });
   }
   return res.redirect('/');
