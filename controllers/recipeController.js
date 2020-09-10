@@ -21,13 +21,13 @@ const searchFilterRecipes = async (req, res) => {
   res.render('search', {
     ...filteredRecipes,
     recipes: filteredRecipes ? null : await recipeModel.getRecipes(),
-    validation: filteredRecipes ? true : false,
+    validation: filteredRecipes,
   });
 };
 
 const notFilteredRecipes = async (_req, res) => {
   const recipes = await recipeModel.getRecipes();
-  res.render('search', { recipes, validation: false })
+  res.render('search', { recipes, validation: false });
 };
 
 module.exports = {
