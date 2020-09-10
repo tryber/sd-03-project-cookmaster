@@ -15,8 +15,8 @@ const connect = () => {
   if (schema) return Promise.resolve(schema);
   return mysqlx.getSession(config)
     .then((session) => {
-      schema = session.getSchema(process.env.DB_SCHEMA)
-      return schema
+      schema = session.getSchema(process.env.DB_SCHEMA);
+      return schema;
     })
     .catch((err) => {
       console.error(err);

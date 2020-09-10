@@ -5,7 +5,7 @@ const userModel = require('../models/userModel');
 
 const loginForm = (req, res) => {
   const { token = '' } = req.cookies || {};
-  
+
   if (SESSIONS[token]) return res.redirect('/');
 
   return res.render('admin/login', {
@@ -16,7 +16,7 @@ const loginForm = (req, res) => {
 
 const login = async (req, res, next) => {
   const { email, password, redirect } = req.body;
-  
+
   if (!email || !password)
     return res.render('admin/login', {
       message: 'Preencha o email e a senha',
@@ -24,7 +24,6 @@ const login = async (req, res, next) => {
     });
 
   const user = await userModel.findByEmail(email);
-  await console.log(user);
   if (!user || user.password !== password)
     return res.render('admin/login', {
       message: 'Email ou senha incorretos',
