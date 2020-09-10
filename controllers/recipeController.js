@@ -103,7 +103,7 @@ const recipeUpdateForm = async (req, res) => {
 
 const recipeUpdate = async (req, res) => {
   let newList = null;
-  const { recipeName, ingredients, instructions, deleteIngredient, save } = req.body;
+  const { recipeName, ingredients, instructions, deleteIngredient } = req.body;
   let recipe = await recipeModel.getRecipeById(req.params.id);
   newList = recipe.ingredients;
   const listWithDelete = newList.split(',');
