@@ -28,7 +28,24 @@ const getRecipesById = async (recipeId) => connect()
     instructions,
   }))[0]);
 
+const filterRecipe = async (filterParam) => connect()
+  .then((db) => db
+    .getTable('recipes')
+    .select(['id', 'user', 'name', 'ingredients', 'instructions'])
+    .where('name LIKE :filterParam')
+    .bind('filterParam', `%${filterParam}%`)
+    .execute())
+  .then((result) => result.fetchAll())
+  .then((rows) => rows.map(([id, user, name, ingredients, instructions]) => ({
+    id,
+    user,
+    name,
+    ingredients,
+    instructions,
+  }))[0]);
+
 module.exports = {
   getRecipes,
   getRecipesById,
+  filterRecipe,
 };

@@ -21,7 +21,7 @@
     <% if (user) { %>
       <button data-testid="nova-receita">Nova Receita</button>
     <% } %>
-    <button data-testid="buscar-receita">Buscar Receita</button>
+    <a href="/recipes/search" data-testid="buscar-receita">Buscar Receita</a>
     <% recipes.forEach((recipe) => { %>
       <div>
         <h4><%= recipe.nameRecipe %></h4>
