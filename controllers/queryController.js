@@ -62,10 +62,10 @@ const forms = async (req, res) => {
 };
 
 const editRecipe = async (req, res) => {
-  const { body: {  recipeName, ingredients, recipeHow }, params: { id } } = req;
+  const { body: { recipeName, ingredients, recipeHow }, params: { id } } = req;
   await queryModel.updateRecipe(id, recipeName, ingredients, recipeHow);
   return res.redirect(`/recipes/${id}`);
-}
+};
 
 const deleteRecipe = async (req, res) => {
   const { id } = req.params;
