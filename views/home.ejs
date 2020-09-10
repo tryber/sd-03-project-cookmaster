@@ -5,7 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cookmaster - Home</title>
   </head>
+  <header>
+    <h2>Cookmaster</h2>
+  </header>
   <body>
-    <h1>Boas vindas ao Cookmaster!</h1>
+    <h1>Receitas</h1>
+    <button data-testid="buscar-receita" type="button">Buscar Receita</button>
+    <div>
+      <% recipes.forEach(recipe => { %>
+        <h3><%= recipe.name %></h3>
+        <h4><%= recipe.user %></h4>
+        <a href="">Ver mais</a>
+      <% }) %>
+    </div>
   </body>
 </html>

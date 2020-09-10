@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/betrybe/project-cookmaster#readme",
   "dependencies": {
-    "@mysql/xdevapi": "^8.0.20",
+    "@mysql/xdevapi": "^8.0.21",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.5.0",
     "cookie-parser": "^1.4.5",
