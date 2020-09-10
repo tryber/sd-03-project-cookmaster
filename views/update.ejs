@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Nova Receita</title>
+  </head>
+  <body>
+    <% if (recipe) console.log('recipe', recipe) %>
+    <% if (recipe) console.log('recipe name:', recipe.name) %>
+    <% if (ingredientsList) console.log('ingredientsList', ingredientsList) %>
+    <% if (recipeName) console.log('recipeName', recipeName) %>
+    <% if (ingredients) console.log('ingredients', ingredients) %>
+    <% if (instructions) console.log('instructions', instructions) %>
+    <% if (deleteIngredient) console.log('deleteIngredient', deleteIngredient) %>
+    <% if (save) console.log('save', save) %>
+    <% if (newList) console.log('newList:', newList) %>
+    <% if (listWithDelete) console.log('listWithDelete:', listWithDelete) %>
+
+    <form action="/recipes/<%= recipe.id %>" method="POST">
+      <h1>Editar Receita</h1> </br>
+      <label for="recipe">Nome da Receita</label>
+      <input id="recipe" name="recipeName" value="<%=`${recipe.name}`||''%>" type="text" data-testid="nome-receita" />
+      </br>
+      <label for="ingredients">Ingredientes</label></br>
+
+      <% if(recipe.ingredients.length>0) {%>
+        <% recipe.ingredients.split(',').map((el, index)=>{ %>
+          <p name="ingredientValue" value="<%=`${el}`%>"><%= el %></p>
+          <button name="deleteIngredient" value="<%=`${index}`%>" type="submit">Excluir Ingrediente</button>
+        <%})%>
+      <%}%>
+
+      </br>
+      <input id="ingredient" name="ingredients" type="text" data-testid="ingredientes" />
+      <button formmethod="post" data-testid="adicionar-ingrediente" >Adicionar Ingrediente</button></br>
+
+      <label for="instructions">Modo de preparo</label></br>
+      <textarea
+        id="instructions"
+        name="instructions"
+        rows="5"
+        cols="50"
+        placeholder="Escreva aqui..."
+        data-testid="modo-de-preparo"
+      ><%= recipe.instructions %></textarea></br>
+
+      <a href="/"><button type="button">Voltar</button></a>
+      <button formmethod="post" name="save" value="ok" data-testid="postar-receita">Salvar Receita</button>
+    </form>
+  </body>
+</html>

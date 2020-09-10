@@ -46,6 +46,7 @@ const getRecipeById = async (id) => (
       .execute())
     .then((results) => results.fetchAll()[0])
     .then(([userId, name, ingredients, instructions]) => ({
+      id,
       userId,
       name,
       ingredients,
@@ -80,6 +81,19 @@ const insertRecipe = async (userId, ownerUser, name, ingredients, instructions) 
       .execute())
 );
 
+const updateRecipe = async (id, name, ingredients, instructions) => (
+  connection()
+    .then((schema) => schema
+      .getTable('recipes')
+      .update()
+      .set('name', name)
+      .set('ingredients', ingredients)
+      .set('instructions', instructions)
+      .where('id = :id')
+      .bind('id', id)
+      .execute())
+);
+
 const deleteRecipe = async (id) => (
   connection()
     .then((schema) => schema
@@ -96,5 +110,6 @@ module.exports = {
   getRecipeById,
   getRecipeBySearch,
   insertRecipe,
+  updateRecipe,
   deleteRecipe,
 };

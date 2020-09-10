@@ -93,6 +93,58 @@ const recipeRegister = async (req, res) => {
   });
 };
 
+const recipeUpdateForm = async (req, res) => {
+  const recipe = await recipeModel.getRecipeById(req.params.id);
+
+  return res.render('update', {
+    recipe,
+    newList: null,
+    recipeName: null,
+    ingredients: null,
+    instructions: null,
+    ingredientsList: null,
+    deleteIngredient: null,
+    save: null,
+    listWithDelete: null,
+  });
+};
+
+const recipeUpdate = async (req, res) => {
+  let newList = null;
+  const { recipeName, ingredients, instructions, deleteIngredient, save } = req.body;
+  let recipe = await recipeModel.getRecipeById(req.params.id);
+  newList = recipe.ingredients;
+  const listWithDelete = newList.split(',');
+
+  if (ingredients.length > 0) {
+    listWithDelete.push(ingredients);
+    newList = `${listWithDelete.join()}`;
+  } else if (deleteIngredient) {
+    listWithDelete.splice(deleteIngredient, 1);
+    newList = `${listWithDelete.join()}`;
+  }
+
+  await recipeModel.updateRecipe(req.params.id, recipeName, newList, instructions);
+
+  recipe = await recipeModel.getRecipeById(req.params.id);
+
+  if (deleteIngredient || ingredients.length > 0) {
+    return res.render('update', {
+      recipe,
+      recipeName,
+      ingredients,
+      instructions,
+      ingredientsList,
+      deleteIngredient,
+      save,
+      newList,
+      listWithDelete,
+    });
+  }
+
+  return res.redirect('/');
+};
+
 const deleteForm = async (req, res) => {
   const rcpId = req.params.id;
   return res.render('delete', {
@@ -132,6 +184,8 @@ module.exports = {
   recipeSearch,
   recipeForm,
   recipeRegister,
+  recipeUpdateForm,
+  recipeUpdate,
   deleteForm,
   recipeDelete,
 };
