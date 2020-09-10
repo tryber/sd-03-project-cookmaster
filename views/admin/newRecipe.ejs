@@ -12,7 +12,7 @@
     </div>
     <% } %>
     <form action="/recipes" method="POST">
-      <h2>Nova receita!</h2>
+      <h2>Nova Receita</h2>
       <label
         for="nameInput"
       >
@@ -93,7 +93,7 @@
           label.innerText = INPUT.value;
           INGREDIENTS.push(INPUT.value);
           INGREDIENTSARR.value = INGREDIENTS.join(',')
-          dltBtn.innerText = 'Excluir ingrediente';
+          dltBtn.innerText = 'Excluir Ingrediente';
           li.appendChild(label);
           li.appendChild(dltBtn);
           UL.appendChild(li);
