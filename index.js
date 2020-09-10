@@ -42,12 +42,12 @@ app.get('/recipes/new', middlewares.auth(), (req, res) => {
   return controllers.queryController.newRecipeForm(req, res);
 });
 
-app.get('/recipes/:id', middlewares.auth(false), (req, res) => {
-  return controllers.queryController.getRecipe(req, res);
+app.get('/recipes/:id/delete', middlewares.auth(), (req, res) => {
+  return controllers.queryController.deleteForm(req, res);
 });
 
-app.get('/recipes/:id/delete', middlewares.auth(), (req, res) => {
-  return controllers.userController.deleteForm(req, res);
+app.get('/recipes/:id', middlewares.auth(false), (req, res) => {
+  return controllers.queryController.getRecipe(req, res);
 });
 
 app.get('/me/recipes', middlewares.auth(), (req, res) => {
@@ -65,7 +65,7 @@ app.post('/recipes', middlewares.auth(), (req, res) => {
 });
 
 app.post('/recipes/:id/delete', middlewares.auth(), (req, res) => {
-  return controllers.userController.deleteRecipe(req, res);
+  return controllers.queryController.deleteRecipe(req, res);
 });
 
 app.listen(3000, () => console.log('Listening on 3000'));

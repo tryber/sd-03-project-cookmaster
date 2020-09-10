@@ -60,30 +60,7 @@ const register = async (req, res) => {
   return res.render('admin/login', regisRes);
 };
 
-const deleteForm = async (req, res) => {
-  const user = req.user;
-  const { id } = req.params;
-  if (parseInt(id, 10) === parseInt(user.id, 10)) {
-    return res.render('admin/deleteForm', { message: null, id });
-  }
-  return res.redirect('/');
-};
-
-const deleteRecipe = async (req, res) => {
-  const { id } = req.params;
-  const { pass } = req.body;
-  const user = req.user;
-  const dbUser = await userModel.findById(user.id);
-  if (pass !== dbUser.password) {
-    return res.render('admin/deleteForm', { message: 'Senha incorreta.', id });
-  }
-  await queryModel.deleteRecipe(id);
-  return res.redirect('/');
-};
-
 module.exports = {
-  deleteForm,
-  deleteRecipe,
   login,
   loginForm,
   logout,

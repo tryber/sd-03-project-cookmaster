@@ -1,4 +1,5 @@
 const queryModel = require('../models/queryModel');
+const userModel = require('../models/userModel');
 
 const getRecipes = async (req, res) => {
   const user = req.user;
@@ -49,7 +50,34 @@ const newRecipe = async (req, res) => {
   return res.redirect('/');
 };
 
+
+const deleteForm = async (req, res) => {
+  const user = req.user;
+  const { id } = req.params;
+  const recipe = await queryModel.getRecipeById(id);
+
+  if (recipe.userId === user.id) {
+    return res.render('admin/deleteForm', { message: null, id });
+  }
+  return res.redirect('/');
+};
+
+const deleteRecipe = async (req, res) => {
+  const { id } = req.params;
+  const { pass } = req.body;
+  const user = req.user;
+  const dbUser = await userModel.findById(user.id);
+  if (pass !== dbUser.password) {
+    return res.render('admin/deleteForm', { message: 'Senha Incorreta.', id });
+  }
+  await queryModel.deleteRecipe(id);
+  return res.redirect('/');
+};
+
+
 module.exports = {
+  deleteForm,
+  deleteRecipe,
   getRecipe,
   getRecipes,
   getUserRecipes,
