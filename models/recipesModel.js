@@ -1,7 +1,7 @@
 const connection = require('./connection');
 
 const recipes = async () =>
-  await connection()
+  connection()
     .then((db) =>
       db
         .getTable('recipes')
