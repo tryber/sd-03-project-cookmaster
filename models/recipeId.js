@@ -17,7 +17,7 @@ const recipeById = async (
     .then(function (results) {
       return results.fetchAll()[0];
     }) // transforma em um array e pega o primeiro indice
-    .then(([recipeId, userId, user, name, ingredients, instructions] = []) =>
+    .then(([recipeId, userId, user, name, ingredients, instructions] = []) &&
       recipeId
         ? {
           id: recipeId,
