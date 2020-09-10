@@ -3,7 +3,7 @@ export function verifyContainsText(text) {
 }
 
 export function verifyNotContainsText(text) {
-  cy.contains(text).should('not.exist')
+  cy.contains(text).should('not.exist');
 }
 
 export function clickLinkOrText(text) {
@@ -38,7 +38,7 @@ export function insertText(element, text) {
   cy.get(element).type(text);
 }
 
-export function accessHomeAndLogin(){
+export function accessHomeAndLogin() {
   cy.visit('http://localhost:3000/');
   login(Cypress.env('login'), Cypress.env('password'));
 }
@@ -66,7 +66,7 @@ export function registerUser(email, password, confirmPassword, name, lastName) {
   cy.get('[data-testid="cadastrar"]').click();
 }
 
-export function editUser(email, password, confirmPassword, name, lastName) {
+export function updateUser(email, password, confirmPassword, name, lastName) {
   cy.get('[data-testid="email"]').type(email);
   cy.get('[data-testid="senha"]').type(password);
   cy.get('[data-testid="confirmar-senha"]').type(confirmPassword);
@@ -85,7 +85,7 @@ export function createRecipe() {
 }
 
 export function createDataBase() {
-  return "CREATE DATABASE IF NOT EXISTS cookmaster;";
+  return 'CREATE DATABASE IF NOT EXISTS cookmaster;';
 }
 
 export function createTableUsers() {
@@ -95,11 +95,11 @@ export function createTableUsers() {
                                 email VARCHAR(100) NOT NULL,
                                 password VARCHAR(100) NOT NULL,
                                 first_name VARCHAR(100) NOT NULL,
-                                last_name VARCHAR(100) NOT NULL);`
+                                last_name VARCHAR(100) NOT NULL);`;
   return createTableUsers;
 }
 
-export function createTableRecipes(){
+export function createTableRecipes() {
   const createTableRecipes = `CREATE TABLE IF NOT EXISTS
                                 cookmaster.recipes(
                                   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -107,27 +107,27 @@ export function createTableRecipes(){
                                   name VARCHAR(100) NOT NULL,
                                   ingredients VARCHAR(300) NOT NULL,
                                   instructions VARCHAR(300) NOT NULL,
-                                  FOREIGN KEY (user_id) REFERENCES users(id));`
+                                  FOREIGN KEY (user_id) REFERENCES users(id));`;
   return createTableRecipes;
 }
 
-export function insertUsers(){
+export function insertUsers() {
   const insertUsers = `INSERT INTO cookmaster.users (email, password, first_name, last_name)
                         VALUES
                           ('bruno.batista@gmail.com', '12345678', 'bruno', 'batista'),
                           ('vanessa.morato@gmail.com', '12345678', 'vanessa', 'morato'),
-                          ('carolina.silva@gmail.com', '12345678', 'carolina', 'silva');`
+                          ('carolina.silva@gmail.com', '12345678', 'carolina', 'silva');`;
   return insertUsers;
 }
 
-export function insertRecipes(){
+export function insertRecipes() {
   const insertRecipes = `INSERT INTO cookmaster.recipes (user_id, user, name, ingredients, instructions)
                           VALUES
                             (1, 'bruno batista', 'Receita de Bolo', 'Farinha,ovo,leite', '30 minutos no forno'),
                             (1, 'bruno batista', 'Receita de Cookie', 'Farinha,ovo,leite', '20 minutos no forno'),
                             (1, 'bruno batista', 'Receita de cafe', 'pó de cafe,agua', '10 minutos no fogo'),
                             (1, 'bruno batista', 'Receita de miojo', 'miojo,agua', '3 minutos no fogo'),
-                            (1, 'bruno batista', 'Receita de mexidão', 'ovo,preseunto,queijo', 'mistura e frita na frigideira');`
+                            (1, 'bruno batista', 'Receita de mexidão', 'ovo,preseunto,queijo', 'mistura e frita na frigideira');`;
   return insertRecipes;
 }
 
@@ -141,7 +141,7 @@ export function createAndInsertsDataBase() {
   cy.task('queryDb', insertRecipes());
 }
 
-export function dropAndTruncateDataBase(){
+export function dropAndTruncateDataBase() {
   cy.task('queryDb', 'DELETE FROM cookmaster.recipes;');
   cy.task('queryDb', 'SET FOREIGN_KEY_CHECKS = 0;');
   cy.task('queryDb', 'DELETE FROM cookmaster.users;');

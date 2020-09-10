@@ -3,6 +3,10 @@ const { SESSIONS } = require('../middlewares/auth');
 
 const userModel = require('../models/userModel');
 
+// Referência regex para validação de email:
+// https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
+const regexEmail = /^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+
 const loginForm = (req, res) => {
   const { token = '' } = req.cookies || {};
 
@@ -34,7 +38,7 @@ const login = async (req, res, next) => {
   SESSIONS[token] = user.id;
 
   res.cookie('token', token, { httpOnly: true, sameSite: true });
-  res.redirect(redirect || '/admin');
+  res.redirect(redirect || '/');
 };
 
 const logout = (req, res) => {
@@ -43,8 +47,61 @@ const logout = (req, res) => {
   res.render('admin/logout');
 };
 
+const signupForm = (_req, res) => res.render('signup', { message: null });
+
+const signup = async (req, res) => {
+  const { email, password, passwordConfirm, name, lastName } = req.body;
+
+  if (!regexEmail.test(email))
+    res.render('signup', {
+      message: 'O email deve ter o formato email@mail.com',
+    });
+
+  if (password.length < 5)
+    res.render('signup', {
+      message: 'A senha deve ter pelo menos 6 caracteres',
+    });
+
+  if (password !== passwordConfirm)
+    res.render('signup', {
+      message: 'As senhas tem que ser iguais',
+    });
+
+  if (name.length < 2 || typeof name !== 'string')
+    res.render('signup', {
+      message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+    });
+
+  if (lastName.length < 2 || typeof lastName !== 'string')
+    res.render('signup', {
+      message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+    });
+
+  await userModel.registerUser(email, password, name, lastName);
+
+  res.status(201).render('signup', { message: 'Cadastro efetuado com sucesso!' });
+};
+
+const editUserForm = async (req, res) => {
+  const userInfos = await userModel.findById(req.user.id);
+
+  return res.render('admin/edit-user', { userInfos, message: null, user: req.user });
+};
+
+const editUser = async (req, res) => {
+  const { email, password, name, lastName } = req.body;
+
+  await userModel.updateUser(req.user.id, email, password, name, lastName);
+
+  return res.redirect('/');
+};
+
 module.exports = {
   login,
   loginForm,
   logout,
+  signupForm,
+  signup,
+  editUserForm,
+  editUser,
 };
