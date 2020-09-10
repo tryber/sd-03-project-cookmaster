@@ -37,7 +37,7 @@ const findById = async (uId) => {
     .then((results) => results.fetchAll()[0]);
     if (user) {
       const userData = ([id, email, password, firstName, lastName]) => ({
-        id, email, password, name: `${firstName} ${lastName}`,
+        id, email, password, firstName, lastName,
       });
       return userData(user);
     }
@@ -62,12 +62,10 @@ const getUser = async (uEmail = '') => {
   }
 };
 
-const res = { error: true, message: '' };
 const validateUser = async (user) => {
+  const res = { error: true, message: '' };
   const { email, password, passwordConfirm, name, surname } = user;
   switch (true) {
-    case email === await getUser(email) && password && passwordConfirm && name && surname:
-      return { ...res, message: 'Usuário já cadastrado' };
     case !validadeEmail(email):
       return { ...res, message: 'O email deve ter o formato email@mail.com' };
     case password.length < 6:
@@ -94,12 +92,32 @@ const createUser = async (userData) => {
     const { email, password, name, surname } = userData.user;
     await connect()
       .then((db) => db
-      .getTable('users')
-      .insert(['email', 'password', 'first_name', 'last_name'])
-      .values(email, password, name, surname)
-      .execute());
+        .getTable('users')
+        .insert(['email', 'password', 'first_name', 'last_name'])
+        .values(email, password, name, surname)
+        .execute());
 
     return userData;
+  } catch (err) {
+    return err;
+  }
+};
+
+const updateUser = async (data) => {
+  try {
+    const { id, email, password, name, surname } = data.user;
+    await connect()
+      .then((db) => db
+        .getTable('users')
+        .update()
+        .set('email', email)
+        .set('password', password)
+        .set('first_name', name)
+        .set('last_name', surname)
+        .where('id = :id')
+        .bind('id', id)
+        .execute());
+    return data;
   } catch (err) {
     return err;
   }
@@ -109,5 +127,6 @@ module.exports = {
   createUser,
   findByEmail,
   findById,
+  updateUser,
   validateUser,
 };

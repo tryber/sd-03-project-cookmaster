@@ -11,7 +11,7 @@
       <%= message %>
     </div>
     <% } %>
-    <form action="/register" method="POST">
+    <form action="/me" method="POST">
       <label
         for="emailInput"
       >
@@ -22,6 +22,7 @@
         name="email"
         id="emailInput"
         data-testid="email"
+        value="<%=user.email%>"
       />
       <br />
       <label
@@ -34,6 +35,7 @@
         name="password"
         id="passwordInput"
         data-testid="senha"
+        value="<%=user.password%>"
       />
       <br />
       <label
@@ -58,6 +60,7 @@
         name="name"
         id="nameInput"
         data-testid="nome"
+        value="<%=user.firstName%>"
       />
       <br />
       <label
@@ -70,20 +73,20 @@
         name="surname"
         id="surnameInput"
         data-testid="sobrenome"
+        value="<%=user.lastName%>"
       />
       <br />
       <button
         type="submit"
-        data-testid="cadastrar"
+        data-testid="salvar"
       >
-        Cadastrar
+        Salvar
       </button>
       <button
         type="button"
-        data-testid="login"
-        onclick="window.location.pathname='/login'"
+        onclick="window.location.pathname='/'"
       >
-        Fazer login
+        Cancelar
       </button>
     </form>
   </body>

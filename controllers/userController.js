@@ -59,10 +59,28 @@ const register = async (req, res) => {
   return res.render('admin/login', regisRes);
 };
 
+const updateForm = async (req, res) => {
+  const user = await userModel.findById(req.user.id);
+  return res.render('admin/editUser', { user, message: null });
+};
+
+const updateUser = async (req, res) => {
+  const user = await userModel.findByEmail(req.body.email);
+  req.body.id = user.id;
+  const validation = await userModel.validateUser(req.body);
+  if (validation.error) return res.render('admin/editUser', {
+    message: validation.message, user: req.body
+  });
+  const data = await userModel.updateUser(validation);
+  return res.redirect('/');
+};
+
 module.exports = {
   login,
   loginForm,
   logout,
   registerForm,
   register,
+  updateForm,
+  updateUser,
 };

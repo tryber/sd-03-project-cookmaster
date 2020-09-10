@@ -79,7 +79,6 @@ const deleteRecipe = async (req, res) => {
   return res.redirect('/');
 };
 
-
 module.exports = {
   editRecipe,
   forms,
