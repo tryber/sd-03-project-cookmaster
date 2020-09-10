@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Detalhes</title>
+  </head>
+  <body>
+
+    <% if (token) {%>
+
+      <a href="/recipes/<%= recipeId %>/edit">
+        <button data-testid="editar-receita">Editar Receita</button>
+      </a>
+
+      <a href="/recipes/<%= recipeId %>/delete">
+        <button data-testid="excluir-receita">Excluir Receita</button>
+      </a>
+
+    <% } %>
+
+    <% console.log('token', token); %>
+
+    <% console.log('recipeById', recipeById); %>
+
+    <% console.log('recipeId', recipeId); %>
+
+    <h1><%= `${recipeById.name}` %></h1>
+    <p>Enviado por <%= `${recipeUser.id[3] + ' ' + recipeUser.id[4]}` %> </p>
+
+    <h2>Ingredientes</h2>
+    <p><%= `${recipeById.ingredients}` %></p>
+    <h2>Modo de Preparo</h2>
+    <p><%= `${recipeById.instructions}` %></p>
+  </body>
+</html>

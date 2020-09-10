@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Procurar Receita</title>
+  </head>
+  <body>
+    <form action="/recipes/search" method="GET">
+      <label for="search">Buscar Receitas</label>
+      <input id="search" data-testid="receita" name="query" type="text" />
+      <button type="submit"data-testid="buscar">Buscar</button>
+    </form>
+
+    <% if (query) {%>
+      <% console.log('OQE VEM', recipeBySearch); %>
+      <% console.log('query', query); %>
+      <div>
+        <p><%= recipeBySearch.userId[2] %></p>
+        <p><%= recipeBySearch.userId[1] %></p>
+        <a href=<%= `/recipes/${recipeBySearch.userId[0]}` %>>Ver mais</a>
+      </div>
+    <% } %>
+
+  </body>
+</html>

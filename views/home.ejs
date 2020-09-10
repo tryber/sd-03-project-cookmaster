@@ -6,6 +6,48 @@
     <title>Cookmaster - Home</title>
   </head>
   <body>
-    <h1>Boas vindas ao Cookmaster!</h1>
+    <!-- include Header -->
+    <h1>Cookmaster</h1>
+    <h1>Receitas</h1>
+
+    <% console.log('OQUE VEM', token) %>
+
+    <% if (token) {%>
+
+      <a href="/recipes/new">
+        <button data-testid="nova-receita" type="button">Nova Receita</button>
+      </a>
+
+      <a href="/me/recipes">
+        <button data-testid="minhas-receitas" type="button">Minhas Receitas</button>
+      </a>
+
+      <a href="/me/edit">
+        <button data-testid="minha-conta" type="button">Minha Conta</button>
+      </a>
+
+      <a href="/logout">
+        <button data-testid="logout" type="button">Logout</button>
+      </a>
+
+    <% } else { %>
+      <a href="/login">
+        <button data-testid="login" type="button">Login</button>
+      </a>
+    <% } %>
+
+    <a href="/recipes/search">
+      <button data-testid="buscar-receita" type="button">Buscar Receitas</button>
+    </a>
+
+    <% console.log('recipes',recipes) %>
+    <% recipes.forEach((recipe) => { %>
+      <div>
+        <p><%= recipe.name %></p>
+        <p><%= recipe.user %></p>
+        <a href=<%= `/recipes/${recipe.id}` %>>Ver mais</a>
+      </div>
+    <% }) %>
+
   </body>
 </html>

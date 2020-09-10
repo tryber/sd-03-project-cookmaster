@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Nova Receita</title>
+  </head>
+  <body>
+
+    <form action="/recipes" method="POST">
+      <button>Nova Receita</button> </br>
+      <label for="recipe">Nome da Receita</label>
+      <input id="recipe" name="recipeName" type="text" data-testid="nome-receita" />
+      </br>
+      <label for="ingredients">Ingredientes</label></br>
+
+      <% if (ingredientsList) {%>
+        <% ingredientsList.map((ingredient, index)=>{ %>
+          <span value="<%= ingredient %>"><%= ingredient %></span>
+          <button formmethod="post" name="deleteIngredient" value="<%= index %>">Excluir Ingrediente</button>  </br>
+        <%})%>
+      <% } %>
+
+      </br>
+      <input id="ingredient" name="ingredients" type="text" data-testid="ingredientes" />
+      <button formmethod="post" data-testid="adicionar-ingrediente" >Adicionar Ingrediente</button></br>
+
+      <label for="instructions">Modo de preparo</label></br>
+      <textarea
+        id="instructions"
+        name="instructions"
+        rows="5"
+        cols="50"
+        placeholder="Escreva aqui..."
+        data-testid="modo-de-preparo"
+      ></textarea></br>
+
+      <a href="/recipes/1"><button type="button">Voltar</button></a>
+      <button formmethod="post" name="save" value="ok" data-testid="postar-receita">Salvar Receita</button>
+      <button data-testid="minhas-receitas" type="button">Minhas Receitas</button>
+      <a href="/recipes/5"><button type="button" data-testid="editar-receita">Editar Receita</button></a>
+    </form>
+
+      <% console.log('req body : ', body) %>
+
+      <% console.log('Ingredients list : ', ingredientsList); %>
+
+      <% if (deleteIngredient) console.log('Delete array index  : ', deleteIngredient); %>
+
+      <% if (save) console.log('Array ingredients to string : ', ingredientsList.join(', ')); %>
+
+      <% if (save) console.log('Owner: ', ownerUser); %>
+
+  </body>
+</html>
