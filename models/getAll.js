@@ -13,8 +13,7 @@ const getAll = async () =>
         user,
         name,
       })),
-    )
-    .catch((err) => console.log(err));
+    );
 
 module.exports = {
   getAll,

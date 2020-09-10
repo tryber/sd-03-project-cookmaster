@@ -1,4 +1,4 @@
-const connection = require('./connection');
+// const connection = require('./connection');
 
 /* Quando você implementar a conexão com o banco, não deve mais precisar desse objeto */
 // const TEMP_USER = {

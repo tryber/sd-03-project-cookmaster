@@ -20,8 +20,7 @@ const recipeByName = async (recipe) =>
         ingredients,
         instructions,
       })),
-    )
-    .catch(console.log('Model: Erro no recipeByName'));
+    );
 
 module.exports = {
   recipeByName,

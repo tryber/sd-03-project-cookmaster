@@ -14,20 +14,19 @@ const recipeById = async (
         .bind('id', id) // faz um bind no id
         .execute(),
     )
-    .then((results) => results.fetchAll()[0]) // transforma em um array e pega o primeiro indice
+    .then(function(results) {results.fetchAll()[0]}) // transforma em um array e pega o primeiro indice
     .then(([recipeId, userId, user, name, ingredients, instructions] = []) =>
-      recipeId
-        ? {
-            id: recipeId,
-            userId,
-            user,
-            name,
-            ingredients,
-            instructions,
-          }
-        : null,
-    )
-    .catch(console.log('Model: erro no recipeId'));
+    recipeId
+      ? {
+          id: recipeId,
+          userId,
+          user,
+          name,
+          ingredients,
+          instructions,
+        }
+      : null,
+    );
 
 module.exports = {
   recipeId,
