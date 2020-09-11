@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Login</title>
+  </head>
+  <body>
+    <% if (message) {%>
+    <div class="message">
+      <%= message %>
+    </div>
+    <% } %>
+    <form action="/me" method="POST">
+      <input type="hidden" name="id" value="<%= user.id%>" >
+      <label
+        for="emailInput"
+      >
+        Email:
+      </label>
+      <input
+        type="text"
+        name="email"
+        id="emailInput"
+        data-testid="email"
+        value="<%=user.email%>"
+      />
+      <br />
+      <label
+        for="passwordInput"
+      >
+        Senha:
+      </label>
+      <input
+        type="password"
+        name="password"
+        id="passwordInput"
+        data-testid="senha"
+        value="<%=user.password%>"
+      />
+      <br />
+      <label
+        for="confirmPasswordInput"
+      >
+        Confirmar senha:
+      </label>
+      <input
+        type="password"
+        name="passwordConfirm"
+        id="confirmPasswordInput"
+        data-testid="confirmar-senha"
+      />
+      <br />
+      <label
+        for="nameInput"
+      >
+        Nome:
+      </label>
+      <input
+        type="text"
+        name="name"
+        id="nameInput"
+        data-testid="nome"
+        value="<%=user.firstName%>"
+      />
+      <br />
+      <label
+        for="surnameInput"
+      >
+        Sobrenome:
+      </label>
+      <input
+        type="text"
+        name="surname"
+        id="surnameInput"
+        data-testid="sobrenome"
+        value="<%=user.lastName%>"
+      />
+      <br />
+      <button
+        type="submit"
+        data-testid="salvar"
+      >
+        Salvar
+      </button>
+      <button
+        type="button"
+        onclick="window.location.pathname='/'"
+      >
+        Cancelar
+      </button>
+    </form>
+  </body>
+</html>

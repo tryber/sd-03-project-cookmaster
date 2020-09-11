@@ -1,32 +1,123 @@
-/* Quando você implementar a conexão com o banco, não deve mais precisar desse objeto */
-const TEMP_USER = {
-  id: 'd2a667c4-432d-4dd5-8ab1-b51e88ddb5fe',
-  email: 'taylor.doe@company.com',
-  password: 'password',
-  name: 'Taylor',
-  lastName: 'Doe',
+const connect = require('./connection');
+
+// refatoração para retornar user not found sem quebrar tudo com ajuda do hebert
+const findByEmail = async (uEmail) => {
+  try {
+    const user = await connect()
+      .then((db) => db
+      .getTable('users')
+      .select()
+      .where('email = :email')
+      .bind('email', uEmail)
+      .execute(),
+    )
+    .then((results) => results.fetchAll()[0]);
+    if (user) {
+      const userData = ([id, email, password, firstName, lastName]) => ({
+        id, email, password, name: `${firstName} ${lastName}`,
+      });
+      return userData(user);
+    }
+    return {};
+  } catch (err) {
+    return err;
+  }
 };
 
-/* Substitua o código das funções abaixo para que ela,
-de fato, realize a busca no banco de dados */
-
-/**
- * Busca um usuário através do seu email e, se encontrado, retorna-o.
- * @param {string} email Email do usuário a ser encontrado
- */
-const findByEmail = async (email) => {
-  return TEMP_USER;
+const findById = async (uId) => {
+  try {
+    const user = await connect()
+      .then((db) => db
+      .getTable('users')
+      .select()
+      .where('id = :id')
+      .bind('id', uId)
+      .execute(),
+    )
+    .then((results) => results.fetchAll()[0]);
+    if (user) {
+      const userData = ([id, email, password, firstName, lastName]) => ({
+        id, email, password, firstName, lastName,
+      });
+      return userData(user);
+    }
+    return {};
+  } catch (err) {
+    return err;
+  }
 };
 
-/**
- * Busca um usuário através do seu ID
- * @param {string} id ID do usuário
- */
-const findById = async (id) => {
-  return TEMP_USER;
+// e essas funções daki n iam sair sem ajuda do hebert
+const validadeName = (name = '') => name && !/\d/.test(name) && name.length >= 3;
+
+// regex obtido em: https://stackoverflow.com/questions/742451/what-is-the-simplest-regular-expression-to-validate-emails-to-not-accept-them-bl
+const validadeEmail = (email = '') => email && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+
+const validateUser = async (user) => {
+  const res = { error: true, message: '' };
+  const { email, password, passwordConfirm, name, surname } = user;
+  switch (true) {
+    case !validadeEmail(email):
+      return { ...res, message: 'O email deve ter o formato email@mail.com' };
+    case password.length < 6:
+      return { ...res, message: 'A senha deve ter pelo menos 6 caracteres' };
+    case passwordConfirm !== password:
+      return { ...res, message: 'As senhas tem que ser iguais' };
+    case !validadeName(name):
+      return {
+        ...res,
+        message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+      };
+    case !validadeName(surname):
+      return {
+        ...res,
+        message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+      };
+    default:
+      return { error: false, message: 'Cadastro efetuado com sucesso!', redirect: null, user };
+  }
+};
+
+const createUser = async (userData) => {
+  try {
+    const { email, password, name, surname } = userData.user;
+    const user = await connect()
+      .then((db) => db
+        .getTable('users')
+        .insert(['email', 'password', 'first_name', 'last_name'])
+        .values(email, password, name, surname)
+        .execute());
+    userData.user = user;
+    return userData;
+  } catch (err) {
+    return err;
+  }
+};
+
+const updateUser = async (data) => {
+  try {
+    const { id, email, password, name, surname } = data.user;
+    const user = await connect()
+      .then((db) => db
+        .getTable('users')
+        .update()
+        .set('email', email)
+        .set('password', password)
+        .set('first_name', name)
+        .set('last_name', surname)
+        .where('id = :id')
+        .bind('id', id)
+        .execute());
+    return user;
+  } catch (err) {
+    return err;
+  }
 };
 
 module.exports = {
+  createUser,
   findByEmail,
   findById,
+  updateUser,
+  validateUser,
 };

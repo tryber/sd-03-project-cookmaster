@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Login</title>
+  </head>
+  <body>
+    <% if (message) {%>
+    <div class="message">
+      <%= message %>
+    </div>
+    <% } %>
+    <form action="/recipes" method="POST">
+      <h2>Nova Receita</h2>
+      <label
+        for="nameInput"
+      >
+        Nome da receita:
+      </label>
+      <input
+        type="text"
+        name="recipeName"
+        id="nameInput"
+        data-testid="nome-receita"
+      />
+      <br />
+      <input type="hidden" name="ingredients" id="ingredients" />
+      <ul
+        id="ingredientsList"
+      ></ul>
+      <input
+        type="text"
+        id="ingredientInput"
+        data-testid="ingredientes"
+      >
+      <button
+        type="button"
+        id="addBtn"
+        data-testid="adicionar-ingrediente"
+      >
+        Adicionar
+      </button>
+      <br />
+      <label
+        for="prepareInput"
+      >
+        Modo de preparo:
+      </label>
+      <input
+        type="text"
+        name="recipeHow"
+        id="prepareInput"
+        data-testid="modo-de-preparo"
+      />
+      <br />
+      <button
+        type="submit"
+        data-testid="postar-receita"
+      >
+        Salvar receita
+      </button>
+      <button
+        type="submit"
+        data-testid="login"
+        onclick="window.Location.pathname='/'"
+      >
+        Voltar
+      </button>
+    </form>
+    <script>
+      // code adapted from https://codepen.io/franklynroth/pen/ZYeaBd
+      // and some credits for hebert to help with the arr logic to send through the form
+      const UL = document.getElementById('ingredientsList');
+      const ADDBTN = document.getElementById('addBtn');
+      const INGREDIENTSARR = document.getElementById('ingredients');
+      let INPUT = document.getElementById('ingredientInput');
+      let INGREDIENTS = [];
+
+      const removeIngredient = (li) => {
+        const labelTxt = li.childNodes[0].innerText;
+        INGREDIENTS = INGREDIENTS.filter((elem) => elem !== labelTxt);
+        INGREDIENTSARR.value = INGREDIENTS.join(',')
+        UL.removeChild(li);
+      };
+
+      const createIngredient = () => {
+        if (INPUT.value !== '') {
+          const li = document.createElement('li');
+          const label = document.createElement('label');
+          const dltBtn = document.createElement('button');
+          dltBtn.type = 'button';
+          label.innerText = INPUT.value;
+          INGREDIENTS.push(INPUT.value);
+          INGREDIENTSARR.value = INGREDIENTS.join(',')
+          dltBtn.innerText = 'Excluir Ingrediente';
+          li.appendChild(label);
+          li.appendChild(dltBtn);
+          UL.appendChild(li);
+          dltBtn.addEventListener('click', () => removeIngredient(li));
+          INPUT.value = '';
+        }
+      };
+
+      ADDBTN.onclick = () => createIngredient();
+    </script>
+  </body>
+</html>
