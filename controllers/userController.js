@@ -60,7 +60,7 @@ const register = async (req, res) => {
 };
 
 const updateForm = async (req, res) => {
-  const user = await userModel.findByEmail(req.user.email);
+  const user = await userModel.findById(req.user.id);
   return res.render('admin/editUser', { user, message: null });
 };
 
