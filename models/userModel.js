@@ -96,7 +96,6 @@ const createUser = async (userData) => {
 
 const updateUser = async (data) => {
   try {
-    console.log(data);
     const { id, email, password, name, surname } = data.user;
     const user = await connect()
       .then((db) => db
@@ -109,10 +108,8 @@ const updateUser = async (data) => {
         .where('id = :id')
         .bind('id', id)
         .execute());
-    console.log(user);
     return user;
   } catch (err) {
-    console.log(err);
     return err;
   }
 };
