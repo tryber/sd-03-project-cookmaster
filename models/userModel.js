@@ -19,7 +19,7 @@ const findByEmail = async (Email) => {
   .then((results) => results.fetchAll()[0])
   .then(
     ([id, email, password, firstName, lastName]) =>
-    ({ id, email, password, firstName, lastName })
+    ({ id, email, password, firstName, lastName, })
   )
   .catch((err) => console.error(err));
 };
@@ -40,7 +40,7 @@ const findById = async (Id) => {
   .then((results) => results.fetchAll()[0])
   .then(
     ([id, email, password, firstName, lastName]) =>
-    ({ id, email, password, firstName, lastName })
+    ({ id, email, password, firstName, lastName, })
   )
   .catch((err) => console.error(err));
 };
