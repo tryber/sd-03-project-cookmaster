@@ -80,14 +80,15 @@ const getRecipeByUserId = async (uId) => {
 const updateRecipe = (id, name, ingredients, instructions) => {
   try {
     const recipe = connect()
-      .then((db) => db.getTable('recipes')
-      .update()
-      .set('name', name)
-      .set('ingredients', ingredients)
-      .set('instructions', instructions)
-      .where('id = :id')
-      .bind('id', id)
-      .execute());
+      .then((db) => db
+        .getTable('recipes')
+          .update()
+          .set('name', name)
+          .set('ingredients', ingredients)
+          .set('instructions', instructions)
+          .where('id = :id')
+          .bind('id', id)
+          .execute());
     return recipe;
   } catch (err) {
     return err;
@@ -109,13 +110,13 @@ const createRecipe = async (recipe, user) => {
     if (!recipeName || !ingredients || !recipeHow) {
       return { error: true, message: 'Nenhum campo deve estar vazio!' };
     }
-    await connect()
+    const createdRecipe = await connect()
       .then((db) => db
         .getTable('recipes')
         .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
-        .values(user.id, user.name, recipeName, ingredients, recipeHow)
+        .values(user.id, `${user.firstName} ${user.lastName}`, recipeName, ingredients, recipeHow)
         .execute());
-    return { error: false };
+    return { error: false, createdRecipe };
   } catch (err) {
     return err;
   }

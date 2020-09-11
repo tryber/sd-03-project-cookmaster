@@ -12,6 +12,7 @@
     </div>
     <% } %>
     <form action="/me" method="POST">
+      <input type="hidden" name="id" value="<%= user.id%>" >
       <label
         for="emailInput"
       >

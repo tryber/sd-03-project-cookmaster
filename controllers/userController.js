@@ -60,13 +60,11 @@ const register = async (req, res) => {
 };
 
 const updateForm = async (req, res) => {
-  const user = await userModel.findById(req.user.id);
+  const user = await userModel.findByEmail(req.user.email);
   return res.render('admin/editUser', { user, message: null });
 };
 
 const updateUser = async (req, res) => {
-  const user = await userModel.findByEmail(req.body.email);
-  req.body.id = user.id;
   const validation = await userModel.validateUser(req.body);
   if (validation.error) return res.render('admin/editUser', {
     message: validation.message,

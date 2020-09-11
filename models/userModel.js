@@ -53,15 +53,6 @@ const validadeName = (name = '') => name && !/\d/.test(name) && name.length >= 3
 // regex obtido em: https://stackoverflow.com/questions/742451/what-is-the-simplest-regular-expression-to-validate-emails-to-not-accept-them-bl
 const validadeEmail = (email = '') => email && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
 
-// const getUser = async (uEmail = '') => {
-//   try {
-//     const user = uEmail && (await findByEmail(uEmail));
-//     return user.email;
-//   } catch (err) {
-//     return err;
-//   }
-// };
-
 const validateUser = async (user) => {
   const res = { error: true, message: '' };
   const { email, password, passwordConfirm, name, surname } = user;
@@ -90,13 +81,13 @@ const validateUser = async (user) => {
 const createUser = async (userData) => {
   try {
     const { email, password, name, surname } = userData.user;
-    await connect()
+    const user = await connect()
       .then((db) => db
         .getTable('users')
         .insert(['email', 'password', 'first_name', 'last_name'])
         .values(email, password, name, surname)
         .execute());
-
+    userData.user = user;
     return userData;
   } catch (err) {
     return err;
@@ -105,8 +96,9 @@ const createUser = async (userData) => {
 
 const updateUser = async (data) => {
   try {
+    console.log(data);
     const { id, email, password, name, surname } = data.user;
-    await connect()
+    const user = await connect()
       .then((db) => db
         .getTable('users')
         .update()
@@ -117,8 +109,10 @@ const updateUser = async (data) => {
         .where('id = :id')
         .bind('id', id)
         .execute());
-    return data;
+    console.log(user);
+    return user;
   } catch (err) {
+    console.log(err);
     return err;
   }
 };
