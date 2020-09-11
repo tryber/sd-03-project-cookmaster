@@ -1,8 +1,8 @@
 const Recipes = require('../models/recipeModel');
 
-const listRecipes = async (_req, res) => {
+const listRecipes = async (req, res) => {
   const recipes = await Recipes.getAll();
-  res.render('home', { recipes, message: null });
+  res.render('home', { recipes, user: req.user, message: null });
 };
 
 module.exports = {
