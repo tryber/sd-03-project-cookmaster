@@ -1,3 +1,5 @@
+const connection = require('./connection');
+
 /* Quando você implementar a conexão com o banco, não deve mais precisar desse objeto */
 const TEMP_USER = {
   id: 'd2a667c4-432d-4dd5-8ab1-b51e88ddb5fe',
@@ -15,7 +17,17 @@ de fato, realize a busca no banco de dados */
  * @param {string} email Email do usuário a ser encontrado
  */
 const findByEmail = async (email) => {
-  return TEMP_USER;
+  connection()
+  .then((db) => db
+    .getTable('user')
+    .select(['email', 'password'])
+    .where('email = email')
+    .bind('email', email)
+    .execute()
+  )
+  .then((results) => results.fetchAll()[0])
+  .then(([email, password]) => ({ email, password }))
+  .catch((err) => console.error(err));
 };
 
 /**
@@ -23,7 +35,17 @@ const findByEmail = async (email) => {
  * @param {string} id ID do usuário
  */
 const findById = async (id) => {
-  return TEMP_USER;
+  connection()
+  .then((db) => db
+    .getTable('user')
+    .select(['email'])
+    .where('id = :id')
+    .bind('id', id)
+    .execute()
+  )
+  .then((results) => results.fetchAll()[0])
+  .then(([id]) => ({ id }))
+  .catch((err) => console.error(err));
 };
 
 module.exports = {
