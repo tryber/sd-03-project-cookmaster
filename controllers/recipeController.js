@@ -34,13 +34,13 @@ const notFilteredRecipes = async (_req, res) => {
 
 const recipeRegister = async (req, res) => {
   const { id, fullName } = req.user;
-  
+
   const { recipeName, ingredients, instructions } = req.body;
 
   await recipeModel.addRecipe(id, fullName, recipeName, ingredients, instructions);
 
-  res.render('newRecipe')
-}
+  res.render('newRecipe');
+};
 
 module.exports = {
   recipeDetails,

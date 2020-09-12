@@ -22,12 +22,12 @@ const findByEmail = async (email) => connect()
  * Busca um usuário através do seu ID
  * @param {string} id ID do usuário
  */
-const findById = async (id) => connect()
+const findById = async (userId) => connect()
   .then((db) => db
     .getTable('users')
     .select('id', 'email', 'password', 'first_name', 'last_name')
     .where('id = :id')
-    .bind('id', id)
+    .bind('id', userId)
     .execute())
   .then((result) => result.fetchAll())
   .then((rows) => rows.map(([id, email, password, name, lastName]) => ({
@@ -36,7 +36,7 @@ const findById = async (id) => connect()
     password,
     name,
     lastName,
-    fullName: `${name} ${lastName}`
+    fullName: `${name} ${lastName}`,
   }))[0]);
 
 module.exports = {
