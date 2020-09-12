@@ -6,14 +6,14 @@ connection()
   .then((results) => results.fetchAll())
   .then((recipes) => recipes.map(([id, name, user]) => ({ id, name, user })));
 
-const getRecipeById = async (id) =>
+const getRecipeById = async (Id) =>
 connection()
   .then((db) =>
     db
       .getTable('recipes')
       .select(['id', 'user_id', 'user', 'name', 'ingredients', 'instructions'])
       .where('id = :id')
-      .bind('id', id)
+      .bind('id', Id)
       .execute(),
   )
   .then((results) => results.fetchAll()[0])
