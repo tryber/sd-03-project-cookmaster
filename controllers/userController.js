@@ -16,18 +16,20 @@ const loginForm = (req, res) => {
 
 const login = async (req, res, next) => {
   const { email, password, redirect } = req.body;
-  if (!email || !password)
+  if (!email || !password) {
     return res.render('admin/login', {
       message: 'Preencha o email e a senha',
       redirect: null,
     });
+  }
 
   const user = await userModel.findByEmail(email);
-  if (!user || user.password !== password)
+  if (!user || user.password !== password) {
     return res.render('admin/login', {
       message: 'Email ou senha incorretos',
       redirect: null,
     });
+  }
 
   const token = uuid();
   SESSIONS[token] = user.id;
@@ -42,8 +44,11 @@ const logout = (req, res) => {
   res.render('admin/logout');
 };
 
+const SignUpPage = (req, res) => res.render('signup', { message: null });
+
 module.exports = {
   login,
   loginForm,
   logout,
+  SignUpPage,
 };
