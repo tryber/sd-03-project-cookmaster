@@ -8,27 +8,23 @@
 </head>
 
 <body>
-  <h1>Cookmaster</h1>
-  <% if (recipes) {%>
-    <h2>Receitas</h2>
-    <% recipes.map(recipe => { %>
-      <div>
-        <p><%= recipe.name %></p>
-        <p>Autor: <%= recipe.user %></p>
-        <a href="/recipes/<%= recipe.id %>">Ver mais</a>
-      </div>
-      <% if (user === recipe.user) {%>
+  <%- include('navbar', {user: user, area: "Home"}); %>
+  <div>
+    <%if(user){%> <button data-testid="nova-receita">Nova Receita</button> <%}%>
+    <button data-testid="buscar-receita">Buscar Receita</button>
+  </div>
+  <div>
+    <% if (recipes) {%>
+      <h2>Receitas</h2>
+      <% recipes.map(recipe => { %>
         <div>
-          <a href="recipes/:id/edit">
-            <button type="button" data-testid="editar-receita">Editar Receita</button>
-          </a>
-          <a href="recipes/:id/delete">
-            <button type="button" data-testid="excluir-receita">Excluir Receita</button>
-          </a>
+          <p><%= recipe.name %></p>
+          <p>Autor: <%= recipe.user %></p>
+          <a href="/recipes/<%= recipe.id %>">Ver mais</a>
         </div>
-      <%}%>
-    <%})%>
-  <%}%>
+      <%})%>
+    <%}%>
+  </div>
 </body>
 
 </html>
