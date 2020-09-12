@@ -43,18 +43,18 @@ const logout = (req, res) => {
   res.render('admin/logout');
 };
 
+const validateEmail = (email) => {
+  const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return regex.test(email);
+}  // based on https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+
+const onlyLetters = (string) => {
+  const regex = /^[A-Za-z]+$/;
+  return regex.test(string);
+}  // based on https://www.w3resource.com/javascript/form/all-letters-field.php
+
 const register = async (req, res) => {
   const { email, password, confirmPassword, name, lastName } = req.body;
-
-  const validateEmail = (email) => {
-    const regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return regex.test(email);
-  }  // based on https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
-
-  const onlyLetters = (string) => {
-    const regex = /^[A-Za-z]+$/;
-    return regex.test(string);
-  }  // based on https://www.w3resource.com/javascript/form/all-letters-field.php
 
   switch (true) {
     case (!validateEmail(email)):
