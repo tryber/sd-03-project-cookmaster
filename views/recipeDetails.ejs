@@ -10,8 +10,8 @@
   <span><%= user %></span>
   <div>
   <% if (userValidation) { %>
-    <a href="/edit" data-testid="editar-receita">Editar Receita</a>
-    <a href="/delete" data-testid="excluir-receita">Excluir Receita</a>
+    <a href="/recipes/<%= id %>/edit" data-testid="editar-receita">Editar Receita</a>
+    <a href="/recipes/<%= id %>/delete" data-testid="excluir-receita">Excluir Receita</a>
   <% } %>
   </div>
   <h3>Ingredientes</h3>

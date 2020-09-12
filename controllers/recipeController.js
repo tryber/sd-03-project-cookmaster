@@ -39,7 +39,9 @@ const recipeRegister = async (req, res) => {
 
   await recipeModel.addRecipe(id, fullName, recipeName, ingredients, instructions);
 
-  res.render('newRecipe');
+  const recipes = await recipeModel.getRecipes();
+
+  res.render('home', { recipes, user: req.user });
 };
 
 module.exports = {
