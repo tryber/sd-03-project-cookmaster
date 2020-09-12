@@ -44,8 +44,24 @@ const filterRecipe = async (filterParam) => connect()
     instructions,
   }))[0]);
 
+const addRecipe = async (
+  userId,
+  user,
+  name,
+  ingredients,
+  instructions,
+) => {
+  const db = await connect();
+
+  await db.getTable('recipes')
+    .insert((['user_id', 'user', 'name', 'ingredients', 'instructions']))
+    .values(userId, user, name, ingredients, instructions)
+    .execute();
+};
+
 module.exports = {
   getRecipes,
   getRecipesById,
   filterRecipe,
+  addRecipe,
 };

@@ -25,16 +25,18 @@ const findByEmail = async (email) => connect()
 const findById = async (id) => connect()
   .then((db) => db
     .getTable('users')
-    .select('email', 'password', 'first_name', 'last_name')
+    .select('id', 'email', 'password', 'first_name', 'last_name')
     .where('id = :id')
     .bind('id', id)
     .execute())
   .then((result) => result.fetchAll())
-  .then((rows) => rows.map(([email, password, name, lastName]) => ({
+  .then((rows) => rows.map(([id, email, password, name, lastName]) => ({
+    id,
     email,
     password,
     name,
     lastName,
+    fullName: `${name} ${lastName}`
   }))[0]);
 
 module.exports = {

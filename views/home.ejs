@@ -19,7 +19,7 @@
     <div></div>
     <h2>Receitas</h2>
     <% if (user) { %>
-      <button data-testid="nova-receita">Nova Receita</button>
+      <a href="/recipes/new" data-testid="nova-receita">Nova Receita</a>
     <% } %>
     <a href="/recipes/search" data-testid="buscar-receita">Buscar Receita</a>
     <% recipes.forEach((recipe) => { %>
