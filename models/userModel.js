@@ -52,8 +52,8 @@ const addUser = (email, password, name, lastName) => {
       .getTable('users')
       .insert(['email', 'password', 'first_name', 'last_name'])
       .values(email, password, name, lastName)
-      .execute()
-    )
+      .execute(),
+    );
 };
 
 module.exports = {
