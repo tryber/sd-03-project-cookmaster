@@ -10,27 +10,25 @@
 <body>
   <h1>Cookmaster</h1>
   <% if (recipes) {%>
-  <div>
     <h2>Receitas</h2>
     <% recipes.map(recipe => { %>
-    <div>
-      <p><%= recipe.name %></p>
-      <p>Autor: <%= recipe.user %></p>
-      <a href="/recipes/<%= recipe.id %>">Ver mais</a>
-    </div>
-    <%})%>
-  </div>
-  <% if (user === recipe.user) {%>
-    <div>
-      <a href="recipes/:id/edit">
-        <button type="button" data-testid="editar-receita">Editar Receita</button>
-      </a>
-      <a href="recipes/:id/delete">
-        <button type="button" data-testid="excluir-receita">Excluir Receita</button>
-      </a>
+      <div>
+        <p><%= recipe.name %></p>
+        <p>Autor: <%= recipe.user %></p>
+        <a href="/recipes/<%= recipe.id %>">Ver mais</a>
       </div>
-    <%}%>
-  <% } %>
+      <% if (user === recipe.user) {%>
+        <div>
+          <a href="recipes/:id/edit">
+            <button type="button" data-testid="editar-receita">Editar Receita</button>
+          </a>
+          <a href="recipes/:id/delete">
+            <button type="button" data-testid="excluir-receita">Excluir Receita</button>
+          </a>
+        </div>
+      <%}%>
+    <%})%>
+  <%}%>
 </body>
 
 </html>
