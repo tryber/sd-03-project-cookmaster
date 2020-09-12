@@ -6,32 +6,40 @@
     <title>Cookmaster</title>
   </head>
   <body>
+    <div class="container">
+      <header>
+        <h1>Cookmaster</h1>
 
-    <% if(!user) { %>
-      <a href="/login" data-testid="login">Login</a>
-    <% } %>
-    <% if(user) { %>
-      <a href="/logout" data-testid="logout">Logout</a>
-    <% } %>
+        <% if (user) { %>
+        <div class="logado">
+          <h5><%= user.name %> <%=user.leastName %></h5>
+          <a href="/logout" data-testid="logout">Logout</a>
+        </div>
+        <% } else { %>
+        <a href="/login"><h3 data-testid="login">Login</h3></a>
+        <% } %>
 
-    <% if(user) { %>
-      <button href="/login" data-testid="nova-receita">nova receita</button>
-    <% } %>
+      </header>
 
-    <h1>Boas vindas ao Cookmaster!</h1>
+      <div class="mid">
+        <div class="cima">
+          <h2>Receitas</h2>
+          <% if (user) { %>
+          <button data-testid="nova-receita">Nova Receita</button>
+          <% } %>
+          <button data-testid="buscar-receita">Buscar Receitas</button>
+        </div>
 
-    <h2>Receitas</h2>
-    <button onclick="window.location.pathname='/recipes/search'" data-testid="buscar-receita">
-      Buscar receitas
-    </button>
-
-			<% for(let i = 0; i < allrecipes.length; i++){ %>
-				<div class="receita">
-					<p class="receita-name"><%= allrecipes[i].name %></p>
-					<p class="receita-user"><%= allrecipes[i].user %></p>
-          <a href=<%= `/recipes/${allrecipes[i].id}` %>>Ver mais</a>
-				</div>
-			<% } %>
-
+        <% if(recipes) { %>
+          <div class="card">
+           <% recipes.map( x => {%>
+          <h3><%= x.name %></h3>
+          <p><%= x.user %></p>
+          <a href="/recipes/<%= x.id %>">Ver mais</a>
+          <% }) %>
+        </div>
+        <% } %>
+      </div>
+    </div>
   </body>
 </html>

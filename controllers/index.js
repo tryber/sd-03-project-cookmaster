@@ -1,7 +1,8 @@
+//user
 const userController = require('./userController');
-const renderRecipes = require('./recipeController');
-
+//recipe
+const getAllrecipes = require('./recipeController/getAll');
 module.exports = {
   userController,
-  renderRecipes,
+  getAllrecipes
 };
