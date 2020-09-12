@@ -46,33 +46,39 @@ const logout = (req, res) => {
 
 const SignUpPage = (req, res) => res.render('signup', { message: null });
 
+// email validation Regex found at https://www.w3resource.com/javascript/form/email-validation.php
+const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
 const signUp = async (req, res) => {
   const {
     email, password, passwordConfirm, firstName, lastName,
   } = req.body;
-  // email validation Regex found at https://www.w3resource.com/javascript/form/email-validation.php
-  const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-  const emailValidation = regex.test(email);
-  if (!emailValidation) {
-    return res.render('signup',
+
+  if (!regex.test(email)) {
+    res.render('signup',
       { message: 'O email deve ter o formato email@mail.com' });
   }
   if (password.length < 6) {
-    return res.render('signup',
-      { message: 'A senha deve ter pelo menos 6 caracteres' });
+    res.render('signup', { message: 'A senha deve ter pelo menos 6 caracteres' });
   }
+
   if (password !== passwordConfirm) {
-    return res.render('signup',
-      { message: 'As senhas tem que ser iguais' });
+    res.render('signup', {
+      message: 'As senhas tem que ser iguais',
+    });
   }
   if (firstName.length < 3) {
-    return res.render('signup',
-      { message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' });
+    res.render('signup', {
+      message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+    });
   }
+
   if (lastName.length < 3) {
-    return res.render('signup',
-      { message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' });
+    res.render('signup', {
+      message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+    });
   }
+
   await userModel.createUser(email, password, firstName, lastName);
   res.status(201).render('signup', { message: 'Cadastro efetuado com sucesso!' });
 };
