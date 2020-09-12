@@ -8,6 +8,7 @@
   <header>
     <h2>Cookmaster</h2>
     <% if (user) { %>
+      <p><%= `${user.firstName} ${user.lastName}` %></p>
       <a data-testid="logout" href="/logout">Logout</a>
     <% } else { %>
       <a data-testid="login" href="/login">Login</a>
@@ -23,7 +24,7 @@
       <% recipes.forEach(recipe => { %>
         <h3><%= recipe.name %></h3>
         <h4><%= recipe.user %></h4>
-        <a href="">Ver mais</a>
+        <a href="/recipes/<%= recipe.id %>">Ver mais</a>
       <% }) %>
     </div>
   </body>
