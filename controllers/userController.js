@@ -57,29 +57,23 @@ const signUp = async (req, res) => {
     return res.render('signup',
       { message: 'O email deve ter o formato email@mail.com' });
   }
-
   if (password.length < 6) {
     return res.render('signup',
       { message: 'A senha deve ter pelo menos 6 caracteres' });
   }
-
   if (password !== passwordConfirm) {
     return res.render('signup',
       { message: 'As senhas tem que ser iguais' });
   }
-
   if (firstName.length < 3) {
     return res.render('signup',
       { message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' });
   }
-
   if (lastName.length < 3) {
     return res.render('signup',
       { message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras' });
   }
-
   await userModel.createUser(email, password, firstName, lastName);
-
   res.status(201).render('signup', { message: 'Cadastro efetuado com sucesso!' });
 };
 
