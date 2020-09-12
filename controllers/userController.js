@@ -50,9 +50,7 @@ const SignUpPage = (req, res) => res.render('signup', { message: null });
 const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 const signUp = async (req, res) => {
-  const {
-    email, password, passwordConfirm, firstName, lastName,
-  } = req.body;
+  const { email, password, passwordConfirm, firstName, lastName } = req.body;
 
   if (!regex.test(email)) {
     res.render('signup',
