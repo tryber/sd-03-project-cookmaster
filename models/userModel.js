@@ -1,7 +1,7 @@
 const connect = require('./connection');
 
 const findByEmail = async (email) => {
-  connect()
+  return connect()
     .then((db) => db
       .getTable('users')
       .select(['id', 'email', 'password', 'first_name', 'last_name'])
@@ -19,7 +19,7 @@ const findByEmail = async (email) => {
 };
 
 const findById = async (id) => {
-  connect()
+  return connect()
     .then((db) => db
       .getTable('users')
       .select(['id', 'email', 'password', 'first_name', 'last_name'])

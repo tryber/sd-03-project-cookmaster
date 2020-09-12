@@ -11,7 +11,7 @@
       <% if (!user) {%>
       <button data-testid="login" onclick="window.location.pathname='/login'">Login</button>
       <%}%> <% if (user) {%>
-      <span><%= user.name %> <%=user.lastName %></span>
+      <span><%=user.firstName%> <%=user.lastName%></span>
       <button data-testid="logout" onclick="window.location.pathname='/logout'">Logout</button>
       <%}%>
     </nav>
