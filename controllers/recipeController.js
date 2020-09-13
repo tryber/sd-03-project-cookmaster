@@ -61,7 +61,7 @@ const deleteRecipeValidate = async (req, res) => {
     });
   }
 
-  res.render('deleteRecipe', { id, mensage: 'Senha Incorreta.' })
+  res.render('deleteRecipe', { id, mensage: 'Senha Incorreta.' });
 };
 
 module.exports = {
