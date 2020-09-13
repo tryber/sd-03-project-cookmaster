@@ -23,8 +23,8 @@ connection()
     console.error(err);
   });
 
-const addRecipe = (userId, user, name, ingredients, instructions) => {
-  return connection()
+const addRecipe = (userId, user, name, ingredients, instructions) =>
+  connection()
     .then((db) =>
       db
       .getTable('recipes')
@@ -32,7 +32,6 @@ const addRecipe = (userId, user, name, ingredients, instructions) => {
       .values(userId, user, name, ingredients, instructions)
       .execute(),
     );
-};
 
 module.exports = {
   getAll,
