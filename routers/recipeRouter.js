@@ -14,5 +14,11 @@ recipe.get('/new', middlewares.auth(), (_req, res) => {
 recipe.post('/new', middlewares.auth(), recipeController.recipeRegister);
 
 recipe.get('/:id', middlewares.auth(false), recipeController.recipeDetails);
+recipe.get('/:id/delete', middlewares.auth(), (req, res) => {
+  const { id } = req.user;
+  res.render('deleteRecipe', { id, mensage: null });
+});
+
+recipe.post('/:id/delete', middlewares.auth(), recipeController.deleteRecipeValidate);
 
 module.exports = recipe;
