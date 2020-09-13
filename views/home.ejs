@@ -10,12 +10,12 @@
 <body>
   <%- include('navbar', {user: user, area: "Home"}); %>
   <div>
-    <%if(user){%> 
+    <%if(user){%>
       <button
       onclick="window.location.pathname='/recipes/new'"
-      data-testid="nova-receita">Nova Receita</button> 
+      data-testid="nova-receita">Nova Receita</button>
   <%}%>
-  <button 
+  <button
       onclick="window.location.pathname='/recipes/search'"
       data-testid="buscar-receita">Buscar Receita</button>
   </div>
