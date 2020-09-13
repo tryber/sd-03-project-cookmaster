@@ -10,10 +10,14 @@
 <body>
   <%- include('navbar', {user: user, area: "Home"}); %>
   <div>
-    <%if(user){%> <button data-testid="nova-receita">Nova Receita</button> <%}%>
-    <a href="/recipes/search">
-      <button data-testid="buscar-receita">Buscar Receita</button>
-    </a>
+    <%if(user){%> 
+      <button
+      onclick="window.location.pathname='/recipes/new'"
+      data-testid="nova-receita">Nova Receita</button> 
+  <%}%>
+  <button 
+      onclick="window.location.pathname='/recipes/search'"
+      data-testid="buscar-receita">Buscar Receita</button>
   </div>
   <div>
     <% if (recipes) {%>
