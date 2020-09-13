@@ -20,7 +20,7 @@ const registration = async (req, res) => {
 const editRegistration = async (req, res) => {
   const { id } = req.user;
   const { email, password, confirmPassword, name, lastName } = req.body;
-  
+
   const { validation } = await registerModel.isValidUser(
     email, password, confirmPassword, name, lastName,
   );
@@ -29,7 +29,7 @@ const editRegistration = async (req, res) => {
     await registerModel.editUser(id, email, password, name, lastName);
     res.redirect('/');
   }
-  
+
   res.render('editUser', { ...req.user });
 };
 

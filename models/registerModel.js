@@ -35,7 +35,6 @@ const editUser = async (
 };
 
 const isValidUser = (email, password, confirmPassword, firstName, lastName) => {
-  console.log(firstName)
   switch (true) {
     case (!/[A-Z0-9]{1,}@[A-Z0-9]{2,}\.[A-Z0-9]{2,}/i.test(email)):
       return { validation: false, message: 'O email deve ter o formato email@mail.com' };
