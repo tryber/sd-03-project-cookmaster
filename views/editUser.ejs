@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edição de usuario</title>
+</head>
+<body>
+  <form method="POST" action="/me">
+    <label for="email">
+      Email
+      <input type="email" value='<%= email %>' name="email" data-testid="email" />
+    </label>
+    <label for="password">
+      Senha
+      <input type="password" name="password" data-testid="senha"/>
+    </label>
+    <label for="confirm-password">
+      Confirmar Senha
+      <input type="password" name="confirmPassword" data-testid="confirmar-senha" />
+    </label>
+    <label for="name">
+      Nome
+      <input type="text" name="name" value='<%= name %>' data-testid="nome" />
+    </label>
+    <label for="lastName">
+      Sobrenome
+      <input type="text" name="lastName" data-testid="sobrenome" value='<%= lastName %>' />
+    </label>
+    <a data-testid="login" href="/login" data-testid="login">Fazer Login</a>
+    <button data-testid="salvar" type="submit">Salvar</button>
+  </form>
+</body>

@@ -17,6 +17,23 @@ const registration = async (req, res) => {
   res.render('cadaster', { ...userValidation });
 };
 
+const editRegistration = async (req, res) => {
+  const { id } = req.user;
+  const { email, password, confirmPassword, name, lastName } = req.body;
+  
+  const { validation } = await registerModel.isValidUser(
+    email, password, confirmPassword, name, lastName,
+  );
+
+  if (validation) {
+    await registerModel.editUser(id, email, password, name, lastName);
+    res.redirect('/');
+  }
+  
+  res.render('editUser', { ...req.user });
+};
+
 module.exports = {
   registration,
+  editRegistration,
 };

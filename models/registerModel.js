@@ -14,7 +14,28 @@ const registerUser = async (
     .execute();
 };
 
+const editUser = async (
+  id,
+  email,
+  password,
+  firstName,
+  lastName,
+) => {
+  const db = await connect();
+
+  await db.getTable('users')
+    .update()
+    .set('email', email)
+    .set('password', password)
+    .set('first_name', firstName)
+    .set('last_name', lastName)
+    .where('id = :id')
+    .bind('id', id)
+    .execute();
+};
+
 const isValidUser = (email, password, confirmPassword, firstName, lastName) => {
+  console.log(firstName)
   switch (true) {
     case (!/[A-Z0-9]{1,}@[A-Z0-9]{2,}\.[A-Z0-9]{2,}/i.test(email)):
       return { validation: false, message: 'O email deve ter o formato email@mail.com' };
@@ -40,4 +61,5 @@ const isValidUser = (email, password, confirmPassword, firstName, lastName) => {
 module.exports = {
   registerUser,
   isValidUser,
+  editUser,
 };
