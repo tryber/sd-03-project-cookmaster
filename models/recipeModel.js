@@ -23,7 +23,19 @@ connection()
     console.error(err);
   });
 
+const addRecipe = (userId, user, name, ingredients, instructions) => {
+  return connection()
+    .then((db) =>
+      db
+      .getTable('recipes')
+      .insert([userId, user, name, ingredients, instructions])
+      .values(userId, user, name, ingredients, instructions)
+      .execute(),
+    );
+};
+
 module.exports = {
   getAll,
   getRecipeById,
+  addRecipe,
 };
