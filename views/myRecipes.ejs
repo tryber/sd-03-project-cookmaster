@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minhas Receitas</title>
+</head>
+<body>
+  <header>
+    <h2>Minhas Receitas</h2>
+  </header>
+  <a href="/recipes/new"></a>
+  <% recipes.forEach((recipe) => { %>
+    <div>
+      <h4><%= recipe.name %></h4>
+      <h5><%= recipe.user %></h5>
+      <a href="/recipes/<%= recipe.id %>">Ver mais</a>
+    </div>
+  <% }) %>
+</body>
+</html>

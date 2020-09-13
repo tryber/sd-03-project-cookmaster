@@ -16,10 +16,10 @@
         <a href="/login" data-testid="login">Login</a>
       <% } %>
     </header>
-    <div></div>
     <h2>Receitas</h2>
     <% if (user) { %>
       <a href="/recipes/new" data-testid="nova-receita">Nova Receita</a>
+      <a href="/me/recipes" data-testid="minhas-receitas">Minhas Receitas</a>
     <% } %>
     <a href="/recipes/search" data-testid="buscar-receita">Buscar Receita</a>
     <% recipes.forEach((recipe) => { %>

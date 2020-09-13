@@ -82,6 +82,20 @@ const deleteRecipe = async (id) => {
     .execute();
 };
 
+const filterRecipesByUser = async (userId) => connect()
+  .then((db) => db
+    .getTable('recipes')
+    .select(['user_id', 'user', 'name'])
+    .where('user_id = :user_id')
+    .bind('user_id', userId)
+    .execute())
+  .then((result) => result.fetchAll())
+  .then((rows) => rows.map(([id, user, name]) => ({
+    id,
+    user,
+    name,
+  })));
+
 module.exports = {
   getRecipes,
   getRecipesById,
@@ -89,4 +103,5 @@ module.exports = {
   addRecipe,
   editRecipe,
   deleteRecipe,
+  filterRecipesByUser,
 };
