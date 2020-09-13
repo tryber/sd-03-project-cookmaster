@@ -16,10 +16,12 @@
   </header>
   <body>
     <h1>Buscar Receitas</h1>
-    <input data-testid="receita" type="text" name="receita" id="search" />
-    <button data-testid="buscar" type="button">Buscar</button>
+    <form action="/recipes/search" method="GET">
+      <input data-testid="receita" type="text" name="q" id="search" />
+      <button data-testid="buscar" type="submit">Buscar</button>
+    </form>
     <div>
-      <% recipes.forEach(recipe => { %>
+      <% recipes.map(recipe => { %>
         <h3><%= recipe.name %></h3>
         <h4><%= recipe.user %></h4>
         <a href="/recipes/<%= recipe.id %>">Ver mais</a>

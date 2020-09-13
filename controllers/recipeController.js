@@ -12,7 +12,7 @@ const recipeDetail = async (req, res) => {
 };
 
 const searchRecipes = async (req, res) => {
-  const recipes = await Recipes.getAll();
+  const recipes = await Recipes.getSearchRecipe(req.query.q);
   res.render('search', { recipes, user: req.user, message: null });
 };
 

@@ -19,9 +19,7 @@ connection()
   .then((results) => results.fetchAll()[0])
   .then(([id, userId, user, name, ingredients, instructions]) =>
   ({ id, userId, user, name, ingredients, instructions }))
-  .catch((err) => {
-    console.error(err);
-  });
+  .catch((err) => { console.error(err); });
 
 const addRecipe = (userId, user, name, ingredients, instructions) =>
   connection()
@@ -33,8 +31,23 @@ const addRecipe = (userId, user, name, ingredients, instructions) =>
       .execute(),
     );
 
+const getSearchRecipe = async (Name) =>
+connection()
+  .then((db) =>
+    db
+      .getTable('recipes')
+      .select(['id', 'name', 'user'])
+      .where('name like :name')
+      .bind('name', Name)
+      .execute(),
+  )
+  .then((results) => results.fetchAll())
+  .then((recipes) => recipes.map(([id, name, user]) => ({ id, name, user })))
+  .catch((err) => { console.error(err); });
+
 module.exports = {
   getAll,
   getRecipeById,
   addRecipe,
+  getSearchRecipe,
 };
