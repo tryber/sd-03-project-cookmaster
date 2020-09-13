@@ -1,6 +1,5 @@
 const recipeModel = require('../models/recipesModel');
 const userModel = require('../models/userModel');
-const connect = require('../models/connection');
 
 const recipeDetails = async (req, res) => {
   const { id } = req.params;
@@ -53,7 +52,7 @@ const deleteRecipeValidate = async (req, res) => {
 
   if (password === confirmationPassword) {
     await recipeModel.deleteRecipe(id);
-    res.redirect('/')
+    res.redirect('/');
   }
 
   res.render('deleteRecipe', { id, mensage: 'Senha Incorreta.' });
