@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search</title>
+</head>
+<body>
+  <form action="/recipes/search" method="POST">
+    <input type="text" name="searchFilter" data-testid="receita">
+    <button data-testid="buscar"> Buscar </button>
+  </form>
+  <% if (recipes && !validation) { %>
+    <% recipes.forEach((recipe) => { %>
+      <div>
+        <h4><%= recipe.nameRecipe %></h4>
+        <h5><%= recipe.user %></h5>
+        <a href="/recipes/<%= recipe.id %>">Ver mais</a>
+      </div>
+    <% }) %>
+  <% } else { %>
+    <div>
+      <h4><%= name %></h4>
+      <h5><%= user %></h5>
+      <a href="/recipes/<%= id %>">Ver mais</a>
+    </div>
+  <% } %>
+</body>
+</html>

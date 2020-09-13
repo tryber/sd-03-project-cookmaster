@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nova Receita</title>
+</head>
+<body>
+  <h1>Nova Receita</h1>
+  <form action="/recipes/new" method="POST">
+    <div>
+      <label for="recipeName">Nome da Receita</label>
+      <input type="text" name="recipeName" data-testid="nome-receita">
+    </div>
+    <div>
+      <ul id="list"></ul>
+      <label for="ingredients">
+        <input type="text" id="ingredientInput" data-testid="ingredientes" />
+        <button id="ingredientsBtn" data-testid="adicionar-ingrediente" type="button">
+          Adicionar Ingrediente
+        </button>
+        <input type="text" id="hidden" name="ingredients" />
+      </label>
+    </div>
+    <label for="instructions"
+    >Modo de Preparo
+    <input type="text" name="instructions" data-testid="modo-de-preparo" width="500px" />
+  </label>
+  <div>
+    <button data-testid="postar-receita" type="submit">Salvar Receita</button>
+  </div>
+  </form>
+</body>
+<script>
+  const ingredientsList = [];
+  const ingredientsStr = ingredientsList.join(', ');
+  document.getElementById('ingredientsBtn').addEventListener('click', () => {
+    const input = document.getElementById('ingredientInput');
+    const list = document.getElementById('list');
+    const p = document.createElement('p');
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+    const hiddenInput = document.getElementById('hidden');
+    p.innerText = input.value;
+    li.appendChild(p);
+    btn.innerText = 'Excluir Ingrediente';
+    btn.type = 'button';
+    btn.addEventListener('click', ({ target }) => {
+      const index = ingredientsList.indexOf(input.value);
+      ingredientsList.slice(index, 1);
+      hiddenInput.value = ingredientsList.join(', ');
+      target.parentNode.remove();
+    });
+    li.appendChild(btn);
+    list.appendChild(li);
+    ingredientsList.push(input.value);
+    hiddenInput.value = ingredientsList.join(', ');
+  });
+</script>
+</html>

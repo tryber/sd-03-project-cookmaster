@@ -24,6 +24,7 @@ const login = async (req, res, next) => {
     });
 
   const user = await userModel.findByEmail(email);
+
   if (!user || user.password !== password)
     return res.render('admin/login', {
       message: 'Email ou senha incorretos',
@@ -32,9 +33,8 @@ const login = async (req, res, next) => {
 
   const token = uuid();
   SESSIONS[token] = user.id;
-
   res.cookie('token', token, { httpOnly: true, sameSite: true });
-  res.redirect(redirect || '/admin');
+  res.redirect(redirect || '/');
 };
 
 const logout = (req, res) => {
