@@ -20,7 +20,10 @@ app.get('/admin', middlewares.auth(), (req, res) => res.render('admin/home', { u
 app.get('/login', controllers.userController.loginForm);
 app.get('/logout', controllers.userController.logout);
 app.post('/login', controllers.userController.login);
+
+app.get('/recipes/search', middlewares.auth(false), controllers.recipeController.searchRecipe);
 app.get('/recipes/:id', middlewares.auth(false), controllers.recipeController.showOneRecipe);
+
 app.get('/signup', controllers.userController.SignUpPage);
 app.post('/signup', controllers.userController.signUp);
 
