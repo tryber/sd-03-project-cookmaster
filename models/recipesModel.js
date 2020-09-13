@@ -20,9 +20,9 @@ const getRecipesById = async (recipeId) => connect()
     .bind('id', recipeId)
     .execute())
   .then((result) => result.fetchAll())
-  .then((rows) => rows.map(([id, user_id, user, name, ingredients, instructions]) => ({
+  .then((rows) => rows.map(([id, userId, user, name, ingredients, instructions]) => ({
     id,
-    user_id,
+    userId,
     user,
     name,
     ingredients,

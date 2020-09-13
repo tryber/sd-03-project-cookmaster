@@ -78,14 +78,14 @@ const editRecipe = async (req, res) => {
   const { id } = req.user;
   const { id: recipeId } = req.params;
   const { name, ingredients, instructions } = req.body;
-  const { user_id } = await recipeModel.getRecipesById(recipeId);
+  const { userId } = await recipeModel.getRecipesById(recipeId);
 
-  if (id === user_id) {
+  if (id === userId) {
     await recipesModel.editRecipe(recipeId, name, ingredients, instructions);
-    res.redirect(`/recipes/${recipeId}`)
+    res.redirect(`/recipes/${recipeId}`);
   }
 
-  res.redirect('/')
+  res.redirect('/');
 };
 
 module.exports = {
