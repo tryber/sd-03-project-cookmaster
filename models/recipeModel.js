@@ -15,13 +15,14 @@ const getAllRecipes = async () => connect()
 const getRecipeById = async (id) => connect()
   .then((db) => db
     .getTable('recipes')
-    .select(['id', 'user', 'name', 'ingredients', 'instructions'])
+    .select(['id', 'user_id', 'user', 'name', 'ingredients', 'instructions'])
     .where('id = :id')
     .bind('id', id)
     .execute())
   .then((res) => res.fetchAll()[0])
-  .then(([recipeId, userName, recipeName, ingredients, instructions]) => ({
+  .then(([recipeId, userId, userName, recipeName, ingredients, instructions]) => ({
     recipeId,
+    userId,
     userName,
     recipeName,
     ingredients,
