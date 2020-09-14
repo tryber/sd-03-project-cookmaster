@@ -2,7 +2,7 @@ const userModel = require('../../models');
 
 const regex = /^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
 
-const validaEmail = () => {
+const validaEmail = (email, res) => {
   if (!regex.test(email)) {
     res.render('signup', {
       message: 'O email deve ter o formato email@mail.com',
@@ -10,7 +10,7 @@ const validaEmail = () => {
   }
 };
 
-const validaSenhaMaior = (password) => {
+const validaSenhaMaior = (password, res) => {
   if (password.length < 5) {
     res.render('signup', {
       message: 'A senha deve ter pelo menos 6 caracteres',
@@ -18,7 +18,7 @@ const validaSenhaMaior = (password) => {
   }
 };
 
-const validaConfirmaSenha = (password, passwordConfirm) => {
+const validaConfirmaSenha = (password, passwordConfirm, res) => {
   if (password !== passwordConfirm) {
     res.render('signup', {
       message: 'As senhas tem que ser iguais',
@@ -26,7 +26,7 @@ const validaConfirmaSenha = (password, passwordConfirm) => {
   }
 };
 
-const validaNome = (name) => {
+const validaNome = (name, res) => {
   if (name.length < 2 || typeof name !== 'string') {
     res.render('signup', {
       message: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
@@ -34,7 +34,7 @@ const validaNome = (name) => {
   }
 };
 
-const validaSegundoNome = () => {
+const validaSegundoNome = (lastName, res) => {
   if (lastName.length < 2 || typeof lastName !== 'string') {
     res.render('signup', {
       message: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
@@ -45,17 +45,17 @@ const validaSegundoNome = () => {
 const signup = async (req, res) => {
   const { email, password, passwordConfirm, name, lastName } = req.body;
 
-  validaEmail(email);
+  validaEmail(email, res);
 
-  validaSenhaMaior(password);
+  validaSenhaMaior(password, res);
 
-  validaConfirmaSenha(password, passwordConfirm);
+  validaConfirmaSenha(password, passwordConfirm, res);
 
-  validaNome(name);
+  validaNome(name, res);
 
-  validaSegundoNome(lastName);
+  validaSegundoNome(lastName, res);
 
-  await userModel.register(email, password, name, lastName);
+  await userModel.register(email, password, name, lastName, res);
 
   res.status(201).render('signup', { message: 'Cadastro efetuado com sucesso!' });
 };

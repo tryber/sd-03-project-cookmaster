@@ -1,4 +1,4 @@
-const connect = require('../connect');
+const { connect } = require('../connect');
 
 const register = async (email, password, name, lastName) =>
   connect().then((db) =>
