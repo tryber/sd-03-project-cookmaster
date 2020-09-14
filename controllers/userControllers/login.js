@@ -28,8 +28,12 @@ const login = async (req, res) => {
   const token = uuid();
   SESSIONS[token] = user.id;
 
-  res.cookie('token', token, { httpOnly: true, sameSite: true });
-  res.redirect(redirect || '/admin');
+  const tudoOk = (res, token, redirect) => {
+    res.cookie('token', token, { httpOnly: true, sameSite: true });
+    res.redirect(redirect || '/admin');
+  };
+
+  return tudoOk(res, token, redirect);
 };
 
 module.exports = login;
