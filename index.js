@@ -22,6 +22,7 @@ app.get('/logout', controllers.userController.logout);
 app.post('/login', controllers.userController.login);
 
 app.get('/recipes/search', middlewares.auth(false), controllers.recipeController.searchRecipe);
+app.get('/recipes/new', middlewares.auth(false), controllers.recipeController.newRecipePage);
 app.get('/recipes/:id', middlewares.auth(false), controllers.recipeController.showOneRecipe);
 
 app.get('/signup', controllers.userController.SignUpPage);

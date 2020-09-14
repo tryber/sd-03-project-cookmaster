@@ -26,4 +26,12 @@ const searchRecipe = async (req, res) => {
   return res.render('search', { recipes, message: null, user: req.user });
 };
 
-module.exports = { showRecipes, showOneRecipe, searchRecipe };
+const newRecipePage = async (req, res) => res.render('newRecipe',
+  { message: null, area: 'Nova Receita', user: req.user });
+
+module.exports = {
+  showRecipes,
+  showOneRecipe,
+  searchRecipe,
+  newRecipePage,
+};
