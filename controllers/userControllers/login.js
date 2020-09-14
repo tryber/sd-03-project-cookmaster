@@ -1,9 +1,9 @@
 const { v4: uuid } = require('uuid');
 const { SESSIONS } = require('../../middlewares/auth');
 
-const { findByEmail } = require('../../models');
+const model = require('../../models');
 
-const login = (req, res) => {
+const login = async (req, res) => {
   const { email, password, redirect } = req.body;
 
   if (!email || !password) {
@@ -13,7 +13,7 @@ const login = (req, res) => {
     });
   }
 
-  const user = findByEmail(email);
+  const user = await model.findByEmail(email);
   if (!user || user.password !== password) {
     return res.render('admin/login', {
       message: 'Email ou senha incorretos',
@@ -25,7 +25,7 @@ const login = (req, res) => {
   SESSIONS[token] = user.id;
 
   res.cookie('token', token, { httpOnly: true, sameSite: true });
-  return res.redirect(redirect || '/admin');
+  res.redirect(redirect || '/admin');
 };
 
 module.exports = login;
