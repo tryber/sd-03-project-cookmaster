@@ -11,12 +11,14 @@ const findByEmail = async (email) =>
         .execute(),
     )
     .then((result) => result.fetchAll()[0])
-    .then(([userId, userEmail, password, name, lastName]) => ({
-      id: userId,
-      email: userEmail,
-      password,
-      name,
-      lastName,
-    }));
+    .then(([userId, userEmail, password, name, lastName]) => {
+      return {
+        id: userId,
+        email: userEmail,
+        password,
+        name,
+        lastName,
+      };
+    });
 
 module.exports = findByEmail;

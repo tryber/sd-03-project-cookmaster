@@ -1,19 +1,23 @@
 const { v4: uuid } = require('uuid');
 const { SESSIONS } = require('../../middlewares/auth');
 
-const model = require('../../models');
+const { findByEmail } = require('../../models');
 
-const login = async (req, res) => {
-  const { email, password, redirect } = req.body;
-
+const verificarEmailSenha = async (email, password, res) => {
   if (!email || !password) {
-    return res.render('admin/login', {
+    return await res.render('admin/login', {
       message: 'Preencha o email e a senha',
       redirect: null,
     });
   }
+};
 
-  const user = await model.findByEmail(email);
+const login = async (req, res) => {
+  const { email, password, redirect } = req.body;
+  verificarEmailSenha(email, password, res);
+
+  const user = await findByEmail(email);
+
   if (!user || user.password !== password) {
     return res.render('admin/login', {
       message: 'Email ou senha incorretos',
