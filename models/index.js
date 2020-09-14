@@ -1,8 +1,8 @@
-//user
+// user
 const findByEmail = require('./userModels/findByEmail');
 const findById = require('./userModels/findById');
 const register = require('./userModels/register');
-//recipe
+// recipe
 const getAll = require('./recipeModels/getAll');
 const findRecipeById = require('./recipeModels/findRecipeById');
 
@@ -13,4 +13,4 @@ module.exports = {
 
   getAll,
   findRecipeById,
-}
+};

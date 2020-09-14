@@ -1,4 +1,4 @@
-//renderiza a pagina do formulario
+// renderiza a pagina do formulario
 const formSignup = (_req, res) => {
   res.render('signup', { message: null });
 };
