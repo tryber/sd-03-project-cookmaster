@@ -48,7 +48,6 @@ const addRecipe = (userId, user, name, ingredients, instructions) =>
 module.exports = {
   getAll,
   getRecipeById,
-  addRecipe,
   getSearchRecipe,
   addRecipe,
 };

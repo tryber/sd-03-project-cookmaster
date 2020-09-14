@@ -16,11 +16,6 @@
   </header>
   <body>
     <h1>Nova Receita</h1>
-    <% if (message) {%>
-    <div class="message">
-      <%= message %>
-    </div>
-    <% } %>
     <form action="/recipes" method="POST">
       <label for="recipeNameInput">Nome da Receita: </label>
       <input data-testid="nome-receita"
@@ -39,13 +34,12 @@
       <input data-testid="modo-de-preparo"
         type="text" name="instructions" id="instructionsInput"
       /><br />
+      <button type="button">Voltar</button>
       <button data-testid="postar-receita" type="submit">Salvar Receita</button>
-
-      <label for="lastNameInput">Sobrenome: </label>
-      <input data-testid="sobrenome" type="text" name="lastName" id="lastNameInput" /><br />
-      <button data-testid="login" type="button" onclick="window.location.pathname='/login'">
-        Login
-      </button>
+      <% if (message) {%>
+      <div class="message">
+        <%= message %>
+      </div>
     </form>
   </body>
 </html>
