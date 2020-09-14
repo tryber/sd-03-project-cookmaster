@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Cadastro</title>
+  </head>
+  <body>
+    <% if (message) {%>
+      <div class="message"><%= message %></div>
+    <% } %>
+
+    <form class="container" action="/signup" method="POST">
+      <h1>Cookmaster - cadastro</h1>
+
+      <div class="input">
+        <label for="email">E-mail</label>
+        <input required data-testid="email" id="email" name="email" type="email" placeholder="Digite seu e-mail" />
+      </div>
+
+      <div class="input">
+        <label for="password">Senha</label>
+        <input required data-testid="senha" id="password" name="password" type="password" placeholder="Digite sua senha" />
+      </div>
+
+      <div class="input">
+        <label for="passwordConfirm">Confirmar Senha</label>
+        <input required data-testid="confirmar-senha" id="passwordConfirm" name="passwordConfirm" type="password" placeholder="Confirme sua senha" />
+      </div>
+
+      <div class="input">
+        <label for="name">Nome</label>
+        <input required data-testid="nome" id="name" name="name" type="text" placeholder="Digite seu nome" />
+      </div>
+
+      <div class="input">
+        <label for="lastName">Sobrenome</label>
+        <input required data-testid="sobrenome" id="lastName" name="lastName" type="text" placeholder="Digite seu sobrenome" />
+      </div>
+
+      <div class="acoes">
+        <a data-testid="login" href="/login">Fazer login</a>
+        <button data-testid="cadastrar" type="submit">Cadastrar-se</button>
+      </div>
+
+    </form>
+  </body>
+</html>

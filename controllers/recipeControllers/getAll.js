@@ -1,4 +1,4 @@
-const { getAll } = require('../../models/');
+const { getAll } = require('../../models');
 
 const getAllrecipes = async (req, res) => {
   const recipes = await getAll();

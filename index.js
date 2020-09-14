@@ -19,8 +19,11 @@ app.get('/admin', middlewares.auth(), (req, res) => {
   return res.render('admin/home', { user: req.user });
 });
 
-app.get('/login', controllers.userController.loginForm);
-app.get('/logout', controllers.userController.logout);
-app.post('/login', controllers.userController.login);
+app.get('/login', controllers.loginForm);
+app.post('/login', controllers.login);
+app.get('/logout', controllers.logout);
+app.get('/signup', controllers.formSignup);
+app.post('/signup', controllers.signup);
+app.get('/recipes/:id', middlewares.auth(false), controllers.recipeDetails);
 
 app.listen(3000, () => console.log('Listening on 3000'));

@@ -1,18 +1,7 @@
 const { v4: uuid } = require('uuid');
-const { SESSIONS } = require('../middlewares/auth');
+const { SESSIONS } = require('../../middlewares/auth');
 
-const { findByEmail } = require('../models');
-
-const loginForm = (req, res) => {
-  const { token = '' } = req.cookies || {};
-
-  if (SESSIONS[token]) return res.redirect('/');
-
-  return res.render('admin/login', {
-    message: null,
-    redirect: req.query.redirect,
-  });
-};
+const { findByEmail } = require('../../models');
 
 const login = async (req, res, next) => {
   const { email, password, redirect } = req.body;
@@ -37,14 +26,4 @@ const login = async (req, res, next) => {
   res.redirect(redirect || '/admin');
 };
 
-const logout = (req, res) => {
-  res.clearCookie('token');
-  if (!req.cookies || !req.cookies.token) return res.redirect('/login');
-  res.render('admin/logout');
-};
-
-module.exports = {
-  login,
-  loginForm,
-  logout,
-};
+module.exports = login;
