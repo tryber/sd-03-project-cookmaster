@@ -3,9 +3,9 @@ const { SESSIONS } = require('../../middlewares/auth');
 
 const { findByEmail } = require('../../models');
 
-const verificarEmailSenha = async (email, password, res) => {
+const verificarEmailSenha = (email, password, res) => {
   if (!email || !password) {
-    return await res.render('admin/login', {
+    return res.render('admin/login', {
       message: 'Preencha o email e a senha',
       redirect: null,
     });
@@ -28,7 +28,7 @@ const login = async (req, res) => {
   const token = uuid();
   SESSIONS[token] = user.id;
 
-  const tudoOk = (res, token, redirect) => {
+  const tudoOk = () => {
     res.cookie('token', token, { httpOnly: true, sameSite: true });
     res.redirect(redirect || '/admin');
   };
