@@ -3,18 +3,15 @@ const { SESSIONS } = require('../../middlewares/auth');
 
 const { findByEmail } = require('../../models');
 
-const verificarEmailSenha = (email, password, res) => {
+const login = async (req, res) => {
+  const { email, password, redirect } = req.body;
+
   if (!email || !password) {
     return res.render('admin/login', {
       message: 'Preencha o email e a senha',
       redirect: null,
     });
   }
-};
-
-const login = async (req, res) => {
-  const { email, password, redirect } = req.body;
-  verificarEmailSenha(email, password, res);
 
   const user = await findByEmail(email);
 
