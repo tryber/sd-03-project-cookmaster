@@ -27,7 +27,7 @@
 
     const deleteIngredient = (id) => {
       document.getElementById(id).remove();
-      // splice + indexOf logic for ingredient removal found at 
+      // splice + indexOf logic for ingredient removal found at
       // https://stackoverflow.com/questions/5767325/how-can-i-remove-a-specific-item-from-an-array
       ingredients.splice(ingredients.indexOf(id));
       ingredientInput.value = ingredients;
