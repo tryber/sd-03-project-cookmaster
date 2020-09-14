@@ -29,7 +29,8 @@ const searchByUser = async (req, res) => {
 const addRecipe = async (req, res) => {
   const { id, firstName, lastName } = req.user;
   await Recipe.addNew({ ...req.body, userID: id, user: `${firstName} ${lastName}` });
-  res.status(201).render('admin/userCreated', { message: 'Receita inserida com sucesso!' });
+  const recipes = await Recipe.getAllRecipes();
+  res.status(201).render('home', { recipes, user: req.user });
 };
 
 const editRecipe = async (req, res) => {
@@ -57,7 +58,7 @@ const deleteRecipe = async (req, res) => {
     res.render('confirmRecipeDelete', {
       recipeID: req.params.id,
       user: req.user,
-      message: 'Senha incorreta.',
+      message: 'Senha Incorreta.',
     });
   }
 };

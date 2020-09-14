@@ -15,14 +15,14 @@ const valiDate = (email, pass1, pass2, firstName, lastName) => {
     case !(/([\w.\-_]+)?\w+@[\w-_]+(\.\w+){1,}/igm).test(email):
       // RegEx obtido em regexr.com
       return 'O email deve ter o formato email@mail.com';
-    case pass1 !== pass2:
-      return 'As senhas tem que ser iguais';
     case pass1.length < 6:
       return 'A senha deve ter pelo menos 6 caracteres';
+    case pass1 !== pass2:
+      return 'As senhas tem que ser iguais';
     case firstName.length < 3:
-      return 'O primeiro nome deve ter pelo menos 3 caracteres';
+      return 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras';
     case lastName.length < 3:
-      return 'O segundo nome deve ter pelo menos 3 caracteres';
+      return 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras';
     default:
       return true;
   }
