@@ -1,5 +1,6 @@
-
 const homeModel = require('../models/homeModel');
+const userModel = require('../models/userModel');
+
 
 const listRecipes = async (req, res) => {
   const recipes = await homeModel.getAll();

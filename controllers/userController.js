@@ -59,7 +59,7 @@ const errorMessages = {
 
 const userSignUp = async (req, res) => {
   const { email, password, confirmPassword, name, lastname } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
   if (!userModel.validateEmail(email)) {
     res.render('signup', { message: errorMessages.invalidEmail });
   }
@@ -76,7 +76,7 @@ const userSignUp = async (req, res) => {
 
   if (lastname < 3) res.render('signup', { message: errorMessages.lastNameRules });
 
-  console.log(await userModel.insertUser(email, password, name, lastname));
+  await userModel.insertUser(email, password, name, lastname);
   res.render('signup', { message: 'Cadastro efetuado com sucesso!' });
 };
 

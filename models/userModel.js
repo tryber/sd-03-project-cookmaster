@@ -52,17 +52,19 @@ const findById = async (userId) => {
   return userIdParams;
 };
 
-const insertUser = async (email, password, name, lastname) =>
- { try { const db = await connection()
+const insertUser = async (email, password, name, lastname) => {
+  try {
+    const db = await connection();
     return db
       .getTable('users')
       .insert(['email', 'password', 'first_name', 'last_name'])
       .values(email, password, name, lastname)
-      .execute()
-  } catch(error) {
+      .execute();
+  } catch (error) {
     console.log(error);
     process.exit(1);
-  } }
+  }
+};
 
 const validateEmail = (email) => {
   const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -92,7 +94,7 @@ module.exports = {
   findByEmail,
   findById,
   validateEmail,
-  validatePassword,
+  // validatePassword,
   validateFullName,
   userSignUp,
   insertUser,

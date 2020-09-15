@@ -78,11 +78,7 @@ const updateRecipe = async (recipeId, recipeName, ingredients, instructions) =>
 
 const deleteRecipe = async (recipeId) =>
   connection().then((db) =>
-    db.getTable('recipes')
-      .delete()
-      .where('id = :id')
-      .bind('id', recipeId)
-      .execute(),
+    db.getTable('recipes').delete().where('id = :id').bind('id', recipeId).execute(),
   );
 
 const updateUser = async (userId, email, senha, nome, sobrenome) =>
@@ -96,7 +92,7 @@ const updateUser = async (userId, email, senha, nome, sobrenome) =>
       .set('last_name', sobrenome)
       .where('id = :userId')
       .bind('userId', userId)
-      .execute()
+      .execute(),
   );
 
 module.exports = {
@@ -107,5 +103,5 @@ module.exports = {
   updateRecipe,
   deleteRecipe,
   getUserRecipes,
-  updateUser
+  updateUser,
 };

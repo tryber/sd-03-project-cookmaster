@@ -22,4 +22,3 @@ module.exports = async () => {
     })
     .catch(() => process.exit(1));
 };
-
