@@ -24,11 +24,11 @@
     <div>
       <p><%= recipe.name %></p>
       <p><%= recipe.user %></p>
-      <a href="#">Ver mais</a>
+      <a href=<%= `/recipes/${recipe.id}` %> >Ver mais</a>
     </div>
     <% }) %>
-    <button data-testid="buscar-receita">Buscar Receita</button>
-    <% if(user) { %>
+    <button data-testid="buscar-receita" onclick="window.location.pathname='/recipes/search'">Buscar Receita</button>
+    <% if (user) { %>
     <button data-testid="nova-receita">
       Nova Receita
     </button>

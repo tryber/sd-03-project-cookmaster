@@ -42,7 +42,7 @@ const findById = async (userId) => {
   const getId = await connection();
   const userIdData = await getId
     .getTable('users')
-    .select('id')
+    .select(['id', 'email', 'password', 'first_name', 'last_name'])
     .where('id = :id')
     .bind('id', userId)
     .execute();
@@ -52,7 +52,48 @@ const findById = async (userId) => {
   return userIdParams;
 };
 
+const insertUser = async (email, password, name, lastname) =>
+ { try { const db = await connection()
+    return db
+      .getTable('users')
+      .insert(['email', 'password', 'first_name', 'last_name'])
+      .values(email, password, name, lastname)
+      .execute()
+  } catch(error) {
+    console.log(error);
+    process.exit(1);
+  } }
+
+const validateEmail = (email) => {
+  const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (regex.test(email)) {
+    return true;
+  }
+  return false;
+};
+
+// const validatePassword = (password) => (password.length >= 6 ? true : false);
+
+const validateFullName = (name, lastname) => {
+  if (typeof name !== 'string' || typeof lastname !== 'string') return false;
+  return true;
+};
+
+const userSignUp = async (email, password, name, lastname) => {
+  const generalData = await connection();
+  await generalData
+    .getTable('users')
+    .insert(['email', 'password', 'name', 'lastname'])
+    .values(email, password, name, lastname)
+    .execute();
+};
+
 module.exports = {
   findByEmail,
   findById,
+  validateEmail,
+  validatePassword,
+  validateFullName,
+  userSignUp,
+  insertUser,
 };
