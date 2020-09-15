@@ -49,48 +49,49 @@
   <script>
     // get an item from ingredients
     const listItem = document.createElement("li");
-    const arrItem = document.getElementById("ingredientsToDb");
-    const itemToDel = arrItemToDel.value.split(", ");
-    // listItem.innerText = ;
+    const ingr = document.getElementById("ingredientsToDb");
+    const arrIngr = ingr.value.split(", ");
     document.getElementById("ingredientsList").appendChild(listItem);
+    
+
 //__________________________________________________________________
-    let newIngredientsArr = [];
+    // let newIngredientsArr = [];
 
-    const includeIngredientItem = () => {
+    // const includeIngredientItem = () => {
 
-      // get the input value and create a list item
-      const listItem = document.createElement("li");
-      const inputItem = document.getElementById("ingredientsInput")
-      listItem.innerText = inputItem.value;
-      document.getElementById("ingredientsList").appendChild(listItem);
+    //   // get the input value and create a list item
+    //   const listItem = document.createElement("li");
+    //   const inputItem = document.getElementById("ingredientsInput")
+    //   listItem.innerText = inputItem.value;
+    //   document.getElementById("ingredientsList").appendChild(listItem);
 
-      // create an array with the list items and then a string to send to db
-      const arrItem = document.getElementById("ingredientsToDb");
-      newIngredientsArr.push(inputItem.value);
-      arrItem.value = newIngredientsArr.join(", ");
+    //   // create an array with the list items and then a string to send to db
+    //   const arrItem = document.getElementById("ingredientsToDb");
+    //   newIngredientsArr.push(inputItem.value);
+    //   arrItem.value = newIngredientsArr.join(", ");
 
-      // create a button to delete a list item
-      const delItemBtn = document.createElement("button");
-      delItemBtn.type = "button";
-      delItemBtn.innerText = "Excluir Ingrediente";
-      document.getElementById("ingredientsList").appendChild(delItemBtn);
+    //   // create a button to delete a list item
+    //   const delItemBtn = document.createElement("button");
+    //   delItemBtn.type = "button";
+    //   delItemBtn.innerText = "Excluir Ingrediente";
+    //   document.getElementById("ingredientsList").appendChild(delItemBtn);
 
-      // delete a list item on click button
-      const deleteItem = () => {
-        const arrItemToDel = document.getElementById("ingredientsToDb");
-        const itemToDel = arrItemToDel.value.split(", ");
-        const itemIndex = itemToDel.indexOf(listItem.innerText);
-        arrItemToDel.value = itemToDel.splice(itemIndex, 1);
-        arrItemToDel.value = itemToDel.join(", ");
-        listItem.remove();
-        delItemBtn.remove();
-      };
+    //   // delete a list item on click button
+    //   const deleteItem = () => {
+    //     const arrItemToDel = document.getElementById("ingredientsToDb");
+    //     const itemToDel = arrItemToDel.value.split(", ");
+    //     const itemIndex = itemToDel.indexOf(listItem.innerText);
+    //     arrItemToDel.value = itemToDel.splice(itemIndex, 1);
+    //     arrItemToDel.value = itemToDel.join(", ");
+    //     listItem.remove();
+    //     delItemBtn.remove();
+    //   };
 
-      delItemBtn.addEventListener("click", deleteItem);
-    };
+    //   delItemBtn.addEventListener("click", deleteItem);
+    // };
 
-    document.getElementById("ingredientsAddBtn")
-    .addEventListener("click", includeIngredientItem);
+    // document.getElementById("ingredientsAddBtn")
+    // .addEventListener("click", includeIngredientItem);
 //__________________________________________________________________
 
   </script>
