@@ -28,8 +28,8 @@ app.post('/register', controllers.userController.register);
 
 app.get('/recipes/search', middlewares.auth(false), controllers.recipeController.searchRecipes);
 
-app.get('/recipes/new', controllers.recipeController.newRecipe);
-// app.post('/recipes', controllers.recipeController.);
+app.get('/recipes/new', middlewares.auth(), controllers.recipeController.rendNew);
+app.post('/recipes', middlewares.auth(), controllers.recipeController.newRecipe);
 
 app.get('/recipes/:id', middlewares.auth(false), controllers.recipeController.recipeDetail);
 

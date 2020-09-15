@@ -35,15 +35,16 @@ const getSearchRecipe = async (Name) =>
     .then((recipes) => recipes.map(([id, name, user]) => ({ id, name, user })))
     .catch((err) => { console.error(err); });
 
-const addRecipe = (userId, user, name, ingredients, instructions) =>
-  connection()
+const addRecipe = (userId, userName, name, ingredients, instructions) => {
+  return connection()
     .then((db) =>
       db
       .getTable('recipes')
-      .insert(['userId', 'user', 'name', 'ingredients', 'instructions'])
-      .values(userId, user, name, ingredients, instructions)
+      .insert(['user_id', 'user', 'name', 'ingredients', 'instructions'])
+      .values(userId, userName, name, ingredients, instructions)
       .execute(),
     );
+}
 
 module.exports = {
   getAll,

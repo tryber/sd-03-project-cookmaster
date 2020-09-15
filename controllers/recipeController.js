@@ -16,10 +16,16 @@ const searchRecipes = async (req, res) => {
   res.render('search', { recipes, user: req.user, message: null });
 };
 
+const rendNew = (req, res) => {
+  return res.render('admin/new', { user: req.user, message: null });
+}
+
 const newRecipe = async (req, res) => {
-  const { userId, user, name, ingredients, instructions } = req.body;
-  await Recipes.addRecipe(userId, user, name, ingredients, instructions);
-  res.render('recipes/new', { message: 'Receita criada com sucesso!' });
+  const { name, ingredients, instructions } = req.body;
+  const { id, firstName, lastName } = req.user;
+  userFullName = `${firstName} ${lastName}`;
+  await Recipes.addRecipe(id, userFullName, name, ingredients, instructions);
+  return res.render('admin/new', { user: req.user, message: 'Receita criada com sucesso!' });
 };
 
 module.exports = {
@@ -27,4 +33,5 @@ module.exports = {
   recipeDetail,
   searchRecipes,
   newRecipe,
+  rendNew,
 };
