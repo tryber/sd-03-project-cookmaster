@@ -35,8 +35,8 @@ const getSearchRecipe = async (Name) =>
     .then((recipes) => recipes.map(([id, name, user]) => ({ id, name, user })))
     .catch((err) => { console.error(err); });
 
-const addRecipe = (userId, userName, name, ingredients, instructions) => {
-  return connection()
+const addRecipe = (userId, userName, name, ingredients, instructions) =>
+  connection()
     .then((db) =>
       db
       .getTable('recipes')
@@ -44,7 +44,6 @@ const addRecipe = (userId, userName, name, ingredients, instructions) => {
       .values(userId, userName, name, ingredients, instructions)
       .execute(),
     );
-}
 
 module.exports = {
   getAll,
