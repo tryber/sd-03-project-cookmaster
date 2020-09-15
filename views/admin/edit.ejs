@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cookmaster - Nova Receita</title>
+    <title>Cookmaster - Editar Receita</title>
   </head>
   <header>
     <h2>Cookmaster</h2>
@@ -15,11 +15,11 @@
     <% } %>
   </header>
   <body>
-    <h1>Nova Receita</h1>
+    <h1>Editar Receita</h1>
     <form action="/recipes" method="POST">
       <label for="recipeNameInput">Nome da Receita: </label>
       <input data-testid="nome-receita"
-        type="text" name="name" id="recipeNameInput"
+        type="text" name="name" id="recipeNameInput" value="<%= recipe.name %>"
       /><br />
 
       <label for="ingredientsInput">Ingredientes: </label>
@@ -30,7 +30,7 @@
 
       <label for="instructionsInput">Modo de Preparo: </label><br />
       <input data-testid="modo-de-preparo"
-        type="text" name="instructions" id="instructionsInput"
+        type="text" name="instructions" id="instructionsInput" value="<%= recipe.instructions %>"
       /><br />
 
       <button type="button">Voltar</button>
@@ -44,7 +44,7 @@
     </form>
     <button type="button" onclick="window.location.pathname='/'">Home</button>
   </body>
-  <script>
+  <!-- <script>
 
     let newIngredientsArr = [];
 
@@ -84,6 +84,6 @@
     document.getElementById("ingredientsAddBtn")
     .addEventListener("click", includeIngredientItem);
 
-  </script>
+  </script> -->
 </html>
 <!-- made with Gustavo Figueiredo help, based on W3School DOM methods as review and projects Pull Request of Diego Rafael, Fabiano Martins, Luiz Fernando e Marco Barbosa. -->

@@ -27,10 +27,17 @@ const newRecipe = async (req, res) => {
   return res.render('admin/new', { user: req.user, message: 'Receita criada com sucesso!' });
 };
 
+const rendEdit = async (req, res) => {
+  const { id } = req.params;
+  const recipe = await Recipes.getRecipeById(id);
+  res.render('admin/edit', { recipe, user: req.user, message: null });
+};
+
 module.exports = {
   listRecipes,
   recipeDetail,
   searchRecipes,
   newRecipe,
   rendNew,
+  rendEdit,
 };
