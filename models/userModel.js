@@ -60,14 +60,14 @@ const insertUser = async (email, password, name, lastname) => {
       .insert(['email', 'password', 'first_name', 'last_name'])
       .values(email, password, name, lastname)
       .execute();
-  } catch (error) {
-    console.log(error);
-    process.exit(1);
+  } catch (err) {;
+    console.error(err);
+    return process.exit(1);
   }
 };
 
 const validateEmail = (email) => {
-  const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
   if (regex.test(email)) {
     return true;
   }
