@@ -61,7 +61,6 @@ const insertUser = async (email, password, name, lastname) => {
       .values(email, password, name, lastname)
       .execute();
   } catch (err) {
-    console.error(err);
     return process.exit(1);
   }
 };
