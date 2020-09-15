@@ -60,7 +60,7 @@ const insertUser = async (email, password, name, lastname) => {
       .insert(['email', 'password', 'first_name', 'last_name'])
       .values(email, password, name, lastname)
       .execute();
-  } catch (err) {;
+  } catch (err) {
     console.error(err);
     return process.exit(1);
   }
