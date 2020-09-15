@@ -50,18 +50,18 @@
 
     const includeIngredientItem = () => {
 
-      // get the input value and create a list item -> OK
+      // get the input value and create a list item
       const listItem = document.createElement("li");
       const inputItem = document.getElementById("ingredientsInput")
       listItem.innerText = inputItem.value;
       document.getElementById("ingredientsList").appendChild(listItem);
 
-      // create an array with the list items and then a string to send to db -> OK
+      // create an array with the list items and then a string to send to db
       const arrItem = document.getElementById("ingredientsToDb");
-      newIngredientsArr.push(inputItem.value);  // [farinha, sal]
-      arrItem.value = newIngredientsArr.join(", ");  // "farinha, sal"
+      newIngredientsArr.push(inputItem.value);
+      arrItem.value = newIngredientsArr.join(", ");
       
-      // create a button to delete a list item -> OK
+      // create a button to delete a list item
       const delItemBtn = document.createElement("button");
       delItemBtn.type = "button";
       delItemBtn.innerText = "Excluir Ingrediente";
@@ -78,13 +78,6 @@
         delItemBtn.remove();
       };
 
-      var arrItemToDel = "1, 2, 3"
-      var itemToDel = arrItemToDel.split(", ") // ["1", "2", "3"]
-      var itemIndex = itemToDel.indexOf("2")
-      arrItemToDel = itemToDel.splice(1, 1)
-
-
-
       delItemBtn.addEventListener("click", deleteItem);
     };
 
@@ -93,4 +86,4 @@
     
   </script>
 </html>
-<!-- based on W3School DOM methods as review and projects Pull Request of Diego Rafael, Fabiano Martins, Luiz Fernando e Marco Barbosa. -->
+<!-- made with Gustavo Figueiredo help, based on W3School DOM methods as review and projects Pull Request of Diego Rafael, Fabiano Martins, Luiz Fernando e Marco Barbosa. -->
