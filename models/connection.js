@@ -8,11 +8,16 @@ const config = {
   socketPath: '/var/run/mysqld/mysqld.sock',
 };
 
-const connection = async () => mysqlx.getSession(config)
-  .then((session) => session.getSchema('cookmaster'))
-  .catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
+let schema = null;
+
+const connection = async () =>
+  schema
+    ? Promise.resolve(schema)
+    : mysqlx.getSession(config)
+      .then((session) => session.getSchema('cookmaster'))
+      .catch((err) => {
+        console.error(err);
+        process.exit(1);
+      });
 
 module.exports = connection;

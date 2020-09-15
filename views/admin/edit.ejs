@@ -26,7 +26,9 @@
       <ul id="ingredientsList"></ul><br />
       <input data-testid="ingredientes" type="text" name="ingredientsInput" id="ingredientsInput"/>
       <button data-testid="adicionar-ingrediente" type="button" for="ingredientsInput" id="ingredientsAddBtn">Adicionar Ingrediente</button><br />
-      <input type="hidden" name="ingredients" id="ingredientsToDb"/>
+      <input type="hidden" name="ingredients" id="ingredientsToDb"
+        value="<%= recipe.ingredients %>"
+      />
 
       <label for="instructionsInput">Modo de Preparo: </label><br />
       <input data-testid="modo-de-preparo"
@@ -44,8 +46,14 @@
     </form>
     <button type="button" onclick="window.location.pathname='/'">Home</button>
   </body>
-  <!-- <script>
-
+  <script>
+    // get an item from ingredients
+    const listItem = document.createElement("li");
+    const arrItem = document.getElementById("ingredientsToDb");
+    const itemToDel = arrItemToDel.value.split(", ");
+    // listItem.innerText = ;
+    document.getElementById("ingredientsList").appendChild(listItem);
+//__________________________________________________________________
     let newIngredientsArr = [];
 
     const includeIngredientItem = () => {
@@ -83,7 +91,8 @@
 
     document.getElementById("ingredientsAddBtn")
     .addEventListener("click", includeIngredientItem);
+//__________________________________________________________________
 
-  </script> -->
+  </script>
 </html>
 <!-- made with Gustavo Figueiredo help, based on W3School DOM methods as review and projects Pull Request of Diego Rafael, Fabiano Martins, Luiz Fernando e Marco Barbosa. -->
