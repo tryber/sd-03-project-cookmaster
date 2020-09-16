@@ -14,7 +14,7 @@
       <span>Ingredientes</span>
       <ul id="ingredientList"></ul><br />
       <input data-testid="ingredientes" type="list" name="ingredients" id="ingredientInput">
-      <button onclick="addIngredient" data-testid="adicionar-ingrediente" type="button">Adicionar
+      <button onclick="addIngredient()" data-testid="adicionar-ingrediente" type="button">Adicionar
         ingrediente</button><br />
       <label for="instructions">Modo de preparo</label><br />
       <textarea data-testid="modo-de-preparo" name="instructions" id="instructions"></textarea><br />
@@ -26,11 +26,12 @@
     const ingredientsArr = [];
 
     const deleteIngredient = (id) => {
+      const ingredientInput = document.getElementById('ingredientInput');
       document.getElementById(id).remove();
       // splice + indexOf logic for ingredient removal found at
       // https://stackoverflow.com/questions/5767325/how-can-i-remove-a-specific-item-from-an-array
-      ingredients.splice(ingredients.indexOf(id));
-      ingredientInput.value = ingredients;
+      ingredientsArr.splice(ingredients.indexOf(id));
+      ingredientInput.value = ingredientsArr;
     }
 
     const addIngredient = () => {
@@ -42,13 +43,13 @@
       li.id = ingredientInput.value;
 
       deleteIngredientBtn.innerHTML = 'Excluir Ingrediente'
-      deleteIngredientBtn.onclick = deleteIngredient(ingredientInput.value)
+      deleteIngredientBtn.onclick = `deleteIngredient(${ingredientInput.value})`
 
       li.innerHTML = ingredientInput.value, deleteIngredientBtn;
 
       list.appendChild(li);
 
-      ingredients.push(ingredientInput.value);
+      ingredientsArr.push(ingredientInput.value);
     };
   </script>
 </body>
