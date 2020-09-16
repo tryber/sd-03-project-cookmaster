@@ -76,6 +76,14 @@ const editRecipe = async (id, name, ingredients, instructions) => connect()
     .bind('id', id)
     .execute());
 
+const deleteRecipe = async (id) => connect()
+  .then((db) => db
+    .getTable('recipes')
+    .delete()
+    .where('id = :id')
+    .bind('id', id)
+    .execute());
+
 module.exports = {
   getAllRecipes,
   getRecipeById,
@@ -83,4 +91,5 @@ module.exports = {
   findRecipes,
   createRecipe,
   editRecipe,
+  deleteRecipe,
 };
