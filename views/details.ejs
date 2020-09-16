@@ -9,16 +9,16 @@
 
 <body>
   <%- include('navbar', {user: user, area: "Detalhes da Receita"}); %>
-  <% if (user) console.log(user) %>
+  <% if (user) %>
   <div>
     <% if (user && user.id === recipe.userId) {%>
     <div>
-      <button
-        onclick="window.location.pathname='/recipes/<%= recipe.recipeId %>/edit'"
+      <a
+        href='/recipes/<%= recipe.recipeId %>/edit'"
         data-testid="editar-receita"
       >
         Editar Receita
-      </button>
+    </a>
       <button
         onclick="window.location.pathname='/recipes/<%= recipe.recipeId %>/delete'"
         data-testid="excluir-receita"

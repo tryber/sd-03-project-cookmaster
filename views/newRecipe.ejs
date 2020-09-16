@@ -19,38 +19,42 @@
       <label for="instructions">Modo de preparo</label><br />
       <textarea data-testid="modo-de-preparo" name="instructions" id="instructions"></textarea><br />
       <button type="button">Voltar</button>
-      <button data-testid="postar-receita" type="submit">Salvar Receita</button>
+      <button data-testid="postar-receita" type="button" onclick="submitRecipe()">
+        Salvar Receita
+      </button>
     </form>
   </div>
-  <script>
-    const ingredientsArr = [];
-
-    const deleteIngredient = (id) => {
-      const ingredientInput = document.getElementById('ingredientInput');
-      document.getElementById(id).remove();
-      // splice + indexOf logic for ingredient removal found at
-      // https://stackoverflow.com/questions/5767325/how-can-i-remove-a-specific-item-from-an-array
-      ingredientsArr.splice(ingredients.indexOf(id));
-      ingredientInput.value = ingredientsArr;
-    }
-
-    const addIngredient = () => {
-      const li = document.createElement('li');
-      const list = document.getElementById('ingredientList');
-      const ingredientInput = document.getElementById('ingredientInput');
-      const deleteIngredientBtn = document.createElement('button');
-
-      li.id = ingredientInput.value;
-
-      deleteIngredientBtn.innerHTML = 'Excluir Ingrediente'
-      deleteIngredientBtn.onclick = `deleteIngredient(${ingredientInput.value})`
-
-      li.innerHTML = ingredientInput.value, deleteIngredientBtn;
-
-      list.appendChild(li);
-
-      ingredientsArr.push(ingredientInput.value);
-    };
-  </script>
 </body>
+<script>
+  const ingredientList = [];
+
+  const addIngredient = () => {
+    const li = document.createElement('li');
+    const list = document.getElementById('ingredientList');
+    const ingredientInput = document.getElementById('ingredientInput');
+
+    li.id = ingredientInput.value;
+    li.innerHTML = ingredientInput.value +
+      `<button
+        type="button"
+        onclick="deleteIngredient('${ingredientInput.value}')"
+        >
+        Excluir Ingrediente
+      </button>`;
+    list.appendChild(li);
+    ingredientList.push(ingredientInput.value);
+    ingredientInput.value = '';
+  };
+// splice + indexOf logic to remove specific item from array found at
+// https://stackoverflow.com/questions/5767325/how-can-i-remove-a-specific-item-from-an-array
+  const deleteIngredient = (ingredient) => {
+    document.getElementById(ingredient).remove();
+    ingredientList.splice(ingredientList.indexOf(ingredient, 1));
+  }
+  submitRecipe = () => {
+    const ingredientInput = document.getElementById('ingredientInput');
+    ingredientInput.value = ingredientList;
+    document.newRecipeForm.submit();
+  }
+</script>
 </html>

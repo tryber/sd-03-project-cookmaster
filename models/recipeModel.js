@@ -29,6 +29,20 @@ const getRecipeById = async (id) => connect()
     instructions,
   }));
 
+const getRecipesByUserId = async (userId) => connect()
+  .then((db) => db
+    .getTable('recipes')
+    .select(['user_id', 'user', 'name'])
+    .where('user_id = :user_id')
+    .bind('user_id', userId)
+    .execute())
+  .then((results) => results.fetchAll())
+  .then((res) => res.map(([id, user, name]) => ({
+    id,
+    user,
+    name,
+  })));
+
 const findRecipes = async (q) => connect()
   .then((db) => db
     .getTable('recipes')
@@ -44,4 +58,29 @@ const findRecipes = async (q) => connect()
       name,
     })));
 
-module.exports = { getAllRecipes, getRecipeById, findRecipes };
+const createRecipe = async (userId, userName, name, ingredients, instructions) => connect()
+  .then((db) => db
+    .getTable('recipes')
+    .insert('user_id', 'user', 'name', 'ingredients', 'instructions')
+    .values(userId, userName, name, ingredients, instructions)
+    .execute());
+
+const editRecipe = async (id, name, ingredients, instructions) => connect()
+  .then((db) => db
+    .getTable('recipes')
+    .update()
+    .set('name', name)
+    .set('ingredients', ingredients)
+    .set('instructions', instructions)
+    .where('id = :id')
+    .bind('id', id)
+    .execute());
+
+module.exports = {
+  getAllRecipes,
+  getRecipeById,
+  getRecipesByUserId,
+  findRecipes,
+  createRecipe,
+  editRecipe,
+};
