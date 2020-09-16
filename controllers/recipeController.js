@@ -1,7 +1,6 @@
 const homeModel = require('../models/homeModel');
 const userModel = require('../models/userModel');
 
-
 const listRecipes = async (req, res) => {
   const recipes = await homeModel.getAll();
 
@@ -16,9 +15,9 @@ const getRecipe = async (req, res) => {
 };
 
 const searchRecipe = async (req, res) => {
-  const { input } = req.query;
+  const { q } = req.query;
 
-  const searched = await homeModel.findRecipeByQuery(input);
+  const searched = await homeModel.findRecipeByQuery(q);
 
   if (searched) res.render('recipes/search', { searched, user: req.user });
   res.render('recipes/search', { user: req.user });
@@ -75,6 +74,28 @@ const confirmDelete = async (req, res) => {
   return null;
 };
 
+const myRecipes = async (req, res) => {
+  const { id } = req.user;
+
+  const rec = await homeModel.getUserRecipes(id);
+
+  res.render('me/recipes', { recipes: rec });
+};
+const editUser = async (req, res) => {
+  const { id } = req.user;
+
+  const user = await userModel.findById(id);
+  res.render('me/home', { data: user, message: null });
+};
+
+const saveUserEditedData = async (req, res) => {
+  const { email, senha, nome, sobrenome } = req.body;
+  const { id } = req.user;
+
+  await homeModel.updateUser(id, email, senha, nome, sobrenome);
+  return res.redirect('/');
+};
+
 module.exports = {
   listRecipes,
   getRecipe,
@@ -85,4 +106,7 @@ module.exports = {
   updateById,
   consultDelete,
   confirmDelete,
+  myRecipes,
+  editUser,
+  saveUserEditedData,
 };

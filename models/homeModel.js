@@ -41,14 +41,14 @@ const findRecipeById = async (ids) =>
       })),
     );
 
-const findRecipeByQuery = async (input) =>
+const findRecipeByQuery = async (q) =>
   connection()
     .then((db) =>
       db
         .getTable('recipes')
         .select(['id', 'user', 'name'])
         .where('name LIKE :name')
-        .bind('name', `%${input}%`)
+        .bind('name', `%${q}%`)
         .execute(),
     )
     .then((results) => results.fetchAll())

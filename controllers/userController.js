@@ -8,13 +8,13 @@ const loginForm = (req, res) => {
 
   if (SESSIONS[token]) return res.redirect('/');
 
-  return res.render('login', {
+  return res.render('admin/login', {
     message: null,
     redirect: req.query.redirect,
   });
 };
 
-const login = async (req, res) => {
+const login = async (req, res, _next) => {
   const { email, password, redirect } = req.body;
 
   if (!email || !password)
@@ -77,7 +77,7 @@ const userSignUp = async (req, res) => {
   if (lastname < 3) res.render('signup', { message: errorMessages.lastNameRules });
 
   await userModel.insertUser(email, password, name, lastname);
-  res.render('signup', { message: 'Cadastro efetuado com sucesso!' });
+  res.render('signup', { message: errorMessages.success });
 };
 
 module.exports = {

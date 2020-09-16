@@ -29,27 +29,33 @@ const findByEmail = async (param) => {
 
   if (!userEmailData) return null;
 
-  const [id, email, password] = userEmailData;
+  const [id, email, password, name, lastName] = userEmailData;
 
-  return { id, email, password };
+  return { id, email, password, name, lastName };
 };
 
 /**
  * Busca um usuário através do seu ID
  * @param {string} id ID do usuário
  */
-const findById = async (userId) => {
-  const getId = await connection();
-  const userIdData = await getId
-    .getTable('users')
-    .select(['id', 'email', 'password', 'first_name', 'last_name'])
-    .where('id = :id')
-    .bind('id', userId)
-    .execute();
-  const result = await userIdData.fetchAll();
-  const userIdParams = await result[0];
-
-  return userIdParams;
+const findById = async (ids) => {
+  return connection()
+    .then((db) =>
+      db
+        .getTable('users')
+        .select(['id', 'email', 'password', 'first_name', 'last_name'])
+        .where('id = :id')
+        .bind('id', ids)
+        .execute(),
+    )
+    .then((results) => results.fetchAll()[0])
+    .then(([id, email, password, name, lastName]) => ({
+      id,
+      email,
+      password,
+      name,
+      lastName,
+    }));
 };
 
 const insertUser = async (email, password, name, lastname) => {
