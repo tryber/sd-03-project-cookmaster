@@ -85,7 +85,7 @@ const deleteRecipe = async (req, res) => {
   }
 
   await recipeModel.deleteRecipe(id);
-  res.redirect('/');
+  return res.redirect('/');
 };
 
 module.exports = {
