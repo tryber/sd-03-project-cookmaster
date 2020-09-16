@@ -59,7 +59,7 @@
       // create an array with the list items and then a string to send to db
       const arrItem = document.getElementById("ingredientsToDb");
       newIngredientsArr.push(inputItem.value);
-      arrItem.value = newIngredientsArr.join(", ");
+      arrItem.value = newIngredientsArr.join(",");
 
       // create a button to delete a list item
       const delItemBtn = document.createElement("button");
@@ -70,10 +70,9 @@
       // delete a list item on click button
       const deleteItem = () => {
         const arrItemToDel = document.getElementById("ingredientsToDb");
-        const itemToDel = arrItemToDel.value.split(", ");
+        const itemToDel = arrItemToDel.value.split(",");
         const itemIndex = itemToDel.indexOf(listItem.innerText);
-        arrItemToDel.value = itemToDel.splice(itemIndex, 1);
-        arrItemToDel.value = itemToDel.join(", ");
+        arrItemToDel.value = itemToDel.splice(itemIndex, 1).join(",");
         listItem.remove();
         delItemBtn.remove();
       };
