@@ -1,6 +1,6 @@
-const { connect } = require('../connect');
+const connect = require('../connect');
 
-const register = async (email, password, name, lastName) =>
+const registerUser = async (email, password, name, lastName) =>
   connect().then((db) =>
     db
       .getTable('users')
@@ -9,4 +9,4 @@ const register = async (email, password, name, lastName) =>
       .execute(),
   );
 
-module.exports = register;
+module.exports = registerUser;

@@ -1,4 +1,4 @@
-const userModel = require('../../models');
+const { registerUser } = require('../../models');
 
 const regex = /^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
 
@@ -55,7 +55,7 @@ const signup = async (req, res) => {
 
   validaSegundoNome(lastName, res);
 
-  await userModel.register(email, password, name, lastName, res);
+  await registerUser(email, password, name, lastName, res);
 
   res.status(201).render('signup', { message: 'Cadastro efetuado com sucesso!' });
 };

@@ -1,4 +1,4 @@
-const userModel = require('../models');
+const { findById } = require('../models');
 
 const SESSIONS = {};
 
@@ -9,7 +9,7 @@ const getUser = async (req) => {
   const userId = SESSIONS[token];
   if (!userId) return null;
 
-  const user = await userModel.findById(userId);
+  const user = await findById(userId);
   if (!user) return null;
 
   return user;

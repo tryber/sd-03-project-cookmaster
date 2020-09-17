@@ -27,7 +27,7 @@ const login = async (req, res) => {
 
   const tudoOk = () => {
     res.cookie('token', token, { httpOnly: true, sameSite: true });
-    res.redirect(redirect || '/admin');
+    res.redirect(redirect || '/');
   };
 
   return tudoOk(res, token, redirect);

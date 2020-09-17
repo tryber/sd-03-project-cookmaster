@@ -7,9 +7,7 @@
   </head>
   <body>
     <% if (message) {%>
-    <div class="message">
-      <%= message %>
-    </div>
+    <div class="message"><%= message %></div>
     <% } %>
     <form action="/login" method="POST">
       <label for="emailInput">Email: </label>
@@ -17,17 +15,12 @@
       <label for="passwordInput">Senha: </label>
       <input type="password" name="password" id="passwordInput" data-testid="senha" /><br />
       <% if (redirect) { %>
-      <input
-        type="hidden"
-        name="redirect"
-        value="<%= decodeURIComponent(redirect) %>"
-      />
+      <input type="hidden" name="redirect" value="<%= decodeURIComponent(redirect) %>" />
       <% } %>
-      <div class="acoes">
-        <button type="submit" data-testid="entrar">Entrar</button>
-        <a href="/signup" data-testid="cadastrar">Cadastrar</a>
-      </div>
-
+      <button type="submit" data-testid="entrar">Entrar</button>
     </form>
+    <a href="/signup">
+      <button data-testid="cadastrar">Cadastre-se</button>
+    </a>
   </body>
 </html>

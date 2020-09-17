@@ -160,8 +160,8 @@ Haverá um arquivo no caminho: `sd-03-project-cookmaster/cypress/plugins/index.j
 module.exports = {
   "development": {
     "username": process.env.MYSQL_USER,
-    "password": process.env.MYSQL_PASSWORD,
-    "database": 'cookmaster',
+    "password": process.env.MYSQL_PASSWORD, 
+    "database": 'cookmaster', 
     "host": process.env.HOSTNAME,
     "dialect": 'mysql',
   },

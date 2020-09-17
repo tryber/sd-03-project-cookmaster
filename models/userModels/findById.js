@@ -1,4 +1,4 @@
-const { connect } = require('../connect');
+const connect = require('../connect');
 
 const findById = async (id) =>
   connect()
@@ -11,9 +11,9 @@ const findById = async (id) =>
         .execute(),
     )
     .then((result) => result.fetchAll()[0])
-    .then(([userId, userEmail, password, name, lastName]) => ({
+    .then(([userId, email, password, name, lastName]) => ({
       id: userId,
-      email: userEmail,
+      email: email,
       password,
       name,
       lastName,

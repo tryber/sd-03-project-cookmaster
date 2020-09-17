@@ -3,30 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cookmaster</title>
+    <title>Cookmaster - Home</title>
   </head>
   <body>
-    <div class="container">
-      <%- include('header', {user}); %>
-      <div class="mid">
-        <div class="cima">
-          <h2>Receitas</h2>
-          <% if (user) { %>
-          <button data-testid="nova-receita">Nova Receita</button>
-          <% } %>
-          <button data-testid="buscar-receita">Buscar Receitas</button>
-        </div>
-
-        <% if(recipes) { %>
-          <div class="card">
-           <% recipes.map( x => {%>
-          <h3><%= x.name %></h3>
-          <p><%= x.user %></p>
-          <a href="/recipes/<%= x.id %>">Ver mais</a>
-          <% }) %>
-        </div>
-        <% } %>
-      </div>
+    <%- include('navbar', { user }); %>
+    <div>
+      <a href="/recipes/search">
+        <button data-testid="buscar-receita">Buscar Receita</button>
+      </a>
+      <% if (user) {%>
+      <a href="/recipes/new">
+        <button data-testid="nova-receita">Nova Receita</button>
+      </a>
+      <a href="/me/recipes">
+        <button data-testid="minhas-receitas">Minhas Receitas</button>
+      </a>
+      <a href="/me/edit">
+        <button data-testid="minha-conta">Minha Conta</button>
+      </a>
+      <%}%>
     </div>
+    <% if (recipes) {%>
+    <div>
+      <h2>Receitas</h2>
+      <% recipes.map(x => { %>
+      <div>
+        <p>Receita: <%= x.name %></p>
+        <p>Autor: <%= x.user %></p>
+        <a href="/recipes/<%= x.id %>">Ver mais</a>
+      </div>
+      <%})%>
+    </div>
+    <% } %>
   </body>
 </html>
