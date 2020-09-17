@@ -53,15 +53,15 @@ const delRecipe = async (req, res) => {
   const recipe = await Recipes.getRecipeById(id);
   const { passwordInput } = req.body;
   const { password } = await userModel.findById(req.user.id);
-  if (password !== passwordInput)
+  if (password !== passwordInput) {
     return res.render('admin/delete', {
       recipe,
       message: 'Senha Incorreta.',
       redirect: null,
     });
-
+  }
   await Recipes.deleteRecipe(id);
-  res.redirect('/');
+  return res.redirect('/');
 };
 
 module.exports = {
