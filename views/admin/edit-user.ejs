@@ -20,9 +20,7 @@
         name="email"
         id="emailInput"
         data-testid="email"
-        value="<%"
-        ="userInfos.email"
-        %
+        value="<%=userInfos.email%>"
       />
       /><br />
       <label for="passwordInput">Senha: </label>
@@ -32,9 +30,7 @@
         name="password"
         id="passwordInput"
         data-testid="senha"
-        value="<%"
-        ="userInfos.password"
-        %
+        value="<%=userInfos.password%>"
       />
       /><br />
       <label for="passwordConfirm">Confirmar Senha: </label>
@@ -43,13 +39,11 @@
         type="password"
         name="passwordConfirm"
         id="passwordConfirm"
-        value="<%"
-        ="userInfos.password"
-        %
+        value="<%=userInfos.password%>"
       />
       data-testid="confirmar-senha" /><br />
       <label for="name">Nome: </label>
-      <input required type="text" name="name" id="name" value="<%" ="userInfos.name" % />
+      <input required type="text" name="name" id="name" value="<%=userInfos.name" %> />
       data-testid="nome" /><br />
       <label for="lastName">Sobrenome: </label>
       <input
@@ -57,9 +51,7 @@
         type="text"
         name="lastName"
         id="lastName"
-        value="<%"
-        ="userInfos.lastName"
-        %
+        value="<%= userInfos.lastName%>"
       />
       data-testid="sobrenome" /><br />
       <button type="submit" data-testid="salvar">Salvar</button>
