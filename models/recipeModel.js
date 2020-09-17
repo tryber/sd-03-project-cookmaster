@@ -59,10 +59,22 @@ const updateRecipe = (Id, name, ingredients, instructions) =>
       .execute(),
     );
 
+const deleteRecipe = (Id) =>
+  connection()
+    .then((db) =>
+      db
+      .getTable('recipes')
+      .delete()
+      .where('id = :id')
+      .bind('id', Id)
+      .execute(),
+    );
+
 module.exports = {
   getAll,
   getRecipeById,
   getSearchRecipe,
   addRecipe,
   updateRecipe,
+  deleteRecipe,
 };
