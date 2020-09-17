@@ -1,9 +1,9 @@
 const { findRecipesByQuery } = require('../../models');
 
 const search = async (req, res) => {
-  const { search } = req.query;
+  const { searchQuery } = req.query;
 
-  if (search === '') {
+  if (searchQuery === '') {
     return res.render('search', { recipes: null, user: req.user });
   }
 

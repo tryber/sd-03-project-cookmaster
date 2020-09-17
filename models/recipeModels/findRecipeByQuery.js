@@ -1,7 +1,7 @@
 const { connect } = require('../connect');
 
 const findRecipesByQuery = async (input) =>
-  await connect()
+  connect()
     .then((db) =>
       db
         .getTable('recipes')
