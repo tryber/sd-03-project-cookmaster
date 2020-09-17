@@ -1,4 +1,4 @@
-const connect = require('../connect');
+const { connect } = require('../connect');
 
 const createNewRecipe = async (userId, user, name, ingredients, instructions) =>
   connect().then((db) =>

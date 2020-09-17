@@ -1,4 +1,4 @@
-const connect = require('../connect');
+const { connect } = require('../connect');
 
 const editUser = async (id, email, password, name, lastName) =>
   connect().then((db) =>

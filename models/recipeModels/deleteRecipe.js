@@ -1,4 +1,4 @@
-const connect = require('../connect');
+const { connect } = require('../connect');
 
 const deleteRecipeModel = async (id) =>
   connect().then((db) =>
