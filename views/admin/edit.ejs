@@ -26,8 +26,9 @@
       <ul id="ingredientsList"></ul><br />
       <input data-testid="ingredientes" type="text" name="ingredientsInput" id="ingredientsInput"/>
       <button data-testid="adicionar-ingrediente" type="button" for="ingredientsInput" id="ingredientsAddBtn">Adicionar Ingrediente</button><br />
-      <input type="hidden" name="ingredients" id="ingredientsToDb"
-        value="<%= recipe.ingredients %>"
+      <!-- ingredients hidden -->
+      <input type="text" name="ingredients" id="ingredientsToDb"
+        style="background-color: red;" value="<%= recipe.ingredients %>"
       />
 
       <label for="instructionsInput">Modo de Preparo: </label><br />
@@ -47,52 +48,37 @@
     <button type="button" onclick="window.location.pathname='/'">Home</button>
   </body>
   <script>
-    // get an item from ingredients
-    const listItem = document.createElement("li");
-    const ingr = document.getElementById("ingredientsToDb");
-    const arrIngr = ingr.value.split(", ");
-    document.getElementById("ingredientsList").appendChild(listItem);
+    // INITIAL RENDERING
+    // Initial values
+    const nameValue = document.getElementById("recipeNameInput").value
+    let ingredientsValue = document.getElementById("ingredientsToDb").value
+    let ingredientsInput = document.getElementById("ingredientsInput").value
 
-//__________________________________________________________________
-    // let newIngredientsArr = [];
+    // Create an array with ingredientsValue
+    let ingredientsArray = ingredientsValue.split(",");
 
-    // const includeIngredientItem = () => {
+    // Include array items in the list
+    // based on https://www.w3schools.com/jsref/jsref_foreach.asp
+    ingredientsArray.forEach(ingrToList);
+    function ingrToList(item) {
+      const listItem = document.createElement('li');
+      listItem.innerText = item;
+      document.getElementById("ingredientsList").appendChild(listItem);
+    };
 
-    //   // get the input value and create a list item
-    //   const listItem = document.createElement("li");
-    //   const inputItem = document.getElementById("ingredientsInput")
-    //   listItem.innerText = inputItem.value;
-    //   document.getElementById("ingredientsList").appendChild(listItem);
+    const includeIngredientItem = () => {
+      // get the input value and create a new list item
+      let newListItem = document.createElement("li");
+      newListItem.innerText = ingredientsInput;
+      document.getElementById("ingredientsList").appendChild(newListItem);
+  
+      // create an array with the list items and then a string to send to db
+      ingredientsArray.push(ingredientsInput);
+      ingredientsValue = ingredientsArray.join(",");
+    };
 
-    //   // create an array with the list items and then a string to send to db
-    //   const arrItem = document.getElementById("ingredientsToDb");
-    //   newIngredientsArr.push(inputItem.value);
-    //   arrItem.value = newIngredientsArr.join(", ");
-
-    //   // create a button to delete a list item
-    //   const delItemBtn = document.createElement("button");
-    //   delItemBtn.type = "button";
-    //   delItemBtn.innerText = "Excluir Ingrediente";
-    //   document.getElementById("ingredientsList").appendChild(delItemBtn);
-
-    //   // delete a list item on click button
-    //   const deleteItem = () => {
-    //     const arrItemToDel = document.getElementById("ingredientsToDb");
-    //     const itemToDel = arrItemToDel.value.split(", ");
-    //     const itemIndex = itemToDel.indexOf(listItem.innerText);
-    //     arrItemToDel.value = itemToDel.splice(itemIndex, 1);
-    //     arrItemToDel.value = itemToDel.join(", ");
-    //     listItem.remove();
-    //     delItemBtn.remove();
-    //   };
-
-    //   delItemBtn.addEventListener("click", deleteItem);
-    // };
-
-    // document.getElementById("ingredientsAddBtn")
-    // .addEventListener("click", includeIngredientItem);
-//__________________________________________________________________
-
+    document.getElementById("ingredientsAddBtn")
+    .addEventListener("click", includeIngredientItem);
   </script>
 </html>
-<!-- made with Gustavo Figueiredo help, based on W3School DOM methods as review and projects Pull Request of Diego Rafael, Fabiano Martins, Luiz Fernando e Marco Barbosa. -->
+<!-- made with Gustavo Figueiredo help and based on his project Pull Request. -->
