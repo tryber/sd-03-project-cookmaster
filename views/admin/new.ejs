@@ -26,7 +26,11 @@
       <ul id="ingredientsList"></ul><br />
       <input data-testid="ingredientes" type="text" name="ingredientsInput" id="ingredientsInput"/>
       <button data-testid="adicionar-ingrediente" type="button" for="ingredientsInput" id="ingredientsAddBtn">Adicionar Ingrediente</button><br />
-      <input type="hidden" name="ingredients" id="ingredientsToDb"/>
+      <!-- <input type="hidden" name="ingredients" id="ingredientsToDb"/> -->
+      <!-- ingredients hidden -->
+      <input type="text" name="ingredients" id="ingredientsToDb"
+        style="background-color: red;"
+      />
 
       <label for="instructionsInput">Modo de Preparo: </label><br />
       <input data-testid="modo-de-preparo"
@@ -72,7 +76,8 @@
         const arrItemToDel = document.getElementById("ingredientsToDb");
         const itemToDel = arrItemToDel.value.split(",");
         const itemIndex = itemToDel.indexOf(listItem.innerText);
-        arrItemToDel.value = itemToDel.splice(itemIndex, 1).join(",");
+        arrItemToDel.value = itemToDel.splice(itemIndex, 1);
+        arrItemToDel.value = itemToDel.join(", ");
         listItem.remove();
         delItemBtn.remove();
       };

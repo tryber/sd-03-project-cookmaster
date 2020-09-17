@@ -16,7 +16,7 @@
   </header>
   <body>
     <h1>Editar Receita</h1>
-    <form action="/recipes" method="POST">
+    <form action="/recipes/<%= recipe.id %>" method="POST">
       <label for="recipeNameInput">Nome da Receita: </label>
       <input data-testid="nome-receita"
         type="text" name="name" id="recipeNameInput" value="<%= recipe.name %>"
@@ -38,43 +38,72 @@
 
       <button type="button">Voltar</button>
       <button data-testid="postar-receita" type="submit">Salvar Receita</button>
-
-      <% if (message) { %>
-      <div class="message">
-        <%= message %>
-      </div>
-      <% } %>
     </form>
     <button type="button" onclick="window.location.pathname='/'">Home</button>
   </body>
   <script>
     // INITIAL RENDERING
     // Initial values
-    const nameValue = document.getElementById("recipeNameInput").value
-    let ingredientsValue = document.getElementById("ingredientsToDb").value
-    let ingredientsInput = document.getElementById("ingredientsInput").value
+    const ingredientsValue = document.getElementById("ingredientsToDb");
+    const ingredientsInput = document.getElementById("ingredientsInput");
 
     // Create an array with ingredientsValue
-    let ingredientsArray = ingredientsValue.split(",");
+    let ingredientsArray = ingredientsValue.value.split(",");
 
     // Include array items in the list
     // based on https://www.w3schools.com/jsref/jsref_foreach.asp
     ingredientsArray.forEach(ingrToList);
     function ingrToList(item) {
+      // create a list item
       const listItem = document.createElement('li');
       listItem.innerText = item;
       document.getElementById("ingredientsList").appendChild(listItem);
+      // create a button to delete a list item
+      const delItemBtn = document.createElement("button");
+      delItemBtn.type = "button";
+      delItemBtn.innerText = "Excluir Ingrediente";
+      document.getElementById("ingredientsList").appendChild(delItemBtn);
+      // delete a list item on click button
+      const deleteItem = () => {
+        const ingredientsValue = document.getElementById("ingredientsToDb");
+        const itemToDel = ingredientsValue.value.split(",");
+        const itemIndex = itemToDel.indexOf(listItem.innerText);
+        ingredientsValue.value = itemToDel.splice(itemIndex, 1);
+        ingredientsValue.value = itemToDel.join(", ");
+        listItem.remove();
+        delItemBtn.remove();
+      };
+      delItemBtn.addEventListener("click", deleteItem);
     };
 
     const includeIngredientItem = () => {
       // get the input value and create a new list item
-      let newListItem = document.createElement("li");
-      newListItem.innerText = ingredientsInput;
+      const newListItem = document.createElement("li");
+      newListItem.innerText = ingredientsInput.value;
       document.getElementById("ingredientsList").appendChild(newListItem);
 
       // create an array with the list items and then a string to send to db
-      ingredientsArray.push(ingredientsInput);
-      ingredientsValue = ingredientsArray.join(",");
+      ingredientsArray.push(ingredientsInput.value);
+      ingredientsValue.value = ingredientsArray.join(",");
+
+      // create a button to delete a list item
+      const delItemBtn = document.createElement("button");
+      delItemBtn.type = "button";
+      delItemBtn.innerText = "Excluir Ingrediente";
+      document.getElementById("ingredientsList").appendChild(delItemBtn);
+
+      // delete a list item on click button
+      const deleteItem = () => {
+        const ingredientsValue = document.getElementById("ingredientsToDb");
+        const itemToDel = ingredientsValue.value.split(",");
+        const itemIndex = itemToDel.indexOf(newListItem.innerText);
+        ingredientsValue.value = itemToDel.splice(itemIndex, 1);
+        ingredientsValue.value = itemToDel.join(", ");
+        newListItem.remove();
+        delItemBtn.remove();
+      };
+
+      delItemBtn.addEventListener("click", deleteItem);
     };
 
     document.getElementById("ingredientsAddBtn")

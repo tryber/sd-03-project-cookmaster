@@ -24,13 +24,21 @@ const newRecipe = async (req, res) => {
   const { id, firstName, lastName } = req.user;
   const userFullName = `${firstName} ${lastName}`;
   await Recipes.addRecipe(id, userFullName, name, ingredients, instructions);
-  return res.render('admin/new', { user: req.user, message: 'Receita criada com sucesso!' });
+  res.redirect('/');
+  // return res.render('admin/new', { user: req.user, message: 'Receita criada com sucesso!' });
 };
 
 const rendEdit = async (req, res) => {
   const { id } = req.params;
   const recipe = await Recipes.getRecipeById(id);
   res.render('admin/edit', { recipe, user: req.user, message: null });
+};
+
+const editRecipe = async (req, res) => {
+  const { id } = req.params;
+  const { name, ingredients, instructions } = req.body;
+  await Recipes.updateRecipe(id, name, ingredients, instructions);
+  res.redirect('/');
 };
 
 module.exports = {
@@ -40,4 +48,5 @@ module.exports = {
   newRecipe,
   rendNew,
   rendEdit,
+  editRecipe,
 };

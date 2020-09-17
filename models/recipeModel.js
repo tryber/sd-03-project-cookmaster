@@ -45,9 +45,24 @@ const addRecipe = (userId, userName, name, ingredients, instructions) =>
       .execute(),
     );
 
+const updateRecipe = (Id, name, ingredients, instructions) =>
+  connection()
+    .then((db) =>
+      db
+      .getTable('recipes')
+      .update()
+      .set('name', name)
+      .set('ingredients', ingredients)
+      .set('instructions', instructions)
+      .where('id = :id')
+      .bind('id', Id)
+      .execute(),
+    );
+
 module.exports = {
   getAll,
   getRecipeById,
   getSearchRecipe,
   addRecipe,
+  updateRecipe,
 };

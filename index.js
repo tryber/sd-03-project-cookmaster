@@ -32,7 +32,7 @@ app.get('/recipes/new', middlewares.auth(), controllers.recipeController.rendNew
 app.post('/recipes', middlewares.auth(), controllers.recipeController.newRecipe);
 
 app.get('/recipes/:id/edit', middlewares.auth(), controllers.recipeController.rendEdit);
-// app.post('/recipes/:id', middlewares.auth(), controllers.recipeController.);
+app.post('/recipes/:id', middlewares.auth(), controllers.recipeController.editRecipe);
 
 app.get('/recipes/:id', middlewares.auth(false), controllers.recipeController.recipeDetail);
 
