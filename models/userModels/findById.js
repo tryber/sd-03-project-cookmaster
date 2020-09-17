@@ -13,7 +13,7 @@ const findById = async (id) =>
     .then((result) => result.fetchAll()[0])
     .then(([userId, email, password, name, lastName]) => ({
       id: userId,
-      email: email,
+      email,
       password,
       name,
       lastName,

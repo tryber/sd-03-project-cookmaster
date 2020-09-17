@@ -10,8 +10,8 @@ const findRecipesByQuery = async (input) =>
         .bind('input', `%${input}%`)
         .execute(),
     )
-    .then(async (results) => await results.fetchAll())
-    .then(async (recipes) => await recipes.map(([name, user, id]) => ({ name, user, id })))
+    .then(async (results) => results.fetchAll())
+    .then(async (recipes) => recipes.map(([name, user, id]) => ({ name, user, id })))
     .catch((err) => {
       console.error(err);
       process.exit(1);
