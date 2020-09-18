@@ -32,15 +32,15 @@ const findById = async (id) => {
   return connection()
   .then((db) => db
     .getTable('users')
-    .select(['email', 'password', 'first_name', 'last_name'])
+    .select()
     .where('id = :id')
     .bind('id', id)
     .execute(),
   )
   .then((results) => results.fetchAll()[0])
   .then(
-    ([email, password, firstName, lastName]) =>
-    ({ email, password, firstName, lastName }),
+    ([id, email, password, firstName, lastName]) =>
+    ({ id, email, password, firstName, lastName }),
   )
   .catch((err) => console.error(err));
 };
