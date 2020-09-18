@@ -64,6 +64,12 @@ const delRecipe = async (req, res) => {
   return res.redirect('/');
 };
 
+const userRecipes = async (req, res) => {
+  const { id } = req.user;
+  const recipes = await Recipes.getRecipeByUserId(id);
+  res.render('admin/mine', { recipes, user: req.user, message: null });
+};
+
 module.exports = {
   listRecipes,
   recipeDetail,
@@ -74,4 +80,5 @@ module.exports = {
   editRecipe,
   rendDel,
   delRecipe,
+  userRecipes,
 };
