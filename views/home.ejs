@@ -20,7 +20,7 @@
     <% if (user) { %>
       <button data-testid="minhas-receitas" type="button" onclick="window.location.pathname='/me/recipes'">Minhas Receitas</button>
       <button data-testid="nova-receita" type="button" onclick="window.location.pathname='/recipes/new'">Nova Receita</button>
-      <button data-testid="minha-conta" type="button">Minha Conta</button>
+      <button data-testid="minha-conta" type="button" onclick="window.location.pathname='/me/edit'">Minha Conta</button>
     <% } %>
     <div>
       <% recipes.forEach(recipe => { %>

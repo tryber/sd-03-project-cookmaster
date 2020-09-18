@@ -77,9 +77,24 @@ const register = async (req, res) => {
   }
 };
 
+const rendEditUser = async (req, res) => {
+  const { id } = req.params;
+  const user = await userModel.findById(id);
+  res.render('admin/edit-user', { user, user: req.user, message: null });
+};
+
+const editUser = async (req, res) => {
+  const { id } = req.params;
+  const { email, password, name, lastName } = req.body;
+  await Recipes.updateUser(id, email, password, name, lastName);
+  res.redirect('/');
+};
+
 module.exports = {
   login,
   loginForm,
   logout,
   register,
+  rendEditUser,
+  editUser,
 };

@@ -33,6 +33,9 @@ app.post('/recipes', middlewares.auth(), controllers.recipeController.newRecipe)
 
 app.get('/me/recipes', middlewares.auth(), controllers.recipeController.userRecipes);
 
+app.get('/me/edit', middlewares.auth(), controllers.userController.rendEditUser);
+app.post('/me', middlewares.auth(), controllers.userController.editUser);
+
 app.get('/recipes/:id/delete', middlewares.auth(), controllers.recipeController.rendDel);
 app.post('/recipes/:id/delete', middlewares.auth(), controllers.recipeController.delRecipe);
 

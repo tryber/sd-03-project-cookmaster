@@ -56,8 +56,24 @@ const addUser = (email, password, name, lastName) => {
     );
 };
 
+const updateUser = (Id, email, password, name, lastName) =>
+  connection()
+    .then((db) =>
+      db
+      .getTable('users')
+      .update()
+      .set('email', email)
+      .set('password', password)
+      .set('first_name', name)
+      .set('last_name', lastName)
+      .where('id = :id')
+      .bind('id', Id)
+      .execute(),
+    );
+
 module.exports = {
   findByEmail,
   findById,
   addUser,
+  updateUser,
 };
