@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cookmaster - Home</title>
+    <title>Cookmaster - Minhas Receitas</title>
   </head>
   <header>
     <h2>Cookmaster</h2>
@@ -15,13 +15,8 @@
     <% } %>
   </header>
   <body>
-    <h1>Receitas</h1>
-    <button data-testid="buscar-receita" type="button" onclick="window.location.pathname='/recipes/search'">Buscar Receitas</button>
-    <% if (user) { %>
-      <button data-testid="minhas-receitas" type="button" onclick="window.location.pathname='/me/recipes'">Minhas Receitas</button>
+    <h1>Minhas Receitas</h1>
       <button data-testid="nova-receita" type="button" onclick="window.location.pathname='/recipes/new'">Nova Receita</button>
-      <button data-testid="minha-conta" type="button" onclick="window.location.pathname='/me/edit'">Minha Conta</button>
-    <% } %>
     <div>
       <% recipes.forEach(recipe => { %>
         <h3><%= recipe.name %></h3>

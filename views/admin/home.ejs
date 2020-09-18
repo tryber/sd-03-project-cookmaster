@@ -8,8 +8,12 @@
 
   <body>
     <h1>Painel Administrativo Cookmaster</h1>
-    <p>Usuário atual: <%= `${user.name} ${user.lastName}` %></p>
+    <p>Usuário atual: <%= `${user.firstName} ${user.lastName}` %></p>
     <pre><%= JSON.stringify(user, null, 4) %></pre>
+    <% if (user) { %>
+    <button data-testid="nova-receita" type="button">Nova Receita</button>
+    <% } %>
     <button onclick="window.location.pathname='/logout'">Logout</button>
+    <button type="button" onclick="window.location.pathname='/'">Home</button>
   </body>
 </html>
