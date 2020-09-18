@@ -27,9 +27,7 @@
       <input data-testid="ingredientes" type="text" name="ingredientsInput" id="ingredientsInput"/>
       <button data-testid="adicionar-ingrediente" type="button" for="ingredientsInput" id="ingredientsAddBtn">Adicionar Ingrediente</button><br />
       <!-- ingredients hidden -->
-      <input type="text" name="ingredients" id="ingredientsToDb"
-        style="background-color: red;" value="<%= recipe.ingredients %>"
-      />
+      <input type="hidden" name="ingredients" id="ingredientsToDb" value="<%= recipe.ingredients %>"/>
 
       <label for="instructionsInput">Modo de Preparo: </label><br />
       <input data-testid="modo-de-preparo"
