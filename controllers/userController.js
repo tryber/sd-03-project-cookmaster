@@ -80,7 +80,7 @@ const register = async (req, res) => {
 const rendEditUser = async (req, res) => {
   const { id } = req.params;
   const user = await userModel.findById(id);
-  res.render('admin/edit-user', { user: req.user, message: null });
+  res.render('admin/edit-user', { user, user: req.user, message: null });
 };
 
 const editUser = async (req, res) => {
