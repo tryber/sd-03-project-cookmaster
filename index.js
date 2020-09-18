@@ -2,10 +2,8 @@ require('dotenv/config');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-
 const middlewares = require('./middlewares');
 const controllers = require('./controllers');
-const { authMiddleware } = require('./middlewares/auth');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
