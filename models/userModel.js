@@ -28,13 +28,13 @@ const findByEmail = async (Email) => {
  * Busca um usuário através do seu ID
  * @param {string} id ID do usuário
  */
-const findById = async (id) => {
+const findById = async (Id) => {
   return connection()
   .then((db) => db
     .getTable('users')
     .select()
     .where('id = :id')
-    .bind('id', id)
+    .bind('id', Id)
     .execute(),
   )
   .then((results) => results.fetchAll()[0])
