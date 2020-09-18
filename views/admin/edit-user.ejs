@@ -22,10 +22,10 @@
         type="password" name="confirmPassword" id="confirmPasswordInput"  value="<%= user.password %>"
       /><br />
       <label for="nameInput">Nome: </label>
-      <input data-testid="nome" type="text" name="name" id="nameInput"  value="<%= user.name %>" /><br />
+      <input data-testid="nome" type="text" name="firstName" id="nameInput" value="<%= user.firstName %>" /><br />
       <label for="lastNameInput">Sobrenome: </label>
       <input data-testid="sobrenome" type="text" name="lastName" id="lastNameInput" value="<%= user.lastName %>" /><br />
-      <button type="submit">Cancelar</button>
+      <button type="button" onclick="window.location.pathname='/'">Cancelar</button>
       <button data-testid="salvar" type="submit">Salvar</button>
     </form>
   </body>

@@ -85,8 +85,8 @@ const rendEditUser = async (req, res) => {
 
 const editUser = async (req, res) => {
   const { id } = req.params;
-  const { email, password, name, lastName } = req.body;
-  await Recipes.updateUser(id, email, password, name, lastName);
+  const { email, password, firstName, lastName } = req.body;
+  await userModel.updateUser(id, email, password, firstName, lastName);
   res.redirect('/');
 };
 

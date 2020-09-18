@@ -28,19 +28,19 @@ const findByEmail = async (Email) => {
  * Busca um usuário através do seu ID
  * @param {string} id ID do usuário
  */
-const findById = async (Id) => {
+const findById = async (id) => {
   return connection()
   .then((db) => db
     .getTable('users')
-    .select(['id', 'email', 'password', 'first_name', 'last_name'])
+    .select(['email', 'password', 'first_name', 'last_name'])
     .where('id = :id')
-    .bind('id', Id)
+    .bind('id', id)
     .execute(),
   )
   .then((results) => results.fetchAll()[0])
   .then(
-    ([id, email, password, firstName, lastName]) =>
-    ({ id, email, password, firstName, lastName }),
+    ([email, password, firstName, lastName]) =>
+    ({ email, password, firstName, lastName }),
   )
   .catch((err) => console.error(err));
 };
@@ -56,7 +56,7 @@ const addUser = (email, password, name, lastName) => {
     );
 };
 
-const updateUser = (Id, email, password, name, lastName) =>
+const updateUser = (id, email, password, firstName, lastName) =>
   connection()
     .then((db) =>
       db
@@ -64,10 +64,10 @@ const updateUser = (Id, email, password, name, lastName) =>
       .update()
       .set('email', email)
       .set('password', password)
-      .set('first_name', name)
+      .set('first_name', firstName)
       .set('last_name', lastName)
       .where('id = :id')
-      .bind('id', Id)
+      .bind('id', id)
       .execute(),
     );
 
