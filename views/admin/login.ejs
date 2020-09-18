@@ -6,6 +6,7 @@
     <title>Cookmaster - Login</title>
   </head>
   <body>
+    <h2>Cookmaster - Login</h2>
     <% if (message) {%>
     <div class="message">
       <%= message %>
@@ -13,9 +14,9 @@
     <% } %>
     <form action="/login" method="POST">
       <label for="emailInput">Email: </label>
-      <input type="text" name="email" id="emailInput" /><br />
+      <input type="text" name="email" id="emailInput" data-testid="email"/><br />
       <label for="passwordInput">Senha: </label>
-      <input type="password" name="password" id="passwordInput" /><br />
+      <input type="password" name="password" id="passwordInput" data-testid="senha"/><br />
       <% if (redirect) { %>
       <input
         type="hidden"
@@ -23,7 +24,8 @@
         value="<%= decodeURIComponent(redirect) %>"
       />
       <% } %>
-      <button type="submit">Entrar</button>
+      <button type="submit" data-testid="entrar">Login</button>
+      <a href="/signup" data-testid="cadastrar">cadastre-se</a>
     </form>
   </body>
 </html>

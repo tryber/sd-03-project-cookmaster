@@ -4,26 +4,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cookmaster - Home</title>
+  <title>Cookmaster - Minhas Receitas</title>
 </head>
 
 <body>
-  <%- include('navbar', {user: user, area: "Home"}); %>
+  <%- include('navbar', {user: user, area: area}); %>
   <div>
     <%if(user){%>
       <button
       onclick="window.location.pathname='/recipes/new'"
       data-testid="nova-receita">Nova Receita</button><br />
-      <button
-      onclick="window.location.pathname='/me/recipes'"
-      data-testid="minhas-receitas">Minhas Receitas</button><br />
-      <button
-      onclick="window.location.pathname='/me/edit'"
-      data-testid="minha-conta">Minha Conta</button><br />
   <%}%>
-  <button
-      onclick="window.location.pathname='/recipes/search'"
-      data-testid="buscar-receita">Buscar Receita</button>
   </div>
   <div>
     <% if (recipes) {%>
@@ -34,8 +25,7 @@
       <p>Autor: <%= recipe.user %></p>
       <a href="/recipes/<%= recipe.id %>">Ver mais</a>
     </div>
-    <%})%>
-    <%}%>
+    <%})}%>
   </div>
 </body>
 </html>

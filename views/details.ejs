@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookmaster - Recipe Details</title>
+</head>
+
+<body>
+  <%- include('navbar', {user: user, area: "Detalhes da Receita"}); %>
+  <% if (user) %>
+  <div>
+    <% if (user && user.id === recipe.userId) {%>
+    <div>
+      <a
+        href='/recipes/<%= recipe.recipeId %>/edit'"
+        data-testid="editar-receita"
+      >
+        Editar Receita
+    </a>
+      <button
+        onclick="window.location.pathname='/recipes/<%= recipe.recipeId %>/delete'"
+        data-testid="excluir-receita"
+      >
+        Excluir Receita
+      </button>
+
+    </div>
+    <%}%>
+  </div>
+  <div>
+    <% if (recipe) {%>
+    <div>
+      <h2><%= recipe.recipeName %></h2>
+      <h4>Ingredients:</h4>
+      <p><%= recipe.ingredients %></p>
+      <h4>Instructions:</h4>
+      <p><%= recipe.instructions %></p>
+      <p>Autor: <%= recipe.userName %></p>
+    </div>
+    <% } %>
+  </div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookmaster - Editar Receita</title>
+</head>
+
+<body>
+  <%- include('navbar', {user: user, area: area}); %>
+  <form action="<%=`/recipes/${id}`%>" method="POST" name="editRecipeForm">
+    <label for="nameInput">Nome da Receita </label>
+    <input data-testid="nome-receita" type="text" name="name" id="nameInput" value="<%=`${recipe.name}`%>" /><br />
+    <span>Ingredientes</span>
+    <ul id="ingredientList">
+      <% recipe.ingredients.split(',').forEach((ingredient) => { %>
+      <li class="ingredient" id=<%=`${ingredient}`%>>
+        <%= ingredient %>
+        <button type="button" onclick="deleteIngredient('<%= ingredient %>')">
+          Excluir Ingrediente
+        </button>
+      </li>
+      <% }) %>
+    </ul><br />
+    <input data-testid="ingredientes" type="list" name="ingredients" id="ingredientInput">
+    <button onClick="addIngredient()" data-testid="adicionar-ingrediente" type="button">Adicionar ingrediente
+    </button><br />
+    <label for="instructions">Modo de preparo</label><br />
+    <textarea data-testid="modo-de-preparo" name="instructions"
+      id="instructions"><%=`${recipe.instructions}`%></textarea><br />
+    <button type="button">Voltar</button>
+    <button data-testid="postar-receita" type="button" onclick="submitRecipe()">
+      Salvar Receita
+    </button>
+  </form>
+</body>
+<script>
+  const ingredientsHTMLColl = document.getElementsByClassName('ingredient');
+  const ingredientList = [];
+  const ingredientsArr = [...ingredientsHTMLColl]
+  ingredientsArr.forEach((e) => ingredientList.push(e.id));
+
+  const addIngredient = () => {
+    const li = document.createElement('li');
+    const list = document.getElementById('ingredientList');
+    const ingredientInput = document.getElementById('ingredientInput');
+
+    li.id = ingredientInput.value;
+    li.innerHTML = ingredientInput.value +
+      `<button
+        type="button"
+        onclick="deleteIngredient('${ingredientInput.value}')"
+        >
+        Excluir Ingrediente
+      </button>`;
+    list.appendChild(li);
+    ingredientList.push(ingredientInput.value);
+    ingredientInput.value = '';
+  };
+
+// splice + indexOf logic to remove specific item from array found at
+// https://stackoverflow.com/questions/5767325/how-can-i-remove-a-specific-item-from-an-array
+  const deleteIngredient = (ingredient) => {
+    document.getElementById(ingredient).remove();
+    ingredientList.splice(ingredientList.indexOf(ingredient, 1));
+  }
+  submitRecipe = () => {
+    const ingredientInput = document.getElementById('ingredientInput');
+    ingredientInput.value = ingredientList;
+    document.editRecipeForm.submit();
+  }
+</script>
+</html>
