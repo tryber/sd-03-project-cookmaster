@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 
 const middlewares = require('./middlewares');
 const controllers = require('./controllers');
+const { authMiddleware } = require('./middlewares/auth');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,7 +30,9 @@ app.post('/recipes', middlewares.auth(), controllers.recipeController.createReci
 app.post('/recipes/:id', controllers.recipeController.editRecipe);
 app.post('/recipes/:id/delete', controllers.recipeController.deleteRecipe);
 app.get('/me/recipes', middlewares.auth(), controllers.recipeController.myRecipesPage);
+app.get('/me/edit', middlewares.auth(), controllers.userController.editUserPage);
 app.get('/recipes/:id/delete', middlewares.auth(), controllers.recipeController.deleteRecipePage);
+app.post('/me', middlewares.auth(), controllers.userController.editUser);
 
 app.get('/signup', controllers.userController.SignUpPage);
 app.post('/signup', controllers.userController.signUp);
