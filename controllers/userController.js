@@ -27,8 +27,8 @@ const regForm = (req, res) => {
 // Formulário de edição de usuário
 const editUserForm = (req, res) => {
   const { token = '' } = req.cookies || {};
-  console.log(req.user);
-  return !SESSIONS[token] ? res.redirect('/login'): // Só faz sentido editar se estiver logado
+
+  return ! SESSIONS[token] ? res.redirect('/login'): // Só faz sentido editar se estiver logado
   res.render('admin/edit', { user: req.user, message: 'Digite seus novos dados de usuário' });
 };
 
@@ -51,7 +51,7 @@ const update = async (req, res) => {
 
   const response = userModel.valiDate(email, password, passwordConf, firstName, lastName);
   if (response === true) {
-    await userModel.update( id, req.body);
+    await userModel.update(id, req.body);
     const recipes = await RecipeModel.getAllRecipes();
     res.status(201).render('home', { user: req.user, recipes });
   } else {
@@ -60,7 +60,7 @@ const update = async (req, res) => {
 };
 
 // Ação de logar no sistema
-const login = async (req, res, _next) => {
+const login = async (req, res) => {
   const { email, password, redirect } = req.body;
 
   if (!email || !password)

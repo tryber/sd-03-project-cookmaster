@@ -20,7 +20,7 @@ const update = async (userId, { email, password, firstName, lastName }) => {
       .set('first_name', firstName)
       .set('last_name', lastName)
       .where('id = :id')
-      .bind('id', userId )
+      .bind('id', userId)
       .execute(),
     );
 };

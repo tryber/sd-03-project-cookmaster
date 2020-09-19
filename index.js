@@ -1,6 +1,6 @@
 // Para rodar o projeto usando o nodemon (reinicia o servidor a cada save), use npn run start:watch
 // Para executar os testes, rode npm run cypress:open
-// Verifique no package.json os scripts, o lado esquerdo é o comando e o direito 
+// Verifique no package.json os scripts, o lado esquerdo é o comando e o direito
 
 const express = require('express');
 const bodyParser = require('body-parser');
