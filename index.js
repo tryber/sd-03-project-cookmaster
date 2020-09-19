@@ -1,4 +1,6 @@
 // Para rodar o projeto usando o nodemon (reinicia o servidor a cada save), use npn run start:watch
+// Para executar os testes, rode npm run cypress:open
+// Verifique no package.json os scripts, o lado esquerdo é o comando e o direito 
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -17,6 +19,7 @@ app.set('view engine', 'ejs');
 app.set('views', './views');
 
 app.get('/', middlewares.auth(false), controllers.recipeController.listRecipes);
+app.get('/me', middlewares.auth(false), controllers.recipeController.listRecipes);
 app.get('/recipes', middlewares.auth(false), controllers.recipeController.listRecipes);
 
 app.get('/recipes/search', middlewares.auth(false), controllers.recipeController.searchByName);
@@ -38,7 +41,9 @@ app.post('/recipes/:id', middlewares.auth(), controllers.recipeController.update
 app.get('/recipes/:id/delete', middlewares.auth(), controllers.recipeController.confirmDeleteForm);
 app.post('/recipes/:id/delete', middlewares.auth(), controllers.recipeController.deleteRecipe);
 
-app.get('/me/recipes/', middlewares.auth(), controllers.recipeController.searchByUser);
+app.post('/me', middlewares.auth(), controllers.userController.update);
+app.get('/me/edit', middlewares.auth(), controllers.userController.editUserForm);
+app.get('/me/recipes', middlewares.auth(), controllers.recipeController.searchByUser);
 
 app.get('/login', controllers.userController.loginForm);
 app.get('/logout', controllers.userController.logout);

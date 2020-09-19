@@ -10,6 +10,21 @@ const create = async (email, password, firstName, lastName) => {
     );
 };
 
+const update = async (userId, { email, password, firstName, lastName }) => {
+  connection().then((data) =>
+    data
+      .getTable('users')
+      .update()
+      .set('email', email)
+      .set('password', password)
+      .set('first_name', firstName)
+      .set('last_name', lastName)
+      .where('id = :id')
+      .bind('id', userId )
+      .execute(),
+    );
+};
+
 const valiDate = (email, pass1, pass2, firstName, lastName) => {
   switch (true) {
     case !(/([\w.\-_]+)?\w+@[\w-_]+(\.\w+){1,}/igm).test(email):
@@ -78,6 +93,7 @@ const findById = async (uid) => {
 
 module.exports = {
   create,
+  update,
   valiDate,
   findByEmail,
   findById,
