@@ -20,7 +20,7 @@ const loginForm = (req, res) => {
 const regForm = (req, res) => {
   const { token = '' } = req.cookies || {};
 
-  return SESSIONS[token] ? res.redirect('/login'): // Se estiver logado, não faz sentido registrar
+  return SESSIONS[token] ? res.redirect('/login') : // Se estiver logado, não faz sentido registrar
   res.render('admin/register', { message: 'Digite seus dados de cadastro' });
 };
 
@@ -28,7 +28,7 @@ const regForm = (req, res) => {
 const editUserForm = (req, res) => {
   const { token = '' } = req.cookies || {};
 
-  return ! SESSIONS[token] ? res.redirect('/login'): // Só faz sentido editar se estiver logado
+  return !SESSIONS[token] ? res.redirect('/login') : // Só faz sentido editar se estiver logado
   res.render('admin/edit', { user: req.user, message: 'Digite seus novos dados de usuário' });
 };
 
