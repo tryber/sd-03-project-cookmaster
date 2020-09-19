@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <title>Cookmaster - nova receita</title>
+  </head>
+  <body>
+    <header>
+      <p>Cookmaster</p>
+      <% if (user) { %>
+        <span><%= user.firstName %> <%= user.lastName %> | </span><a data-testid="logout" href="/logout">Logout</a>
+      <% } else { %>
+        <a data-testid="login" href="/login">Login</a>
+      <% } %>
+    </header>
+    <h1>Nova Receita</h1>
+    <form action="/recipes" method="POST">
+      <label for="nome">Nome da Receita</label>
+      <input
+        name="name"
+        type="text"
+        data-testid="nome-receita"
+        required
+      />
+      <p>Ingredientes</p>
+      <ul id="ingredients-list">
+      </ul>
+      <input
+        name="text"
+        type="text"
+        id="ingredient-input"
+        data-testid="ingredientes"
+      />
+      <input type="hidden" id="ingredients-hidden" name="ingredients">
+      <button
+        type="button"
+        id="ingredient-button"
+        data-testid="adicionar-ingrediente"
+        onclick="addIngredient()">
+        Adicionar Ingrediente
+      </button>
+      <label for="modo-preparo">Modo de Preparo</label>
+      <input data-testid="modo-de-preparo" name="instructions" type="text" required />
+      <section>
+        <button type="button" onclick="window.location.pathname='/'">Voltar</button>
+        <button type="submit" data-testid="postar-receita">Salvar receita</button>
+      </section>
+    </form>
+  </body>
+  <script>
+    const ingredientsList = document.getElementById('ingredients-list');
+    const ingredientInput = document.getElementById('ingredient-input');
+    const ingredients = document.getElementById('ingredients-hidden');
+    let ingredientsArr = [];
+
+    const addDeleteButton = (item) => {
+      const delBtn = document.createElement('button');
+      delBtn.innerText = 'Excluir Ingrediente';
+      delBtn.className = 'delete-button';
+      delBtn.addEventListener('click', (ind) => {
+        ingredientsArr.splice(ind, 1);
+        // Linha acima foi sugestão do Roz no plantão de 5/9 para apagar somente o elemento clicado
+        ingredients.value = ingredientsArr.join(',');
+        delBtn.remove();
+        item.remove();
+      });
+      return delBtn;
+    }
+
+    const addIngredient = () => {
+      const item = document.createElement('li');
+      item.innerText = ingredientInput.value;
+      ingredientsArr.push(ingredientInput.value);
+      ingredients.value = ingredientsArr.join(',');
+      item.className = 'ingredient-item';
+      ingredientsList.appendChild(item);
+      ingredientsList.appendChild(addDeleteButton(item));
+      ingredientInput.value = '';
+    };
+  </script>
+</html>

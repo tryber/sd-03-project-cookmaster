@@ -1,0 +1,5 @@
+header {
+  background-color: lightslategrey;
+  display: flex;
+  justify-content: space-around;
+}

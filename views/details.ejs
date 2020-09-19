@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Visualizar Receita</title>
+  </head>
+  <body>
+    <header>
+      <p>Cookmaster</p>
+      <% if (user) { %>
+        <p><%= `${user.firstName} ${user.lastName}` %></p>
+        <a data-testid="logout" href="/logout">Logout</a>
+      <% } else { %>
+        <a data-testid="login" href="/login">Login</a>
+      <% } %>
+    </header>
+    <section>
+      <aside><h1>Receitas</h1></aside>
+      <% if ( recipe.userID === user.id ) { %>
+        <aside>
+          <button
+            data-testid="editar-receita"
+            onclick="window.location.pathname='/recipes/<%= recipe.id %>/edit'"
+          >Editar Receita
+          </button>
+        </aside>
+        <aside>
+          <button
+            data-testid="excluir-receita"
+            onclick="window.location.pathname='/recipes/<%= recipe.id %>/delete'"
+          >Excluir Receita
+          </button>
+        </aside>
+      <% } %>
+    </section>
+    <section>
+      <h1><%= recipe.name %></h1>
+      <p>Enviada por <%= recipe.user %></p>
+      <h3>Ingredientes</h3>
+      <ul><% recipe.ingredients.split().map((recipe) => { %>
+        <li><%= recipe %></li>
+      <% }) %></ul>
+      <h3>Modo de Preparo</h3>
+      <p><%= recipe.instructions %></p>
+    </section>
+  </body>
+</html>
