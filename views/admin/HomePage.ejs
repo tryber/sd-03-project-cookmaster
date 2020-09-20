@@ -10,6 +10,9 @@
     <h1>Painel Administrativo Cookmaster</h1>
     <p>Usuário atual: <%= `${user.name} ${user.lastName}` %></p>
     <pre><%= JSON.stringify(user, null, 4) %></pre>
+    <a href="/">
+      <button>Home</button>
+    </a>
     <button onclick="window.location.pathname='/logout'">Logout</button>
   </body>
 </html>
