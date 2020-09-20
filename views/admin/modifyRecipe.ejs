@@ -13,7 +13,7 @@
         <div class="inputGroup">
           <label for="recipeName">Nome da Receita: </label>
           <input data-testid="nome-receita" name="name" type="text" id="recipeName" />
-        </div> 
+        </div>
         <div data-testid="ingredientes" class="inputGroup">
           <b style="font-size: 22px;">Ingredientes</b>
           <ul class="ing-list">
@@ -49,14 +49,13 @@
   const ulList = document.querySelector('.ing-list');
   const addButton = document.getElementById("add");
   let ingredients = []
-  
-  
+
   document.addEventListener("click", event => {
     
     if (document.getElementById("submit") === event.target) {
       document.forms[0].submit();
     }
-    
+
     event.preventDefault();
     if (event.target.id === 'add') {
       if (document.getElementById("ingredients").value === "") {
@@ -81,7 +80,7 @@
       document.getElementById("ingredientList").value = ingredients;
     } else if (event.target.id === 'remove') {
       ingredients = ingredients.filter(item => event.target.value !== item)
-      document.getElementById("ingredientList").value = ingredients; 
+      document.getElementById("ingredientList").value = ingredients;
       const item = document.querySelector(`[data-key="${event.target.value}"]`);
       item.remove();
     }
