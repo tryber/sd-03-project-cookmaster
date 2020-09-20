@@ -51,7 +51,7 @@ const editRecipeForm = async (req, res) => {
 
   if (userId !== id) res.redirect(`/recipes/${recipeId}`);
 
-  return res.render('admin/edit', { recipe, user: req.user });
+  return res.render('admin/EditRecipe', { recipe, user: req.user });
 };
 
 const editRecipe = async (req, res) => {
