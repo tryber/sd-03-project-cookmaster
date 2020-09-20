@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - New Recipe</title>
+  </head>
+  <body>
+    <%- include('../navbar', { user }); %>
+    <% if (recipe) {%>
+    <h1>Editar Receita</h1>
+    <form action="/recipes/<%= recipe.recipeId %> " method="POST">
+      <label for="recipeName">Nome da Receita</label><br />
+      <input
+        type="text"
+        name="recipeName"
+        id="recipeName"
+        data-testid="nome-receita"
+        value=<%= recipe.name %>
+      /><br />
+      <input type="hidden" name="ingredients" id="ingredients" />
+      <ul id="ingredientsList">
+        <% recipe.ingredients.map(ingredient => { %>
+        <li class="ingredient-item"><%= ingredient %></li>
+        <%})%>
+      </ul>
+      <input type="text" id="ingredientsInput" data-testid="ingredientes" />
+      <button
+        for="ingredients"
+        type="button"
+        id="add-ingredient-button"
+        data-testid="adicionar-ingrediente"
+      >
+        Adicionar Ingrediente
+      </button>
+      <br />
+      <label for="instructions">Modo de Preparo</label><br />
+      <input
+        type="text"
+        name="instructions"
+        id="instructions"
+        data-testid="modo-de-preparo"
+        value=<%= recipe.instructions %>
+      /><br />
+      <button type="submit" data-testid="postar-receita">Salvar Receita</button>
+    </form>
+    <% } %>
+    <a href="/">
+      <button type="button">Voltar</button>
+    </a>
+  </body>
+  <script>
+    const addIngredientButton = document.querySelector('#add-ingredient-button');
+    const ingredientsList = document.querySelector('#ingredientsList');
+    const ingredientInput = document.querySelector('#ingredientsInput');
+    const ingredients = document.querySelector('#ingredients');
+    let ingredientsArray = [];
+    const createNewIngredient = () => {
+      const item = document.createElement('li');
+      const deleteButton = document.createElement('button');
+      item.innerText = ingredientInput.value;
+      deleteButton.innerText = 'Excluir Ingrediente';
+      ingredientsArray.push(ingredientInput.value);
+      ingredients.value = ingredientsArray.join(',');
+      item.className = 'ingredient-item';
+      deleteButton.className = 'delete-button';
+      ingredientsList.appendChild(item);
+      ingredientsList.appendChild(deleteButton);
+      ingredientInput.value = null;
+      deleteButton.addEventListener('click', () => {
+        ingredientsArray = ingredientsArray.filter((ingredient) => ingredient !== item.innerText);
+        ingredients.value = ingredientsArray.join(',');
+        item.remove();
+        deleteButton.remove();
+      });
+    };
+    const addExistingIngredients = () => {
+      const ingredientItems = document.querySelectorAll('.ingredient-item');
+      for (let i = 0; i < ingredientItems.length; i += 1) {
+        const deleteButton = document.createElement('button');
+        ingredientsArray.push(ingredientItems[i].innerText);
+        ingredients.value = ingredientsArray.join(',');
+        deleteButton.innerText = 'Excluir Ingrediente';
+        deleteButton.className = 'delete-button';
+        ingredientItems[i].insertAdjacentElement('afterend', deleteButton);
+        deleteButton.addEventListener('click', () => {
+          ingredientsArray = ingredientsArray.filter((ingredient) => ingredient !== ingredientItems[i].innerText);
+          ingredients.value = ingredientsArray.join(',');
+          ingredientItems[i].remove();
+          deleteButton.remove();
+        });
+      };
+    };
+    window.onload = () => addExistingIngredients();
+    addIngredientButton.addEventListener('click', createNewIngredient);
+  </script>
+</html>
