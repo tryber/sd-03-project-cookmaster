@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tela de Receitas</title>
+  </head>
+  <body>
+    <div>
+      <h1>Cookmaster</h1>
+      <% if ( user ) { %>
+      <a href=<%= `/recipes/${rec.id}/edit` %> data-testid="editar-receita">Editar Receita</a>
+      <a href=<%= `/recipes/${rec.id}/delete` %> data-testid="excluir-receita">Excluir Receita</a>
+      <p>
+        <%= user.name %> |
+        <button data-testid="logout" onclick="window.location.pathname='/logout'">Logout</button>
+      </p>
+      <% } else { %>
+      <button data-testid="login" onclick="window.location.pathname='/login'">Login</button>
+      <% } %>
+    </div>
+    <h2> <%=rec.name %> </h2>
+    <h3>Enviada por <%=rec.user %></h3>
+
+    <h2>Ingredientes</h2>
+    <p><%=rec.ingredients %></p>
+
+    <h2>Modo de preparo</h2>
+    <p><%=rec.instructions %></p>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Receita</title>
+</head>
+<body>
+  <div>
+    <h1>Cookmaster</h1>
+    <% if ( user ) { %>
+    <button data-testid="logout" onclick="window.location.pathname='/logout'">Logout</button>
+    <p><%= user.name %></p>
+    <% } else { %>
+    <button data-testid="login" onclick="window.location.pathname='/login'">Login</button>
+    <% } %>
+  </div>
+  <h2>Editar Receita</h2>
+  <form action="/recipes/<%= rec.id %>" method="post">
+    <input type="hidden" id="inputListaIngredientes" name="inputListaIngredientes" value="<%= rec.ingredients%>" />
+    <label for="nomeReceita">Nome da Receita</label>
+    <input type="text" name="nome" id="nomeReceita" data-testid="nome-receita"     value="<%= rec.name %>" />
+    <label for="ingrediente">Ingredientes:</label>
+    <input type="text" name="ingrediente" data-testid="ingredientes" id="ingrediente" />
+    <button
+      type="button"
+      name="adicionarIngrediente"
+      data-testid="adicionar-ingrediente"
+      id="adicionarIngrediente"
+    >
+      Adicionar Ingrendiente
+    </button>
+    <label for="modoPreparo">Modo de preparo:</label>
+    <input type="text" name="modoPreparo" id="modoPreparo" data-testid="modo-de-preparo" value="<%= rec.instructions %>" />
+    <button type="submit" name="salvarReceita" data-testid="postar-receita">
+      Salvar Receita
+    </button>
+    <ul id="listaIngredientes">
+    </ul>
+  </form>
+  <button type="button" onclick="window.location.pathname='/'">Voltar</button>
+</body>
+
+<script>
+  let ingrediente = document.getElementById('ingrediente');
+  let botaoAdicionarIngrediente = document.getElementById('adicionarIngrediente');
+  let inputEscondido = document.getElementById('inputListaIngredientes');
+
+  function saveIngredientsList() {
+    let listaIngredientes = document.querySelectorAll('.ingr');
+    let listaParaBanco = [];
+
+    for (let i = 0; i < listaIngredientes.length; i++) {
+      listaParaBanco.push(listaIngredientes[i].id);
+    }
+
+    inputEscondido.value = listaParaBanco.join(',');
+  }
+
+  function appendButton(referencia) {
+    const li = document.getElementById(referencia);
+
+    let botaoRemover = document.createElement('button');
+    botaoRemover.setAttribute('data-ref', referencia);
+    botaoRemover.innerText = 'Excluir Ingrediente';
+
+    botaoRemover.addEventListener('click', (event) => {
+      let atributoBotao = event.target.getAttribute('data-ref');
+      let liRelacionada = document.getElementById(atributoBotao);
+      liRelacionada.remove();
+      saveIngredientsList();
+    });
+
+    li.appendChild(botaoRemover);
+    saveIngredientsList();
+
+    // Código criado com referência no link: https://cursos.alura.com.br/forum/topico-removendo-com-o-clique-em-um-botao-remover-62746
+  }
+
+  function adicionarIngredientesALista(arrIng) {
+    arrIng.forEach((ingr) => {
+      let item = document.createElement('li');
+      let listIng = document.getElementById('listaIngredientes');
+
+      item.innerHTML = ingr;
+      item.setAttribute('id', ingr);
+      item.setAttribute('class', 'ingr');
+
+      listIng.appendChild(item);
+      appendButton(ingr);
+    })
+  }
+
+  botaoAdicionarIngrediente.addEventListener('click', () => {
+    let itemLista = document.createElement('li');
+    let listaIngredientes = document.getElementById('listaIngredientes');
+
+    itemLista.innerHTML = ingrediente.value;
+    itemLista.setAttribute('id', ingrediente.value);
+    itemLista.setAttribute('class', 'ingr');
+
+    listaIngredientes.appendChild(itemLista);
+    appendButton(ingrediente.value);
+  });
+
+  window.onload = () => {
+    ingredientes = inputEscondido.value.split(',');
+
+    adicionarIngredientesALista(ingredientes);
+  };
+</script>
+</html>

@@ -34,7 +34,7 @@ const login = async (req, res, next) => {
   SESSIONS[token] = user.id;
 
   res.cookie('token', token, { httpOnly: true, sameSite: true });
-  res.redirect(redirect || '/admin');
+  res.redirect(redirect || '/');
 };
 
 const logout = (req, res) => {
@@ -43,8 +43,42 @@ const logout = (req, res) => {
   res.render('admin/logout');
 };
 
+const signup = (_req, res) => {
+  res.render('signup', { message: null });
+};
+
+const errorMessages = {
+  emailinvalido: 'O email deve ter o formato email@mail.com',
+  senhapequena: 'A senha deve ter pelo menos 6 caracteres',
+  senhaigual: 'As senhas tem que ser iguais',
+  primeironome: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+  segundonome: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+  sucesso: 'Cadastro efetuado com sucesso!',
+};
+
+const userSignUp = async (req, res) => {
+  const { email, senha, confirmarsenha, nome, sobrenome } = req.body;
+  // console.log(req.body);
+  if (!userModel.validateEmail(email)) {
+    res.render('signup', { message: errorMessages.emailinvalido });
+  }
+
+  if (senha.length < 6) res.render('signup', { message: errorMessages.senhapequena });
+
+  if (senha !== confirmarsenha) res.render('signup', { message: errorMessages.senhaigual });
+
+  if (nome.length < 3) res.render('signup', { message: errorMessages.primeironome });
+
+  if (sobrenome.length < 3) res.render('signup', { message: errorMessages.segundonome });
+
+  await userModel.insertUser(email, senha, nome, sobrenome);
+  return res.render('signup', { message: errorMessages.sucesso });
+};
+
 module.exports = {
   login,
   loginForm,
   logout,
+  signup,
+  userSignUp,
 };
