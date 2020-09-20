@@ -11,14 +11,14 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-connection.connect((err) => {
-  const cc = 'erro: ';
-  if (err) {
-    return console.error(cc + err.message);
-  }
+// connection.connect((err) => {
+//   const cc = 'erro: ';
+//   if (err) {
+//     return console.error(cc + err.message);
+//   }
 
-  console.log('Connected to the MySQL server.');
-});
+//   console.log('Connected to the MySQL server.');
+// });
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
