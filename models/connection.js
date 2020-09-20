@@ -20,8 +20,7 @@ module.exports = async () => {
       connect = await session.getSchema('cookmaster');
       return connect;
     })
-    .catch((err) => {
-      console.error(err);
+    .catch(() => {
       process.exit(1);
     });
 };
