@@ -47,37 +47,32 @@ const signup = (_req, res) => {
   res.render('signup', { message: null });
 };
 
-// Ideia do Willy!
 const errorMessages = {
-  invalidEmail: 'O email deve ter o formato email@mail.com',
-  smallPassword: 'A senha deve ter pelo menos 6 caracteres',
-  confirmPassword: 'As senhas tem que ser iguais',
-  nameRules: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-  lastNameRules: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
-  success: 'Cadastro efetuado com sucesso!',
+  emailinvalido: 'O email deve ter o formato email@mail.com',
+  senhapequena: 'A senha deve ter pelo menos 6 caracteres',
+  senhaigual: 'As senhas tem que ser iguais',
+  primeironome: 'O primeiro nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+  segundonome: 'O segundo nome deve ter, no mínimo, 3 caracteres, sendo eles apenas letras',
+  sucesso: 'Cadastro efetuado com sucesso!',
 };
 
 const userSignUp = async (req, res) => {
-  const { email, password, confirmPassword, name, lastname } = req.body;
+  const { email, senha, confirmarsenha, nome, sobrenome } = req.body;
   // console.log(req.body);
   if (!userModel.validateEmail(email)) {
-    res.render('signup', { message: errorMessages.invalidEmail });
+    res.render('signup', { message: errorMessages.emailinvalido });
   }
 
-  if (password.length < 6) {
-    res.render('signup', { message: errorMessages.smallPassword });
-  }
+  if (senha.length < 6) res.render('signup', { message: errorMessages.senhapequena });
 
-  if (password !== confirmPassword) {
-    res.render('signup', { message: errorMessages.confirmPassword });
-  }
+  if (senha !== confirmarsenha) res.render('signup', { message: errorMessages.senhaigual });
 
-  if (name.length < 3) res.render('signup', { message: errorMessages.nameRules });
+  if (nome.length < 3) res.render('signup', { message: errorMessages.primeironome });
 
-  if (lastname < 3) res.render('signup', { message: errorMessages.lastNameRules });
+  if (sobrenome.length < 3) res.render('signup', { message: errorMessages.segundonome });
 
-  await userModel.insertUser(email, password, name, lastname);
-  res.render('signup', { message: errorMessages.success });
+  await userModel.insertUser(email, senha, nome, sobrenome);
+  return res.render('signup', { message: errorMessages.sucesso });
 };
 
 module.exports = {

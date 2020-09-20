@@ -78,8 +78,7 @@ const updateRecipe = async (recipeId, recipeName, ingredients, instructions) =>
 
 const deleteRecipe = async (recipeId) =>
   connection().then((db) =>
-    db
-      .getTable('recipes')
+    db.getTable('recipes')
       .delete()
       .where('id = :id')
       .bind('id', recipeId)

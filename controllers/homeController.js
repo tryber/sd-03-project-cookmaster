@@ -7,7 +7,7 @@ const listRecipes = async (req, res) => {
   res.render('home', { recipes, user: req.user });
 };
 
-const getRecipe = async (req, res) => {
+const checkById = async (req, res) => {
   const { id } = req.params;
   const recipe = await homeModel.findRecipeById(id);
 
@@ -81,6 +81,7 @@ const myRecipes = async (req, res) => {
 
   res.render('me/recipes', { recipes: rec });
 };
+
 const editUser = async (req, res) => {
   const { id } = req.user;
 
@@ -98,7 +99,7 @@ const saveUserEditedData = async (req, res) => {
 
 module.exports = {
   listRecipes,
-  getRecipe,
+  checkById,
   searchRecipe,
   newRecipe,
   saveRecipe,

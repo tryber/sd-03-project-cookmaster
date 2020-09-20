@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Deletar Receita</title>
-  </head>
-  <body>
-    <h1>Deletar Receita</h1>
-    <% if (message) { %>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deletar Receita</title>
+</head>
+<body>
+  <h1>Deletar Receita</h1>
+  <% if (message) { %>
     <p><%= message %></p>
-    <% } %>
-    <div>
-      <form action="/recipes/<%= recId %>/delete" method="post">
-        <label for="senha">Confirme a exclusão da receita</label>
-        <input data-testid="senha" type="password" name="senha" />
-        <button data-testid="cancelar" type="button" name="cancelar">Cancelar</button>
-        <button data-testid="confirmar" type="submit" name="confirmar">Confirmar</button>
-      </form>
-    </div>
-  </body>
+  <% } %>
+  <div>
+    <form action="/recipes/<%= recId %>/delete" method="post">
+      <label for="senha">Confirme a exclusão da receita</label>
+      <input data-testid="senha" type="password" name="senha" />
+      <button data-testid="cancelar" type="button" name="cancelar">Cancelar</button>
+      <button data-testid="confirmar" type="submit" name="confirmar">Confirmar</button>
+    </form>
+  </div>
+</body>
 </html>
