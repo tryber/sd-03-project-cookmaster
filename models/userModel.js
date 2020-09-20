@@ -1,32 +1,59 @@
-/* Quando você implementar a conexão com o banco, não deve mais precisar desse objeto */
-const TEMP_USER = {
-  id: 'd2a667c4-432d-4dd5-8ab1-b51e88ddb5fe',
-  email: 'taylor.doe@company.com',
-  password: 'password',
-  name: 'Taylor',
-  lastName: 'Doe',
-};
-
-/* Substitua o código das funções abaixo para que ela,
-de fato, realize a busca no banco de dados */
+const { connection } = require('../database');
 
 /**
  * Busca um usuário através do seu email e, se encontrado, retorna-o.
  * @param {string} email Email do usuário a ser encontrado
  */
 const findByEmail = async (email) => {
-  return TEMP_USER;
+  const query = `SELECT * from Users WHERE email = '${email}'`;
+
+  return new Promise((fulfill, reject) => {
+    connection.query(query, (err, rows) => {
+      if (err) reject(err);
+      return fulfill(rows && rows[0]);
+    });
+  });
 };
 
 /**
  * Busca um usuário através do seu ID
  * @param {string} id ID do usuário
  */
-const findById = async (id) => {
-  return TEMP_USER;
+const findById = (id) => {
+  const query = `SELECT * from Users WHERE id = ${id}`;
+
+  return new Promise((fulfill, reject) => {
+    connection.query(query, (err, rows) => {
+      if (err) reject(err);
+      return fulfill(rows && rows[0]);
+    });
+  });
 };
+
+const createUser = (email, password, name, lastName) => {
+  const query = `INSERT INTO Users (email, pass, first_name, last_name)
+  VALUES ('${email}', '${password}', '${name}', '${lastName}');`;
+  return new Promise((fulfill, reject) => {
+    connection.query(query, (err, rows) => {
+      if (err) reject(err);
+      return fulfill(rows && rows[0]);
+    });
+  });
+};
+// const listUsers = () => {
+//   return new Promise((fulfill, reject) => {
+//     connection.query('SELECT * from Users', (er r, rows) => {
+//       if (err) {
+//         reject(err);
+//       }
+
+//       return fulfill(rows);
+//     });
+//   });
+// };
 
 module.exports = {
   findByEmail,
   findById,
+  createUser,
 };

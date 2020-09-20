@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Home</title>
+  </head>
+  <body>
+    <div class="header">
+      <div class="half" style="flex-direction: column; align-items: flex-start;">
+        <h1>Nome da Receita </h1>
+        <h2>Enviado por <%= userName %></h2>
+      </div>
+      <div class="half" style="justify-content: flex-end;">
+        <button data-testid="editar-receita" class="edit">Editar Receita</button>
+        <button data-testid="excluir-receita" class="delete">Excluir Receita</button>
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  .header {
+    display: flex;
+    width: calc(100vw - 40px);
+    padding: 20px;
+  }
+  .half{
+    display: flex;
+    width: 50%;
+  }
+  button{
+    padding: 10px 30px;
+    border-radius: 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+    color:white;
+    font-weight: bold;
+    margin-left: 10px;
+    height: fit-content;
+  }
+  .edit{
+    background-color: dodgerblue;
+  }
+  .delete{
+    background-color: crimson;
+  }
+  h1 {
+    font-size: 48px;
+    margin: 0;
+    text-align: left;
+  }
+  h2{
+    margin: 0;
+    text-align: left;
+  }
+
+</style>

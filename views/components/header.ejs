@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Home</title>
+  </head>
+  <body>
+    <div class="header">
+      <div class="half">
+        <h1><%= title %></h1>
+      </div>
+      <div class="half" style="justify-content: flex-end;">
+        <button class="myRecipes">Minhas Receitas</button>
+        <button data-testid="buscar-receita" class="normal">Buscar Receitas</button>
+        <button class="newRecipe">Nova Receita</button>
+        <button class="normal">Minha Conta</button>
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  .header {
+    display: flex;
+    width: calc(100vw - 40px);
+    padding: 10px 20px;
+  }
+  .half{
+    display: flex;
+    width: 50%;
+    align-items: center;
+  }
+  button{
+    padding: 10px 30px;
+    border-radius: 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+    color:white;
+    font-weight: bold;
+    margin-left: 10px;
+    height: fit-content;
+  }
+  .normal{
+    background-color: dodgerblue;
+  }
+  .myRecipes{
+    background-color: darkorchid;
+  }
+  .newRecipe{
+    background-color: grey;
+  }
+  h1 {
+    font-size: 48px;
+  }
+
+</style>
