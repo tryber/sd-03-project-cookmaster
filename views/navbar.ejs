@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navbar</title>
+  </head>
+  <body>
+    <nav>
+      <span>Cookmaster</span>
+      <% if (!user) {%>
+      <a href="/login">
+        <button data-testid="login">Login</button>
+      </a>
+      <%}%> <% if (user) {%>
+      <span><%= user.name %> <%= user.lastName %></span>
+      <a href="/logout">
+        <button data-testid="logout">Logout</button>
+      </a>
+      <%}%>
+    </nav>
+  </body>
+</html>
