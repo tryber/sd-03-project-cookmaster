@@ -1,4 +1,4 @@
-const { connection } = require('../database');
+const { config } = require('./connection');
 
 /**
  * Busca um usuário através do seu email e, se encontrado, retorna-o.
@@ -8,7 +8,7 @@ const findByEmail = async (email) => {
   const query = `SELECT * from Users WHERE email = '${email}'`;
 
   return new Promise((fulfill, reject) => {
-    connection.query(query, (err, rows) => {
+    config.query(query, (err, rows) => {
       if (err) reject(err);
       return fulfill(rows && rows[0]);
     });
@@ -23,7 +23,7 @@ const findById = (id) => {
   const query = `SELECT * from Users WHERE id = ${id}`;
 
   return new Promise((fulfill, reject) => {
-    connection.query(query, (err, rows) => {
+    config.query(query, (err, rows) => {
       if (err) reject(err);
       return fulfill(rows && rows[0]);
     });
@@ -34,7 +34,7 @@ const createUser = (email, password, name, lastName) => {
   const query = `INSERT INTO Users (email, pass, first_name, last_name)
   VALUES ('${email}', '${password}', '${name}', '${lastName}');`;
   return new Promise((fulfill, reject) => {
-    connection.query(query, (err, rows) => {
+    config.query(query, (err, rows) => {
       if (err) reject(err);
       return fulfill(rows && rows[0]);
     });
@@ -42,7 +42,7 @@ const createUser = (email, password, name, lastName) => {
 };
 // const listUsers = () => {
 //   return new Promise((fulfill, reject) => {
-//     connection.query('SELECT * from Users', (er r, rows) => {
+//     config.query('SELECT * from Users', (er r, rows) => {
 //       if (err) {
 //         reject(err);
 //       }

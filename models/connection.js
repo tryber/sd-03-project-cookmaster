@@ -5,3 +5,5 @@ const config = {
   port: 33060,
   socketPath: '/var/run/mysqld/mysqld.sock',
 };
+
+module.exports = config;
