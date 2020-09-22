@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Home</title>
+  </head>
+  <body>
+    <%- include('../components/navbar'); %>
+    <%- include('../components/header', {title: 'Temporario'}); %>
+    <div class="pageWrapper">
+      <form action="/recipes/new" method="POST">
+        <div class="inputGroup">
+          <label for="recipeName">Nome da Receita: </label>
+          <input data-testid="nome-receita" name="name" type="text" id="recipeName" />
+        </div>
+        <div data-testid="ingredientes" class="inputGroup">
+          <b style="font-size: 22px;">Ingredientes</b>
+          <ul class="ing-list">
+          </ul>
+        </div>
+        <div style="padding-top: 10px;">
+          <input id="ingredients"/>
+          <input type="hidden" id="ingredientList" name="ingredientList" />
+          <button data-testid="adicionar-ingrediente" style="background-color: green;" id="add">Adicionar Ingredientes</button>
+        </div>
+        <div style="padding-top: 30px" class="inputGroup">
+          <label style="padding-bottom: 10px;" for="steps">Modo de Preparo:</label>
+          <textarea data-testid="modo-de-preparo" name="steps"></textarea>
+        </div>
+        <div class="footer">
+          <button class="noMargin" style="background-color: crimson;">Voltar</button>
+          <button
+            class="noMargin"
+            style="background-color: dodgerblue;"
+            type="submit"
+            id="submit"
+            data-testid="postar-receita"
+          >
+            Salvar Receita
+          </button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
+
+<script>
+  const ulList = document.querySelector('.ing-list');
+  const addButton = document.getElementById("add");
+  let ingredients = []
+
+  document.addEventListener("click", event => {
+
+    if (document.getElementById("submit") === event.target) {
+      document.forms[0].submit();
+    }
+
+    event.preventDefault();
+    if (event.target.id === 'add') {
+      if (document.getElementById("ingredients").value === "") {
+        return;
+      };
+      ulList.insertAdjacentHTML('beforeend', `
+        <li style="font-size: 22px;padding: 5px 0;" data-key="${document.getElementById("ingredients").value}">
+          <div class="liDiv">
+            ${document.getElementById("ingredients").value}
+            <button
+              id="remove"
+              value="${document.getElementById("ingredients").value}"
+              style="background-color: crimson;"
+            >
+              Excluir Ingrediente
+            </button>
+          </div>
+        </li>
+      `);
+      ingredients.push(document.getElementById("ingredients").value);
+      document.getElementById("ingredients").value = "";
+      document.getElementById("ingredientList").value = ingredients;
+    } else if (event.target.id === 'remove') {
+      ingredients = ingredients.filter(item => event.target.value !== item)
+      document.getElementById("ingredientList").value = ingredients;
+      const item = document.querySelector(`[data-key="${event.target.value}"]`);
+      item.remove();
+    }
+  });
+</script>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .pageWrapper {
+    width: 1280px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  form{
+    width: 100%;
+  }
+  label {
+    width: 100%;
+    font-weight: bold;
+    font-size: 22px;
+  }
+  input {
+    width: 50%;
+    padding: 10px 20px;
+    margin: 5px 0 20px;
+    font-size: 18px;
+  }
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+  }
+  .noMargin {
+    margin: 0;
+  }
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+  }
+  textarea{
+    resize:none;
+    height: 200px;
+    padding: 10px;
+    font-size: 18px;
+  }
+  .liDiv {
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+</style>

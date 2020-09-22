@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Home</title>
+  </head>
+  <body>
+    <%- include('../components/navbar'); %>
+    <%- include('../components/header', {title: 'Buscar Receita'}); %>
+    <div class="pageWrapper">
+      <div class="searchBar">
+        <form>
+          <input data-testid="receita" />
+          <button data-testid="buscar">Buscar</button>
+        </form>
+      </div>
+      <% if (['users','fds','dsf','dads','asfsa'].length === 0) { %>
+        <% ['users','fds','dsf','dads','asfsa'].forEach(item => { %>
+          <%- include('../components/recipeCard', { name: item}); %>
+        <% }); %>
+      <% } %>
+    </div>
+  </body>
+</html>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .pageWrapper {
+    width: 1280px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  .searchBar{
+    width: 100%;
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  form{
+    width: 100%;
+  }
+  input {
+    width: calc(100% - 175px);
+    padding: 10px 20px;
+  }
+  button{
+    padding: 10px 30px;
+    border-radius: 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+    color:white;
+    font-weight: bold;
+    height: fit-content;
+    background-color: dodgerblue;
+  }
+
+</style>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Home</title>
+  </head>
+  <body>
+    <%- include('../components/navbar'); %>
+    <%- include('../components/recipeHeader', {userName: 'Buscar Receita'}); %>
+    <div class="pageWrapper">
+      <div style="width: 100%; padding-bottom: 40px;">
+        <h2>Ingredientes</h2>
+        <ul style="margin: 0;">
+          <% ['users','fds','dsf','dads','asfsa'].forEach(item => { %>
+            <li style="font-size: 22px;">
+              <%= item %>
+            </li>
+          <% }); %>
+        </ul>
+      </div>
+      <div>
+        <h2>Modo de Preparo</h2>
+          <div class="steps">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lectus sem, sodales ut ornare sit amet, auctor gravida urna. Praesent nec arcu vel turpis faucibus cursus id et dolor. Vestibulum massa leo, pretium et ante quis, faucibus volutpat nunc. In maximus imperdiet accumsan. Mauris sed elit ornare, imperdiet erat quis, tempus enim. Integer eu justo et sem vehicula lobortis. Pellentesque fermentum ultrices tellus a vestibulum. In hac habitasse platea dictumst. Etiam et pulvinar enim. Donec non consectetur elit, at pretium augue. Vestibulum id viverra tortor.
+
+Vivamus nec pulvinar leo. Donec in sagittis ex, ac elementum orci. Morbi mollis ut ipsum vel venenatis. Aliquam vitae eros et turpis vestibulum dignissim quis eu purus. Nullam feugiat non tellus eget placerat. Duis consequat gravida dolor, vitae dictum purus ullamcorper ut. Donec nunc augue, congue eget aliquet vitae, accumsan a mi. Vestibulum sodales pharetra metus, vel malesuada neque vestibulum elementum. Quisque vel urna vitae arcu ullamcorper consequat a vel risus. Aliquam et maximus odio. Curabitur pharetra aliquet sagittis. Aliquam tincidunt velit ipsum, et dignissim mi lobortis ac. Vestibulum sit amet pellentesque enim.
+
+Suspendisse vel nisi nulla. Sed et arcu sed nunc malesuada placerat in non dolor. Ut efficitur venenatis nulla at mattis. Pellentesque neque eros, egestas id condimentum non, pharetra vel nisl. Nullam ut dignissim nulla. Sed et metus vitae sem suscipit pharetra. Donec risus mauris, rutrum et posuere non, imperdiet sed arcu.</pre>
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .pageWrapper {
+    width: 1280px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  .steps {
+    max-width: 1280px;
+    white-space: pre-wrap;
+    font-size: 18px;
+    display: block;
+  }
+  h2{
+    font-size: 32px;
+    margin: 0;
+    padding-bottom: 8px;
+  }
+
+</style>

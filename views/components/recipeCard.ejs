@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookmaster - Home</title>
+</head>
+
+<body>
+  <div class="recipeCard">
+    <div style="font-size: 24px; font-weight: bold;"> <%= name %></div>
+    <div style="font-size: 20px;">Nome Usuario</div>
+    <div data-testid="nova-receita" style="font-size: 18px; text-align: right;">
+      <a href="#">Ver Receita</a>
+    </div>
+  </div>
+</body>
+
+</html>
+
+<style>
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  .recipeCard {
+    padding: 20px;
+    background-color: lightgray;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 360px;
+    margin-bottom: 20px;
+  }
+
+  .recipeCard>div {
+    padding: 5px 0;
+  }
+
+</style>

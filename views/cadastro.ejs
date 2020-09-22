@@ -3,29 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cookmaster - Login</title>
+    <title>Cookmaster - Cadastro</title>
   </head>
   <body>
-    <form action="/login" method="POST">
+    <form action="/newUser" method="POST">
       <label for="emailInput">Email: </label>
       <input data-testid="email" type="text" name="email" id="emailInput" /><br />
       <label for="passwordInput">Senha: </label>
       <input data-testid="senha" type="password" name="password" id="passwordInput" /><br />
-      <% if (redirect) { %>
-        <input
-          type="hidden"
-          name="redirect"
-          value="<%= decodeURIComponent(redirect) %>"
-        />
-      <% } %>
-      <% if (message) { %>
+      <label for="checkPasswordInput">Confirmar Senha: </label>
+      <input data-testid="confirmar-senha" type="password" name="checkPassword" id="checkPasswordInput" /><br />
+      <label for="nameField">Nome: </label>
+      <input data-testid="nome" type="text" name="name" id="nameField" /><br />
+      <label for="lastNameField">Sobrenome: </label>
+      <input data-testid="sobrenome" type="text" name="lastName" id="lastNameField" /><br />
+      <% if (message) {%>
         <div class="message">
           <%= message %>
         </div>
       <% } %>
       <div class="footer">
-        <a href="/register">Cadastre-se</a>
-        <button data-testid="entrar" type="submit">Login</button>
+        <a data-testid="login" href="/login">Fazer Login</a>
+        <button data-testid="cadastrar" type="submit">Cadastrar-se</button>
       </div>
     </form>
   </body>

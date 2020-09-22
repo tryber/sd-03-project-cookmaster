@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookmaster - Home</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="half" >
+        <a href="/">Cookmaster</a>
+      </div>
+      <div class="half" style="justify-content: flex-end;">
+        <div>Nome da Pessoa | </div>
+        <div data-testid="logout" >Logout</div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  .navbar {
+    display: flex;
+    width: calc(100vw - 40px);
+    padding: 15px 20px;
+    background-color: lightgray;
+  }
+  .half{
+    display: flex;
+    width: 50%;
+    align-items: center;
+  }
+  a{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 24px;
+  }
+</style>
