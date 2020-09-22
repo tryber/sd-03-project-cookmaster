@@ -1,5 +1,7 @@
 require('dotenv/config');
+
 const mysqlx = require('@mysql/xdevapi');
+
 const config = {
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,

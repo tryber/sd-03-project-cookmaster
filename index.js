@@ -23,8 +23,8 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-app.get('/', (req, res) => {
-  return res.render('home', { user: middlewares.getUser(req) });
+app.get('/', middlewares.auth(false), (req, res) => {
+  return res.render('home', { user: req.user });
 });
 
 app.get('/admin', middlewares.auth(), (req, res) => {
